@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[11],{150:function(a){a.exports=JSON.parse('{"smartx":{"allTagsPath":"/blog/tags","slug":"smartx","name":"smartx","count":1,"permalink":"/blog/tags/smartx"},"cloud-native":{"allTagsPath":"/blog/tags","slug":"cloud-native","name":"cloud native","count":1,"permalink":"/blog/tags/cloud-native"}}')}}]);

@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[15],{153:function(e){e.exports=JSON.parse('{"docsSidebars":{"Sidebar":[{"type":"category","label":"CloudNative","items":[{"type":"link","label":"Example","href":"/iomesh-docs/docs/example"}]}]},"permalinkToSidebar":{"/iomesh-docs/docs/example":"Sidebar"}}')}}]);

@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{147:function(e){e.exports=JSON.parse('{"docsSidebars":{"Sidebar":[{"type":"category","label":"CloudNative","items":[{"type":"link","label":"Example","href":"/docs/example"}]}]},"permalinkToSidebar":{"/docs/example":"Sidebar"}}')}}]);
