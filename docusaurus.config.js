@@ -46,14 +46,14 @@ module.exports = {
             {
               label: 'IOMesh',
               href: 'https://github.com/iomesh',
-            }
+            },
           ],
         },
         {
-          title: 'More'
-        }
+          title: 'More',
+        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} IOMesh`
+      copyright: `Copyright © ${new Date().getFullYear()} IOMesh`,
     },
   },
   presets: [
@@ -63,14 +63,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+          editUrl: 'https://github.com/iomesh/iomesh-docs/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
