@@ -21,3 +21,16 @@
 
 @media only screen and (min-width: 1500px) {
 }
+
+.fixedHeaderContainer {
+    background: #ffffff;
+}
+
+.fixedHeaderContainer header .headerTitleWithLogo {
+    color: $primaryColor;
+}
+
+.navigationSlider .slidingNav ul li.siteNavGroupActive > a {
+    background-color: #ffffff;
+    color: $primaryColor;
+}
