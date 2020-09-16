@@ -1,0 +1,11 @@
+{
+  "docs": {
+      "ZBS CSI Driver": [
+	  "zbs-csi-driver-overview",
+	  "zbs-csi-driver-deployment"
+      ],
+      "ZBS Operator": [
+	  "zbs-operator-overview"
+      ]
+  }
+}
