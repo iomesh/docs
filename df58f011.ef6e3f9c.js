@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{154:function(o){o.exports=JSON.parse('{"allTagsPath":"/iomesh-docs/blog/tags","slug":"cloud-native","name":"cloud native","count":1,"permalink":"/iomesh-docs/blog/tags/cloud-native"}')}}]);
