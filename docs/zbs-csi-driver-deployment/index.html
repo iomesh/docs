@@ -137,11 +137,11 @@ unzip external-snapshotter-release-2.1.zip
 <p><strong><em>Note:</em> <code>kubernetes-cluster-id</code> should be unique and cannot be modified</strong>.</p>
 </blockquote>
 <ol>
-<li>Configure controller Plugin</li>
+<li>Configure controller plugin</li>
 </ol>
 <pre><code class="hljs css language-yaml"><span class="hljs-comment"># deploy/zbs-csi-driver.yaml</span>
         <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver</span>
-          <span class="hljs-attr">image:</span> <span class="hljs-string">zbs-csi-driver:2.0</span>
+          <span class="hljs-attr">image:</span> <span class="hljs-string">iomesh/zbs-csi-driver:v0.1.1</span>
           <span class="hljs-attr">args:</span>
             <span class="hljs-bullet">-</span> <span class="hljs-string">"--role=controller"</span>
             <span class="hljs-bullet">-</span> <span class="hljs-string">"--driver_name=zbs-csi-driver.iomesh.com"</span>
@@ -154,7 +154,7 @@ unzip external-snapshotter-release-2.1.zip
 </ol>
 <pre><code class="hljs css language-yaml"><span class="hljs-comment"># deploy/zbs-csi-driver.yaml</span>
         <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver</span>
-          <span class="hljs-attr">image:</span> <span class="hljs-string">zbs-csi-driver:2.0</span>
+          <span class="hljs-attr">image:</span> <span class="hljs-string">iomesh/zbs-csi-driver:v0.1.1</span>
           <span class="hljs-attr">args:</span>
             <span class="hljs-bullet">-</span> <span class="hljs-string">"--role=node"</span>
             <span class="hljs-bullet">-</span> <span class="hljs-string">"--driver_name=zbs-csi-driver.iomesh.com"</span>
@@ -167,9 +167,10 @@ unzip external-snapshotter-release-2.1.zip
 <p><strong><em>Note:</em> For HCI Deployment, <code>deployment_mode</code> is <code>HCI</code> , <code>iscsi_portal</code> is <code>127.0.0.1:3260</code></strong></p>
 </blockquote>
 <ol start="3">
-<li>Configure storage class</li>
+<li>Configure StorageClass</li>
 </ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># deploy/zbs-csi-driver.yaml</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
 <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
 <span class="hljs-attr">metadata:</span>
   <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver-default</span>
