@@ -104,12 +104,12 @@ Obtain the `kubernetes-cluster-id` from the  cluster administrator or the  clust
 
 > **_Note:_ `kubernetes-cluster-id` should be unique and cannot be modified**.
 
-1. Configure controller Plugin
+1. Configure controller plugin
 
 ```yaml
 # deploy/zbs-csi-driver.yaml
         - name: zbs-csi-driver
-          image: zbs-csi-driver:2.0
+          image: iomesh/zbs-csi-driver:v0.1.1
           args:
             - "--role=controller"
             - "--driver_name=zbs-csi-driver.iomesh.com"
@@ -123,7 +123,7 @@ Obtain the `kubernetes-cluster-id` from the  cluster administrator or the  clust
 ```yaml
 # deploy/zbs-csi-driver.yaml
         - name: zbs-csi-driver
-          image: zbs-csi-driver:2.0
+          image: iomesh/zbs-csi-driver:v0.1.1
           args:
             - "--role=node"
             - "--driver_name=zbs-csi-driver.iomesh.com"
@@ -135,9 +135,10 @@ Obtain the `kubernetes-cluster-id` from the  cluster administrator or the  clust
 
 > **_Note:_ For HCI Deployment, `deployment_mode` is `HCI` , `iscsi_portal` is `127.0.0.1:3260`**
 
-3. Configure storage class
+3. Configure StorageClass
 
 ```yaml
+# deploy/zbs-csi-driver.yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
