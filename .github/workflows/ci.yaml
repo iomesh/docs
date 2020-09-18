@@ -27,8 +27,8 @@ jobs:
 
     - name: deploy
       if: ${{ github.event_name == 'push' }}
-      uses: peaceiris/actions-gh-pages@v2.3.0
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./website/build/iomesh-docs-gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{ secrets.IOMESH_ROBOT_ACCESS_TOKEN }}
+        publish_branch: gh-pages
+        publish_dir: ./website/build/iomesh-docs-gh-pages
