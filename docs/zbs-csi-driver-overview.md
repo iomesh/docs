@@ -71,4 +71,4 @@ spec:
 
 | ZBS CSI Driver \ Kubernetes Version                                                                                                                              | v1.17 | v1.18 |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- | ----- |
-| [v0.1.1](https://hub.docker.com/layers/iomesh/zbs-csi-driver/v0.1.1/images/sha256-7774ae7e373761af8c6e893ebd8d1838d38052a19e08a8df295c3f38a86be42d?context=repo) | yes   | yes   |
+| [v0.1.1](https://hub.docker.com/layers/iomesh/zbs-csi-driver/v0.1.1/images/sha256-a5ec4be9c37d96a4602a8f028e9b0c96867083c4c2386d29e49e7fe0a9c294c1?context=repo) | yes   | yes   |
