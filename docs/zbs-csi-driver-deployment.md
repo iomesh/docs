@@ -8,9 +8,11 @@ This topic explains how to install ZBS CSI Driver with kubernetes. Follow the st
 
 ## Env
 
-- Centos7
+- CentOS7 / CentOS8
 
 - Kubernetes v1.17 or higher
+
+- ZBS v4.5.0-rc14 (image version SMTXOS-4.5.0-B5-el7-2009231556-x86_64) or higher
 
 ## Setup Kubernetes
 
@@ -18,7 +20,34 @@ If there is no kubernetes cluster，please refer to [Installing Kubernetes](http
 
 ### Enable Kubernetes features
 
-1. Enable feature gates on each `kube-apiserver`: `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true` and `--allow-privileged=true`.
+Enable the CSI related features to ensure that the driver works normally.
+
+After a feature is GA, the feature gate will be removed in the next few versions. Please refer to **[feature-gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)** to selectively enable features.
+
+| Feature Gate                 | Default | Stage | Since | Until |
+| ---------------------------- | ------- | ----- | ----- | ----- |
+| CSINodeInfo                  | false   | Alpha | 1.12  | 1.13  |
+| CSINodeInfo                  | true    | Beta  | 1.14  | 1.16  |
+| CSINodeInfo                  | true    | GA    | 1.17  | -     |
+| CSIDriverRegistry            | false   | Alpha | 1.12  | 1.13  |
+| CSIDriverRegistry            | true    | Beta  | 1.14  | 1.16  |
+| CSIDriverRegistry            | true    | GA    | 1.17  | -     |
+| VolumeSnapshotDataSource     | false   | Alpha | 1.12  | 1.16  |
+| VolumeSnapshotDataSource     | true    | Beta  | 1.17  | -     |
+| VolumePVCDataSource          | false   | Alpha | 1.15  | 1.15  |
+| VolumePVCDataSource          | true    | Beta  | 1.16  | 1.17  |
+| VolumePVCDataSource          | true    | GA    | 1.18  | -     |
+| ExpandCSIVolumes             | false   | Alpha | 1.14  | 1.15  |
+| ExpandCSIVolumes             | true    | Beta  | 1.16  | -     |
+| CSIBlockVolume               | false   | Alpha | 1.11  | 1.13  |
+| CSIBlockVolume               | true    | Beta  | 1.14  | 1.17  |
+| CSIBlockVolume               | true    | GA    | 1.18  | -     |
+| ExpandInUsePersistentVolumes | false   | Beta  | 1.11  | 1.14  |
+| ExpandInUsePersistentVolumes | true    | Beta  | 1.15  | -     |
+
+For Kubernetes 1.17, we can open all feature gates.
+
+1. Enable feature gates on each `kube-apiserver`: `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true` and `--allow-privileged=true`
 
 ```yaml
 # /etc/kubernetes/manifests/kube-apiserver.yaml
@@ -31,17 +60,17 @@ spec:
   containers:
   - command:
     - kube-apiserver
-    - --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true, VolumePVCDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true
+    - --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true
     - --allow-privileged=true
 ```
 
-2. Enable feature gates on each `kubelet`: `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true, VolumePVCDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true` and `--allow-privileged=true`.
+2. Enable feature gates on each `kubelet`: `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true`.
 
 ```yaml
 # /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 # Note: This dropin only works with kubeadm and kubelet v1.11+
 [Service]
-Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true --allow-privileged=true"
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
@@ -61,53 +90,119 @@ systemctl daemon-reload
 systemctl restart kubelet
 ```
 
+4. Wait kubelet and kube-apiserver ready
+
+```sh
+systemctl status kubelet
+```
+
+```output
+● kubelet.service - kubelet: The Kubernetes Node Agent
+   Loaded: loaded (/usr/lib/systemd/system/kubelet.service; enabled; vendor preset: disabled)
+  Drop-In: /usr/lib/systemd/system/kubelet.service.d
+           └─10-kubeadm.conf
+   Active: active (running) since Mon 2020-09-23 14:36:18 CST;
+```
+
+```sh
+kubectl wait --for=condition=Ready  pod/kube-apiserver-<suffix> -n kube-system
+```
+
+```output
+pod/kube-apiserver-<suffix> condition met
+```
+
 ### Deploy Common Snapshot Controller
+
+The volume snapshot controller management is similar to pv/pvc controller, it manages the snapshot CRDs.
+Regardless of the number CSI drivers deployed on the cluster, there must be only one instance of the volume snapshot controller running and one set of volume snapshot CRDs installed per cluster.
 
 1. Download **[external-controller repo](https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1)**
 
 ```sh
 wget https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
-unzip external-snapshotter-release-2.1.zip
+unzip release-2.1.zip && cd external-snapshotter-release-2.1
 ```
 
 2. Create Snapshot Beta CRD
 
 ```sh
-kubectl create -f external-snapshotter-release-2.1/config/crd
+kubectl create -f ./config/crd
 ```
 
 3. Install Common Snapshot Controller
 
 ```sh
-kubectl apply -f external-snapshotter-release-2.1/deploy/kubernetes/snapshot-controller
+kubectl apply -f ./deploy/kubernetes/snapshot-controller
 ```
+
+> **_Note:_ replace with the namespace you want for your controller, e.g. kube-system**
 
 4. Verify
 
 ```sh
-kubectl get statefulsets.apps snapshot-controller
+watch kubectl get statefulset  snapshot-controller -n <your-namespace>
+```
+
+```output
+NAME                  READY   AGE
+snapshot-controller   1/1     32s
 ```
 
 ## Setup ZBS Cluster
 
-Configure a `zbs-cluster-vip`
+1. Ensure that the kubernetes cluster can access the ZBS cluster through the access network
+
+2. Configure `zbs-cluster-vip` in the access network segment
+
+```sh
+zbs-task vip set iscsi <zbs-cluster-vip>
+```
 
 ## Setup open-iscsi
+
+1. Install open-iscsi on each kubernetes node
 
 ```sh
 yum install iscsi-initiator-utils
 ```
 
+2. Ensure that the node.startup option of /etc/iscsi/iscsid.conf is manual
+
+```sh
+sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
+```
+
+3. Disable selinux
+
+```sh
+setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+```
+
+4. Enable and start `iscsid`
+
+```sh
+systemctl enable --now iscsid
+```
+
 ## Deploy zbs-csi-driver
 
-Obtain the `kubernetes-cluster-id` from the  cluster administrator or the  cluster management system and download **[zbs-csi-driver-deploy](https://github.com/iomesh/zbs-csi-driver/blob/master/deploy)**.
+1. Obtain the `kubernetes-cluster-id` from the  cluster administrator or the  cluster management system
 
 > **_Note:_ `kubernetes-cluster-id` should be unique and cannot be modified**.
 
-1. Configure controller plugin
+2. Download **[zbs-csi-driver-deploy](https://github.com/iomesh/iomesh-docs/tree/master/assets/zbs-csi-driver/v0.1.1/deploy)**
+
+3. Configure controller plugin
 
 ```yaml
 # deploy/zbs-csi-driver.yaml
+    spec:
+      # for zbs-cluster-vip
+      hostNetwork: true
+      serviceAccountName: zbs-csi-controller-account
+      - containers:
         - name: zbs-csi-driver
           image: iomesh/zbs-csi-driver:v0.1.1
           args:
@@ -118,10 +213,13 @@ Obtain the `kubernetes-cluster-id` from the  cluster administrator or the  clust
             - "--deployment_mode=EXTERNAL"
 ```
 
-2. Configure node plugin
+4. Configure node plugin
+
+If the OS is CentOS8, you need to mount iscsi-lock.
 
 ```yaml
 # deploy/zbs-csi-driver.yaml
+      containers:
         - name: zbs-csi-driver
           image: iomesh/zbs-csi-driver:v0.1.1
           args:
@@ -131,11 +229,20 @@ Obtain the `kubernetes-cluster-id` from the  cluster administrator or the  clust
             - "--cluster_id=kubernetes-cluster-id"
             - "--iscsi_portal=zbs-cluster-vip:3260"
             - "--deployment_mode=EXTERNAL"
+          volumeMounts:
+            # - name: iscsi-lock
+            #   mountPath: /run/lock/iscsi
+      volumes:
+        # - name: iscsi-lock
+        #   hostPath:
+        #     path: /run/lock/iscsi
+        #     type: Directory
+
 ```
 
 > **_Note:_ For HCI Deployment, `deployment_mode` is `HCI` , `iscsi_portal` is `127.0.0.1:3260`**
 
-3. Configure StorageClass
+5. Configure StorageClass
 
 ```yaml
 # deploy/zbs-csi-driver.yaml
@@ -147,20 +254,77 @@ metadata:
 provisioner: zbs-csi-driver.iomesh.com
 reclaimPolicy: Retain
 allowVolumeExpansion: true
+parameters:
+  csi.storage.k8s.io/fstype: "ext4"
+  replicaFactor: "1"
+  thinProvision: "true"
 ```
 
-4. Deploy
+6. Deploy
 
 ```sh
 kubectl apply -f ./deploy
 ```
 
-5. Verify
+7. Wait for ready
 
 ```sh
-kubectl get pod -n iomesh-system
+watch kubectl get pod -n iomesh-system
 ```
 
-## Example
+```output
+Every 2.0s: kubectl get pod -n iomesh-system                                                                                                                                     Wed Sep 23 14:33:52 2020
+NAME                                                READY   STATUS    RESTARTS   AGE
+zbs-csi-driver-controller-plugin-5dbfb48d5c-2sk97   6/6     Running   0          42s
+zbs-csi-driver-controller-plugin-5dbfb48d5c-cfhwt   6/6     Running   0          42s
+zbs-csi-driver-controller-plugin-5dbfb48d5c-drl7s   6/6     Running   0          42s
+zbs-csi-driver-node-plugin-25585                    3/3     Running   0          39s
+zbs-csi-driver-node-plugin-fscsp                    3/3     Running   0          30s
+zbs-csi-driver-node-plugin-g4c4v                    3/3     Running   0          39s
+```
 
-TODO
+## Examples
+
+### Fio
+1. kubectl apply -f https://github.com/iomesh/iomesh-docs/tree/master/assets/zbs-csi-driver/example/fio.yaml
+
+2. Wait fio-pvc bound and fio pod ready
+
+```sh
+watch kubectl get pvc fio-pvc
+```
+
+```output
+Every 2.0s: kubectl get pvc fio-pvc                                                                                                                       localhost.localdomain: Wed Sep 23 14:40:03 2020
+
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS             AGE
+fio-pvc   Bound    pvc-d7916b34-50cd-49bd-86f9-5287db1265cb   30Gi       RWO            zbs-csi-driver-default   15s
+
+```
+
+```sh
+kubectl wait --for=condition=Ready pod/fio
+```
+
+```output
+pod/fio condition met
+```
+
+3. Run test
+
+```sh
+kubectl exec -it fio sh
+
+fio --name fio --filename=/mnt/fio --bs=256k --rw=write --ioengine=libaio --direct=1 --iodepth=128 --numjobs=1 --size=$(blockdev --getsize64 /mnt/fio)
+
+fio --name fio --filename=/mnt/fio --bs=4k --rw=randread --ioengine=libaio --direct=1 --iodepth=128 --numjobs=1 --size=$(blockdev --getsize64 /mnt/fio)
+```
+
+4. Cleanup
+
+```sh
+kubectl delete pod fio
+kubectl delete pvc fio-pvc
+# You need to delete pv when reclaimPolicy is Retain
+kubectl delete pvc-b0d74bab-2d1a-4727-a236-47c93840545f
+```

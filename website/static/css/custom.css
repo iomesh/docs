@@ -21,3 +21,8 @@
 
 @media only screen and (min-width: 1500px) {
 }
+
+.language-output {
+   margin-top: -20px;
+   background-color: #e8e8e8;
+}

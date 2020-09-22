@@ -1,0 +1,343 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: zbs-csi-driver-default
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: zbs-csi-driver.iomesh.com
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: zbs-csi-driver-controller-plugin
+  namespace: iomesh-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zbs-csi-driver-controller-plugin
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: zbs-csi-driver-controller-plugin
+    spec:
+      hostNetwork: true
+      serviceAccountName: zbs-csi-controller-account
+      containers:
+        - name: csi-snapshotter
+          image: quay.io/k8scsi/csi-snapshotter:v2.1.1
+          imagePullPolicy: IfNotPresent
+          args:
+          - "--csi-address=$(ADDRESS)"
+          - "--leader-election"
+          - "--leader-election-namespace=$(NAMESPACE)"
+          - "--v=5"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+        - name: csi-provisioner
+          image: quay.io/k8scsi/csi-provisioner:v1.6.0
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--enable-leader-election"
+            - "--leader-election-type=leases"
+            - "--leader-election-namespace=$(NAMESPACE)"
+            - "--v=5"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+        - name: csi-attacher
+          image: quay.io/k8scsi/csi-attacher:v2.2.0
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--leader-election"
+            - "--leader-election-namespace=$(NAMESPACE)"
+            - "--v=5"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+        - name: csi-resizer
+          image: quay.io/k8scsi/csi-resizer:v0.5.0
+          args:
+            - "--csi-address=$(ADDRESS)"
+            - "--leader-election"
+            - "--leader-election-namespace=$(NAMESPACE)"
+            - "--v=5"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+          imagePullPolicy: IfNotPresent
+        - name: liveness-probe
+          image: quay.io/k8scsi/livenessprobe:v1.1.0
+          args:
+            - --csi-address=/csi/csi.sock
+            - --health-port=9811
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /csi
+              name: socket-dir
+        - name: zbs-csi-driver
+          image: iomesh/zbs-csi-driver:v0.1.1
+          ports:
+            - containerPort: 9811
+              name: healthz
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 20
+            timeoutSeconds: 10
+            periodSeconds: 20
+            httpGet:
+              path: /healthz
+              port: healthz
+          args:
+            - "--csi_addr=unix:///csi/csi.sock"
+            - "--driver_name=zbs-csi-driver.iomesh.com"
+            - "--role=controller"
+            # zbs-cluster-vip:10206
+            - "--meta_proxy="
+            # unique cluster id
+            - "--cluster_id="
+            # HCL / EXTERNAL
+            - "--deployment_mode=EXTERNAL"
+            - "--namespace=$(NAMESPACE)"
+            - "--node_map=zbs-csi-node-map"
+            - "--v=5"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+      volumes:
+        - name: socket-dir
+          emptyDir: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zbs-csi-node-map
+  namespace: iomesh-system
+---
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: zbs-csi-driver-node-plugin
+  namespace: iomesh-system
+spec:
+  selector:
+    matchLabels:
+      app: zbs-csi-driver-node-plugin
+  template:
+    metadata:
+      labels:
+        app: zbs-csi-driver-node-plugin
+    spec:
+      serviceAccountName: zbs-csi-node-account
+      # for zbs-cluster-vip
+      hostNetwork: true
+      containers:
+        - name: driver-registrar
+          securityContext:
+            privileged: true
+          image: quay.io/k8scsi/csi-node-driver-registrar:v1.0.2
+          args:
+            - --v=5
+            - --csi-address=/csi/csi.sock
+            - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  [
+                    "/bin/sh",
+                    "-c",
+                    "rm -rf /registration/zbs-csi-driver.iomesh.com /registration/zbs-csi-driver.iomesh.com-reg.sock",
+                  ]
+          env:
+            - name: DRIVER_REG_SOCK_PATH
+              value: /var/lib/kubelet/plugins/zbs-csi-driver.iomesh.com/csi.sock
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - name: registration-dir
+              mountPath: /registration
+        - name: liveness-probe
+          image: quay.io/k8scsi/livenessprobe:v1.1.0
+          args:
+            - --csi-address=/csi/csi.sock
+            - --health-port=9809
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /csi
+              name: socket-dir
+        - name: zbs-csi-driver
+          image: iomesh/zbs-csi-driver:v0.1.1
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SYS_ADMIN"]
+            allowPrivilegeEscalation: true
+          ports:
+            - containerPort: 9809
+              name: healthz
+              protocol: TCP
+            - containerPort: 9810
+              name: livenessport
+              protocol: TCP
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 20
+            timeoutSeconds: 10
+            periodSeconds: 20
+          args:
+            - "--csi_addr=unix:///csi/csi.sock"
+            - "--role=node"
+            - "--driver_name=zbs-csi-driver.iomesh.com"
+            # zbs-cluster-vip:10206
+            - "--meta_proxy="
+            - "--namespace=$(NAMESPACE)"
+            # unique cluster id
+            - "--cluster_id="
+            # HCI / EXTERNAL
+            - "--deployment_mode=EXTERNAL"
+            - "--node_map=zbs-csi-node-map"
+            # for EXTERNAL mode, iscsi_portal=zbs-cluster-vip:3260
+            # for HCI mode, iscsi_portal=127.0.0.1:3260
+            - "--iscsi_portal="
+            - "--liveness_port=9810"
+            - "--v=5"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: socket-dir
+              mountPath: /csi
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet
+              mountPropagation: Bidirectional
+            - name: device-dir
+              mountPath: /dev
+            - name: iscsi-dir
+              mountPath: /etc/iscsi
+            - name: iscsiadm
+              mountPath: /sbin/iscsiadm
+            - name: lsscsi
+              mountPath: /usr/bin/lsscsi
+            - name: iscsi-lib
+              mountPath: /var/lib/iscsi
+            - name: lib-dir
+              mountPath: /lib/modules
+            - name: lib64-dir
+              mountPath: /lib64
+            # for CentOS8
+            #- name: iscsi-lock
+            #  mountPath: /run/lock/iscsi
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+      volumes:
+        - name: socket-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/zbs-csi-driver.iomesh.com
+            type: DirectoryOrCreate
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet
+            type: Directory
+        - name: device-dir
+          hostPath:
+            path: /dev
+            type: Directory
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins_registry/
+            type: Directory
+        - name: iscsi-dir
+          hostPath:
+            path: /etc/iscsi
+            type: Directory
+        - name: iscsi-lib
+          hostPath:
+            path: /var/lib/iscsi
+            type: Directory
+        - name: iscsiadm
+          hostPath:
+            path: /sbin/iscsiadm
+            type: File
+        - name: lsscsi
+          hostPath:
+            path: /usr/bin/lsscsi
+            type: File
+        - name: lib-dir
+          hostPath:
+            path: /lib/modules
+            type: Directory
+        - name: lib64-dir
+          hostPath:
+            path: /lib64
+            type: Directory
+        # for CentOS8
+        #- name: iscsi-lock
+        #   hostPath:
+        #     path: /run/lock/iscsi
+        #     type: Directory
