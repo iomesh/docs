@@ -1,0 +1,62 @@
+# values.yaml
+# Default values for zbs-csi-driver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+
+rbac:
+  create: true
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+
+driver:
+  # The unique csi driver name in a kubernetes cluster
+  name:
+  # kubernetes cluster id
+  clusterID:
+  # meta proxy (eg. `zbs-cluster-vip:10206` )
+  metaProxy:
+  # iscsi portal (eg. EXTERNAL: `zbs-cluster-vip:3260`, HCI: `127.0.0.1:3260` )
+  iscsiPortal:
+  # CentOS7 / CentOS8
+  linuxDistro:
+  # EXTERNAL / HCI
+  deploymentMode:
+  # driver image
+  image: "iomesh/zbs-csi-driver:v0.1.1"
+
+  controller:
+    # controller replicas
+    replicas: 3
+    # use hostNetwork to access zbs cluster
+    hostNetwork: true
+    driver:
+      # driver ports(If hostNetwork is true, ports are host port)
+      ports:
+        health: 9810
+    # csi sidecars
+    provisioner:
+      image: "quay.io/k8scsi/csi-provisioner:v1.6.0"
+    attacher:
+      image: "quay.io/k8scsi/csi-attacher:v2.2.0"
+    snapshotter:
+      image: "quay.io/k8scsi/csi-snapshotter:v2.1.1"
+    resizer:
+      image: "quay.io/k8scsi/csi-resizer:v0.5.0"
+    livenessprobe:
+      image: "quay.io/k8scsi/livenessprobe:v1.1.0"
+
+  node:
+    driver:
+      # host ports
+      ports:
+        health: 9811
+        liveness: 9812
+    # csi sidecars
+    registrar:
+      image: "quay.io/k8scsi/csi-node-driver-registrar:v1.0.2"
+    livenessprobe:
+      image: "quay.io/k8scsi/livenessprobe:v1.1.0"
