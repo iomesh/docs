@@ -11,7 +11,7 @@ This topic explains how to install ZBS CSI Driver with kubernetes. Follow the st
 - Kubernetes node Linux distro: CentOS 7 and CentOS 8
 - Kubernetes v1.17 or higher
 - ZBS v4.5.0-rc14 (corresponding SMTX OS version: 4.5.0-B5-el7) or higher
-- Helm v3.3.4
+- Helm v3.3.x
 
 ## Setup Kubernetes
 
@@ -181,22 +181,22 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 systemctl enable --now iscsid
 ```
 
-## Setup helm
+## Setup Helm
 
-Please refer to **[Install helm](https://helm.sh/docs/intro/install/)**.
+Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
 
 > **_Note_: If Helm is not allowed, please install it locally.**
 
 ## Deploy zbs-csi-driver
 
-1. When multiple kubernetes clusters or other platforms (eg. openstack, esxi) share a ZBS cluster, each kubernetes cluster needs to be assigned a `kubernetes-cluster-id`. The `kubernetes-cluster-id` should not be changed once assigned.
+1. When multiple kubernetes clusters or other platforms (eg. openstack, esxi) share a ZBS cluster, each kubernetes cluster needs to be assigned a unique `kubernetes-cluster-id`. The `kubernetes-cluster-id` should not be changed once assigned.
 
 > **_Note:_ The `kubernetes-cluster-id` cloud be kubernetes cluster name or kubernetes cluster id. The `kubernetes-cluster-id` can be obtained from the kubernetes cluster management platform(eg. eks) or the cluster administrator can specify a string of length less than 255.**
 
-2. Download and unzip **[zbs-csi-driver-deploy](assets/zbs-csi-driver/v0.1.1)**
+2. Download **[zbs-csi-driver-deploy](assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz)**
 
 ```text
-curl -LO http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.1/zbs-csi-driver-0.1.1.tgz
+curl -LO http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
 ```
 
 3. Create Namespace
@@ -211,6 +211,12 @@ Configure the blank items in the driver section in values.yaml
 
 ```yaml
 # values.yaml
+# Default values for zbs-csi-driver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+
 rbac:
   create: true
 
@@ -221,7 +227,7 @@ serviceAccount:
 driver:
   # The unique csi driver name in a kubernetes cluster
   name:
-  # kubernetes cluster id
+  # kubernetes-cluster-id
   clusterID:
   # meta proxy (eg. `zbs-cluster-vip:10206` )
   metaProxy:
@@ -231,8 +237,6 @@ driver:
   linuxDistro:
   # EXTERNAL / HCI
   deploymentMode:
-  # driver image
-  image: "iomesh/zbs-csi-driver:v0.1.1"
 
   controller:
     # controller replicas
@@ -240,20 +244,9 @@ driver:
     # use hostNetwork to access zbs cluster
     hostNetwork: true
     driver:
-      # driver ports(If hostNetwork is true, ports are host port)
+      # driver ports(If hostNetwork is true, ports are host ports)
       ports:
         health: 9810
-    # csi sidecars
-    provisioner:
-      image: "quay.io/k8scsi/csi-provisioner:v1.6.0"
-    attacher:
-      image: "quay.io/k8scsi/csi-attacher:v2.2.0"
-    snapshotter:
-      image: "quay.io/k8scsi/csi-snapshotter:v2.1.1"
-    resizer:
-      image: "quay.io/k8scsi/csi-resizer:v0.5.0"
-    livenessprobe:
-      image: "quay.io/k8scsi/livenessprobe:v1.1.0"
 
   node:
     driver:
@@ -261,26 +254,23 @@ driver:
       ports:
         health: 9811
         liveness: 9812
-    # csi sidecars
-    registrar:
-      image: "quay.io/k8scsi/csi-node-driver-registrar:v1.0.2"
-    livenessprobe:
-      image: "quay.io/k8scsi/livenessprobe:v1.1.0"
 ```
 
-> **_Note:_ If you need to use different zbs cluster storage, please deploy multiple sets of zbs-csi-drivers with different driver names to ensure that the csi drivers are different. In addition, it is necessary to avoid conflicts between driver.controller.ports and driver.node.ports of different zbs-csi-drivers.**
+> **_Note:_ If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between `driver.controller.ports` and `driver.node.ports` of different zbs-csi-drivers.**
+
+Install zbs-csi-driver
 
 ```text
-helm install -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system zbs-csi-driver-0.1.1.tgz
+helm install -f ./values.yaml --namespace iomesh-system csi-driver-name zbs-csi-driver-0.1.0.tgz
 ```
 
-If Helm is not allowed, please install it locally. Then use helm to generate driver.yaml.
+If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 
 ```text
-helm template -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system zbs-csi-driver-0.1.1.tgz > driver.yaml
+helm template -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system zbs-csi-driver-0.1.0.tgz > driver.yaml
 ```
 
-Copy driver.yaml to the target server.
+Copy driver.yaml to the target server and apply it.
 
 ```text
 kubectl apply -f driver.yaml
@@ -302,15 +292,15 @@ zbs-csi-driver-node-plugin-fscsp                    3/3     Running   0         
 zbs-csi-driver-node-plugin-g4c4v                    3/3     Running   0          39s
 ```
 
-6. Configure StorageClass
+6. Setup StorageClass
 
 ```yaml
-# deploy/zbs-csi-driver.yaml
+# storageclass.yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: zbs-csi-driver-default
-# csi-driver name
+# csi-driver-name
 provisioner: <csi-driver-name>
 reclaimPolicy: Retain
 allowVolumeExpansion: true
@@ -321,6 +311,10 @@ parameters:
   replicaFactor: "1"
   # "true" / "false"
   thinProvision: "true"
+```
+
+```text
+kubectl apply -f storageclass.yaml
 ```
 
 ## Example
