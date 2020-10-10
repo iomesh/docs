@@ -60,6 +60,7 @@
 <li>Kubernetes node Linux distro: CentOS 7 and CentOS 8</li>
 <li>Kubernetes v1.17 or higher</li>
 <li>ZBS v4.5.0-rc14 (corresponding SMTX OS version: 4.5.0-B5-el7) or higher</li>
+<li>Helm v3.3.x</li>
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="setup-kubernetes"></a><a href="#setup-kubernetes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup Kubernetes</h2>
 <h3><a class="anchor" aria-hidden="true" id="enable-kubernetes-features"></a><a href="#enable-kubernetes-features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Enable Kubernetes features</h3>
@@ -203,93 +204,90 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 </ol>
 <pre><code class="hljs css language-text">systemctl enable --now iscsid
 </code></pre>
+<h2><a class="anchor" aria-hidden="true" id="setup-helm"></a><a href="#setup-helm" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup Helm</h2>
+<p>Please refer to <strong><a href="https://helm.sh/docs/intro/install/">Install Helm</a></strong>.</p>
+<blockquote>
+<p><strong><em>Note</em>: If Helm is not allowed, please install it locally.</strong></p>
+</blockquote>
 <h2><a class="anchor" aria-hidden="true" id="deploy-zbs-csi-driver"></a><a href="#deploy-zbs-csi-driver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploy zbs-csi-driver</h2>
 <ol>
-<li>Obtain the <code>kubernetes-cluster-id</code> from the  cluster administrator or the  cluster management system</li>
+<li>When multiple kubernetes clusters or other platforms (eg. openstack, esxi) share a ZBS cluster, each kubernetes cluster needs to be assigned a unique <code>kubernetes-cluster-id</code>. The <code>kubernetes-cluster-id</code> should not be changed once assigned.</li>
 </ol>
 <blockquote>
-<p><strong><em>Note:</em> <code>kubernetes-cluster-id</code> should be unique and cannot be modified</strong>.</p>
+<p><strong><em>Note:</em> The <code>kubernetes-cluster-id</code> cloud be kubernetes cluster name or kubernetes cluster id. The <code>kubernetes-cluster-id</code> can be obtained from the kubernetes cluster management platform(eg. eks) or the cluster administrator can specify a string of length less than 255.</strong></p>
 </blockquote>
 <ol start="2">
-<li>Download and unzip <strong><a href="/iomesh-docs/docs/assets/zbs-csi-driver/zbs-csi-driver-deploy-v0.1.1.tar.gz">zbs-csi-driver-deploy</a></strong></li>
+<li>Download <strong><a href="/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz">zbs-csi-driver-deploy</a></strong></li>
 </ol>
-<pre><code class="hljs css language-text">curl -LO http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/zbs-csi-driver-deploy-v0.1.1.tar.gz
-tar xzf zbs-csi-driver-deploy-v0.1.1.tar.gz
-cd zbs-csi-driver-deploy-v0.1.1
+<pre><code class="hljs css language-text">curl -LO http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
 </code></pre>
 <ol start="3">
-<li>Configure controller plugin</li>
+<li>Create Namespace</li>
 </ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-comment"># deploy/zbs-csi-driver.yaml</span>
-    <span class="hljs-attr">spec:</span>
-      <span class="hljs-comment"># for zbs-cluster-vip</span>
-      <span class="hljs-attr">hostNetwork:</span> <span class="hljs-literal">true</span>
-      <span class="hljs-attr">serviceAccountName:</span> <span class="hljs-string">zbs-csi-controller-account</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-attr">containers:</span>
-        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver</span>
-          <span class="hljs-attr">image:</span> <span class="hljs-string">iomesh/zbs-csi-driver:v0.1.1</span>
-          <span class="hljs-attr">args:</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--role=controller"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--driver_name=zbs-csi-driver.iomesh.com"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--meta_proxy=zbs-cluster-vip:10206"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--cluster_id=kubernetes-cluster-id"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--deployment_mode=EXTERNAL"</span>
+<pre><code class="hljs css language-text">kubectl create namespace iomesh-system
 </code></pre>
 <ol start="4">
-<li>Configure node plugin</li>
+<li>Deploy Driver</li>
 </ol>
-<blockquote>
-<p><strong><em>Note:</em> If Linux distro is CentOS 8, it is necessary to mount iscsi-lock</strong></p>
-</blockquote>
-<pre><code class="hljs css language-yaml"><span class="hljs-comment"># deploy/zbs-csi-driver.yaml</span>
-      <span class="hljs-attr">containers:</span>
-        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver</span>
-          <span class="hljs-attr">image:</span> <span class="hljs-string">iomesh/zbs-csi-driver:v0.1.1</span>
-          <span class="hljs-attr">args:</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--role=node"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--driver_name=zbs-csi-driver.iomesh.com"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--meta_proxy=zbs-cluster-vip:10206"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--cluster_id=kubernetes-cluster-id"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--iscsi_portal=zbs-cluster-vip:3260"</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">"--deployment_mode=EXTERNAL"</span>
-          <span class="hljs-attr">volumeMounts:</span>
-            <span class="hljs-comment"># uncomment for Centos 8</span>
-            <span class="hljs-comment"># - name: iscsi-lock</span>
-            <span class="hljs-comment">#   mountPath: /run/lock/iscsi</span>
-      <span class="hljs-attr">volumes:</span>
-        <span class="hljs-comment"># uncomment for Centos 8</span>
-        <span class="hljs-comment"># - name: iscsi-lock</span>
-        <span class="hljs-comment">#   hostPath:</span>
-        <span class="hljs-comment">#     path: /run/lock/iscsi</span>
-        <span class="hljs-comment">#     type: Directory</span>
+<p>Configure the blank items in the driver section in values.yaml</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># values.yaml</span>
+<span class="hljs-comment"># Default values for zbs-csi-driver.</span>
+<span class="hljs-comment"># This is a YAML-formatted file.</span>
+<span class="hljs-comment"># Declare variables to be passed into your templates.</span>
+<span class="hljs-attr">nameOverride:</span> <span class="hljs-string">""</span>
+<span class="hljs-attr">fullnameOverride:</span> <span class="hljs-string">""</span>
 
+<span class="hljs-attr">rbac:</span>
+  <span class="hljs-attr">create:</span> <span class="hljs-literal">true</span>
+
+<span class="hljs-attr">serviceAccount:</span>
+  <span class="hljs-comment"># Specifies whether a service account should be created</span>
+  <span class="hljs-attr">create:</span> <span class="hljs-literal">true</span>
+
+<span class="hljs-attr">driver:</span>
+  <span class="hljs-comment"># The unique csi driver name in a kubernetes cluster</span>
+  <span class="hljs-attr">name:</span>
+  <span class="hljs-comment"># kubernetes-cluster-id</span>
+  <span class="hljs-attr">clusterID:</span>
+  <span class="hljs-comment"># meta proxy (eg. `zbs-cluster-vip:10206` )</span>
+  <span class="hljs-attr">metaProxy:</span>
+  <span class="hljs-comment"># iscsi portal (eg. EXTERNAL: `zbs-cluster-vip:3260`, HCI: `127.0.0.1:3260` )</span>
+  <span class="hljs-attr">iscsiPortal:</span>
+  <span class="hljs-comment"># CentOS7 / CentOS8</span>
+  <span class="hljs-attr">linuxDistro:</span>
+  <span class="hljs-comment"># EXTERNAL / HCI</span>
+  <span class="hljs-attr">deploymentMode:</span>
+
+  <span class="hljs-attr">controller:</span>
+    <span class="hljs-comment"># controller replicas</span>
+    <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+    <span class="hljs-comment"># use hostNetwork to access zbs cluster</span>
+    <span class="hljs-attr">hostNetwork:</span> <span class="hljs-literal">true</span>
+    <span class="hljs-attr">driver:</span>
+      <span class="hljs-comment"># driver ports(If hostNetwork is true, ports are host ports)</span>
+      <span class="hljs-attr">ports:</span>
+        <span class="hljs-attr">health:</span> <span class="hljs-number">9810</span>
+
+  <span class="hljs-attr">node:</span>
+    <span class="hljs-attr">driver:</span>
+      <span class="hljs-comment"># host ports</span>
+      <span class="hljs-attr">ports:</span>
+        <span class="hljs-attr">health:</span> <span class="hljs-number">9811</span>
+        <span class="hljs-attr">liveness:</span> <span class="hljs-number">9812</span>
 </code></pre>
 <blockquote>
-<p><strong><em>Note:</em> For HCI Deployment, <code>deployment_mode</code> is <code>HCI</code> , <code>iscsi_portal</code> is <code>127.0.0.1:3260</code></strong></p>
+<p><strong><em>Note:</em> If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between <code>driver.controller.ports</code> and <code>driver.node.ports</code> of different zbs-csi-drivers.</strong></p>
 </blockquote>
+<p>Install zbs-csi-driver</p>
+<pre><code class="hljs css language-text">helm install -f ./values.yaml --namespace iomesh-system csi-driver-name zbs-csi-driver-0.1.0.tgz
+</code></pre>
+<p>If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.</p>
+<pre><code class="hljs css language-text">helm template -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system zbs-csi-driver-0.1.0.tgz > driver.yaml
+</code></pre>
+<p>Copy driver.yaml to the target server and apply it.</p>
+<pre><code class="hljs css language-text">kubectl apply -f driver.yaml
+</code></pre>
 <ol start="5">
-<li>Configure StorageClass</li>
-</ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-comment"># deploy/zbs-csi-driver.yaml</span>
-<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
-<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver-default</span>
-<span class="hljs-comment"># zbs-csi-driver name</span>
-<span class="hljs-attr">provisioner:</span> <span class="hljs-string">zbs-csi-driver.iomesh.com</span>
-<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Retain</span>
-<span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
-<span class="hljs-attr">parameters:</span>
-  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">"ext4"</span>
-  <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"1"</span>
-  <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
-</code></pre>
-<ol start="6">
-<li>Deploy</li>
-</ol>
-<pre><code class="hljs css language-text">kubectl apply -f ./deploy
-</code></pre>
-<ol start="7">
 <li>Wait for ready</li>
 </ol>
 <pre><code class="hljs css language-text">kubectl get pod -n iomesh-system
@@ -301,6 +299,28 @@ zbs-csi-driver-controller-plugin<span class="hljs-number">-5</span>dbfb48d5c-drl
 zbs-csi-driver-node-plugin<span class="hljs-number">-25585</span>                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">39</span>s
 zbs-csi-driver-node-plugin-fscsp                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">30</span>s
 zbs-csi-driver-node-plugin-g4c4v                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">39</span>s
+</code></pre>
+<ol start="6">
+<li>Setup StorageClass</li>
+</ol>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># storageclass.yaml</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver-default</span>
+<span class="hljs-comment"># csi-driver-name</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">&lt;csi-driver-name&gt;</span>
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Retain</span>
+<span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-comment"># "ext4" / "ext3" / "ext2" / "xfs"</span>
+  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">"ext4"</span>
+  <span class="hljs-comment"># "1" / "2" / "3"</span>
+  <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"1"</span>
+  <span class="hljs-comment"># "true" / "false"</span>
+  <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
+</code></pre>
+<pre><code class="hljs css language-text">kubectl apply -f storageclass.yaml
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
 <h3><a class="anchor" aria-hidden="true" id="fio"></a><a href="#fio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fio</h3>
@@ -334,6 +354,6 @@ fio --name fio --filename=/mnt/fio --bs=4k --rw=randread --ioengine=libaio --dir
 <pre><code class="hljs css language-text">kubectl delete pod fio
 kubectl delete pvc fio-pvc
 # You need to delete pv when reclaimPolicy is Retain
-kubectl delete pvc-b0d74bab-2d1a-4727-a236-47c93840545f
+kubectl delete pvc-d7916b34-50cd-49bd-86f9-5287db1265cb
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/iomesh-docs/docs/zbs-csi-driver-overview"><span class="arrow-prev">← </span><span>Overview</span></a><a class="docs-next button" href="/iomesh-docs/docs/zbs-operator-overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#supported-platforms">Supported platforms</a></li><li><a href="#setup-kubernetes">Setup Kubernetes</a><ul class="toc-headings"><li><a href="#enable-kubernetes-features">Enable Kubernetes features</a></li><li><a href="#deploy-common-snapshot-controller">Deploy Common Snapshot Controller</a></li></ul></li><li><a href="#setup-zbs-cluster">Setup ZBS Cluster</a></li><li><a href="#setup-open-iscsi">Setup open-iscsi</a></li><li><a href="#deploy-zbs-csi-driver">Deploy zbs-csi-driver</a></li><li><a href="#example">Example</a><ul class="toc-headings"><li><a href="#fio">Fio</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/iomesh-docs/docs/zbs-csi-driver-overview"><span class="arrow-prev">← </span><span>Overview</span></a><a class="docs-next button" href="/iomesh-docs/docs/zbs-operator-overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#supported-platforms">Supported platforms</a></li><li><a href="#setup-kubernetes">Setup Kubernetes</a><ul class="toc-headings"><li><a href="#enable-kubernetes-features">Enable Kubernetes features</a></li><li><a href="#deploy-common-snapshot-controller">Deploy Common Snapshot Controller</a></li></ul></li><li><a href="#setup-zbs-cluster">Setup ZBS Cluster</a></li><li><a href="#setup-open-iscsi">Setup open-iscsi</a></li><li><a href="#setup-helm">Setup Helm</a></li><li><a href="#deploy-zbs-csi-driver">Deploy zbs-csi-driver</a></li><li><a href="#example">Example</a><ul class="toc-headings"><li><a href="#fio">Fio</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
