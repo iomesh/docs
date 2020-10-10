@@ -193,19 +193,13 @@ Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
 
 > **_Note:_ The `kubernetes-cluster-id` cloud be kubernetes cluster name or kubernetes cluster id. The `kubernetes-cluster-id` can be obtained from the kubernetes cluster management platform(eg. eks) or the cluster administrator can specify a string of length less than 255.**
 
-2. Download **[zbs-csi-driver-deploy](assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz)**
-
-```text
-curl -LO http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
-```
-
-3. Create Namespace
+2. Create Namespace
 
 ```text
 kubectl create namespace iomesh-system
 ```
 
-4. Deploy Driver
+3. Deploy Driver
 
 Configure the blank items in the driver section in values.yaml
 
@@ -261,13 +255,13 @@ driver:
 Install zbs-csi-driver
 
 ```text
-helm install -f ./values.yaml --namespace iomesh-system csi-driver-name zbs-csi-driver-0.1.0.tgz
+helm install -f ./values.yaml --namespace iomesh-system csi-driver-name http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
 ```
 
 If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 
 ```text
-helm template -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system zbs-csi-driver-0.1.0.tgz > driver.yaml
+helm template -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz > driver.yaml
 ```
 
 Copy driver.yaml to the target server and apply it.
@@ -276,7 +270,7 @@ Copy driver.yaml to the target server and apply it.
 kubectl apply -f driver.yaml
 ```
 
-5. Wait for ready
+4. Wait for ready
 
 ```text
 kubectl get pod -n iomesh-system
@@ -292,7 +286,7 @@ zbs-csi-driver-node-plugin-fscsp                    3/3     Running   0         
 zbs-csi-driver-node-plugin-g4c4v                    3/3     Running   0          39s
 ```
 
-6. Setup StorageClass
+5. Setup StorageClass
 
 ```yaml
 # storageclass.yaml
