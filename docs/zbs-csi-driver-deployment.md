@@ -265,13 +265,13 @@ driver:
 Install zbs-csi-driver
 
 ```shell
-helm install -f ./values.yaml --namespace iomesh-system <release-name> http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
+helm install -f ./values.yaml --namespace iomesh-system <release-name> http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz
 ```
 
 If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 
 ```shell
-helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz > driver.yaml
+helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz > driver.yaml
 ```
 
 Copy driver.yaml to the target server and apply it.
