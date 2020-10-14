@@ -57,7 +57,9 @@ spec:
   containers:
   - command:
     - kube-apiserver
+    # enable feature-gates here
     - --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true
+    # enable privileged here
     - --allow-privileged=true
 ```
 
@@ -67,6 +69,7 @@ spec:
 # /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 # Note: This dropin only works with kubeadm and kubelet v1.11+
 [Service]
+# enable feature-gates here
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
@@ -131,7 +134,7 @@ kubectl create -f ./config/crd
 kubectl apply -f ./deploy/kubernetes/snapshot-controller
 ```
 
-> **_Note:_ replace with the namespace you want for your controller, e.g. kube-system**
+> **_Note:_ replace with the snapshot-controller's namespace, e.g. kube-system**
 
 4. Verify
 
@@ -208,10 +211,13 @@ Configure the blank items in the driver section in values.yaml
 # Default values for zbs-csi-driver.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+# If set resouce's name will be release-name-<nameOverride>
 nameOverride: ""
+# If set resouce's name will be <fullnameOverride>
 fullnameOverride: ""
 
 rbac:
+  # Create ClusterRole
   create: true
 
 serviceAccount:
@@ -223,14 +229,15 @@ driver:
   name:
   # kubernetes-cluster-id
   clusterID:
+  # EXTERNAL / HCI
+  deploymentMode:
   # meta proxy (eg. `zbs-cluster-vip:10206` )
   metaProxy:
   # iscsi portal (eg. EXTERNAL: `zbs-cluster-vip:3260`, HCI: `127.0.0.1:3260` )
+  # Note that the iscsi portal is a vip, please do not modify it once assigned.
   iscsiPortal:
   # CentOS7 / CentOS8
   linuxDistro:
-  # EXTERNAL / HCI
-  deploymentMode:
 
   controller:
     # controller replicas
@@ -240,13 +247,16 @@ driver:
     driver:
       # driver ports(If hostNetwork is true, ports are host ports)
       ports:
+        # csi health port
         health: 9810
 
   node:
     driver:
       # host ports
       ports:
+        # csi health port
         health: 9811
+        # node plugin liveness port
         liveness: 9812
 ```
 
@@ -255,13 +265,13 @@ driver:
 Install zbs-csi-driver
 
 ```text
-helm install -f ./values.yaml --namespace iomesh-system csi-driver-name http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
+helm install -f ./values.yaml --namespace iomesh-system <release-name> http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
 ```
 
 If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 
 ```text
-helm template -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz > driver.yaml
+helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz > driver.yaml
 ```
 
 Copy driver.yaml to the target server and apply it.
@@ -294,8 +304,9 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: zbs-csi-driver-default
-# csi-driver-name
-provisioner: <csi-driver-name>
+# driver.name in values.yaml
+provisioner: <driver.name>
+# Delete / Retain
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:
