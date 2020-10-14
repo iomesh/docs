@@ -83,14 +83,14 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELE
 
 3. Reload Config
 
-```text
+```shell
 systemctl daemon-reload
 systemctl restart kubelet
 ```
 
 4. Wait until kubelet and kube-apiserver ready
 
-```text
+```shell
 systemctl status kubelet
 ```
 
@@ -102,7 +102,7 @@ systemctl status kubelet
    Active: active (running) since Mon 2020-09-23 14:36:18 CST;
 ```
 
-```text
+```shell
 kubectl wait --for=condition=Ready  pod/kube-apiserver-<suffix> -n kube-system
 ```
 
@@ -117,20 +117,20 @@ Regardless of the number CSI drivers deployed on the cluster, there must be only
 
 1. Download **[external-controller repo](https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1)**
 
-```text
+```shell
 curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
 unzip release-2.1.zip && cd external-snapshotter-release-2.1
 ```
 
 2. Create Snapshot Beta CRD
 
-```text
+```shell
 kubectl create -f ./config/crd
 ```
 
 3. Install Common Snapshot Controller
 
-```text
+```shell
 kubectl apply -f ./deploy/kubernetes/snapshot-controller
 ```
 
@@ -138,7 +138,7 @@ kubectl apply -f ./deploy/kubernetes/snapshot-controller
 
 4. Verify
 
-```text
+```shell
 kubectl get statefulset  snapshot-controller -n <your-namespace>
 ```
 
@@ -153,7 +153,7 @@ snapshot-controller   1/1     32s
 
 2. Configure `zbs-cluster-vip` in the access network segment
 
-```text
+```shell
 zbs-task vip set iscsi <zbs-cluster-vip>
 ```
 
@@ -161,26 +161,26 @@ zbs-task vip set iscsi <zbs-cluster-vip>
 
 1. Install `iscsi-initiator-utils` on each kubernetes node
 
-```text
+```shell
 yum install iscsi-initiator-utils
 ```
 
 2. Ensure that the node.startup option of `/etc/iscsi/iscsid.conf` is manual
 
-```text
+```shell
 sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
 ```
 
 3. Disable selinux
 
-```text
+```shell
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 ```
 
 4. Enable and start `iscsid`
 
-```text
+```shell
 systemctl enable --now iscsid
 ```
 
@@ -198,7 +198,7 @@ Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
 
 2. Create Namespace
 
-```text
+```shell
 kubectl create namespace iomesh-system
 ```
 
@@ -264,25 +264,25 @@ driver:
 
 Install zbs-csi-driver
 
-```text
+```shell
 helm install -f ./values.yaml --namespace iomesh-system <release-name> http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
 ```
 
 If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 
-```text
+```shell
 helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz > driver.yaml
 ```
 
 Copy driver.yaml to the target server and apply it.
 
-```text
+```shell
 kubectl apply -f driver.yaml
 ```
 
 4. Wait for ready
 
-```text
+```shell
 kubectl get pod -n iomesh-system
 ```
 
@@ -318,7 +318,7 @@ parameters:
   thinProvision: "true"
 ```
 
-```text
+```shell
 kubectl apply -f storageclass.yaml
 ```
 
@@ -327,13 +327,13 @@ kubectl apply -f storageclass.yaml
 ### Fio
 1. Install Fio testing pod
 
-```text
+```shell
 kubectl apply -f http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/example/fio.yaml
 ```
 
 2. Wait until fio-pvc bound and fio pod ready
 
-```text
+```shell
 kubectl get pvc fio-pvc
 ```
 
@@ -342,7 +342,7 @@ NAME      STATUS   VOLUME                                     CAPACITY   ACCESS 
 fio-pvc   Bound    pvc-d7916b34-50cd-49bd-86f9-5287db1265cb   30Gi       RWO            zbs-csi-driver-default   15s
 ```
 
-```text
+```shell
 kubectl wait --for=condition=Ready pod/fio
 ```
 
@@ -352,7 +352,7 @@ pod/fio condition met
 
 3. Run test
 
-```text
+```shell
 kubectl exec -it fio sh
 fio --name fio --filename=/mnt/fio --bs=256k --rw=write --ioengine=libaio --direct=1 --iodepth=128 --numjobs=1 --size=$(blockdev --getsize64 /mnt/fio)
 fio --name fio --filename=/mnt/fio --bs=4k --rw=randread --ioengine=libaio --direct=1 --iodepth=128 --numjobs=1 --size=$(blockdev --getsize64 /mnt/fio)
@@ -360,7 +360,7 @@ fio --name fio --filename=/mnt/fio --bs=4k --rw=randread --ioengine=libaio --dir
 
 4. Cleanup
 
-```text
+```shell
 kubectl delete pod fio
 kubectl delete pvc fio-pvc
 # You need to delete pv when reclaimPolicy is Retain
