@@ -105,7 +105,9 @@
   <span class="hljs-attr">containers:</span>
   <span class="hljs-bullet">-</span> <span class="hljs-attr">command:</span>
     <span class="hljs-bullet">-</span> <span class="hljs-string">kube-apiserver</span>
+    <span class="hljs-comment"># enable feature-gates here</span>
     <span class="hljs-bullet">-</span> <span class="hljs-string">--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true</span>
+    <span class="hljs-comment"># enable privileged here</span>
     <span class="hljs-bullet">-</span> <span class="hljs-string">--allow-privileged=true</span>
 </code></pre>
 <ol start="2">
@@ -114,6 +116,7 @@
 <pre><code class="hljs css language-yaml"><span class="hljs-comment"># /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span>
 <span class="hljs-comment"># <span class="hljs-doctag">Note:</span> This dropin only works with kubeadm and kubelet v1.11+</span>
 <span class="hljs-string">[Service]</span>
+<span class="hljs-comment"># enable feature-gates here</span>
 <span class="hljs-string">Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf</span> <span class="hljs-string">--kubeconfig=/etc/kubernetes/kubelet.conf</span> <span class="hljs-string">--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true"</span>
 <span class="hljs-string">Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"</span>
 <span class="hljs-comment"># This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically</span>
@@ -127,13 +130,13 @@
 <ol start="3">
 <li>Reload Config</li>
 </ol>
-<pre><code class="hljs css language-text">systemctl daemon-reload
+<pre><code class="hljs css language-shell">systemctl daemon-reload
 systemctl restart kubelet
 </code></pre>
 <ol start="4">
 <li>Wait until kubelet and kube-apiserver ready</li>
 </ol>
-<pre><code class="hljs css language-text">systemctl status kubelet
+<pre><code class="hljs css language-shell">systemctl status kubelet
 </code></pre>
 <pre><code class="hljs css language-output"><span class="hljs-string">●</span> <span class="hljs-attr">kubelet.service - kubelet:</span> <span class="hljs-string">The</span> <span class="hljs-string">Kubernetes</span> <span class="hljs-string">Node</span> <span class="hljs-string">Agent</span>
    <span class="hljs-attr">Loaded:</span> <span class="hljs-string">loaded</span> <span class="hljs-string">(/usr/lib/systemd/system/kubelet.service;</span> <span class="hljs-string">enabled;</span> <span class="hljs-attr">vendor preset:</span> <span class="hljs-string">disabled)</span>
@@ -141,7 +144,7 @@ systemctl restart kubelet
            <span class="hljs-string">└─10-kubeadm.conf</span>
    <span class="hljs-attr">Active:</span> <span class="hljs-string">active</span> <span class="hljs-string">(running)</span> <span class="hljs-string">since</span> <span class="hljs-string">Mon</span> <span class="hljs-number">2020</span><span class="hljs-number">-09</span><span class="hljs-number">-23</span> <span class="hljs-number">14</span><span class="hljs-string">:36:18</span> <span class="hljs-string">CST;</span>
 </code></pre>
-<pre><code class="hljs css language-text">kubectl wait --for=condition=Ready  pod/kube-apiserver-<suffix> -n kube-system
+<pre><code class="hljs css language-shell">kubectl wait --for=condition=Ready  pod/kube-apiserver-&lt;suffix&gt; -n kube-system
 </code></pre>
 <pre><code class="hljs css language-output">pod/kube-apiserver-<span class="hljs-tag">&lt;<span class="hljs-name">suffix</span>&gt;</span> condition met
 </code></pre>
@@ -151,26 +154,26 @@ Regardless of the number CSI drivers deployed on the cluster, there must be only
 <ol>
 <li>Download <strong><a href="https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1">external-controller repo</a></strong></li>
 </ol>
-<pre><code class="hljs css language-text">curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
-unzip release-2.1.zip && cd external-snapshotter-release-2.1
+<pre><code class="hljs css language-shell">curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
+unzip release-2.1.zip &amp;&amp; cd external-snapshotter-release-2.1
 </code></pre>
 <ol start="2">
 <li>Create Snapshot Beta CRD</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl create -f ./config/crd
+<pre><code class="hljs css language-shell">kubectl create -f ./config/crd
 </code></pre>
 <ol start="3">
 <li>Install Common Snapshot Controller</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl apply -f ./deploy/kubernetes/snapshot-controller
+<pre><code class="hljs css language-shell">kubectl apply -f ./deploy/kubernetes/snapshot-controller
 </code></pre>
 <blockquote>
-<p><strong><em>Note:</em> replace with the namespace you want for your controller, e.g. kube-system</strong></p>
+<p><strong><em>Note:</em> replace with the snapshot-controller's namespace, e.g. kube-system</strong></p>
 </blockquote>
 <ol start="4">
 <li>Verify</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl get statefulset  snapshot-controller -n <your-namespace>
+<pre><code class="hljs css language-shell">kubectl get statefulset  snapshot-controller -n &lt;your-namespace&gt;
 </code></pre>
 <pre><code class="hljs css language-output">NAME                  READY   AGE
 snapshot-controller   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     <span class="hljs-number">32</span>s
@@ -180,29 +183,29 @@ snapshot-controller   <span class="hljs-number">1</span>/<span class="hljs-numbe
 <li><p>Ensure that the kubernetes cluster can connect with the ZBS cluster's access network</p></li>
 <li><p>Configure <code>zbs-cluster-vip</code> in the access network segment</p></li>
 </ol>
-<pre><code class="hljs css language-text">zbs-task vip set iscsi <zbs-cluster-vip>
+<pre><code class="hljs css language-shell">zbs-task vip set iscsi &lt;zbs-cluster-vip&gt;
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="setup-open-iscsi"></a><a href="#setup-open-iscsi" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup open-iscsi</h2>
 <ol>
 <li>Install <code>iscsi-initiator-utils</code> on each kubernetes node</li>
 </ol>
-<pre><code class="hljs css language-text">yum install iscsi-initiator-utils
+<pre><code class="hljs css language-shell">yum install iscsi-initiator-utils
 </code></pre>
 <ol start="2">
 <li>Ensure that the node.startup option of <code>/etc/iscsi/iscsid.conf</code> is manual</li>
 </ol>
-<pre><code class="hljs css language-text">sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
+<pre><code class="hljs css language-shell">sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
 </code></pre>
 <ol start="3">
 <li>Disable selinux</li>
 </ol>
-<pre><code class="hljs css language-text">setenforce 0
+<pre><code class="hljs css language-shell">setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 </code></pre>
 <ol start="4">
 <li>Enable and start <code>iscsid</code></li>
 </ol>
-<pre><code class="hljs css language-text">systemctl enable --now iscsid
+<pre><code class="hljs css language-shell">systemctl enable --now iscsid
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="setup-helm"></a><a href="#setup-helm" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup Helm</h2>
 <p>Please refer to <strong><a href="https://helm.sh/docs/intro/install/">Install Helm</a></strong>.</p>
@@ -219,7 +222,7 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 <ol start="2">
 <li>Create Namespace</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl create namespace iomesh-system
+<pre><code class="hljs css language-shell">kubectl create namespace iomesh-system
 </code></pre>
 <ol start="3">
 <li>Deploy Driver</li>
@@ -229,10 +232,13 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 <span class="hljs-comment"># Default values for zbs-csi-driver.</span>
 <span class="hljs-comment"># This is a YAML-formatted file.</span>
 <span class="hljs-comment"># Declare variables to be passed into your templates.</span>
+<span class="hljs-comment"># If set resouce's name will be release-name-&lt;nameOverride&gt;</span>
 <span class="hljs-attr">nameOverride:</span> <span class="hljs-string">""</span>
+<span class="hljs-comment"># If set resouce's name will be &lt;fullnameOverride&gt;</span>
 <span class="hljs-attr">fullnameOverride:</span> <span class="hljs-string">""</span>
 
 <span class="hljs-attr">rbac:</span>
+  <span class="hljs-comment"># Create ClusterRole</span>
   <span class="hljs-attr">create:</span> <span class="hljs-literal">true</span>
 
 <span class="hljs-attr">serviceAccount:</span>
@@ -244,14 +250,15 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
   <span class="hljs-attr">name:</span>
   <span class="hljs-comment"># kubernetes-cluster-id</span>
   <span class="hljs-attr">clusterID:</span>
+  <span class="hljs-comment"># EXTERNAL / HCI</span>
+  <span class="hljs-attr">deploymentMode:</span>
   <span class="hljs-comment"># meta proxy (eg. `zbs-cluster-vip:10206` )</span>
   <span class="hljs-attr">metaProxy:</span>
   <span class="hljs-comment"># iscsi portal (eg. EXTERNAL: `zbs-cluster-vip:3260`, HCI: `127.0.0.1:3260` )</span>
+  <span class="hljs-comment"># Note that the iscsi portal is a vip, please do not modify it once assigned.</span>
   <span class="hljs-attr">iscsiPortal:</span>
   <span class="hljs-comment"># CentOS7 / CentOS8</span>
   <span class="hljs-attr">linuxDistro:</span>
-  <span class="hljs-comment"># EXTERNAL / HCI</span>
-  <span class="hljs-attr">deploymentMode:</span>
 
   <span class="hljs-attr">controller:</span>
     <span class="hljs-comment"># controller replicas</span>
@@ -261,31 +268,34 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
     <span class="hljs-attr">driver:</span>
       <span class="hljs-comment"># driver ports(If hostNetwork is true, ports are host ports)</span>
       <span class="hljs-attr">ports:</span>
+        <span class="hljs-comment"># csi health port</span>
         <span class="hljs-attr">health:</span> <span class="hljs-number">9810</span>
 
   <span class="hljs-attr">node:</span>
     <span class="hljs-attr">driver:</span>
       <span class="hljs-comment"># host ports</span>
       <span class="hljs-attr">ports:</span>
+        <span class="hljs-comment"># csi health port</span>
         <span class="hljs-attr">health:</span> <span class="hljs-number">9811</span>
+        <span class="hljs-comment"># node plugin liveness port</span>
         <span class="hljs-attr">liveness:</span> <span class="hljs-number">9812</span>
 </code></pre>
 <blockquote>
 <p><strong><em>Note:</em> If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between <code>driver.controller.ports</code> and <code>driver.node.ports</code> of different zbs-csi-drivers.</strong></p>
 </blockquote>
 <p>Install zbs-csi-driver</p>
-<pre><code class="hljs css language-text">helm install -f ./values.yaml --namespace iomesh-system csi-driver-name http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz
+<pre><code class="hljs css language-shell">helm install -f ./values.yaml --namespace iomesh-system &lt;release-name&gt; http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz
 </code></pre>
 <p>If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.</p>
-<pre><code class="hljs css language-text">helm template -f ./values.yaml --release-name csi-driver-name --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.2/zbs-csi-driver-0.1.0.tgz > driver.yaml
+<pre><code class="hljs css language-shell">helm template -f ./values.yaml --release-name &lt;release-name&gt; --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz &gt; driver.yaml
 </code></pre>
 <p>Copy driver.yaml to the target server and apply it.</p>
-<pre><code class="hljs css language-text">kubectl apply -f driver.yaml
+<pre><code class="hljs css language-shell">kubectl apply -f driver.yaml
 </code></pre>
 <ol start="4">
 <li>Wait for ready</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl get pod -n iomesh-system
+<pre><code class="hljs css language-shell">kubectl get pod -n iomesh-system
 </code></pre>
 <pre><code class="hljs css language-output">NAME                                                READY   STATUS    RESTARTS   AGE
 zbs-csi-driver-controller-plugin<span class="hljs-number">-5</span>dbfb48d5c<span class="hljs-number">-2</span>sk97   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">42</span>s
@@ -303,8 +313,9 @@ zbs-csi-driver-node-plugin-g4c4v                    <span class="hljs-number">3<
 <span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
 <span class="hljs-attr">metadata:</span>
   <span class="hljs-attr">name:</span> <span class="hljs-string">zbs-csi-driver-default</span>
-<span class="hljs-comment"># csi-driver-name</span>
-<span class="hljs-attr">provisioner:</span> <span class="hljs-string">&lt;csi-driver-name&gt;</span>
+<span class="hljs-comment"># driver.name in values.yaml</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">&lt;driver.name&gt;</span>
+<span class="hljs-comment"># Delete / Retain</span>
 <span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Retain</span>
 <span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">parameters:</span>
@@ -315,40 +326,40 @@ zbs-csi-driver-node-plugin-g4c4v                    <span class="hljs-number">3<
   <span class="hljs-comment"># "true" / "false"</span>
   <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
 </code></pre>
-<pre><code class="hljs css language-text">kubectl apply -f storageclass.yaml
+<pre><code class="hljs css language-shell">kubectl apply -f storageclass.yaml
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
 <h3><a class="anchor" aria-hidden="true" id="fio"></a><a href="#fio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fio</h3>
 <ol>
 <li>Install Fio testing pod</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl apply -f http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/example/fio.yaml
+<pre><code class="hljs css language-shell">kubectl apply -f http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/example/fio.yaml
 </code></pre>
 <ol start="2">
 <li>Wait until fio-pvc bound and fio pod ready</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl get pvc fio-pvc
+<pre><code class="hljs css language-shell">kubectl get pvc fio-pvc
 </code></pre>
 <pre><code class="hljs css language-output">NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS             AGE
 fio-pvc   Bound    pvc-d7916b34<span class="hljs-number">-50</span>cd<span class="hljs-number">-49</span>bd<span class="hljs-number">-86</span>f9<span class="hljs-number">-5287</span>db1265cb   <span class="hljs-number">30</span>Gi       RWO            zbs-csi-driver-<span class="hljs-section">default</span>   <span class="hljs-number">15</span>s
 </code></pre>
-<pre><code class="hljs css language-text">kubectl wait --for=condition=Ready pod/fio
+<pre><code class="hljs css language-shell">kubectl wait --for=condition=Ready pod/fio
 </code></pre>
 <pre><code class="hljs css language-output">pod/fio <span class="hljs-keyword">condition</span> met
 </code></pre>
 <ol start="3">
 <li>Run test</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl exec -it fio sh
+<pre><code class="hljs css language-shell">kubectl exec -it fio sh
 fio --name fio --filename=/mnt/fio --bs=256k --rw=write --ioengine=libaio --direct=1 --iodepth=128 --numjobs=1 --size=$(blockdev --getsize64 /mnt/fio)
 fio --name fio --filename=/mnt/fio --bs=4k --rw=randread --ioengine=libaio --direct=1 --iodepth=128 --numjobs=1 --size=$(blockdev --getsize64 /mnt/fio)
 </code></pre>
 <ol start="4">
 <li>Cleanup</li>
 </ol>
-<pre><code class="hljs css language-text">kubectl delete pod fio
+<pre><code class="hljs css language-shell">kubectl delete pod fio
 kubectl delete pvc fio-pvc
-# You need to delete pv when reclaimPolicy is Retain
+<span class="hljs-meta">#</span><span class="bash"> You need to delete pv when reclaimPolicy is Retain</span>
 kubectl delete pvc-d7916b34-50cd-49bd-86f9-5287db1265cb
 </code></pre>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/iomesh-docs/docs/zbs-csi-driver-overview"><span class="arrow-prev">← </span><span>Overview</span></a><a class="docs-next button" href="/iomesh-docs/docs/zbs-operator-overview"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#supported-platforms">Supported platforms</a></li><li><a href="#setup-kubernetes">Setup Kubernetes</a><ul class="toc-headings"><li><a href="#enable-kubernetes-features">Enable Kubernetes features</a></li><li><a href="#deploy-common-snapshot-controller">Deploy Common Snapshot Controller</a></li></ul></li><li><a href="#setup-zbs-cluster">Setup ZBS Cluster</a></li><li><a href="#setup-open-iscsi">Setup open-iscsi</a></li><li><a href="#setup-helm">Setup Helm</a></li><li><a href="#deploy-zbs-csi-driver">Deploy zbs-csi-driver</a></li><li><a href="#example">Example</a><ul class="toc-headings"><li><a href="#fio">Fio</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
