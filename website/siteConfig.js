@@ -24,7 +24,7 @@ const siteConfig = {
   title: 'IOMesh', // Title for your website.
   tagline: 'A website for IOMesh',
   url: 'https://iomesh.com', // Your website URL
-  baseUrl: '/iomesh-docs/', // Base URL for your project */
+  baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -38,7 +38,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'zbs-csi-driver-overview', label: 'Docs'},
+    { doc: "zbs-csi-driver/overview", label: "Docs" },
     // {doc: 'doc4', label: 'API'},
     // {page: 'help', label: 'Help'},
     // {blog: true, label: 'Blog'},
