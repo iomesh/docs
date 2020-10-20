@@ -1,5 +1,5 @@
 ---
-id: zbs-csi-driver-overview
+id: overview
 title: ZBS CSI Driver Overview
 sidebar_label: Overview
 ---

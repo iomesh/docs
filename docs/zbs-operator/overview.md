@@ -1,5 +1,5 @@
 ---
-id: zbs-operator-overview
+id: overview
 title: ZBS Operator Overview
 sidebar_label: Overview
 ---

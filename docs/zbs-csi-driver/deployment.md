@@ -1,6 +1,6 @@
 ---
-id: zbs-csi-driver-deployment
-title: Deployment
+id: deployment
+title: ZBS CSI Driver Deployment
 sidebar_label: Deployment
 ---
 
