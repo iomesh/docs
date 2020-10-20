@@ -23,7 +23,7 @@ const users = [
 const siteConfig = {
   title: "IOMesh", // Title for your website.
   tagline: "A website for IOMesh",
-  url: "https://iomesh.com", // Your website URL
+  url: "http://iomesh.com/docs", // Your website URL
   baseUrl: "/", // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
