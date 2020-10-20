@@ -39,9 +39,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     { doc: "zbs-csi-driver/overview", label: "Docs" },
-    // {doc: 'doc4', label: 'API'},
-    // {page: 'help', label: 'Help'},
-    // {blog: true, label: 'Blog'},
+    { href: "https://github.com/iomesh", label: "GitHub", external: true },
   ],
 
   // If you have users set above, you add it here:
