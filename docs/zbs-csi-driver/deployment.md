@@ -202,7 +202,18 @@ Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
 kubectl create namespace iomesh-system
 ```
 
-3. Deploy Driver
+3. Add Helm repo
+
+```shell
+helm repo add iomesh http://iomesh.com/charts
+```
+
+4. Deploy Driver
+
+Get values.yaml from chart
+```shell
+helm show values iomesh/zbs-csi-driver --version 0.1.1 > values.yaml
+```
 
 Configure the blank items in the driver section in values.yaml
 
@@ -265,13 +276,13 @@ driver:
 Install zbs-csi-driver
 
 ```shell
-helm install -f ./values.yaml --namespace iomesh-system <release-name> http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz
+helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zbs-csi-driver --version 0.1.1
 ```
 
 If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 
 ```shell
-helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz > driver.yaml
+helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver --version 0.1.1 > driver.yaml
 ```
 
 Copy driver.yaml to the target server and apply it.
@@ -280,7 +291,7 @@ Copy driver.yaml to the target server and apply it.
 kubectl apply -f driver.yaml
 ```
 
-4. Wait for ready
+5. Wait for ready
 
 ```shell
 kubectl get pod -n iomesh-system
@@ -296,7 +307,7 @@ zbs-csi-driver-node-plugin-fscsp                    3/3     Running   0         
 zbs-csi-driver-node-plugin-g4c4v                    3/3     Running   0          39s
 ```
 
-5. Setup StorageClass
+6. Setup StorageClass
 
 ```yaml
 # storageclass.yaml
