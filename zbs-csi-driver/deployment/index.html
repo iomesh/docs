@@ -225,8 +225,16 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 <pre><code class="hljs css language-shell">kubectl create namespace iomesh-system
 </code></pre>
 <ol start="3">
+<li>Add Helm repo</li>
+</ol>
+<pre><code class="hljs css language-shell">helm repo add iomesh http://iomesh.com/charts
+</code></pre>
+<ol start="4">
 <li>Deploy Driver</li>
 </ol>
+<p>Get values.yaml from chart</p>
+<pre><code class="hljs css language-shell">helm show values iomesh/zbs-csi-driver --version 0.1.1 &gt; values.yaml
+</code></pre>
 <p>Configure the blank items in the driver section in values.yaml</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-comment"># values.yaml</span>
 <span class="hljs-comment"># Default values for zbs-csi-driver.</span>
@@ -284,15 +292,15 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 <p><strong><em>Note:</em> If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between <code>driver.controller.ports</code> and <code>driver.node.ports</code> of different zbs-csi-drivers.</strong></p>
 </blockquote>
 <p>Install zbs-csi-driver</p>
-<pre><code class="hljs css language-shell">helm install -f ./values.yaml --namespace iomesh-system &lt;release-name&gt; http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz
+<pre><code class="hljs css language-shell">helm install -f ./values.yaml --namespace iomesh-system &lt;release-name&gt; iomesh/zbs-csi-driver --version 0.1.1
 </code></pre>
 <p>If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.</p>
-<pre><code class="hljs css language-shell">helm template -f ./values.yaml --release-name &lt;release-name&gt; --namespace iomesh-system  http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/v0.1.3/zbs-csi-driver-0.1.1.tgz &gt; driver.yaml
+<pre><code class="hljs css language-shell">helm template -f ./values.yaml --release-name &lt;release-name&gt; --namespace iomesh-system  iomesh/zbs-csi-driver --version 0.1.1 &gt; driver.yaml
 </code></pre>
 <p>Copy driver.yaml to the target server and apply it.</p>
 <pre><code class="hljs css language-shell">kubectl apply -f driver.yaml
 </code></pre>
-<ol start="4">
+<ol start="5">
 <li>Wait for ready</li>
 </ol>
 <pre><code class="hljs css language-shell">kubectl get pod -n iomesh-system
@@ -305,7 +313,7 @@ zbs-csi-driver-node-plugin<span class="hljs-number">-25585</span>               
 zbs-csi-driver-node-plugin-fscsp                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">30</span>s
 zbs-csi-driver-node-plugin-g4c4v                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">39</span>s
 </code></pre>
-<ol start="5">
+<ol start="6">
 <li>Setup StorageClass</li>
 </ol>
 <pre><code class="hljs css language-yaml"><span class="hljs-comment"># storageclass.yaml</span>
