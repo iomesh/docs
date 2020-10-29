@@ -269,6 +269,37 @@ driver:
         health: 9811
         # node plugin liveness port
         liveness: 9812
+
+  images:
+    driver:
+      repository: iomesh/zbs-csi-driver
+      tag: v2.0.0
+      pullPolicy: IfNotPresent
+    registrar:
+      repository: quay.io/k8scsi/csi-node-driver-registrar
+      tag: v1.0.2
+      pullPolicy: IfNotPresent
+    livenessprobe:
+      repository: quay.io/k8scsi/livenessprobe
+      tag: v1.1.0
+      pullPolicy: IfNotPresent
+    snapshotter:
+      repository: quay.io/k8scsi/csi-snapshotter
+      tag: v2.1.1
+      pullPolicy: IfNotPresent
+    provisioner:
+      repository: quay.io/k8scsi/csi-provisioner
+      tag: v1.6.0
+      pullPolicy: IfNotPresent
+    attacher:
+      repository: quay.io/k8scsi/csi-attacher
+      tag: v2.2.0
+      pullPolicy: IfNotPresent
+    resizer:
+      repository: quay.io/k8scsi/csi-resizer
+      tag: v0.5.0
+      pullPolicy: IfNotPresent
+
 ```
 
 > **_Note:_ If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between `driver.controller.ports` and `driver.node.ports` of different zbs-csi-drivers.**
@@ -276,13 +307,13 @@ driver:
 Install zbs-csi-driver
 
 ```shell
-helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zbs-csi-driver --version 0.1.1
+helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zbs-csi-driver --version 0.1.2
 ```
 
 If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 
 ```shell
-helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver --version 0.1.1 > driver.yaml
+helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver --version 0.1.2 > driver.yaml
 ```
 
 Copy driver.yaml to the target server and apply it.
@@ -331,6 +362,24 @@ parameters:
 
 ```shell
 kubectl apply -f storageclass.yaml
+```
+
+7. Setup SnapshotClass
+
+```yaml
+# snapshotclass.yaml
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
+metadata:
+  name: zbs-csi-driver-default
+# driver.name in values.yaml
+driver: <dirver.name>
+# Delete / Retain
+deletionPolicy: Retain
+```
+
+```shell
+kubectl apply -f snapshotclass.yaml
 ```
 
 ## Example
