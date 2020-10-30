@@ -233,7 +233,7 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 <li>Deploy Driver</li>
 </ol>
 <p>Get values.yaml from chart</p>
-<pre><code class="hljs css language-shell">helm show values iomesh/zbs-csi-driver --version 0.1.1 &gt; values.yaml
+<pre><code class="hljs css language-shell">helm show values iomesh/zbs-csi-driver --version 0.1.2 &gt; values.yaml
 </code></pre>
 <p>Configure the blank items in the driver section in values.yaml</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-comment"># values.yaml</span>
