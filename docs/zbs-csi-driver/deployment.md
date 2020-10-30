@@ -212,7 +212,7 @@ helm repo add iomesh http://iomesh.com/charts
 
 Get values.yaml from chart
 ```shell
-helm show values iomesh/zbs-csi-driver --version 0.1.1 > values.yaml
+helm show values iomesh/zbs-csi-driver --version 0.1.2 > values.yaml
 ```
 
 Configure the blank items in the driver section in values.yaml
