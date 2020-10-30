@@ -10,7 +10,7 @@ This topic explains how to install ZBS CSI Driver with kubernetes. Follow the st
 
 - Kubernetes node Linux distro: CentOS 7 and CentOS 8
 - Kubernetes v1.17 or higher
-- ZBS v4.5.0-rc14 (corresponding SMTX OS version: 4.5.0-B5-el7) or higher
+- ZBS v4.0.7-rc16 (corresponding SMTX OS version: SMTXOS-4.0.7-CSI-solution-el7) or higher
 - Helm v3.3.x
 
 ## Setup Kubernetes
