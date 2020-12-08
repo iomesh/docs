@@ -10,6 +10,7 @@ This topic explains how to install ZBS CSI Driver with kubernetes. Follow the st
 
 - Kubernetes node Linux distro: CentOS 7 and CentOS 8
 - Kubernetes v1.17 or higher
+- Openshift v4.5 or higher
 - ZBS v4.0.7-rc16 (corresponding SMTX OS version: SMTXOS-4.0.7-CSI-solution-el7) or higher
 - Helm v3.3.x
 
@@ -109,6 +110,7 @@ kubectl wait --for=condition=Ready  pod/kube-apiserver-<suffix> -n kube-system
 ```output
 pod/kube-apiserver-<suffix> condition met
 ```
+> **_Note:_ If you use openshift4.5 or highter, the Kubernetes version in openshift is KubernetesV1.18 or highter, all feature are opened default.**
 
 ### Deploy Common Snapshot Controller
 
@@ -217,6 +219,9 @@ helm show values iomesh/zbs-csi-driver --version 0.1.2 > values.yaml
 
 Configure the blank items in the driver section in values.yaml
 
+<!--DOCUSAURUS_CODE_TABS-->
+
+<!--kubernetes-->
 ```yaml
 # values.yaml
 # Default values for zbs-csi-driver.
@@ -235,6 +240,10 @@ serviceAccount:
   # Specifies whether a service account should be created
   create: true
 
+# Container Orchestration system (eg. "kubernetes"/"openshift" )
+co: "kubernetes"
+coVersion: ""
+
 driver:
   # The unique csi driver name in a kubernetes cluster
   name:
@@ -247,7 +256,7 @@ driver:
   # iscsi portal (eg. EXTERNAL: `zbs-cluster-vip:3260`, HCI: `127.0.0.1:3260` )
   # Note that the iscsi portal is a vip, please do not modify it once assigned.
   iscsiPortal:
-  # CentOS7 / CentOS8
+  # CentOS7 / CentOS8 / CoreOS
   linuxDistro:
 
   controller:
@@ -299,8 +308,100 @@ driver:
       repository: quay.io/k8scsi/csi-resizer
       tag: v0.5.0
       pullPolicy: IfNotPresent
-
 ```
+
+<!--openshift-->
+```yaml
+# values.yaml
+# Default values for zbs-csi-driver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# If set resouce's name will be release-name-<nameOverride>
+nameOverride: ""
+# If set resouce's name will be <fullnameOverride>
+fullnameOverride: ""
+
+rbac:
+  # Create ClusterRole
+  create: true
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+
+# Container Orchestration system (eg. "kubernetes"/"openshift" )
+co: "openshift"
+coVersion: ""
+
+driver:
+  # The unique csi driver name in a kubernetes cluster
+  name:
+  # kubernetes-cluster-id
+  clusterID:
+  # EXTERNAL / HCI
+  deploymentMode:
+  # meta proxy (eg. `zbs-cluster-vip:10206` )
+  metaProxy:
+  # iscsi portal (eg. EXTERNAL: `zbs-cluster-vip:3260`, HCI: `127.0.0.1:3260` )
+  # Note that the iscsi portal is a vip, please do not modify it once assigned.
+  iscsiPortal:
+  # CentOS7 / CentOS8 / CoreOS
+  linuxDistro:
+
+  controller:
+    # controller replicas
+    replicas: 3
+    # use hostNetwork to access zbs cluster
+    hostNetwork: true
+    driver:
+      # driver ports(If hostNetwork is true, ports are host ports)
+      ports:
+        # csi health port
+        health: 9810
+
+  node:
+    driver:
+      # host ports
+      ports:
+        # csi health port
+        health: 9811
+        # node plugin liveness port
+        liveness: 9812
+
+  images:
+    driver:
+      repository: iomesh/zbs-csi-driver
+      tag: v2.0.0
+      pullPolicy: IfNotPresent
+    registrar:
+      repository: quay.io/k8scsi/csi-node-driver-registrar
+      tag: v1.0.2
+      pullPolicy: IfNotPresent
+    livenessprobe:
+      repository: quay.io/k8scsi/livenessprobe
+      tag: v1.1.0
+      pullPolicy: IfNotPresent
+    snapshotter:
+      repository: quay.io/k8scsi/csi-snapshotter
+      tag: v2.1.1
+      pullPolicy: IfNotPresent
+    provisioner:
+      repository: quay.io/k8scsi/csi-provisioner
+      tag: v1.6.0
+      pullPolicy: IfNotPresent
+    attacher:
+      repository: quay.io/k8scsi/csi-attacher
+      tag: v2.2.0
+      pullPolicy: IfNotPresent
+    resizer:
+      repository: quay.io/k8scsi/csi-resizer
+      tag: v0.5.0
+      pullPolicy: IfNotPresent
+```
+
+> **_Note:_ If you use openshift config, The installation process will automatically create a Security Context Constraints named scc-zbs-csi-driver, which is used to allow all zbs-csi related containers to become Privileged Containers to provide storage-related functions**
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 > **_Note:_ If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between `driver.controller.ports` and `driver.node.ports` of different zbs-csi-drivers.**
 
