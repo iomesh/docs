@@ -113,6 +113,7 @@ pod/kube-apiserver-<suffix> condition met
 > **_Note:_ If you use openshift4.5 or highter, the Kubernetes version in openshift is KubernetesV1.18 or highter, all feature are opened default.**
 
 ### Deploy Common Snapshot Controller
+> **_Note:_ Only for `Kubernetes >= v1.13.0` or `Openshift >= v4.0`**
 
 The volume snapshot controller management is similar to pv/pvc controller, it manages the snapshot CRDs.
 Regardless of the number CSI drivers deployed on the cluster, there must be only one instance of the volume snapshot controller running and one set of volume snapshot CRDs installed per cluster.
