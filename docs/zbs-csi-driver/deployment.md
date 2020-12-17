@@ -213,15 +213,26 @@ helm repo add iomesh http://iomesh.com/charts
 4. Deploy Driver
 
 Get values.yaml from chart
+
+<!--DOCUSAURUS_CODE_TABS-->
+
+<!--Kubernetes >= v1.13.0 / Openshift v4.0-->
 ```shell
 helm show values iomesh/zbs-csi-driver --version 0.1.2 > values.yaml
 ```
+
+<!--Openshift v3.11-->
+```shell
+helm show values iomesh/zbs-csi-driver-ocp --version 0.1.0 > values.yaml
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 Configure the blank items in the driver section in values.yaml
 
 <!--DOCUSAURUS_CODE_TABS-->
 
-<!--kubernetes-->
+<!-- Kubernetes >= v1.13-->
 ```yaml
 # values.yaml
 # Default values for zbs-csi-driver.
@@ -310,7 +321,7 @@ driver:
       pullPolicy: IfNotPresent
 ```
 
-<!--openshift-->
+<!--Openshift >= v4.0-->
 ```yaml
 # values.yaml
 # Default values for zbs-csi-driver.
@@ -401,21 +412,112 @@ driver:
 
 > **_Note:_ If you use openshift config, The installation process will automatically create a Security Context Constraints named scc-zbs-csi-driver, which is used to allow all zbs-csi related containers to become Privileged Containers to provide storage-related functions**
 
+<!-- Openshift v3.11 -->
+
+```yaml
+# Default values for zbs-csi-driver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+
+rbac:
+  create: true  
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+
+# Container Orchestration system (eg. "kubernetes"/"openshift" )
+co: "openshift"
+coVersion: "3.11"
+
+driver:
+  # The unique csi driver name in a kubernetes cluster
+  name:
+  # kubernetes-cluster-id
+  clusterID:
+  # meta proxy (eg. `zbs-cluster-vip:10206` )
+  metaProxy:
+  # iscsi portal (eg. EXTERNAL: `zbs-cluster-vip:3260`, HCI: `127.0.0.1:3260` )
+  iscsiPortal:
+  # CentOS7 / CentOS8
+  linuxDistro:
+  # EXTERNAL / HCI
+  deploymentMode:
+
+  controller:
+    # controller replicas
+    replicas: 3
+    # use hostNetwork to access zbs cluster
+    hostNetwork: true
+    driver:
+      # driver ports(If hostNetwork is true, ports are host ports)
+      ports:
+        health: 9810
+
+  node:
+    driver:
+      # iscsi config
+      iscsi: {}
+        # node.session.queue_depth: 128
+        # node.session.cmds_max: 128
+        # node.session.timeo.replacement_timeout: 120
+      # host ports
+      ports:
+        health: 9811
+        liveness: 9812
+
+  images:
+    driver:
+      repository: iomesh/zbs-csi-driver
+      tag: v2.0.0-ocp311
+      pullPolicy: IfNotPresent
+    registrar:
+      repository: quay.io/k8scsi/driver-registrar
+      tag: v0.4.2
+      pullPolicy: IfNotPresent
+    livenessprobe:
+      repository: quay.io/k8scsi/livenessprobe
+      tag: v0.4.1
+      pullPolicy: IfNotPresent
+    provisioner:
+      repository: quay.io/k8scsi/csi-provisioner
+      tag: v0.4.2
+      pullPolicy: IfNotPresent
+```
+
+> **_Note:_ If you use openshift config, The installation process will automatically create a Security Context Constraints named scc-zbs-csi-driver, which is used to allow all zbs-csi related containers to become Privileged Containers to provide storage-related functions**
+
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 > **_Note:_ If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between `driver.controller.ports` and `driver.node.ports` of different zbs-csi-drivers.**
 
 Install zbs-csi-driver
 
+<!--DOCUSAURUS_CODE_TABS-->
+<!--Kubernetes >= v1.13.0 / Openshift v4.0-->
 ```shell
 helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zbs-csi-driver --version 0.1.2
 ```
+<!--Openshift v3.11-->
+```shell
+helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zbs-csi-driver-ocp --version 0.1.0
+```
+<!--END_DOCUSAURUS_CODE_TABS-->
+
 
 If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
-
+<!--DOCUSAURUS_CODE_TABS-->
+<!--Kubernetes >= v1.13.0 / Openshift v4.0-->
 ```shell
 helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver --version 0.1.2 > driver.yaml
 ```
+<!--Openshift v3.11-->
+```shell
+helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver-ocp --version 0.1.0 > driver.yaml
+```
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 Copy driver.yaml to the target server and apply it.
 
@@ -466,6 +568,8 @@ kubectl apply -f storageclass.yaml
 ```
 
 7. Setup SnapshotClass
+> Kubernetes >= v1.13.0
+> Openshift >= v4.0
 
 ```yaml
 # snapshotclass.yaml
