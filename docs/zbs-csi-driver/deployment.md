@@ -224,7 +224,7 @@ helm show values iomesh/zbs-csi-driver --version 0.1.2 > values.yaml
 
 <!--Openshift v3.11-->
 ```shell
-helm show values iomesh/zbs-csi-driver-ocp --version 0.1.0 > values.yaml
+helm show values iomesh/zbs-csi-driver-ocp --version 0.1.1 > values.yaml
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
@@ -479,8 +479,8 @@ driver:
       tag: v0.4.2
       pullPolicy: IfNotPresent
     livenessprobe:
-      repository: quay.io/k8scsi/livenessprobe
-      tag: v0.4.1
+      repository: iomesh/csi-livenessprobe
+      tag: v0.4.2
       pullPolicy: IfNotPresent
     provisioner:
       repository: quay.io/k8scsi/csi-provisioner
@@ -503,7 +503,7 @@ helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zb
 ```
 <!--Openshift v3.11-->
 ```shell
-helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zbs-csi-driver-ocp --version 0.1.0
+helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zbs-csi-driver-ocp --version 0.1.1
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
@@ -516,7 +516,7 @@ helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-
 ```
 <!--Openshift v3.11-->
 ```shell
-helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver-ocp --version 0.1.0 > driver.yaml
+helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver-ocp --version 0.1.1 > driver.yaml
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
