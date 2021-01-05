@@ -11,7 +11,7 @@ This topic explains how to install ZBS CSI Driver with kubernetes. Follow the st
 - Kubernetes node Linux distro: CentOS 7 and CentOS 8
 - Kubernetes v1.17 or higher
 - Openshift v3.11 or higher
-- ZBS v4.0.7-rc16 (corresponding SMTX OS version: SMTXOS-4.0.7-CSI-solution-el7) or higher
+- ZBS v4.0.7-rc16 (corresponding SMTX OS version: SMTXOS-4.0.7-CSI-solution-el7)
 - Helm v3.3.x
 
 ## Setup Kubernetes
@@ -593,7 +593,7 @@ kubectl apply -f snapshotclass.yaml
 1. Install Fio testing pod
 
 ```shell
-kubectl apply -f http://www.iomesh.com/iomesh-docs/docs/assets/zbs-csi-driver/example/fio.yaml
+kubectl apply -f http://www.iomesh.com/docs/assets/zbs-csi-driver/example/fio.yaml
 ```
 
 2. Wait until fio-pvc bound and fio pod ready
