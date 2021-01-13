@@ -4,14 +4,22 @@ title: ZBS CSI Driver Overview
 sidebar_label: Overview
 ---
 
-The ZBS Container Storage Interface (CSI) Driver provides a [CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md) interface used by Container Orchestrators to manage the lifecycle of ZBS volumes.
+The ZBS Container Storage Interface (CSI) Driver provides a [CSI](https://github.com/container-storage-interface/spec/blob/master/spec.md) interface implementation used by Container Orchestrators to manage the lifecycle of ZBS volumes.
 
 ## Features
 
-- **[Raw Block Volume](https://kubernetes-csi.github.io/docs/raw-block.html)** - The corresponding CSI feature (`CSIBlockVolume`) is GA since Kubernetes 1.18.
-- **[Volume Snapshot](https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html)** - creating volume snapshots and restore volume from snapshot. The corresponding CSI feature (`VolumeSnapshotDataSource`) is beta since Kubernetes 1.17.
-- **[Volume Cloning](https://kubernetes-csi.github.io/docs/volume-cloning.html)** - cloning from  a exist volume. The corresponding CSI feature (`VolumeContentSourceVolume`) is GA since Kubernetes 1.18.
-- **[Volume Expandsion](https://kubernetes-csi.github.io/docs/volume-expansion.html)** - expand the volume size. The corresponding CSI feature (`ExpandCSIVolumes`) is beta since Kubernetes 1.16.
+- **[Raw Block Volume][1]** - This CSI feature (`CSIBlockVolume`) is GA since Kubernetes 1.18.
+- **[Volume Snapshot][2]** - create volume snapshots or restore the volume from a snapshot.
+  The corresponding CSI feature (`VolumeSnapshotDataSource`) is beta since Kubernetes 1.17.
+- **[Volume Cloning][3]** - clone a exist volume. This CSI feature (`VolumeContentSourceVolume`) is GA since Kubernetes 1.18.
+- **[Volume Expansion][4]** - expand volume. This CSI feature (`ExpandCSIVolumes`) is beta since Kubernetes 1.16.
+
+[1]: https://kubernetes-csi.github.io/docs/raw-block.html "Kubernetes CSI - Raw Block Volume Feature"
+[2]: https://kubernetes-csi.github.io/docs/snapshot-restore-feature.html "Kubernetes CSI - Snapshot & Restore Feature"
+[3]: https://kubernetes-csi.github.io/docs/volume-cloning.html "Kubernetes CSI - Volume Cloning"
+[4]: https://kubernetes-csi.github.io/docs/volume-expansion.html "Kubernetes CSI - Volume Expansion"
+
+
 
 ### Access Mode
 
@@ -24,6 +32,8 @@ We support Mount Volume (Filesystem Volume) and Block Volume. Their supported ac
 | MULTI_NODE_MULTI_WRITER   | no           | yes          |
 | MULTI_NODE_READER_ONLY    | no           | yes          |
 | MULTI_NODE_SINGLE_WRITER  | no           | yes          |
+
+
 
 ### StorageClass Parameters
 
@@ -66,6 +76,8 @@ spec:
 ```
 
 > **_Note:_ These parameters will be passed to  `CreateVolumeRequest.parameters` map**
+
+
 
 ## Kubernetes Version Compatibility Matrix
 

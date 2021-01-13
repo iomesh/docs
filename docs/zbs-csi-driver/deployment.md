@@ -4,23 +4,45 @@ title: ZBS CSI Driver Deployment
 sidebar_label: Deployment
 ---
 
-This topic explains how to install ZBS CSI Driver with kubernetes. Follow the steps in this topic in order.
+This topic explains how to install ZBS CSI Driver in a Kubernetes cluster.
+
+Follow the steps below **in order**.
+
+
 
 ## Supported platforms
 
-- Kubernetes node Linux distro: CentOS 7 and CentOS 8
-- Kubernetes v1.17 or higher
-- Openshift v3.11 or higher
-- ZBS v4.0.7-rc16 (corresponding SMTX OS version: SMTXOS-4.0.7-CSI-solution-el7)
-- Helm v3.3.x
+Kubernetes Node Linux distro:
 
-## Setup Kubernetes
+- CentOS 7
+- CentOS 8
+
+Kubernetes distro:
+
+- Kubernetes v1.17 or higher
+- OpenShift v3.11 or higher
+
+ZBS:
+
+- ZBS v4.0.7-rc16 (corresponding to SMTXOS-4.0.7-CSI-solution-el7)
+
+Others:
+
+- Helm 3
+
+
+
+## Setup Kubernetes Cluster
 
 ### Enable Kubernetes features
 
-Enable the CSI related features to ensure that the driver works normally.
+Enable Kubernetes CSI features to ensure ZBS CSI Driver works. After a feature is GA, some feature gates will be removed in next few versions.
 
-After a feature is GA, the feature gate will be removed in the next few versions. Please refer to **[feature-gates](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)** to selectively enable features.
+All CSI features are enabled by default in Kubernetes v1.17 or higher version.
+
+> If you are using OpenShift 4.5 or higher, Kubernetes in OpenShift is Kubernetes v1.18 or higher, all feature are enabled by default.
+
+For more details, please check Kubernetes **[Feature Gates][1]** to enable features selectively.
 
 | Feature Gate                 | Default | Stage | Since | Until |
 | ---------------------------- | ------- | ----- | ----- | ----- |
@@ -43,9 +65,17 @@ After a feature is GA, the feature gate will be removed in the next few versions
 | ExpandInUsePersistentVolumes | false   | Beta  | 1.11  | 1.14  |
 | ExpandInUsePersistentVolumes | true    | Beta  | 1.15  | -     |
 
-For Kubernetes 1.17+, we can open all feature gates. Different Kubernetes clusters may have different ways of configuration. Here we assume the cluster is deployed by `kubeadm`.
+[1]: https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates "Kubernetes - Feature Gates"
 
-1. Enable feature gates on each `kube-apiserver`: `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true` and `--allow-privileged=true`
+
+
+#### Configure Kubernetes feature gates deployed by kubeadm
+
+Different Kubernetes clusters may have different ways to configure, here we assume the cluster is deployed by `kubeadm`. If you're using other Kubernetes Deployment Tools, you should check that tools' documentation.
+
+1. Enable feature gates on each `kube-apiserver` instance.
+
+   Open and edit `/etc/kubernetes/manifests/kube-apiserver.yaml`. The following YAML shows the result of edition.
 
 ```yaml
 # /etc/kubernetes/manifests/kube-apiserver.yaml
@@ -58,19 +88,21 @@ spec:
   containers:
   - command:
     - kube-apiserver
-    # enable feature-gates here
+    # add feature-gates here
     - --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true
     # enable privileged here
     - --allow-privileged=true
 ```
 
-2. Enable feature gates on each `kubelet`: `--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true`.
+2. Enable feature gates on each `kubelet` systemd service file.
+
+   Open and edit `/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf`
 
 ```yaml
 # /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 # Note: This dropin only works with kubeadm and kubelet v1.11+
 [Service]
-# enable feature-gates here
+# --> enable feature-gates here <--
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
@@ -82,7 +114,7 @@ ExecStart=
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
 ```
 
-3. Reload Config
+3. Reload systemd daemon
 
 ```shell
 systemctl daemon-reload
@@ -110,39 +142,51 @@ kubectl wait --for=condition=Ready  pod/kube-apiserver-<suffix> -n kube-system
 ```output
 pod/kube-apiserver-<suffix> condition met
 ```
-> **_Note:_ If you use openshift4.5 or highter, the Kubernetes version in openshift is KubernetesV1.18 or highter, all feature are opened default.**
 
-### Deploy Common Snapshot Controller
-> **_Note:_ Only for `Kubernetes >= v1.13.0` or `Openshift >= v4.0`**
 
-The volume snapshot controller management is similar to pv/pvc controller, it manages the snapshot CRDs.
-Regardless of the number CSI drivers deployed on the cluster, there must be only one instance of the volume snapshot controller running and one set of volume snapshot CRDs installed per cluster.
+### Deploy Snapshot Controller
 
-1. Download **[external-controller repo](https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1)**
+> Only for `Kubernetes >= v1.13.0` or `Openshift >= v4.0`
+
+Volume Snapshot Controller manages the snapshot CRDs.
+There must be **only one instance** of Volume Snapshot Controller running and **only one set** of volume snapshot CRDs installed per cluster.
+
+1. Clone **[Kubernetes CSI external-controller](https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1)**
 
 ```shell
 curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
 unzip release-2.1.zip && cd external-snapshotter-release-2.1
 ```
 
-2. Create Snapshot Beta CRD
+2. Create Snapshot beta CRD
 
 ```shell
 kubectl create -f ./config/crd
 ```
 
-3. Install Common Snapshot Controller
+3. Open and edit `deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml`. Add a namespace for StatefulSet. eg. `kube-system`
+
+   Editing results are showing below.
+
+   ```yaml
+   kind: StatefulSet
+   apiVersion: apps/v1
+   metadata:
+     name: snapshot-controller
+     namespace: kube-system # <-- Add namespace here
+   # ...
+   ```
+
+4. Install Snapshot Controller
 
 ```shell
 kubectl apply -f ./deploy/kubernetes/snapshot-controller
 ```
 
-> **_Note:_ replace with the snapshot-controller's namespace, e.g. kube-system**
-
-4. Verify
+5. Verify snapshot-controller installation
 
 ```shell
-kubectl get statefulset  snapshot-controller -n <your-namespace>
+kubectl get sts snapshot-controller -n kube-system
 ```
 
 ```output
@@ -150,31 +194,35 @@ NAME                  READY   AGE
 snapshot-controller   1/1     32s
 ```
 
+
+
 ## Setup ZBS Cluster
 
-1. Ensure that the kubernetes cluster can connect with the ZBS cluster's access network
+1. Ensure that the Kubernetes cluster can connect to the ZBS cluster over the Access Network.
 
-2. Configure `zbs-cluster-vip` in the access network segment
+2. Set ZBS Cluster VIP
 
 ```shell
 zbs-task vip set iscsi <zbs-cluster-vip>
 ```
 
+
+
 ## Setup open-iscsi
 
-1. Install `iscsi-initiator-utils` on each kubernetes node
+1. Install `iscsi-initiator-utils` on every Kubernetes Node
 
 ```shell
 yum install iscsi-initiator-utils
 ```
 
-2. Ensure that the node.startup option of `/etc/iscsi/iscsid.conf` is manual
+2. Set `node.startup` to `manual` in `/etc/iscsi/iscsid.conf`
 
 ```shell
 sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
 ```
 
-3. Disable selinux
+3. Disable SELinux
 
 ```shell
 setenforce 0
@@ -187,17 +235,31 @@ sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 systemctl enable --now iscsid
 ```
 
+
+
 ## Setup Helm
 
-Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
+Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**
 
-> **_Note_: If Helm is not allowed, please install it locally.**
+> If it's not allowed to install on the Kubernetes Node, install helm locally.
 
-## Deploy zbs-csi-driver
+```bash
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+```
 
-1. When multiple kubernetes clusters or other platforms (eg. openstack, esxi) share a ZBS cluster, each kubernetes cluster needs to be assigned a unique `kubernetes-cluster-id`. The `kubernetes-cluster-id` should not be changed once assigned.
 
-> **_Note:_ The `kubernetes-cluster-id` cloud be kubernetes cluster name or kubernetes cluster id. The `kubernetes-cluster-id` can be obtained from the kubernetes cluster management platform(eg. eks) or the cluster administrator can specify a string of length less than 255.**
+
+## Deploy ZBS CSI Driver
+
+1. Every Kubernetes Cluster needs a unique `kubernetes-cluster-id`. The `kubernetes-cluster-id` can't change once assigned.
+
+   When multiple Kubernetes clusters or other Hypervisor (eg. OpenStack, ESXi) shares one ZBS cluster, ZBS can use this ID to identify client.
+
+> Note: Cluster ID length should less than 255.
+>
+> Cluster ID can be obtained from Kubernetes Cluster management platform (eg. EKS). A random unique string is also fine.
 
 2. Create Namespace
 
@@ -213,7 +275,7 @@ helm repo add iomesh http://iomesh.com/charts
 
 4. Deploy Driver
 
-Get values.yaml from chart
+Get `values.yaml` from chart.
 
 <!--DOCUSAURUS_CODE_TABS-->
 
@@ -223,13 +285,16 @@ helm show values iomesh/zbs-csi-driver --version 0.1.2 > values.yaml
 ```
 
 <!--Openshift v3.11-->
+
 ```shell
 helm show values iomesh/zbs-csi-driver-ocp --version 0.1.1 > values.yaml
 ```
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Configure the blank items in the driver section in values.yaml
+
+
+Configure the blank entries in `driver` section of `values.yaml`
 
 <!--DOCUSAURUS_CODE_TABS-->
 
@@ -411,7 +476,7 @@ driver:
       pullPolicy: IfNotPresent
 ```
 
-> **_Note:_ If you use openshift config, The installation process will automatically create a Security Context Constraints named scc-zbs-csi-driver, which is used to allow all zbs-csi related containers to become Privileged Containers to provide storage-related functions**
+> Note: If you use OpenShift, the installation process will automatically create a Security Context Constraints named `scc-zbs-csi-driver`, which allows all ZBS CSI related containers to become Privileged Containers to provide storage functions
 
 <!-- Openshift v3.11 -->
 
@@ -488,11 +553,13 @@ driver:
       pullPolicy: IfNotPresent
 ```
 
-> **_Note:_ If you use openshift config, The installation process will automatically create a Security Context Constraints named scc-zbs-csi-driver, which is used to allow all zbs-csi related containers to become Privileged Containers to provide storage-related functions**
+> Note: If you use OpenShift, the installation process will automatically create a Security Context Constraints named `scc-zbs-csi-driver`, which allows all ZBS CSI related containers to become Privileged Containers to provide storage functions
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-> **_Note:_ If you need to use different zbs cluster storage in the same kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxys and iscsi portals to ensure that the csi drivers are different. Additionally, it necessary to avoid conflicts between `driver.controller.ports` and `driver.node.ports` of different zbs-csi-drivers.**
+> **_Note:_ If you need to use different ZBS cluster storage in the same Kubernetes cluster, please deploy multiple sets of zbs-csi-drivers with different driver names,  meta proxies and iSCSI portals to ensure that the CSI drivers are different. Additionally, it necessary to avoid conflicts between `driver.controller.ports` and `driver.node.ports` of different zbs-csi-drivers.**
+
+
 
 Install zbs-csi-driver
 
@@ -507,26 +574,25 @@ helm install -f ./values.yaml --namespace iomesh-system <release-name> iomesh/zb
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
+Or render Helm Chart locally, and apply chart with kubectl:
 
-If Helm is not allowed, please install it locally. Then use Helm to generate driver.yaml.
 <!--DOCUSAURUS_CODE_TABS-->
 <!--Kubernetes >= v1.13.0 / Openshift v4.0-->
+
 ```shell
 helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver --version 0.1.2 > driver.yaml
+kubectl apply -f driver.yaml
 ```
 <!--Openshift v3.11-->
 ```shell
 helm template -f ./values.yaml --release-name <release-name> --namespace iomesh-system  iomesh/zbs-csi-driver-ocp --version 0.1.1 > driver.yaml
+kubectl apply -f driver.yaml
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Copy driver.yaml to the target server and apply it.
 
-```shell
-kubectl apply -f driver.yaml
-```
 
-5. Wait for ready
+5. Wait for deployment ready
 
 ```shell
 kubectl get pod -n iomesh-system
@@ -542,7 +608,7 @@ zbs-csi-driver-node-plugin-fscsp                    3/3     Running   0         
 zbs-csi-driver-node-plugin-g4c4v                    3/3     Running   0          39s
 ```
 
-6. Setup StorageClass
+6. Setup `StorageClass`
 
 ```yaml
 # storageclass.yaml
@@ -587,6 +653,8 @@ deletionPolicy: Retain
 kubectl apply -f snapshotclass.yaml
 ```
 
+
+
 ## Example
 
 ### Fio
@@ -615,7 +683,7 @@ kubectl wait --for=condition=Ready pod/fio
 pod/fio condition met
 ```
 
-3. Run test
+3. Run fio
 
 ```shell
 kubectl exec -it fio sh
@@ -623,7 +691,7 @@ fio --name fio --filename=/mnt/fio --bs=256k --rw=write --ioengine=libaio --dire
 fio --name fio --filename=/mnt/fio --bs=4k --rw=randread --ioengine=libaio --direct=1 --iodepth=128 --numjobs=1 --size=$(blockdev --getsize64 /mnt/fio)
 ```
 
-4. Cleanup
+4. Clean up
 
 ```shell
 kubectl delete pod fio

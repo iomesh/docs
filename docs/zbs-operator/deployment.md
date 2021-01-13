@@ -39,7 +39,7 @@ mkdir -p /mnt/iomesh/hostpath
 mount /dev/<formatted-partition> /mnt/iomesh/hostpath
 ```
 
-NOTE: `append a fstab entry to /etc/fstab to persist hostpath's mount operation`
+> NOTE: append a fstab entry to `/etc/fstab` to persist hostpath's mount operation
 
 3. Install zbs-operator chart
 
@@ -58,17 +58,18 @@ watch kubectl get -n iomesh-system pods
 
 [1]: http://iomesh.com/charts
 
+
+
 ## ZBS Installation
 
 ### Prerequisite
 
-1. three kubernetes worker node or more
-2. tow ssd (or ssd partition) or more
-per worker for ZBS journal and cache
-3. one hdd (or ssd / hdd partition) or more
-per worker for ZBS partition
-4. a data network interface per worker (at least 10Gb) for ZBS
-5. a access network interface (at least 10Gb) for ZBS per worker if it is a Disaggregated deployment
+- Three Kubernetes worker node or more
+- Each worker node needs
+  - At least two SSDs (or partitions) , for ZBS journal and cache
+  - At least one HDD (or partitions, SSDs is also fine) , for ZBS partition
+  - A 10GbE (or better) NICs, for ZBS data network
+  - If it's a Disaggregated Deployment, another 10GbE (or better) for Access Network
 
 ### Get started
 
@@ -160,7 +161,7 @@ watch kubectl get pod -n <namespace>
 
 We can label some [Blockdevices][0] so that ZBS can identify and recognize them.
 
-First, check your [Blockdevices][0] in default namespace.
+First, check your [Blockdevices][0] in all namespaces.
 
 ```bash
 kubectl get bd -A
@@ -173,7 +174,7 @@ iomesh-system   blockdevice-8c6b3b463dfa243b1c786f3766b8d48f   node2   107363527
 iomesh-system   blockdevice-9371148e9858f1b9c9c04b61105c6783   node2   10736352768   Unclaimed    Active   39s
 ```
 
-Label some blockdevices for chunk.
+Label some Blockdevices for chunk.
 
 ```bash
 kubectl label bd -n iomesh-system <blockdevice-name> iomesh.com/provision-for=<chunk-pod-name>
@@ -193,9 +194,11 @@ For now you already have a ZBS Storage Cluster deployed.
 
 If you want to use it to create [Kubernetes Persistent Volume](https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/), checkout our CSI driver: [zbs-csi-driver](http://iomesh.com/docs/zbs-csi-driver/overview).
 
+
+
 ## ZBS Access
 
-In disaggregated deployment, you need to install ZBS Accesss in the compute-kubernetes to access storage-kubernetes.
+For a disaggregated deployment, you need to install ZBS Access in the compute-kubernetes to access storage-kubernetes.
 
 ### ZBS Access Operator Installation
 
@@ -237,19 +240,21 @@ helm install -f values.yaml my-zbs-access-operator iomesh/zbs-access-operator --
 watch kubectl get -n iomesh-system pods
 ```
 
+
+
 ### ZBS Access Installation
 
-1. Check ZBS Access chart's values.yaml, modify it in the way you expect.
+1. Check ZBS Access chart's `values.yaml`, edit if you want.
 ```bash
 helm show values iomesh/zbs-access > values.yaml
 ```
 
-ZBS Access Operator will create a zbs-access service named `cr.Name` to access storage-kubernetes's ZBS.
-There are two way to configure zbs-access service:
+ZBS Access Operator will create a zbs-access service named `cr.Name` to access ZBS cluster on storage-kubernetes.
+There're two way to configure zbs-access service:
 
-- auto: Automatically sync zbs-access's endpoints from storage-kubernetes
+- auto: sync zbs-access's endpoints from storage-kubernetes automatically
 
-- manual: Manually set zbs-access's endpoints
+- manual: set zbs-access's endpoints manually 
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--auto-->
@@ -312,6 +317,8 @@ probe:
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
+
+
 2. Install ZBS Access
 ```bash
 helm install -f ./values.yaml zbs-access iomesh/zbs-access --version 0.1.0 --create-namespace -n zbs-access
@@ -338,7 +345,7 @@ zbs-access             ClusterIP   10.111.46.72   <none>        3260/TCP,10206/T
 zbs-iscsi-discoverer   ClusterIP   10.99.170.12   <none>        3260/TCP                       3m42s
 ```
 
-After installation, we can access ZBS iscsi storage.
+After installation is done, we can access ZBS Storage over iSCSI.
 ```bash
 # initiate discovery op to zbs-iscsi-discoverer:3260
 iscsiadm -m discovery -p 10.234.2.1:3260 -t sendtargets -I default
