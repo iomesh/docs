@@ -81,7 +81,9 @@
 mkdir -p /mnt/iomesh/hostpath
 mount /dev/&lt;formatted-partition&gt; /mnt/iomesh/hostpath
 </code></pre>
-<p>NOTE: <code>append a fstab entry to /etc/fstab to persist hostpath's mount operation</code></p>
+<blockquote>
+<p>NOTE: append a fstab entry to <code>/etc/fstab</code> to persist hostpath's mount operation</p>
+</blockquote>
 <ol start="3">
 <li>Install zbs-operator chart</li>
 </ol>
@@ -95,15 +97,16 @@ mount /dev/&lt;formatted-partition&gt; /mnt/iomesh/hostpath
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="zbs-installation"></a><a href="#zbs-installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ZBS Installation</h2>
 <h3><a class="anchor" aria-hidden="true" id="prerequisite-2"></a><a href="#prerequisite-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Prerequisite</h3>
-<ol>
-<li>three kubernetes worker node or more</li>
-<li>tow ssd (or ssd partition) or more
-per worker for ZBS journal and cache</li>
-<li>one hdd (or ssd / hdd partition) or more
-per worker for ZBS partition</li>
-<li>a data network interface per worker (at least 10Gb) for ZBS</li>
-<li>a access network interface (at least 10Gb) for ZBS per worker if it is a Disaggregated deployment</li>
-</ol>
+<ul>
+<li>Three Kubernetes worker node or more</li>
+<li>Each worker node needs
+<ul>
+<li>At least two SSDs (or partitions) , for ZBS journal and cache</li>
+<li>At least one HDD (or partitions, SSDs is also fine) , for ZBS partition</li>
+<li>A 10GbE (or better) NICs, for ZBS data network</li>
+<li>If it's a Disaggregated Deployment, another 10GbE (or better) for Access Network</li>
+</ul></li>
+</ul>
 <h3><a class="anchor" aria-hidden="true" id="get-started-1"></a><a href="#get-started-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get started</h3>
 <p>Follow the steps below to deploy a ZBS cluster.</p>
 <ol>
@@ -183,7 +186,7 @@ toolbox:</span>
 <li>ZBS needs to know which disks to used as a journal, cache or partition and which Chunk Server should own it.</li>
 </ol>
 <p>We can label some <a href="https://docs.openebs.io/docs/next/ndm.html" title="OpenEBS NDM">Blockdevices</a> so that ZBS can identify and recognize them.</p>
-<p>First, check your <a href="https://docs.openebs.io/docs/next/ndm.html" title="OpenEBS NDM">Blockdevices</a> in default namespace.</p>
+<p>First, check your <a href="https://docs.openebs.io/docs/next/ndm.html" title="OpenEBS NDM">Blockdevices</a> in all namespaces.</p>
 <pre><code class="hljs css language-bash">kubectl get bd -A
 </code></pre>
 <pre><code class="hljs css language-output">NAMESPACE       NAME                                           NODENAME          SIZE          CLAIMSTATE   STATUS   AGE
@@ -191,7 +194,7 @@ iomesh-system   blockdevice<span class="hljs-number">-7902030</span>cca1639fa50c
 iomesh-system   blockdevice<span class="hljs-number">-8</span>c6b3b463dfa243b1c786f3766b8d48f   node2   <span class="hljs-number">10736352768</span>   Unclaimed    Active   <span class="hljs-number">39</span>s
 iomesh-system   blockdevice<span class="hljs-number">-9371148e9858f</span>1b9c9c04b61105c6783   node2   <span class="hljs-number">10736352768</span>   Unclaimed    Active   <span class="hljs-number">39</span>s
 </code></pre>
-<p>Label some blockdevices for chunk.</p>
+<p>Label some Blockdevices for chunk.</p>
 <pre><code class="hljs css language-bash">kubectl label bd -n iomesh-system &lt;blockdevice-name&gt; iomesh.com/provision-for=&lt;chunk-pod-name&gt;
 kubectl label bd -n iomesh-system &lt;blockdevice-name&gt; iomesh.com/provision-type=&lt;provision-type&gt;
 </code></pre>
@@ -205,7 +208,7 @@ kubectl label bd -n iomesh-system &lt;blockdevice-name&gt; iomesh.com/provision-
 <p>For now you already have a ZBS Storage Cluster deployed.</p>
 <p>If you want to use it to create <a href="https://kubernetes.io/zh/docs/concepts/storage/persistent-volumes/">Kubernetes Persistent Volume</a>, checkout our CSI driver: <a href="http://iomesh.com/docs/zbs-csi-driver/overview">zbs-csi-driver</a>.</p>
 <h2><a class="anchor" aria-hidden="true" id="zbs-access"></a><a href="#zbs-access" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ZBS Access</h2>
-<p>In disaggregated deployment, you need to install ZBS Accesss in the compute-kubernetes to access storage-kubernetes.</p>
+<p>For a disaggregated deployment, you need to install ZBS Access in the compute-kubernetes to access storage-kubernetes.</p>
 <h3><a class="anchor" aria-hidden="true" id="zbs-access-operator-installation"></a><a href="#zbs-access-operator-installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ZBS Access Operator Installation</h3>
 <ol>
 <li>Check ZBS Access Operator chart's <code>values.yaml</code>, modify it in the way you expect.</li>
@@ -245,15 +248,15 @@ affinity:</span> {}
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="zbs-access-installation"></a><a href="#zbs-access-installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ZBS Access Installation</h3>
 <ol>
-<li>Check ZBS Access chart's values.yaml, modify it in the way you expect.</li>
+<li>Check ZBS Access chart's <code>values.yaml</code>, edit if you want.</li>
 </ol>
 <pre><code class="hljs css language-bash">helm show values iomesh/zbs-access &gt; values.yaml
 </code></pre>
-<p>ZBS Access Operator will create a zbs-access service named <code>cr.Name</code> to access storage-kubernetes's ZBS.
-There are two way to configure zbs-access service:</p>
+<p>ZBS Access Operator will create a zbs-access service named <code>cr.Name</code> to access ZBS cluster on storage-kubernetes.
+There're two way to configure zbs-access service:</p>
 <ul>
-<li><p>auto: Automatically sync zbs-access's endpoints from storage-kubernetes</p></li>
-<li><p>manual: Manually set zbs-access's endpoints</p></li>
+<li><p>auto: sync zbs-access's endpoints from storage-kubernetes automatically</p></li>
+<li><p>manual: set zbs-access's endpoints manually</p></li>
 </ul>
 <div class="tabs"><div class="nav-tabs"><div id="tab-group-14-tab-15" class="nav-link active" data-group="group_14" data-tab="tab-group-14-content-15">auto</div><div id="tab-group-14-tab-16" class="nav-link" data-group="group_14" data-tab="tab-group-14-content-16">manual</div></div><div class="tab-content"><div id="tab-group-14-content-15" class="tab-pane active" data-group="group_14" tabindex="-1"><div><span><pre><code class="hljs css language-yaml"><span class="hljs-attr">sourceService:</span><br />  <span class="hljs-attr">secret:</span><br />    <span class="hljs-comment"># storage-kubernetes kube-apiserver host</span><br />    <span class="hljs-attr">host:</span><br />    <span class="hljs-comment"># storage-kubernetes kube-apiserver ca</span><br />    <span class="hljs-attr">ca:</span><br />    <span class="hljs-comment"># storage-kubernetes service account token that has get/list/watch service/endpoint permissions</span><br />    <span class="hljs-attr">token:</span><br />  <span class="hljs-comment"># storage-kubernetes zbs access service name</span><br />  <span class="hljs-attr">name:</span><br />  <span class="hljs-comment"># storage-kubernetes zbs access service namespace</span><br />  <span class="hljs-attr">namespace:</span><br /><br /><span class="hljs-attr">iscsiDiscovery:</span><br />  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br />  <span class="hljs-attr">image:</span><br />    <span class="hljs-attr">repository:</span> <span class="hljs-string">harbor.smartx.com/zbs/iscsi-redirectord</span><br />    <span class="hljs-attr">tag:</span> <span class="hljs-string">v5.0.0-rc5</span><br />    <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br /><br /><br /><span class="hljs-attr">probe:</span><br />  <span class="hljs-attr">image:</span><br />    <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/zbs-operator</span><br />    <span class="hljs-attr">tag:</span> <span class="hljs-string">v0.1.2</span><br />    <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br /></code></pre>
 </span></div></div><div id="tab-group-14-content-16" class="tab-pane" data-group="group_14" tabindex="-1"><div><span><pre><code class="hljs css language-yaml"><span class="hljs-attr">backendEndpointSubset:</span><br />  <span class="hljs-attr">addresses:</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-comment"># zbs access network ip</span><br />  <span class="hljs-attr">ports:</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">iscsi</span><br />  <span class="hljs-comment"># iscsi portal port eg. 3260</span><br />  <span class="hljs-attr">port:</span><br />  <span class="hljs-comment"># chunk data port eg. 10201</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">chunk-data</span><br />  <span class="hljs-attr">port:</span><br />  <span class="hljs-comment"># meta-proxy port eg. 10206</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">meta-proxy</span><br />  <span class="hljs-attr">port:</span><br /><br /><span class="hljs-attr">iscsiDiscovery:</span><br />  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br />  <span class="hljs-attr">image:</span><br />    <span class="hljs-attr">repository:</span> <span class="hljs-string">harbor.smartx.com/zbs/iscsi-redirectord</span><br />    <span class="hljs-attr">tag:</span> <span class="hljs-string">v5.0.0-rc5</span><br />    <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br /><br /><span class="hljs-attr">probe:</span><br />  <span class="hljs-attr">image:</span><br />  <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/zbs-operator</span><br />  <span class="hljs-attr">tag:</span> <span class="hljs-string">v0.1.2</span><br />  <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br /></code></pre>
@@ -281,7 +284,7 @@ zbs-iscsi-discoverer<span class="hljs-number">-5</span>cdcbf8cff-x9xjr   <span c
 zbs-access             ClusterIP   <span class="hljs-number">10.111</span><span class="hljs-number">.46</span><span class="hljs-number">.72</span>   &lt;none&gt;        <span class="hljs-number">3260</span>/TCP,<span class="hljs-number">10206</span>/TCP,<span class="hljs-number">10201</span>/TCP   <span class="hljs-number">3</span>m42s
 zbs-iscsi-discoverer   ClusterIP   <span class="hljs-number">10.99</span><span class="hljs-number">.170</span><span class="hljs-number">.12</span>   &lt;none&gt;        <span class="hljs-number">3260</span>/TCP                       <span class="hljs-number">3</span>m42s
 </code></pre>
-<p>After installation, we can access ZBS iscsi storage.</p>
+<p>After installation is done, we can access ZBS Storage over iSCSI.</p>
 <pre><code class="hljs css language-bash"><span class="hljs-comment"># initiate discovery op to zbs-iscsi-discoverer:3260</span>
 iscsiadm -m discovery -p 10.234.2.1:3260 -t sendtargets -I default
 </code></pre>
