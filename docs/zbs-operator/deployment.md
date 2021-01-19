@@ -186,7 +186,7 @@ The following provision types are supported:
 
 - `journal`
 - `cache`
-- `paritition`
+- `partition`
 
 [0]: https://docs.openebs.io/docs/next/ndm.html	"OpenEBS NDM"
 
