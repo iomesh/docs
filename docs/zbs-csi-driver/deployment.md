@@ -177,13 +177,26 @@ kubectl create -f ./config/crd
    # ...
    ```
 
-4. Install Snapshot Controller
+4. Open and edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml`. Add a namespace for StatefulSet. eg. `kube-system`
+
+   Editing results are showing below.
+
+   ```yaml
+   apiVersion: v1
+   kind: ServiceAccount
+   metadata:
+     name: snapshot-controller
+     namespace: kube-system # <-- Add namespace here
+   # ...
+   ```
+
+5. Install Snapshot Controller
 
 ```shell
 kubectl apply -f ./deploy/kubernetes/snapshot-controller
 ```
 
-5. Verify snapshot-controller installation
+6. Verify snapshot-controller installation
 
 ```shell
 kubectl get sts snapshot-controller -n kube-system
