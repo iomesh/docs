@@ -1,6 +1,33 @@
 {
   "docs": {
-    "ZBS CSI Driver": ["zbs-csi-driver/overview", "zbs-csi-driver/deployment"],
-    "ZBS Operator": ["zbs-operator/overview", "zbs-operator/deployment"]
+    "Introduction": ["Introduction/intro"],
+    "Installation": [
+      "Installation/prerequisites",
+      "Installation/installiomesh",
+      "Installation/setupiomeshstorage"
+    ],
+    "Storage Operations": [
+        "Storage Operations/setupclusterstorage",
+        "Storage Operations/deployapps",
+        "Storage Operations/appops"
+    ],
+    "Operate and Maintain":[
+        "Operate and Maintain/monitor",
+        "Operate and Maintain/clusterops",
+        "Operate and Maintain/failover"
+    ],
+    "Stateful Applications":[
+        "Stateful Applications/iomeshcassandra",
+        "Stateful Applications/iomeshmongodb",
+        "Stateful Applications/iomeshmysql"
+    ],
+    "Additional Info":[
+        "Additional Info/deployarchitecture",
+        "Additional Info/performtest",
+        "Additional Info/bestpractice"
+    ],
+    "Releases":[
+        "Releases/release1.0.0"
+    ]
   }
 }
