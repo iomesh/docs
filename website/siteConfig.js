@@ -38,7 +38,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { doc: "zbs-csi-driver/overview", label: "Docs" },
+    { doc: "Introduction/intro", label: "Docs" },
     { href: "https://github.com/iomesh", label: "GitHub", external: true },
   ],
 
