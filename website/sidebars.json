@@ -1,33 +1,35 @@
 {
   "docs": {
-    "Introduction": ["Introduction/intro"],
+    "Introduction": [
+      "introduction/intro"
+    ],
     "Installation": [
-      "Installation/prerequisites",
-      "Installation/installiomesh",
-      "Installation/setupiomeshstorage"
+      "installation/prerequisites",
+      "installation/installiomesh",
+      "installation/setupiomeshstorage"
     ],
     "Storage Operations": [
-        "Storage Operations/setupclusterstorage",
-        "Storage Operations/deployapps",
-        "Storage Operations/appops"
+        "storage-operations/setupclusterstorage",
+        "storage-operations/deployapps",
+        "storage-operations/appops"
     ],
     "Operate and Maintain":[
-        "Operate and Maintain/monitor",
-        "Operate and Maintain/clusterops",
-        "Operate and Maintain/failover"
+        "operate-and-maintain/monitor",
+        "operate-and-maintain/clusterops",
+        "operate-and-maintain/failover"
     ],
     "Stateful Applications":[
-        "Stateful Applications/iomeshcassandra",
-        "Stateful Applications/iomeshmongodb",
-        "Stateful Applications/iomeshmysql"
+        "stateful-applications/iomeshcassandra",
+        "stateful-applications/iomeshmongodb",
+        "stateful-applications/iomeshmysql"
     ],
     "Additional Info":[
-        "Additional Info/deployarchitecture",
-        "Additional Info/performtest",
-        "Additional Info/bestpractice"
+        "additional-info/deployarchitecture",
+        "additional-info/performtest",
+        "additional-info/bestpractice"
     ],
     "Releases":[
-        "Releases/release1.0.0"
+        "releases/release1.0.0"
     ]
   }
 }
