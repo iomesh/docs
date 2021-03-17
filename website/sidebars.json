@@ -1,6 +1,32 @@
 {
   "docs": {
-    "ZBS CSI Driver": ["zbs-csi-driver/overview", "zbs-csi-driver/deployment"],
-    "ZBS Operator": ["zbs-operator/overview", "zbs-operator/deployment"]
+    "Introduction": [
+      "introduction/introduction"
+    ],
+    "Installation": [
+      "installation/prerequisites",
+      "installation/install-and-setup-iomesh",
+      "installation/setup-iomesh-storage"
+    ],
+    "Storage Usage": [
+        "storage-usage/setup-k8s-cluster-storage",
+        "storage-usage/deploy-apps",
+        "storage-usage/application-operations"
+    ],
+    "IOMesh Operation":[
+        "iomesh-operation/monitoring-and-alters",
+        "iomesh-operation/cluster-operations",
+        "iomesh-operation/failover"
+    ],
+    "Stateful Applications":[
+        "stateful-applications/iomesh-for-cassandra",
+        "stateful-applications/iomesh-for-mongodb",
+        "stateful-applications/iomesh-for-mysql"
+    ],
+    "Additional Info":[
+        "additional-info/deployment-architectures",
+        "additional-info/performance-testing",
+        "additional-info/best-practice-in-production"
+    ]
   }
 }
