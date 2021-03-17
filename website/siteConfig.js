@@ -38,7 +38,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { doc: "introduction/intro", label: "Docs" },
+    { href: '/docs', label: "Docs" },
     { href: "https://github.com/iomesh", label: "GitHub", external: true },
   ],
 
