@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Prerequisites · IOMesh</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Installation Requirements"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Prerequisites · IOMesh"/><meta property="og:type" content="website"/><meta property="og:url" content="http://iomesh.com/docs/"/><meta property="og:description" content="## Installation Requirements"/><meta property="og:image" content="http://iomesh.com/docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://iomesh.com/docs/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs/css/main.css"/><script src="/docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs/"><img class="logo" src="/docs/img/favicon.ico" alt="IOMesh"/><h2 class="headerTitleWithLogo">IOMesh</h2></a><a href="/docs/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs" target="_self">Docs</a></li><li class=""><a href="https://github.com/iomesh" target="_blank">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Installation</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/introduction/introduction">Introduction</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Installation</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/next/installation/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/docs/next/installation/install-and-setup-iomesh">Install and Setup IOMesh</a></li><li class="navListItem"><a class="navItem" href="/docs/next/installation/setup-iomesh-storage">Setup IOMesh Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Storage Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/storage-usage/setup-k8s-cluster-storage">Setup k8s Cluster Storage</a></li><li class="navListItem"><a class="navItem" href="/docs/next/storage-usage/deploy-apps">Deploy Apps</a></li><li class="navListItem"><a class="navItem" href="/docs/next/storage-usage/application-operations">Application Operations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh Operation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/iomesh-operation/monitoring-and-alters">Monitoring and Alerts</a></li><li class="navListItem"><a class="navItem" href="/docs/next/iomesh-operation/cluster-operations">Cluster Operations</a></li><li class="navListItem"><a class="navItem" href="/docs/next/iomesh-operation/failover">Failover</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-cassandra">IOMesh for Cassandra</a></li><li class="navListItem"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li><li class="navListItem"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Additional Info</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/additional-info/performance-testing">Performance Testing</a></li><li class="navListItem"><a class="navItem" href="/docs/next/additional-info/best-practice-in-production">Best Practice in Production</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Prerequisites</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="installation-requirements"></a><a href="#installation-requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation Requirements</h2>
+<ul>
+<li><p>Three Kubernetes worker node or more</p></li>
+<li><p>Each worker node needs</p>
+<ul>
+<li>At least two SSDs (or partitions) , for IOMesh journal and cache</li>
+<li>At least one HDD (or partitions, SSDs is also fine) , for IOMesh partition</li>
+<li>A 10GbE (or better) NICs, for IOMesh Data Network</li>
+<li>If it's a Disaggregated Deployment, another 10GbE (or better) for IOMesh Access Network</li>
+<li>100G filesystem per worker for hostpath-provisioner</li>
+</ul></li>
+<li><p>The minimum and recommended configuration for IOMesh component are as follows.</p></li>
+</ul>
+<table>
+<thead>
+<tr><th>Component</th><th>Min. Instances</th><th>Min. Requirements</th><th>Recommended Configuration</th></tr>
+</thead>
+<tbody>
+<tr><td>Meta</td><td>3</td><td>1 CPU, 1 GB RAM</td><td>2 CPU, 4 GB RAM, 10 GbE NIC, SSD</td></tr>
+<tr><td>Chunk</td><td>3</td><td>2 CPU, 1 GB RAM</td><td>4 CPU, 8 GB RAM, 10 GbE NIC, SSD or SSD + HDD</td></tr>
+<tr><td>ZK</td><td>3</td><td>1 CPU, 1 GB RAM</td><td>1 CPU, 1 GB RAM, 10 GbE NIC</td></tr>
+<tr><td>iSCSI-Redirector</td><td>3</td><td>1 CPU, 1 GB RAM</td><td>1 CPU, 1 GB RAM, 10 GbE NIC</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="setup-kubernetes-cluster"></a><a href="#setup-kubernetes-cluster" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup Kubernetes Cluster</h2>
+<h3><a class="anchor" aria-hidden="true" id="enable-kubernetes-features"></a><a href="#enable-kubernetes-features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Enable Kubernetes Features</h3>
+<p>Enable Kubernetes CSI features to ensure IOMesh CSI Driver works. After a feature is GA, some feature gates will be removed in next few versions.</p>
+<p>All CSI features are enabled by default in Kubernetes v1.17 or higher version.</p>
+<blockquote>
+<p>If you are using OpenShift 4.5 or higher, Kubernetes in OpenShift is Kubernetes v1.18 or higher, all feature are enabled by default.</p>
+</blockquote>
+<p>For more details, please check Kubernetes <strong><a href="https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates" title="Kubernetes - Feature Gates">Feature Gates</a></strong> to enable features selectively.</p>
+<table>
+<thead>
+<tr><th>Feature Gate</th><th>Default</th><th>Stage</th><th>Since</th><th>Until</th></tr>
+</thead>
+<tbody>
+<tr><td>CSINodeInfo</td><td>false</td><td>Alpha</td><td>1.12</td><td>1.13</td></tr>
+<tr><td>CSINodeInfo</td><td>true</td><td>Beta</td><td>1.14</td><td>1.16</td></tr>
+<tr><td>CSINodeInfo</td><td>true</td><td>GA</td><td>1.17</td><td>-</td></tr>
+<tr><td>CSIDriverRegistry</td><td>false</td><td>Alpha</td><td>1.12</td><td>1.13</td></tr>
+<tr><td>CSIDriverRegistry</td><td>true</td><td>Beta</td><td>1.14</td><td>1.16</td></tr>
+<tr><td>CSIDriverRegistry</td><td>true</td><td>GA</td><td>1.17</td><td>-</td></tr>
+<tr><td>VolumeSnapshotDataSource</td><td>false</td><td>Alpha</td><td>1.12</td><td>1.16</td></tr>
+<tr><td>VolumeSnapshotDataSource</td><td>true</td><td>Beta</td><td>1.17</td><td>-</td></tr>
+<tr><td>VolumePVCDataSource</td><td>false</td><td>Alpha</td><td>1.15</td><td>1.15</td></tr>
+<tr><td>VolumePVCDataSource</td><td>true</td><td>Beta</td><td>1.16</td><td>1.17</td></tr>
+<tr><td>VolumePVCDataSource</td><td>true</td><td>GA</td><td>1.18</td><td>-</td></tr>
+<tr><td>ExpandCSIVolumes</td><td>false</td><td>Alpha</td><td>1.14</td><td>1.15</td></tr>
+<tr><td>ExpandCSIVolumes</td><td>true</td><td>Beta</td><td>1.16</td><td>-</td></tr>
+<tr><td>CSIBlockVolume</td><td>false</td><td>Alpha</td><td>1.11</td><td>1.13</td></tr>
+<tr><td>CSIBlockVolume</td><td>true</td><td>Beta</td><td>1.14</td><td>1.17</td></tr>
+<tr><td>CSIBlockVolume</td><td>true</td><td>GA</td><td>1.18</td><td>-</td></tr>
+<tr><td>ExpandInUsePersistentVolumes</td><td>false</td><td>Beta</td><td>1.11</td><td>1.14</td></tr>
+<tr><td>ExpandInUsePersistentVolumes</td><td>true</td><td>Beta</td><td>1.15</td><td>-</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="configure-kubernetes-feature-gates-deployed-by-kubeadm"></a><a href="#configure-kubernetes-feature-gates-deployed-by-kubeadm" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure Kubernetes feature gates deployed by kubeadm</h4>
+<p>Different Kubernetes clusters may have different ways to configure, here we assume the cluster is deployed by <code>kubeadm</code>. If you're using other Kubernetes Deployment Tools, you should check that tools' documentation.</p>
+<ol>
+<li><p>Enable feature gates on each <code>kube-apiserver</code> instance.</p>
+<p>Open and edit <code>/etc/kubernetes/manifests/kube-apiserver.yaml</code>. The following YAML shows the result of edition.</p></li>
+</ol>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># /etc/kubernetes/manifests/kube-apiserver.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">kube-apiserver</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">command:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">kube-apiserver</span>
+    <span class="hljs-comment"># add feature-gates here</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true</span>
+    <span class="hljs-comment"># enable privileged here</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">--allow-privileged=true</span>
+</code></pre>
+<ol start="2">
+<li><p>Enable feature gates on each <code>kubelet</code> systemd service file.</p>
+<p>Open and edit <code>/usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</code></p></li>
+</ol>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span>
+<span class="hljs-comment"># <span class="hljs-doctag">Note:</span> This dropin only works with kubeadm and kubelet v1.11+</span>
+<span class="hljs-string">[Service]</span>
+<span class="hljs-comment"># --&gt; enable feature-gates here &lt;--</span>
+<span class="hljs-string">Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf</span> <span class="hljs-string">--kubeconfig=/etc/kubernetes/kubelet.conf</span> <span class="hljs-string">--feature-gates=CSINodeInfo=true,CSIDriverRegistry=true,CSIBlockVolume=true,VolumeSnapshotDataSource=true,VolumePVCDataSource=true,ExpandCSIVolumes=true,ExpandInUsePersistentVolumes=true"</span>
+<span class="hljs-string">Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"</span>
+<span class="hljs-comment"># This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically</span>
+<span class="hljs-string">EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env</span>
+<span class="hljs-comment"># This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably, the user should use</span>
+<span class="hljs-comment"># the .NodeRegistration.KubeletExtraArgs object in the configuration files instead. KUBELET_EXTRA_ARGS should be sourced from this file.</span>
+<span class="hljs-string">EnvironmentFile=-/etc/sysconfig/kubelet</span>
+<span class="hljs-string">ExecStart=</span>
+<span class="hljs-string">ExecStart=/usr/bin/kubelet</span> <span class="hljs-string">$KUBELET_KUBECONFIG_ARGS</span> <span class="hljs-string">$KUBELET_CONFIG_ARGS</span> <span class="hljs-string">$KUBELET_KUBEADM_ARGS</span> <span class="hljs-string">$KUBELET_EXTRA_ARGS</span>
+</code></pre>
+<ol start="3">
+<li>Reload systemd daemon</li>
+</ol>
+<pre><code class="hljs css language-shell">systemctl daemon-reload
+systemctl restart kubelet
+</code></pre>
+<ol start="4">
+<li>Wait until kubelet and kube-apiserver ready</li>
+</ol>
+<pre><code class="hljs css language-shell">systemctl status kubelet
+</code></pre>
+<pre><code class="hljs css language-output"><span class="hljs-string">●</span> <span class="hljs-attr">kubelet.service - kubelet:</span> <span class="hljs-string">The</span> <span class="hljs-string">Kubernetes</span> <span class="hljs-string">Node</span> <span class="hljs-string">Agent</span>
+   <span class="hljs-attr">Loaded:</span> <span class="hljs-string">loaded</span> <span class="hljs-string">(/usr/lib/systemd/system/kubelet.service;</span> <span class="hljs-string">enabled;</span> <span class="hljs-attr">vendor preset:</span> <span class="hljs-string">disabled)</span>
+  <span class="hljs-attr">Drop-In:</span> <span class="hljs-string">/usr/lib/systemd/system/kubelet.service.d</span>
+           <span class="hljs-string">└─10-kubeadm.conf</span>
+   <span class="hljs-attr">Active:</span> <span class="hljs-string">active</span> <span class="hljs-string">(running)</span> <span class="hljs-string">since</span> <span class="hljs-string">Mon</span> <span class="hljs-number">2020</span><span class="hljs-number">-09</span><span class="hljs-number">-23</span> <span class="hljs-number">14</span><span class="hljs-string">:36:18</span> <span class="hljs-string">CST;</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl wait --for=condition=Ready  pod/kube-apiserver-&lt;suffix&gt; -n kube-system
+</code></pre>
+<pre><code class="hljs css language-output">pod/kube-apiserver-<span class="hljs-tag">&lt;<span class="hljs-name">suffix</span>&gt;</span> condition met
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="deploy-snapshot-controller"></a><a href="#deploy-snapshot-controller" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploy Snapshot Controller</h3>
+<blockquote>
+<p>Only for <code>Kubernetes &gt;= v1.13.0</code> or <code>Openshift &gt;= v4.0</code></p>
+</blockquote>
+<p>Volume Snapshot Controller manages the snapshot CRDs.
+There must be <strong>only one instance</strong> of Volume Snapshot Controller running and <strong>only one set</strong> of volume snapshot CRDs installed per cluster.</p>
+<ol>
+<li>Clone <strong><a href="https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1">Kubernetes CSI external-controller</a></strong></li>
+</ol>
+<pre><code class="hljs css language-shell">curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
+unzip release-2.1.zip &amp;&amp; cd external-snapshotter-release-2.1
+</code></pre>
+<ol start="2">
+<li>Create Snapshot beta CRD</li>
+</ol>
+<pre><code class="hljs css language-shell">kubectl create -f ./config/crd
+</code></pre>
+<ol start="3">
+<li><p>Open and edit <code>deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml</code>. Add a namespace for StatefulSet. eg. <code>kube-system</code></p>
+<p>Editing results are showing below.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">StatefulSet</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">snapshot-controller</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span> <span class="hljs-comment"># &lt;-- Add namespace here</span>
+<span class="hljs-comment"># ...</span>
+</code></pre></li>
+<li><p>Open and edit <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml</code>. Add a namespace for StatefulSet. eg. <code>kube-system</code></p>
+<p>Editing results are showing below.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">snapshot-controller</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span> <span class="hljs-comment"># &lt;-- Add namespace here</span>
+<span class="hljs-comment"># ...</span>
+</code></pre></li>
+<li><p>Install Snapshot Controller</p></li>
+</ol>
+<pre><code class="hljs css language-shell">kubectl apply -f ./deploy/kubernetes/snapshot-controller
+</code></pre>
+<ol start="6">
+<li>Verify snapshot-controller installation</li>
+</ol>
+<pre><code class="hljs css language-shell">kubectl get sts snapshot-controller -n kube-system
+</code></pre>
+<pre><code class="hljs css language-output">NAME                  READY   AGE
+snapshot-controller   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     <span class="hljs-number">32</span>s
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="setup-open-iscsi"></a><a href="#setup-open-iscsi" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup open-iscsi</h2>
+<ol>
+<li>Install <code>iscsi-initiator-utils</code> on every Kubernetes Node</li>
+</ol>
+<pre><code class="hljs css language-shell">yum install iscsi-initiator-utils
+</code></pre>
+<ol start="2">
+<li>Set <code>node.startup</code> to <code>manual</code> in <code>/etc/iscsi/iscsid.conf</code></li>
+</ol>
+<pre><code class="hljs css language-shell">sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
+</code></pre>
+<ol start="3">
+<li>Disable SELinux</li>
+</ol>
+<pre><code class="hljs css language-shell">setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+</code></pre>
+<ol start="4">
+<li>Enable and start <code>iscsid</code></li>
+</ol>
+<pre><code class="hljs css language-shell">systemctl enable --now iscsid
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/introduction/introduction"><span class="arrow-prev">← </span><span>Introduction</span></a><a class="docs-next button" href="/docs/next/installation/install-and-setup-iomesh"><span>Install and Setup IOMesh</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#installation-requirements">Installation Requirements</a></li><li><a href="#setup-kubernetes-cluster">Setup Kubernetes Cluster</a><ul class="toc-headings"><li><a href="#enable-kubernetes-features">Enable Kubernetes Features</a></li><li><a href="#deploy-snapshot-controller">Deploy Snapshot Controller</a></li></ul></li><li><a href="#setup-open-iscsi">Setup open-iscsi</a></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
