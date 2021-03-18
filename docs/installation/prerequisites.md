@@ -8,20 +8,10 @@ sidebar_label: Prerequisites
 
 - Three Kubernetes worker node or more
 - Each worker node needs
-  - At least two SSDs (or partitions) , for IOMesh journal and cache
-  - At least one HDD (or partitions, SSDs is also fine) , for IOMesh partition
+  - At least two SSDs, for IOMesh journal and cache
+  - At least one HDD, for IOMesh datastore
   - A 10GbE (or better) NICs, for IOMesh Data Network
-  - If it's a Disaggregated Deployment, another 10GbE (or better) for IOMesh Access Network
   - 100G filesystem per worker for hostpath-provisioner
-
-- The minimum and recommended configuration for IOMesh component are as follows.
-
-| Component        | Min. Instances | Min. Requirements | Recommended Configuration                     |
-| ---------------- | -------------- | ----------------- | --------------------------------------------- |
-| Meta             | 3              | 1 CPU, 1 GB RAM   | 2 CPU, 4 GB RAM, 10 GbE NIC, SSD              |
-| Chunk            | 3              | 2 CPU, 1 GB RAM   | 4 CPU, 8 GB RAM, 10 GbE NIC, SSD or SSD + HDD |
-| ZK               | 3              | 1 CPU, 1 GB RAM   | 1 CPU, 1 GB RAM, 10 GbE NIC                   |
-| iSCSI-Redirector | 3              | 1 CPU, 1 GB RAM   | 1 CPU, 1 GB RAM, 10 GbE NIC                   |
 
 ## Setup Kubernetes Cluster
 
@@ -31,31 +21,7 @@ Enable Kubernetes CSI features to ensure IOMesh CSI Driver works. After a featur
 
 All CSI features are enabled by default in Kubernetes v1.17 or higher version.
 
-> If you are using OpenShift 4.5 or higher, Kubernetes in OpenShift is Kubernetes v1.18 or higher, all feature are enabled by default.
-
 For more details, please check Kubernetes **[Feature Gates][1]** to enable features selectively.
-
-| Feature Gate                 | Default | Stage | Since | Until |
-| ---------------------------- | ------- | ----- | ----- | ----- |
-| CSINodeInfo                  | false   | Alpha | 1.12  | 1.13  |
-| CSINodeInfo                  | true    | Beta  | 1.14  | 1.16  |
-| CSINodeInfo                  | true    | GA    | 1.17  | -     |
-| CSIDriverRegistry            | false   | Alpha | 1.12  | 1.13  |
-| CSIDriverRegistry            | true    | Beta  | 1.14  | 1.16  |
-| CSIDriverRegistry            | true    | GA    | 1.17  | -     |
-| VolumeSnapshotDataSource     | false   | Alpha | 1.12  | 1.16  |
-| VolumeSnapshotDataSource     | true    | Beta  | 1.17  | -     |
-| VolumePVCDataSource          | false   | Alpha | 1.15  | 1.15  |
-| VolumePVCDataSource          | true    | Beta  | 1.16  | 1.17  |
-| VolumePVCDataSource          | true    | GA    | 1.18  | -     |
-| ExpandCSIVolumes             | false   | Alpha | 1.14  | 1.15  |
-| ExpandCSIVolumes             | true    | Beta  | 1.16  | -     |
-| CSIBlockVolume               | false   | Alpha | 1.11  | 1.13  |
-| CSIBlockVolume               | true    | Beta  | 1.14  | 1.17  |
-| CSIBlockVolume               | true    | GA    | 1.18  | -     |
-| ExpandInUsePersistentVolumes | false   | Beta  | 1.11  | 1.14  |
-| ExpandInUsePersistentVolumes | true    | Beta  | 1.15  | -     |
-
 [1]: https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates "Kubernetes - Feature Gates"
 
 #### Configure Kubernetes feature gates deployed by kubeadm
@@ -135,7 +101,7 @@ pod/kube-apiserver-<suffix> condition met
 
 ### Deploy Snapshot Controller
 
-> Only for `Kubernetes >= v1.13.0` or `Openshift >= v4.0`
+> Only for `Kubernetes >= v1.13.0`
 
 Volume Snapshot Controller manages the snapshot CRDs.
 There must be **only one instance** of Volume Snapshot Controller running and **only one set** of volume snapshot CRDs installed per cluster.
@@ -196,30 +162,39 @@ NAME                  READY   AGE
 snapshot-controller   1/1     32s
 ```
 
-## Setup open-iscsi
+## Setup worker node
 
-1. Install `iscsi-initiator-utils` on every Kubernetes Node
+For each Kubernetes worker node that you want to run IOMesh, do the following setups:
+
+1. Install open-iscsi
+
+For RHEL/CentOS:
 
 ```shell
-yum install iscsi-initiator-utils
+sudo yum install iscsi-initiator-utils -y
+```
+
+For Ubuntu:
+
+```shell
+sudo apt-get install open-iscsi -y
 ```
 
 2. Set `node.startup` to `manual` in `/etc/iscsi/iscsid.conf`
 
 ```shell
-sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
+sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
 ```
 
 3. Disable SELinux
 
 ```shell
-setenforce 0
-sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+sudo setenforce 0
+suso sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 ```
 
-4. Enable and start `iscsid`
+4. Enable and start `iscsid` service
 
 ```shell
-systemctl enable --now iscsid
+sudo systemctl enable --now iscsid
 ```
-
