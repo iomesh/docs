@@ -132,7 +132,23 @@ chunk:
       selector:
         matchLabels:
           iomesh.com/bd-deviceType: disk
-          iomesh.com/bd-devicePath: dev.sda
+        matchExpressions:
+        - key: iomesh.com/bd-driverType
+          operator: In
+          values: 
+          - SSD
+          - NVME
+      exclude:
+      - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
+    dataStore:
+      selector:
+        matchExpressions:
+        - key: iomesh.com/bd-driverType
+          operator: In
+          values:
+          - HDD
+      exclude:
+      - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
   # ...
 ```
 
