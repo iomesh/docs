@@ -4,134 +4,184 @@ title: Setup IOMesh Storage
 sidebar_label: Setup IOMesh Storage
 ---
 
-## Deploy IOMesh Cluster
-
-Follow the steps below to deploy a IOMesh cluster.
-
-1. Setup data network and access network.
+## Setup data network
 
 In order not to affect the business network, IOMesh Cluster needs an independent data network for data transmission, so you need to divide an independent network segment (`dataCIDR`) for the IOMesh chunk. Every data network interface has a data ip within `dataCIDR`.
 
 If IOMesh and computing nodes are deployed separately, then you also need to divide the access network segment (`accessCIDR`) and ensure that IOMesh and computing nodes are under the same network segment.
 Every access network interface has a access ip within `accessCIDR`.
 
-2. Check IOMesh chart's `zbs-values.yaml`, modify it in the way you expect.
+1. Export default config from chart
+
+> **_NOTE_: If you already exported the config, you can skip this step.**
 
 ```bash
-helm show values iomesh/zbs > zbs-values.yaml
+helm show values iomesh/iomesh > iomesh-values.yaml
 ```
 
-```output
-# Default values for zbs
+2. Check IOMesh chart's `iomesh-values.yaml`, modify it in the way you expect.
 
-nameOverride: ""
-fullnameOverride: ""
-
-storageClass: hostpath
-reclaimPolicy:
-  volume: Delete
-  blockdevice: Delete
-
-meta:
-  replicaCount: 3
-  image:
-    repository: harbor.smartx.com/zbs/metad
-    pullPolicy: IfNotPresent
-    tag: v5.0.0-rc5
-
+```yaml
 chunk:
-  replicaCount: 1
-  dataCIDR: ""
-  accessCIDR: ""
-  image:
-    repository: harbor.smartx.com/zbs/chunkd
-    pullPolicy: IfNotPresent
-    tag: v5.0.0-rc5
-  devicemanager:
-    image:
-      repository: iomesh/zbs-operator
-      pullPolicy: IfNotPresent
-      tag: v0.1.2
-
-redirector:
-  image:
-    repository: harbor.smartx.com/zbs/iscsi-redirectord
-    pullPolicy: IfNotPresent
-    tag: v5.0.0-rc5
-
-probe:
-  image:
-    repository: iomesh/zbs-operator
-    pullPolicy: IfNotPresent
-    tag: v0.1.2
-
-toolbox:
-  image:
-    repository: iomesh/zbs-operator-toolbox
-    pullPolicy: IfNotPresent
-    tag: v0.1.2
+  dataCIDR: "172.96.1.0/24" # change to your own data network cidr
+  accessCIDR: "172.96.1.0/24" # change to your own access network cidr
 ```
 
-3. Install IOMesh chart
+3. Upgrade the IOMesh Cluster
+
+> **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 
 ```bash
-helm install --namespace <namespace> --create-namespace my-zbs iomesh/zbs -f zbs-values.yaml
+helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
-Or with install IOMesh chart with default `zbs-values.yaml`
+4. Check `my-iomesh-chunk-<num>` pods which in `CrashLoop` and remove them.
 
 ```bash
-helm install --namespace <namespace> --create-namespace my-zbs iomesh/zbs
+kubectl --namespace iomesh-system get pod
+kubectl --namespace iomesh-system delete pod <crash-chunk-pod>
 ```
 
-4. Wait for IOMesh Pods ready
+5. Wait for IOMesh Chunk pods ready
 
 ```bash
-watch kubectl get pod -n <namespace>
+watch kubectl get pod --namespace iomesh-system
 ```
 
-5. IOMesh needs to know which disks to used as a journal, cache or partition and which Chunk Server should own it.
+## Mount Device
 
-We can label some [Blockdevices][0] so that IOMesh can identify and recognize them.
+IOMesh Chunk Server need 3 kind of device for different usage
 
-First, check your [Blockdevices][0] in all namespaces.
+- cache
+- journal
+- dataStore
 
+IOMesh now use `OpenEBS/BlockDevice`  to manage the disks attached to the node. After deployed the `zbs-operator`, the `BlockDevice` will locate in the same namespace. (We use `iomesh-system` in the example)
+
+1. Get BlockDevice
 ```bash
-kubectl get bd -A
+kubectl --namespace iomesh-system -o wide get blockdevice
 ```
-
-```output
-NAMESPACE       NAME                                           NODENAME          SIZE          CLAIMSTATE   STATUS   AGE
-iomesh-system   blockdevice-7902030cca1639fa50c45d3e08521cb0   node2   10736352768   Unclaimed    Active   39s
-iomesh-system   blockdevice-8c6b3b463dfa243b1c786f3766b8d48f   node2   10736352768   Unclaimed    Active   39s
-iomesh-system   blockdevice-9371148e9858f1b9c9c04b61105c6783   node2   10736352768   Unclaimed    Active   39s
-```
-
-Label some Blockdevices for chunk.
-
+_output:_
 ```bash
-kubectl label bd -n iomesh-system <blockdevice-name> iomesh.com/provision-for=<chunk-pod-name>
-kubectl label bd -n iomesh-system <blockdevice-name> iomesh.com/provision-type=<provision-type>
+NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
+blockdevice-097b6628acdcd83a2fc6a5fc9c301e01   kind-control-plane   /dev/vdb1    ext4     107373116928   Unclaimed    Active   10m
+blockdevice-3fa2e2cb7e49bc96f4ed09209644382e   kind-control-plane   /dev/sda              9659464192     Unclaimed    Active   10m
+blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
 ```
 
-Chunk Pod name should like that: `<namespace>.<chunk-pod>`, for example `zbs.zbs-chunk-0`
-
-The following provision types are supported:
-
-- `journal`
-- `cache`
-- `partition`
-
-[0]: https://docs.openebs.io/docs/next/ndm.html	"OpenEBS NDM"
-
-For now you already have a IOMesh Storage Cluster deployed.
-
-## Setup IOMesh Cluster VIP
-
-1. Ensure that the Kubernetes cluster can connect to the IOMesh cluster over the Access Network.
-
-2. Set IOMesh Cluster VIP
+2. Check the labels of device you want to mount
 
 ```shell
-zbs-task vip set iscsi <zbs-cluster-vip>
+kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
 ```
+
+For example `blockdevice-3fa2e2cb7e49bc96f4ed09209644382e`
+
+_output:_
+```yaml
+apiVersion: openebs.io/v1alpha1
+kind: BlockDevice
+metadata:
+  annotations:
+    internal.openebs.io/uuid-scheme: gpt
+  generation: 1
+  labels:
+    iomesh.com/bd-devicePath: dev.sda
+    iomesh.com/bd-deviceType: disk
+    iomesh.com/bd-driverType: SSD
+    iomesh.com/bd-serial: 24da000347e1e4a9
+    iomesh.com/bd-vendor: SMARTX
+    kubernetes.io/hostname: kind-control-plane
+    ndm.io/blockdevice-type: blockdevice
+    ndm.io/managed: "true"
+  namespace: iomesh-system
+  name: blockdevice-3fa2e2cb7e49bc96f4ed09209644382e
+# ...
+```
+
+We can see some labels start with `iomesh.com/bd-` which fetched from `BlockDevice` 's spec.
+
+| Name | Describe |
+| --- | --- |
+| `iomesh.com/bd-devicePath` | the device path on node |
+| `iomesh.com/bd-deviceType` | disk, loop, partition etc. |
+| `iomesh.com/bd-driverType` | HDD, SSD, NVME |
+| `iomesh.com/bd-serial` | disk serial |
+| `iomesh.com/bd-vendor` | disk vendor |
+
+> **_Note_: To comply with the label rule of Kubernetes, we use dot (`.`) to replace slash (`/`) in the label value. For example, the label `iomesh.com/bd-devicePath`'s value `dev.sda` from previous result actually means `/dev/sda` on that node.**
+
+3. Export default config `iomesh-values.yaml` from Chart
+
+> **_NOTE_: If you already exported the config, you can skip this step.**
+
+```bash
+helm show values iomesh/iomesh > iomesh-values.yaml
+```
+
+4. Edit `iomesh-values.yaml`
+
+_Example:_
+```yaml
+# ...
+chunk:
+  # ...
+  deviceMap:
+    cacheWithJournal:
+      selector:
+        matchLabels:
+          iomesh.com/bd-deviceType: disk
+          iomesh.com/bd-devicePath: dev.sda
+  # ...
+```
+
+#### Mount Type
+
+There are 4 mount type support
+
+- `cacheWithJournal`: hot layer of the storage pool. **MUST** ba a re-partitionable devcie, the `devicemanager` will re-partition the device into 2 parition with ratio 90% for `cache` and 10% for `journal`, and max journal size is `10Gi`
+- `dataStore`:  cold layer of the storage pool. Can be any type of device.
+- `rawCache`: the `cache` part of the hot layer. Can be any type of device.
+- `rawJournal`: the `journal` part of the hot layer. Can be any type of device.
+
+#### deviceMap
+
+The `deviceMap` is a key-value map under `chunk` node, the key is mount type and the value is device selector.
+
+```yaml
+deviceMap:
+  <mount-type>:
+    selector:
+      matchLabels:
+        foo: bar
+      matchExpressions:
+      - key: foo
+        operator: In
+        Values:
+        - bar
+    exclude:
+    - blockdevice-demo-foo
+```
+
+device selector specification:
+
+| Name     | Type                                                         | Explain                                                      |
+| -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| selector | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | the label selector to list `BlockDevice`                     |
+| exclude  | []string                                                     | the name list of `BlockDevice` which want to exclude from previous selected objects |
+
+> **_NOTE_: selector will auto add a `kubernetes.io/hostname` selection to only select disks on the same node with Chunk Server.**
+
+
+5. Upgrade the IOMesh Cluster
+
+> **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
+
+```bash
+helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+```
+
+6. Check Disk Mounted
+
+<!--TODO-->

@@ -427,7 +427,7 @@ kubectl apply -f driver.yaml
 5. Wait for ready
 
 ```shell
-kubectl get pod -n iomesh-system
+kubectl get pod --namespace iomesh-system
 ```
 
 ```output
