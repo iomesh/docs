@@ -37,7 +37,7 @@ Follow the steps below to deploy a ZBS Operator.
 3. Check your installation and wait for zbs-operator pods all ready
 
     ```bash
-    watch kubectl get -n iomesh-system pods
+    watch kubectl get --namespace iomesh-system pods
     ```
 
 
@@ -124,8 +124,8 @@ Follow the steps below to deploy a ZBS cluster.
    Label some blockdevices for chunk.
 
    ```bash
-   kubectl label bd -n iomesh-system <blockdevice-name> zbs.iomesh.com/provision-for=<chunk-pod-name>
-   kubectl label bd -n iomesh-system <blockdevice-name> zbs.iomesh.com/provision-type=<provision-type>
+   kubectl label bd --namespace iomesh-system <blockdevice-name> zbs.iomesh.com/provision-for=<chunk-pod-name>
+   kubectl label bd --namespace iomesh-system <blockdevice-name> zbs.iomesh.com/provision-type=<provision-type>
    ```
    
    Chunk Pod name should like that: `<namespace>.<chunk-pod>`, for example `zbs.zbs-chunk-0`
