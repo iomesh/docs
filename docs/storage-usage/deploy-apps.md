@@ -14,7 +14,7 @@ The general steps are as follows:
    apiVersion: storage.k8s.io/v1
    metadata:
      name: iomesh-example-sc
-   provisioner: <driver.name> # driver.name in values.yaml when install Iomesh Cluster
+   provisioner: <driver.name> # driver.name in values.yaml when install IOMesh Cluster
    reclaimPolicy: Retain
    allowVolumeExpansion: true
    parameters:
@@ -55,7 +55,7 @@ The general steps are as follows:
    apiVersion: storage.k8s.io/v1
    metadata:
      name: iomesh-example-sc
-   provisioner: <driver.name> # driver.name in values.yaml when install Iomesh Cluster
+   provisioner: <driver.name> # driver.name in values.yaml when install IOMesh Cluster
    reclaimPolicy: Retain
    allowVolumeExpansion: true
    parameters:
