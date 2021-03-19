@@ -11,8 +11,9 @@ IOMesh Cluster support dynamicly scale or upgrade cluster component.
 ### Meta Server 
 
 IOMesh Meta Server is the place to store the meta data of the whole cluster. Include data replicas infomation, recover control etc.
+#### Scale up
 
-So highly _recommanded_ run 3 meta server in production environment on different node for HA. If you just deployed just 1 meta server before for tryout. Now you can follow the steps to scale up the meta server.
+Highly _recommanded_ run 3 meta server in production environment on different node for HA. If you just deployed just 1 meta server before for tryout. Now you can follow the steps to scale up the meta server.
 
 1. Prepare hostpath dir
 
@@ -58,6 +59,32 @@ podPolicy:
 ```
 
 5. Apply config
+
+> **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
+
+```bash
+helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+```
+
+#### Scale out
+
+1. Export default config `iomesh-values.yaml` from Chart
+
+> **_NOTE_: If you already exported the config, you can skip this step.**
+
+```bash
+helm show values iomesh/iomesh > iomesh-values.yaml
+```
+
+2. Edit `iomesh-values.yaml`, change `replicaCount` to 3
+
+Example:
+```yaml
+meta:
+  replicaCount: 1 # decrease this value to scale down meta server
+```
+
+3. Apply config
 
 > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 
