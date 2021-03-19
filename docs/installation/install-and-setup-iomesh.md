@@ -59,7 +59,7 @@ helm install --namespace iomesh-system --create-namespace my-iomesh iomesh/iomes
 watch kubectl get --namespace iomesh-system pods
 ```
 
-> **_NOTE_: `chunk` server may fall in `CrashLoop`, because it need [setup data network][2]**
+> **_NOTE_: `chunk` server may fall in `CrashLoop`. Don't worry, after you [setup data network][2]. They will be Ready**
 
 ## Customize IOMesh Cluster
 

@@ -27,7 +27,7 @@ chunk:
   accessCIDR: "172.96.1.0/24" # change to your own access network cidr
 ```
 
-3. Upgrade the IOMesh Cluster
+3. Apply the IOMesh Cluster config
 
 > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 
@@ -190,7 +190,7 @@ device selector specification:
 > **_NOTE_: selector will auto add a `kubernetes.io/hostname` selection to only select disks on the same node with Chunk Server.**
 
 
-5. Upgrade the IOMesh Cluster
+5. Apply the IOMesh Cluster config
 
 > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 

@@ -33,7 +33,7 @@ serviceMonitor:
   create: true
 ```
 
-4. Upgrade the IOMesh Cluster
+4. Apply the IOMesh Cluster config
 
 > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 

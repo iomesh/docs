@@ -57,7 +57,7 @@ podPolicy:
             - e2e-az2
 ```
 
-5. Update config
+5. Apply config
 
 > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 
@@ -66,6 +66,8 @@ helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-v
 ```
 
 ### Chunk Server
+
+#### Scale up
 
 After a new storage node was added to your cluster, you probably want to scale up the storage cluster to the new node.
 
@@ -96,7 +98,7 @@ chunk:
 
 3. Follow [mount device][1] to checkout the block devices on the new storage node can fully selected by selector.
 
-4. Upgrade the IOMesh Cluster
+4. Apply the IOMesh Cluster config
 
 > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 
@@ -113,6 +115,64 @@ watch kubectl get pod --namespace iomesh-system
 6. Check device mount successfully.
 
 <!--TODO-->
+
+#### Scale out
+
+If you want to scale out a running cluster on specific node. Follow the step below.
+
+1. Export default config `iomesh-values.yaml` from Chart
+
+> **_NOTE_: If you already exported the config, you can skip this step.**
+
+```bash
+helm show values iomesh/iomesh > iomesh-values.yaml
+```
+
+2. Edit `iomesh-values.yaml`
+
+```yaml
+chunk:
+  replicaCount: 2 # scale down the replica count number
+  podPolicy: 
+    tolerations:
+    # ...
+```
+
+3. Add taints not in previous `podPolicy.tolerantions` on the node want to scale out.
+
+```yaml
+apiVersion: v1
+kind: Node
+metadata:
+  labels:
+    iomesh.com/no-chunk: ""
+#...
+spec:
+  taints:
+  - effect: NoSchedule
+    key: iomesh.com/no-chunk
+```
+
+4. Apply the IOMesh Cluster config
+
+> **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
+
+```bash
+helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+```
+
+5. Remove the Chunk Server on the node want to scale out
+
+```
+kubectl --namespace iomesh-system get pod -o wide | grep <node-name>
+kubectl --namespace iomesh-system delete pod <pod-name>
+```
+
+4. Wait chunk server pod be removed.
+
+```bash
+watch kubectl get pod --namespace iomesh-system
+```
 
 ## Upgrade IOMesh storage cluster
 
