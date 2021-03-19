@@ -63,4 +63,4 @@ deletionPolicy: Retain
 kubectl apply -f snapshotclass.yaml
 ```
 
-The volume snapshot feature in Iomesh see [application-operations](http://iomesh.com/docs/storage-usage/application-operations)
+The volume snapshot feature in IOMesh see [application-operations](http://iomesh.com/docs/storage-usage/application-operations)

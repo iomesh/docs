@@ -6,7 +6,7 @@ sidebar_label: IOMesh for MySQL
 
 ## Prerequisites
 
-- **A running Iomesh cluster**. Refer to the [Installation](http://iomesh.com/docs/installation/install-and-setup-iomesh) page for details about how to install Iomesh.
+- **A running IOMesh cluster**. Refer to the [Installation](http://iomesh.com/docs/installation/install-and-setup-iomesh) page for details about how to install IOMesh.
 - **Kubectl**. Refer to the [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) page of the Kubernetes documentation for details about installing `kubectl`.
 
 ## Setup k8s Cluster Storage
@@ -21,7 +21,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: iomesh-mysql-sc
-provisioner: <driver.name> # driver.name in values.yaml when install Iomesh cluster
+provisioner: <driver.name> # driver.name in values.yaml when install IOMesh cluster
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:
@@ -120,4 +120,4 @@ kubectl apply -f mysql-deployment.yaml
 
 ## Operate MySQL Data
 
-User can use the feature provided by Iomesh storage to perform operations such as expansion/snapshot/rollback/clone of the pv  where MySQL data is located, see reference for details [application-operations](http://iomesh.com/docs/storage-usage/application-operations)
+User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the pv  where MySQL data is located, see reference for details [application-operations](http://iomesh.com/docs/storage-usage/application-operations)

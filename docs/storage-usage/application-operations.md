@@ -6,7 +6,7 @@ sidebar_label: Application Operations
 
 ## Volume Expansion
 
-Iomesh storage  allows volume expansion after creation, regardless of the pvc is being used or not.Let's see an example
+IOMesh storage  allows volume expansion after creation, regardless of the pvc is being used or not.Let's see an example
 
 Assume user has a pvc named example-pvc which capacity is 10Gi:
 
@@ -69,7 +69,7 @@ pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    
 
 ## Volume Snapshot & Restore
 
-Iomesh storage provide the ability to create a snapshot of a persistent volume. Snapshots can be used to capture the state of a PVC at a given point of time
+IOMesh storage provide the ability to create a snapshot of a persistent volume. Snapshots can be used to capture the state of a PVC at a given point of time
 
 ### VolumeSnapshot
 
@@ -93,7 +93,7 @@ Apply the YAML file:
 kubectl apply -f example-snapshot.yaml
 ```
 
-The VolumeSnapshot will be created, and Iomesh storage will dynamically create the VolumeSnapshotContent corresponding to the VolumeSnapshot. The VolumeSnapshotContent represents the entity of the VolumeSnapshot. The relationship between VolumeSnapshot and VolumeSnapshotContent is similar to PVC and PV. Let's check it
+The VolumeSnapshot will be created, and IOMesh storage will dynamically create the VolumeSnapshotContent corresponding to the VolumeSnapshot. The VolumeSnapshotContent represents the entity of the VolumeSnapshot. The relationship between VolumeSnapshot and VolumeSnapshotContent is similar to PVC and PV. Let's check it
 
 ```bash
 # kubectl get Volumesnapshots example-snapshot
