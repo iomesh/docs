@@ -19,7 +19,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: iomesh-mongodb-sc
-provisioner: <driver.name> # driver.name in values.yaml when install IOMesh
+provisioner: com.iomesh.csi-driver # driver.name in values.yaml when install IOMesh
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:
@@ -59,9 +59,9 @@ spec:
 
 2. Apply the yaml config:
 
-   ```bash
-   kubectl apply -f mongodb-service.yaml
-   ```
+```bash
+kubectl apply -f mongodb-service.yaml
+```
 
 ### Create MongoDB cluster use pv provided for IOMesh Storage
 

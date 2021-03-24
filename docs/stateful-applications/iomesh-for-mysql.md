@@ -21,7 +21,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: iomesh-mysql-sc
-provisioner: <driver.name> # driver.name in values.yaml when install IOMesh cluster
+provisioner: com.iomesh.csi-driver # driver.name in values.yaml when install IOMesh cluster
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:
@@ -36,37 +36,24 @@ parameters:
 kubectl apply -f iomesh-mysql-sc.yaml
 ```
 
-### Create a PVC
+## Deploy MySQL
 
-1. Create a file named `iomesh-mysql-pvc.yaml`, with the following content:
+1. Create a file named mysql-deployment.yaml, this YAML file describes a Deployment that runs MySQL and create a PVC use IOMesh storage.
 
 ```yaml
-# iomesh-mysql-pvc.yaml
+# mysql-deployment.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: iomesh-mysql-pvc
 spec:
-    storageClassName: iomesh-mysql-sc
+  storageClassName: iomesh-mysql-sc
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi
-```
-
-2. Apply the yaml config:
-
-```bash
-kubectl apply -f iomesh-mysql-pvc.yaml
-```
-
-## Deploy MySQL
-
-1. Create a file named mysql-deployment.yaml, this YAML file describes a Deployment that runs MySQL and references the PVC created above
-
-```yaml
-# mysql-deployment.yaml
+---
 apiVersion: v1
 kind: Service
 metadata:
