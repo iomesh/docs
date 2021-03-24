@@ -59,9 +59,9 @@ spec:
 
 2. Apply the yaml config:
 
-   ```bash
-   kubectl apply -f mongodb-service.yaml
-   ```
+```bash
+kubectl apply -f mongodb-service.yaml
+```
 
 ### Create MongoDB cluster use pv provided for IOMesh Storage
 
