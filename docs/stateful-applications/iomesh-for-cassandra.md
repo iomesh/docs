@@ -21,7 +21,7 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: iomesh-cassandra-sc
-provisioner: <driver.name> # driver.name in values.yaml when install IOMesh cluster
+provisioner: com.iomesh.csi-driver # driver.name in values.yaml when install IOMesh cluster
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:

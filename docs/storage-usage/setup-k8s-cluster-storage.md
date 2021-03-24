@@ -23,7 +23,7 @@ apiVersion: storage.k8s.io/v1
 metadata:
   name: iomesh-csi-driver-default
 # driver.name in values.yaml
-provisioner: <driver.name>
+provisioner: com.iomesh.csi-driver
 # Delete / Retain
 reclaimPolicy: Retain
 allowVolumeExpansion: true
