@@ -47,7 +47,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: iomesh-mysql-pvc
 spec:
-    storageClassName: iomesh-mysql-sc
+  storageClassName: iomesh-mysql-sc
   accessModes:
     - ReadWriteOnce
   resources:
