@@ -1,0 +1,486 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Monitoring and Alerts · IOMesh</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Prometheus and Grafana"/><meta name="docsearch:version" content="0.9.0"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Monitoring and Alerts · IOMesh"/><meta property="og:type" content="website"/><meta property="og:url" content="http://iomesh.com/docs/"/><meta property="og:description" content="## Prometheus and Grafana"/><meta property="og:image" content="http://iomesh.com/docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://iomesh.com/docs/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs/css/main.css"/><script src="/docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs/"><img class="logo" src="/docs/img/favicon.ico" alt="IOMesh"/><h2 class="headerTitleWithLogo">IOMesh</h2></a><a href="/docs/versions"><h3>0.9.0</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs" target="_self">Docs</a></li><li class=""><a href="https://github.com/iomesh" target="_blank">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>IOMesh Operation</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/introduction/introduction">Introduction</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Installation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/installation/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/docs/installation/install-and-setup-iomesh">Install and Setup IOMesh</a></li><li class="navListItem"><a class="navItem" href="/docs/installation/setup-iomesh-storage">Setup IOMesh Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Storage Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/storage-usage/setup-k8s-cluster-storage">Setup k8s Cluster Storage</a></li><li class="navListItem"><a class="navItem" href="/docs/storage-usage/deploy-apps">Deploy Apps</a></li><li class="navListItem"><a class="navItem" href="/docs/storage-usage/application-operations">Application Operations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh Operation</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/iomesh-operation/monitoring-and-alters">Monitoring and Alerts</a></li><li class="navListItem"><a class="navItem" href="/docs/iomesh-operation/cluster-operations">Cluster Operations</a></li><li class="navListItem"><a class="navItem" href="/docs/iomesh-operation/failover">Failover</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/stateful-applications/iomesh-for-cassandra">IOMesh for Cassandra</a></li><li class="navListItem"><a class="navItem" href="/docs/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li><li class="navListItem"><a class="navItem" href="/docs/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Additional Info</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/additional-info/performance-testing">Performance Testing</a></li><li class="navListItem"><a class="navItem" href="/docs/additional-info/best-practice-in-production">Best Practice in Production</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Monitoring and Alerts</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="prometheus-and-grafana"></a><a href="#prometheus-and-grafana" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Prometheus and Grafana</h2>
+<p>Prometheus is the most famours metrics scraching system all of the World. We supported Prometheus-format metrics endpoint in IOMesh Meta Server and IOMesh Chunk Server.</p>
+<p>We also provide a basic Grafana dashboard to visualize the system metrics.</p>
+<h2><a class="anchor" aria-hidden="true" id="installation"></a><a href="#installation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation</h2>
+<h3><a class="anchor" aria-hidden="true" id="with-prometheus-operator"></a><a href="#with-prometheus-operator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>with Prometheus Operator</h3>
+<ol>
+<li><p>Install Prometheus by <a href="https://github.com/prometheus-operator/prometheus-operator">Prometheus Operator</a></p></li>
+<li><p>Install <a href="https://grafana.com/grafana/download">Grafana</a></p></li>
+<li><p>Export default config <code>iomesh-values.yaml</code> from Chart</p></li>
+</ol>
+<blockquote>
+<p><strong><em>NOTE</em>: If you already exported the config, you can skip this step.</strong></p>
+</blockquote>
+<pre><code class="hljs css language-bash">helm show values iomesh/iomesh &gt; iomesh-values.yaml
+</code></pre>
+<ol start="4">
+<li>Edit <code>iomesh-values.yaml</code> with any text editor you using. Save it.</li>
+</ol>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">serviceMonitor:</span>
+  <span class="hljs-attr">create:</span> <span class="hljs-literal">true</span>
+</code></pre>
+<ol start="4">
+<li>Apply the IOMesh Cluster config</li>
+</ol>
+<blockquote>
+<p><strong><em>NOTE</em>: <code>my-iomesh</code> is release name, maybe you want to modify it.</strong></p>
+</blockquote>
+<pre><code class="hljs css language-bash">helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+</code></pre>
+<ol start="5">
+<li><p>Download <a href="http://www.iomesh.com/docs/assets/iomesh-operation/iomesh-dashboard.json">iomesh-dashboard.json</a></p></li>
+<li><p>Import <code>iomesh-dashboard.json</code> into Grafana</p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="with-prometheus-service-discovery"></a><a href="#with-prometheus-service-discovery" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>with Prometheus Service Discovery</h3>
+<p>Examle Config: <a href="http://www.iomesh.com/docs/assets/iomesh-operation/iomesh-prometheus-kubernetes-sd-example.yaml">iomesh-prometheus-kubernetes-sd-example.yaml</a></p>
+<h2><a class="anchor" aria-hidden="true" id="metrics"></a><a href="#metrics" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Metrics</h2>
+<h3><a class="anchor" aria-hidden="true" id="zoneio"></a><a href="#zoneio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>zone:io</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_zone_read_speed_bps</code></td><td>read speed</td></tr>
+<tr><td><code>zbs_zone_read_iops</code></td><td>read iops</td></tr>
+<tr><td><code>zbs_zone_avg_read_latency_ns</code></td><td>read latency</td></tr>
+<tr><td><code>zbs_zone_avg_read_size_bytes</code></td><td>read avg request size</td></tr>
+<tr><td><code>zbs_zone_write_speed_bps</code></td><td>write speed</td></tr>
+<tr><td><code>zbs_zone_write_iops</code></td><td>write iops</td></tr>
+<tr><td><code>zbs_zone_avg_write_latency_ns</code></td><td>write latency</td></tr>
+<tr><td><code>zbs_zone_avg_write_size_bytes</code></td><td>write avg request size</td></tr>
+<tr><td><code>zbs_zone_readwrite_speed_bps</code></td><td>read write speed</td></tr>
+<tr><td><code>zbs_zone_readwrite_iops</code></td><td>read write iops</td></tr>
+<tr><td><code>zbs_zone_avg_readwrite_latency_ns</code></td><td>read write latency</td></tr>
+<tr><td><code>zbs_zone_avg_readwrite_size_bytes</code></td><td>read write avg request size</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="zonecache"></a><a href="#zonecache" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>zone:cache</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_zone_cache_capacity_bytes</code></td><td>total cache capacity</td></tr>
+<tr><td><code>zbs_zone_read_cache_hit_ratio</code></td><td>read cache hit ratio</td></tr>
+<tr><td><code>zbs_zone_write_cache_hit_ratio</code></td><td>write cache hit ratio</td></tr>
+<tr><td><code>zbs_zone_readwrite_cache_hit_ratio</code></td><td>read write cache hit ratio</td></tr>
+<tr><td><code>zbs_zone_dirty_cache_ratio</code></td><td>dirty cache ratio</td></tr>
+<tr><td><code>zbs_zone_dirty_cache_space_bytes</code></td><td>the dirty cache space</td></tr>
+<tr><td><code>zbs_zone_valid_cache_space_bytes</code></td><td>the valid cache space</td></tr>
+<tr><td><code>zbs_zone_used_cache_space_bytes</code></td><td>the used cache space</td></tr>
+<tr><td><code>zbs_zone_failure_cache_space_bytes</code></td><td>the failure cache space</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="zonedata"></a><a href="#zonedata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>zone:data</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_zone_data_capacity_bytes</code></td><td>total data capacity</td></tr>
+<tr><td><code>zbs_zone_used_data_space_bytes</code></td><td>the used data space</td></tr>
+<tr><td><code>zbs_zone_data_space_use_rate</code></td><td>max(provisioned space, used space) / valid data space</td></tr>
+<tr><td><code>zbs_zone_valid_data_space_bytes</code></td><td>the valid data space</td></tr>
+<tr><td><code>zbs_zone_data_space_redundancy</code></td><td>data space redundancy</td></tr>
+<tr><td><code>zbs_zone_provisioned_data_space_bytes</code></td><td>the provisioned data space</td></tr>
+<tr><td><code>zbs_zone_maximum_proportion_of_rack_space</code></td><td>maximum proportion of rack space in the zone</td></tr>
+<tr><td><code>zbs_zone_failure_data_space_bytes</code></td><td>the failure data space</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="zonemigraterecover"></a><a href="#zonemigraterecover" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>zone:migrate&amp;recover</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_zone_pending_migrate_bytes</code></td><td>pending migrate</td></tr>
+<tr><td><code>zbs_zone_pending_recover_bytes</code></td><td>pending recover</td></tr>
+<tr><td><code>zbs_zone_recover_speed_bps</code></td><td>recover speed</td></tr>
+<tr><td><code>zbs_zone_migrate_speed_bps</code></td><td>migrate speed</td></tr>
+<tr><td><code>zbs_zone_recover_migrate_speed_bps</code></td><td>recover + migrate speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="zonecross-zone-stats"></a><a href="#zonecross-zone-stats" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>zone:cross zone stats</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_zone_cross_zone_data_speed_bps</code></td><td>total cross zone data transfer speed, io + recover + migrate</td></tr>
+<tr><td><code>zbs_zone_cross_zone_read_iops</code></td><td>cross zone read iops</td></tr>
+<tr><td><code>zbs_zone_cross_zone_read_speed_bps</code></td><td>cross zone read speed</td></tr>
+<tr><td><code>zbs_zone_cross_zone_write_iops</code></td><td>cross zone write iops</td></tr>
+<tr><td><code>zbs_zone_cross_zone_write_speed_bps</code></td><td>cross zone write speed</td></tr>
+<tr><td><code>zbs_zone_cross_zone_readwrite_iops</code></td><td>cross zone read write iops</td></tr>
+<tr><td><code>zbs_zone_cross_zone_readwrite_speed_bps</code></td><td>cross zone read write speed</td></tr>
+<tr><td><code>zbs_zone_cross_zone_migrate_speed_bps</code></td><td>cross zone migrate speed</td></tr>
+<tr><td><code>zbs_zone_cross_zone_recover_speed_bps</code></td><td>cross zone recover speed</td></tr>
+<tr><td><code>zbs_zone_cross_zone_recover_migrate_speed_bps</code></td><td>cross zone recover + migrate speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="storage-poolio"></a><a href="#storage-poolio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>storage pool:io</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_storage_pool_read_iops</code></td><td>read iops</td></tr>
+<tr><td><code>zbs_storage_pool_read_speed_bps</code></td><td>read speed</td></tr>
+<tr><td><code>zbs_storage_pool_avg_read_size_bytes</code></td><td>read avg request size</td></tr>
+<tr><td><code>zbs_storage_pool_avg_read_latency_ns</code></td><td>read latency</td></tr>
+<tr><td><code>zbs_storage_pool_write_iops</code></td><td>write iops</td></tr>
+<tr><td><code>zbs_storage_pool_write_speed_bps</code></td><td>write speed</td></tr>
+<tr><td><code>zbs_storage_pool_avg_write_latency_ns</code></td><td>write latency</td></tr>
+<tr><td><code>zbs_storage_pool_avg_write_size_bytes</code></td><td>write avg request size</td></tr>
+<tr><td><code>zbs_storage_pool_readwrite_iops</code></td><td>read write iops</td></tr>
+<tr><td><code>zbs_storage_pool_readwrite_speed_bps</code></td><td>read write speed</td></tr>
+<tr><td><code>zbs_storage_pool_avg_readwrite_size_bytes</code></td><td>read write avg request size</td></tr>
+<tr><td><code>zbs_storage_pool_avg_readwrite_latency_ns</code></td><td>read write latency</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="storage-poolcache"></a><a href="#storage-poolcache" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>storage pool:cache</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_storage_pool_cache_capacity_bytes</code></td><td>total cache capacity</td></tr>
+<tr><td><code>zbs_storage_pool_read_cache_hit_ratio</code></td><td>read cache hit ratio</td></tr>
+<tr><td><code>zbs_storage_pool_write_cache_hit_ratio</code></td><td>write cache hit ratio</td></tr>
+<tr><td><code>zbs_storage_pool_readwrite_cache_hit_ratio</code></td><td>read write cache hit ratio</td></tr>
+<tr><td><code>zbs_storage_pool_dirty_cache_ratio</code></td><td>dirty cache ratio</td></tr>
+<tr><td><code>zbs_storage_pool_dirty_cache_space_bytes</code></td><td>the dirty cache space</td></tr>
+<tr><td><code>zbs_storage_pool_used_cache_space_bytes</code></td><td>the used cache space</td></tr>
+<tr><td><code>zbs_storage_pool_valid_cache_space_bytes</code></td><td>the valid cache space</td></tr>
+<tr><td><code>zbs_storage_pool_failure_cache_space_bytes</code></td><td>the failure cache space</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="stoarge-pooldata"></a><a href="#stoarge-pooldata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>stoarge pool:data</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_storage_pool_data_capacity_bytes</code></td><td>total data capacity</td></tr>
+<tr><td><code>zbs_storage_pool_used_data_space_bytes</code></td><td>the used data space</td></tr>
+<tr><td><code>zbs_storage_pool_data_space_use_rate</code></td><td>max(provisioned space, used space) / valid data space</td></tr>
+<tr><td><code>zbs_storage_pool_valid_data_space_bytes</code></td><td>the valid data space</td></tr>
+<tr><td><code>zbs_storage_pool_provisioned_data_space_bytes</code></td><td>the provisioned data space</td></tr>
+<tr><td><code>zbs_storage_pool_failure_data_space_bytes</code></td><td>the failure data space</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="storage-poolmigraterecover"></a><a href="#storage-poolmigraterecover" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>storage pool:migrate&amp;recover</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_storage_pool_pending_recover_bytes</code></td><td>pending recover</td></tr>
+<tr><td><code>zbs_storage_pool_pending_migrate_bytes</code></td><td>pending migrate</td></tr>
+<tr><td><code>zbs_storage_pool_recover_speed_bps</code></td><td>recover speed</td></tr>
+<tr><td><code>zbs_storage_pool_migrate_speed_bps</code></td><td>migrate speed</td></tr>
+<tr><td><code>zbs_storage_pool_recover_migrate_speed_bps</code></td><td>recover + migrate speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="storage-poolcross-zone-stats"></a><a href="#storage-poolcross-zone-stats" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>storage pool:cross zone stats</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_storage_pool_cross_zone_data_speed_bps</code></td><td>total cross zone data transfer speed, io + recover + migrate</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_read_iops</code></td><td>cross zone read iops</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_read_speed_bps</code></td><td>cross zone read speed</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_write_iops</code></td><td>cross zone write iops</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_write_speed_bps</code></td><td>cross zone write speed</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_readwrite_iops</code></td><td>cross zone read write iops</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_readwrite_speed_bps</code></td><td>cross zone read write speed</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_recover_migrate_speed_bps</code></td><td>cross zone recover + migrate speed</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_recover_speed_bps</code></td><td>cross zone recover speed</td></tr>
+<tr><td><code>zbs_storage_pool_cross_zone_migrate_speed_bps</code></td><td>cross zone migrate speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="chunkstats"></a><a href="#chunkstats" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chunk:stats</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_use_state</code></td><td>chunk use state</td></tr>
+<tr><td><code>zbs_chunk_connect_status</code></td><td>chunk server status</td></tr>
+<tr><td><code>zbs_chunk_maintenance_mode</code></td><td>if chunk in maintenance mode</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="chunkio"></a><a href="#chunkio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chunk:io</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_read_iops</code></td><td>read iops</td></tr>
+<tr><td><code>zbs_chunk_read_speed_bps</code></td><td>read speed</td></tr>
+<tr><td><code>zbs_chunk_avg_read_size_bytes</code></td><td>read avg request size</td></tr>
+<tr><td><code>zbs_chunk_avg_read_latency_ns</code></td><td>read latency</td></tr>
+<tr><td><code>zbs_chunk_write_iops</code></td><td>write iops</td></tr>
+<tr><td><code>zbs_chunk_write_speed_bps</code></td><td>write speed</td></tr>
+<tr><td><code>zbs_chunk_avg_write_size_bytes</code></td><td>write avg request size</td></tr>
+<tr><td><code>zbs_chunk_avg_write_latency_ns</code></td><td>write latency</td></tr>
+<tr><td><code>zbs_chunk_readwrite_iops</code></td><td>read write iops</td></tr>
+<tr><td><code>zbs_chunk_readwrite_speed_bps</code></td><td>read write speed</td></tr>
+<tr><td><code>zbs_chunk_avg_readwrite_size_bytes</code></td><td>read write avg request size</td></tr>
+<tr><td><code>zbs_chunk_avg_readwrite_latency_ns</code></td><td>read write latency</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="chunkcache"></a><a href="#chunkcache" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chunk:cache</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_used_cache_space_bytes</code></td><td>the used cache space</td></tr>
+<tr><td><code>zbs_chunk_cache_capacity_bytes</code></td><td>total cache capacity</td></tr>
+<tr><td><code>zbs_chunk_read_cache_hit_ratio</code></td><td>read cache hit ratio</td></tr>
+<tr><td><code>zbs_chunk_write_cache_hit_ratio</code></td><td>write cache hit ratio</td></tr>
+<tr><td><code>zbs_chunk_readwrite_cache_hit_ratio</code></td><td>read write cache hit ratio</td></tr>
+<tr><td><code>zbs_chunk_dirty_cache_ratio</code></td><td>dirty cache ratio</td></tr>
+<tr><td><code>zbs_chunk_dirty_cache_space_bytes</code></td><td>the dirty cache space</td></tr>
+<tr><td><code>zbs_chunk_valid_cache_space_bytes</code></td><td>the valid cache space</td></tr>
+<tr><td><code>zbs_chunk_failure_cache_space_bytes</code></td><td>the failure cache space</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="chunkdata"></a><a href="#chunkdata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chunk:data</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_used_data_space_bytes</code></td><td>the used data space</td></tr>
+<tr><td><code>zbs_chunk_data_capacity_bytes</code></td><td>total data capacity</td></tr>
+<tr><td><code>zbs_chunk_provisioned_data_space_bytes</code></td><td>the provisioned data space</td></tr>
+<tr><td><code>zbs_chunk_data_space_use_rate</code></td><td>max(provisioned space, used space) / valid data space</td></tr>
+<tr><td><code>zbs_chunk_valid_data_space_bytes</code></td><td>the valid data space</td></tr>
+<tr><td><code>zbs_chunk_failure_data_space_bytes</code></td><td>the failure data space</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="chunkmigraterecover"></a><a href="#chunkmigraterecover" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chunk:migrate&amp;recover</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_pending_migrate_bytes</code></td><td>pending migrate</td></tr>
+<tr><td><code>zbs_chunk_pending_recover_bytes</code></td><td>pending recover</td></tr>
+<tr><td><code>zbs_chunk_recover_speed_bps</code></td><td>recover speed</td></tr>
+<tr><td><code>zbs_chunk_migrate_speed_bps</code></td><td>migrate speed</td></tr>
+<tr><td><code>zbs_chunk_recover_migrate_speed_bps</code></td><td>recover + migrate speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="chunkcross-zone-stats"></a><a href="#chunkcross-zone-stats" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chunk:cross zone stats</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_cross_zone_recover_migrate_speed_bps</code></td><td>cross zone recover + migrate speed</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_recover_speed_bps</code></td><td>cross zone recover speed</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_readwrite_iops</code></td><td>cross zone read write iops</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_data_speed_bps</code></td><td>total cross zone data transfer speed, io + recover + migrate</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_read_speed_bps</code></td><td>cross zone read speed</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_readwrite_speed_bps</code></td><td>cross zone read write speed</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_read_iops</code></td><td>cross zone read iops</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_write_speed_bps</code></td><td>cross zone write speed</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_write_iops</code></td><td>cross zone write iops</td></tr>
+<tr><td><code>zbs_chunk_cross_zone_migrate_speed_bps</code></td><td>cross zone migrate speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="clusterlicense"></a><a href="#clusterlicense" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster:license</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_license_maintenance_already_expire</code></td><td>if maintenance already expire</td></tr>
+<tr><td><code>zbs_cluster_license_already_expire</code></td><td>if license already expire</td></tr>
+<tr><td><code>zbs_cluster_license_expire_day</code></td><td>license expire day</td></tr>
+<tr><td><code>zbs_cluster_license_subscription_expire_day</code></td><td>subscription expire day</td></tr>
+<tr><td><code>zbs_cluster_license_capacity_rate</code></td><td>data capacity / license limit</td></tr>
+<tr><td><code>zbs_cluster_license_subscription_already_expire</code></td><td>if subscription already expire</td></tr>
+<tr><td><code>zbs_cluster_license_maintenance_expire_day</code></td><td>maintenance expire day</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="clustertopology"></a><a href="#clustertopology" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster:topology</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_rack_maximum_proportion_of_brick_space</code></td><td>maximum proportion of brick space in the rack</td></tr>
+<tr><td><code>zbs_cluster_bricks_without_topo</code></td><td>bricks which are not put in any rack</td></tr>
+<tr><td><code>zbs_cluster_chunks_without_topo</code></td><td>chunks which are not assigned to bricks</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="clusterio"></a><a href="#clusterio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster:io</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_read_iops</code></td><td>read iops</td></tr>
+<tr><td><code>zbs_cluster_readwrite_iops</code></td><td>read write iops</td></tr>
+<tr><td><code>zbs_cluster_write_iops</code></td><td>write iops</td></tr>
+<tr><td><code>zbs_cluster_read_speed_bps</code></td><td>read speed</td></tr>
+<tr><td><code>zbs_cluster_write_speed_bps</code></td><td>write speed</td></tr>
+<tr><td><code>zbs_cluster_readwrite_speed_bps</code></td><td>read write speed</td></tr>
+<tr><td><code>zbs_cluster_avg_readwrite_latency_ns</code></td><td>read write latency</td></tr>
+<tr><td><code>zbs_cluster_avg_write_latency_ns</code></td><td>write latency</td></tr>
+<tr><td><code>zbs_cluster_avg_read_latency_ns</code></td><td>read latency</td></tr>
+<tr><td><code>zbs_cluster_avg_write_size_bytes</code></td><td>write avg request size</td></tr>
+<tr><td><code>zbs_cluster_avg_read_size_bytes</code></td><td>read avg request size</td></tr>
+<tr><td><code>zbs_cluster_avg_readwrite_size_bytes</code></td><td>read write avg request size</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="clustercache"></a><a href="#clustercache" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster:cache</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_write_cache_hit_ratio</code></td><td>write cache hit ratio</td></tr>
+<tr><td><code>zbs_cluster_failure_cache_space_bytes</code></td><td>the failure cache space</td></tr>
+<tr><td><code>zbs_cluster_cache_capacity_bytes</code></td><td>total cache capacity</td></tr>
+<tr><td><code>zbs_cluster_dirty_cache_space_bytes</code></td><td>the dirty cache space</td></tr>
+<tr><td><code>zbs_cluster_readwrite_cache_hit_ratio</code></td><td>read write cache hit ratio</td></tr>
+<tr><td><code>zbs_cluster_used_cache_space_bytes</code></td><td>the used cache space</td></tr>
+<tr><td><code>zbs_cluster_valid_cache_space_bytes</code></td><td>the valid cache space</td></tr>
+<tr><td><code>zbs_cluster_dirty_cache_ratio</code></td><td>dirty cache ratio</td></tr>
+<tr><td><code>zbs_cluster_read_cache_hit_ratio</code></td><td>read cache hit ratio</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="clusterspace-size"></a><a href="#clusterspace-size" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster:space size</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_data_capacity_bytes</code></td><td>total data capacity</td></tr>
+<tr><td><code>zbs_cluster_data_space_use_rate</code></td><td>max(provisioned space, used space) / valid data space</td></tr>
+<tr><td><code>zbs_cluster_unique_logical_size_bytes</code></td><td>unique logical size</td></tr>
+<tr><td><code>zbs_cluster_shared_logical_size_bytes</code></td><td>shared logical size</td></tr>
+<tr><td><code>zbs_cluster_logical_size_bytes</code></td><td>total logical size</td></tr>
+<tr><td><code>zbs_cluster_valid_data_space_bytes</code></td><td>the valid data space</td></tr>
+<tr><td><code>zbs_cluster_used_data_space_bytes</code></td><td>the used data space</td></tr>
+<tr><td><code>zbs_cluster_failure_data_space_bytes</code></td><td>the failure data space</td></tr>
+<tr><td><code>zbs_cluster_provisioned_data_space_bytes</code></td><td>the provisioned data space</td></tr>
+<tr><td><code>zbs_cluster_chunks_unsafe_failure_space</code></td><td>chunks whose used space is larger than cluster unused space</td></tr>
+<tr><td><code>zbs_cluster_zone_space_diff_proportion</code></td><td>zone space diff quotient cluster total spaces</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="clustermigraterecover"></a><a href="#clustermigraterecover" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster:migrate&amp;recover</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_pending_migrate_bytes</code></td><td>pending migrate</td></tr>
+<tr><td><code>zbs_cluster_pending_recover_bytes</code></td><td>pending recover</td></tr>
+<tr><td><code>zbs_cluster_migrate_speed_bps</code></td><td>migrate speed</td></tr>
+<tr><td><code>zbs_cluster_recover_speed_bps</code></td><td>recover speed</td></tr>
+<tr><td><code>zbs_cluster_recover_migrate_speed_bps</code></td><td>recover + migrate speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="clustercross-zone-stats"></a><a href="#clustercross-zone-stats" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cluster:cross zone stats</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_cross_zone_data_speed_bps</code></td><td>total cross zone data transfer speed, io + recover + migrate</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_recover_migrate_speed_bps</code></td><td>cross zone recover + migrate speed</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_readwrite_speed_bps</code></td><td>cross zone read write speed</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_read_iops</code></td><td>cross zone read iops</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_write_iops</code></td><td>cross zone write iops</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_readwrite_iops</code></td><td>cross zone read write iops</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_read_speed_bps</code></td><td>cross zone read speed</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_write_speed_bps</code></td><td>cross zone write speed</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_migrate_speed_bps</code></td><td>cross zone migrate speed</td></tr>
+<tr><td><code>zbs_cluster_cross_zone_recover_speed_bps</code></td><td>cross zone recover speed</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="volumeio"></a><a href="#volumeio" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>volume:io</h3>
+<table>
+<thead>
+<tr><th>metrics name</th><th>describe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_volume_shared_logical_size_bytes</code></td><td>shared logical size</td></tr>
+<tr><td><code>zbs_volume_unique_logical_size_bytes</code></td><td>unique logical size</td></tr>
+<tr><td><code>zbs_volume_logical_size_bytes</code></td><td>total logical size</td></tr>
+<tr><td><code>zbs_volume_readwrite_latency_ns</code></td><td>readwrite_latency_ns of volume</td></tr>
+<tr><td><code>zbs_volume_readwrite_speed_bps</code></td><td>readwrite_speed_bps of volume</td></tr>
+<tr><td><code>zbs_volume_readwrite_iop30s</code></td><td>readwrite_iop30s of volume</td></tr>
+<tr><td><code>zbs_volume_write_speed_bps</code></td><td>write_speed_bps of volume</td></tr>
+<tr><td><code>zbs_volume_read_iops</code></td><td>read_iops of volume</td></tr>
+<tr><td><code>zbs_volume_readwrite_iops</code></td><td>readwrite_iops of volume</td></tr>
+<tr><td><code>zbs_volume_write_latency_ns</code></td><td>write_latency_ns of volume</td></tr>
+<tr><td><code>zbs_volume_read_speed_bps</code></td><td>read_speed_bps of volume</td></tr>
+<tr><td><code>zbs_volume_read_latency_ns</code></td><td>read_latency_ns of volume</td></tr>
+<tr><td><code>zbs_volume_write_iops</code></td><td>write_iops of volume</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/storage-usage/application-operations"><span class="arrow-prev">← </span><span>Application Operations</span></a><a class="docs-next button" href="/docs/iomesh-operation/cluster-operations"><span>Cluster Operations</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#prometheus-and-grafana">Prometheus and Grafana</a></li><li><a href="#installation">Installation</a><ul class="toc-headings"><li><a href="#with-prometheus-operator">with Prometheus Operator</a></li><li><a href="#with-prometheus-service-discovery">with Prometheus Service Discovery</a></li></ul></li><li><a href="#metrics">Metrics</a><ul class="toc-headings"><li><a href="#zoneio">zone:io</a></li><li><a href="#zonecache">zone:cache</a></li><li><a href="#zonedata">zone:data</a></li><li><a href="#zonemigraterecover">zone:migrate&amp;recover</a></li><li><a href="#zonecross-zone-stats">zone:cross zone stats</a></li><li><a href="#storage-poolio">storage pool:io</a></li><li><a href="#storage-poolcache">storage pool:cache</a></li><li><a href="#stoarge-pooldata">stoarge pool:data</a></li><li><a href="#storage-poolmigraterecover">storage pool:migrate&amp;recover</a></li><li><a href="#storage-poolcross-zone-stats">storage pool:cross zone stats</a></li><li><a href="#chunkstats">chunk:stats</a></li><li><a href="#chunkio">chunk:io</a></li><li><a href="#chunkcache">chunk:cache</a></li><li><a href="#chunkdata">chunk:data</a></li><li><a href="#chunkmigraterecover">chunk:migrate&amp;recover</a></li><li><a href="#chunkcross-zone-stats">chunk:cross zone stats</a></li><li><a href="#clusterlicense">cluster:license</a></li><li><a href="#clustertopology">cluster:topology</a></li><li><a href="#clusterio">cluster:io</a></li><li><a href="#clustercache">cluster:cache</a></li><li><a href="#clusterspace-size">cluster:space size</a></li><li><a href="#clustermigraterecover">cluster:migrate&amp;recover</a></li><li><a href="#clustercross-zone-stats">cluster:cross zone stats</a></li><li><a href="#volumeio">volume:io</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>

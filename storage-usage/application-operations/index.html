@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Application Operations · IOMesh</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Volume Expansion"/><meta name="docsearch:version" content="0.9.0"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Application Operations · IOMesh"/><meta property="og:type" content="website"/><meta property="og:url" content="http://iomesh.com/docs/"/><meta property="og:description" content="## Volume Expansion"/><meta property="og:image" content="http://iomesh.com/docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://iomesh.com/docs/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs/css/main.css"/><script src="/docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs/"><img class="logo" src="/docs/img/favicon.ico" alt="IOMesh"/><h2 class="headerTitleWithLogo">IOMesh</h2></a><a href="/docs/versions"><h3>0.9.0</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs" target="_self">Docs</a></li><li class=""><a href="https://github.com/iomesh" target="_blank">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Storage Usage</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/introduction/introduction">Introduction</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Installation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/installation/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/docs/installation/install-and-setup-iomesh">Install and Setup IOMesh</a></li><li class="navListItem"><a class="navItem" href="/docs/installation/setup-iomesh-storage">Setup IOMesh Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Storage Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/storage-usage/setup-k8s-cluster-storage">Setup k8s Cluster Storage</a></li><li class="navListItem"><a class="navItem" href="/docs/storage-usage/deploy-apps">Deploy Apps</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/storage-usage/application-operations">Application Operations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh Operation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/iomesh-operation/monitoring-and-alters">Monitoring and Alerts</a></li><li class="navListItem"><a class="navItem" href="/docs/iomesh-operation/cluster-operations">Cluster Operations</a></li><li class="navListItem"><a class="navItem" href="/docs/iomesh-operation/failover">Failover</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/stateful-applications/iomesh-for-cassandra">IOMesh for Cassandra</a></li><li class="navListItem"><a class="navItem" href="/docs/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li><li class="navListItem"><a class="navItem" href="/docs/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Additional Info</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/additional-info/performance-testing">Performance Testing</a></li><li class="navListItem"><a class="navItem" href="/docs/additional-info/best-practice-in-production">Best Practice in Production</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Application Operations</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="volume-expansion"></a><a href="#volume-expansion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Volume Expansion</h2>
+<p>IOMesh storage  allows volume expansion after creation, regardless of the pvc is being used or not.Let's see an example</p>
+<p>Assume user has a pvc named example-pvc which capacity is 10Gi:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># cat example-pvc.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">example-pvc</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-csi-driver-default</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">10Gi</span>
+</code></pre>
+<pre><code class="hljs css language-bash"><span class="hljs-comment"># kubectl get pvc example-pvc</span>
+NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS             AGE
+example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            zbs-csi-driver-default   11m
+</code></pre>
+<p>Now we need to expand this pvc to 20Gi, only needs to modify the pcv's requests size:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># cat example-pvc.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">example-pvc</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-csi-driver-default</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">20Gi</span> <span class="hljs-comment"># expand to 20Gi</span>
+</code></pre>
+<p>And then apply to kubernetes:</p>
+<pre><code class="hljs css language-bash">kubectl apply -f example-pvc.yaml
+</code></pre>
+<p>Checking the expanded result:</p>
+<pre><code class="hljs css language-bash"><span class="hljs-comment"># kubectl get pvc example-pvc</span>
+NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS             AGE
+example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            zbs-csi-driver-default   11m
+<span class="hljs-comment"># kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca</span>
+NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS            
+pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   zbs-csi-driver-default           
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="volume-snapshot--restore"></a><a href="#volume-snapshot--restore" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Volume Snapshot &amp; Restore</h2>
+<p>IOMesh storage provide the ability to create a snapshot of a persistent volume. Snapshots can be used to capture the state of a PVC at a given point of time</p>
+<h3><a class="anchor" aria-hidden="true" id="volumesnapshot"></a><a href="#volumesnapshot" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>VolumeSnapshot</h3>
+<p>A VolumeSnapshot defines a users request to snapshot a PVC. Let's see an example</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># example-snapshot.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">snapshot.storage.k8s.io/v1beta1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">VolumeSnapshot</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">example-snapshot</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">volumeSnapshotClassName:</span> <span class="hljs-string">iomesh-csi-driver-default</span>
+  <span class="hljs-attr">source:</span>
+    <span class="hljs-attr">persistentVolumeClaimName:</span> <span class="hljs-string">mongodb-data-pvc</span> <span class="hljs-comment"># user wants to snapshot the mongodb-data-pvc PVC</span>
+</code></pre>
+<p>Apply the YAML file:</p>
+<pre><code class="hljs css language-text">kubectl apply -f example-snapshot.yaml
+</code></pre>
+<p>The VolumeSnapshot will be created, and IOMesh storage will dynamically create the VolumeSnapshotContent corresponding to the VolumeSnapshot. The VolumeSnapshotContent represents the entity of the VolumeSnapshot. The relationship between VolumeSnapshot and VolumeSnapshotContent is similar to PVC and PV. Let's check it</p>
+<pre><code class="hljs css language-bash"><span class="hljs-comment"># kubectl get Volumesnapshots example-snapshot</span>
+NAME               SOURCEPVC            RESTORESIZE    SNAPSHOTCONTENT                                    CREATIONTIME
+example-snapshot   mongodb-data-pvc     6Gi            snapcontent-fb64d696-725b-4f1b-9847-c95e25b68b13   10h
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="restore"></a><a href="#restore" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Restore</h3>
+<p>User can restore volume snapshots by creating a PVC which dataSource field reference to the snapshots</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># restore.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">example-restore</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-csi-driver-default</span>
+  <span class="hljs-attr">dataSource:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">example-snapshot</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">VolumeSnapshot</span>
+    <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">snapshot.storage.k8s.io</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">6Gi</span>
+</code></pre>
+<p>Apply the YAML file:</p>
+<pre><code class="hljs css language-bash">kubectl apply -f example-restore.yaml
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="cloning"></a><a href="#cloning" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cloning</h2>
+<p>A Clone is defined as a duplicate of an existing Kubernetes Volume, users can use iomesh storage clone feature like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">cloned-pvc</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-csi-driver-default</span>
+  <span class="hljs-attr">dataSource:</span>
+    <span class="hljs-attr">name:</span> <span class="hljs-string">existing-pvc</span> <span class="hljs-comment"># an existing PVC in the same namespace</span>
+    <span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">5Gi</span>
+  <span class="hljs-attr">volumeMode:</span> <span class="hljs-string">Block</span>
+</code></pre>
+<p>The result is a new PVC with the name <code>cloned-pvc</code> that has the exact same content as the specified source <code>existed-pvc</code>.</p>
+<h5><a class="anchor" aria-hidden="true" id="users-need-to-be-aware-of-the-following-when-using-this-feature"></a><a href="#users-need-to-be-aware-of-the-following-when-using-this-feature" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Users need to be aware of the following when using this feature:</h5>
+<ol>
+<li>You can only clone a PVC when it exists in the same namespace as the destination PVC (source and destination must be in the same namespace).</li>
+<li>Cloning is only supported within the same Storage Class.
+<ul>
+<li>Destination volume must be the same storage class as the source</li>
+<li>Default storage class can be used and storageClassName omitted in the spec</li>
+</ul></li>
+<li>Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)</li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/storage-usage/deploy-apps"><span class="arrow-prev">← </span><span>Deploy Apps</span></a><a class="docs-next button" href="/docs/iomesh-operation/monitoring-and-alters"><span>Monitoring and Alerts</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#volume-expansion">Volume Expansion</a></li><li><a href="#volume-snapshot--restore">Volume Snapshot &amp; Restore</a><ul class="toc-headings"><li><a href="#volumesnapshot">VolumeSnapshot</a></li><li><a href="#restore">Restore</a></li></ul></li><li><a href="#cloning">Cloning</a></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
