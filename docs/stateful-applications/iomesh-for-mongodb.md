@@ -4,11 +4,6 @@ title: IOMesh for MongoDB
 sidebar_label: IOMesh for MongoDB
 ---
 
-## Prerequisites
-
-- **A running IOMesh cluster**. Refer to the [Installation](http://iomesh.com/docs/installation/install-and-setup-iomesh) page for details about how to install IOMesh.
-- **Kubectl**. Refer to the [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) page of the Kubernetes documentation for details about installing `kubectl`.
-
 ## Setup k8s Cluster Storage
 
 1. Create a file named `iomesh-mongodb-sc.yaml`, with the following content:

@@ -4,9 +4,9 @@ title: Setup k8s Cluster Storage
 sidebar_label: Setup k8s Cluster Storage
 ---
 
-## Setup a default StorageClass
+## Setup a StorageClass
 
-StorageClass have parameters that describe volumes belonging to the StorageClass.
+StorageClass have parameters that define IOMesh volume properties.
 
 | Parameters                | Values                        | Default | Description                        |
 | ------------------------- | ----------------------------- | ------- | ---------------------------------- |
@@ -14,14 +14,15 @@ StorageClass have parameters that describe volumes belonging to the StorageClass
 | replicaFactor             | "1", "2", "3"                 | "2"     | replica factor                     |
 | thinProvision             | "true", "false"               | "true"  | thin provision or thick provision. |
 
-> **_Note:_ Thin provision is flexible, the Persistent Volume space is allocated in IOMesh Storage only when data is written, which can improve the effective utilization of storage space and reduce costs. The Thick provision allocates all the declared space in IOMesh Storage in advance. Normally we recommend using Thin provision.**
+After IOMesh CSI driver is installed, a default StorageClass `iomesh-csi-driver-default` would be created. You may also create a new StorageClass with customized parameters.
+
 
 ```yaml
 # storageclass.yaml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: iomesh-csi-driver-default
+  name: my-iomesh-csi-driver-default
 # driver.name in values.yaml
 provisioner: com.iomesh.csi-driver
 # Delete / Retain
@@ -62,5 +63,3 @@ deletionPolicy: Retain
 ```shell
 kubectl apply -f snapshotclass.yaml
 ```
-
-The volume snapshot feature in IOMesh see [application-operations](http://iomesh.com/docs/storage-usage/application-operations)

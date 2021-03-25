@@ -1,14 +1,14 @@
 ---
-id: application-operations
-title: Application Operations
-sidebar_label: Application Operations
+id: volume-operations
+title: Volume Operations
+sidebar_label: Volume Operations
 ---
 
 ## Volume Expansion
 
-IOMesh storage  allows volume expansion after creation, regardless of the pvc is being used or not.Let's see an example
+IOMesh storage  allows volume expansion after creation, no matter whether the PVC is being used or not.
 
-Assume user has a pvc named example-pvc which capacity is 10Gi:
+Here is an example. Assume that there is a PVC named example-pvc which capacity is 10Gi:
 
 ```yaml
 # cat example-pvc.yaml
@@ -31,7 +31,7 @@ NAME          STATUS   VOLUME                                     CAPACITY    AC
 example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            zbs-csi-driver-default   11m
 ```
 
-Now we need to expand this pvc to 20Gi, only needs to modify the pcv's requests size:
+To expand this VPC to 20Gi, just modify the PVC declaration:
 
 ```yaml
 # cat example-pvc.yaml
@@ -54,26 +54,26 @@ And then apply to kubernetes:
 kubectl apply -f example-pvc.yaml
 ```
 
-Checking the expanded result:
+Then check the result:
 
 ```bash
 # kubectl get pvc example-pvc
 NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS             AGE
 example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            zbs-csi-driver-default   11m
 # kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca
-NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS            
-pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   zbs-csi-driver-default           
+NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
+pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   zbs-csi-driver-default
 ```
 
 
 
 ## Volume Snapshot & Restore
 
-IOMesh storage provide the ability to create a snapshot of a persistent volume. Snapshots can be used to capture the state of a PVC at a given point of time
+IOMesh provides the ability to create a snapshot of a persistent volume. Snapshots can be used to capture the state of a PVC at a given point of time
 
 ### VolumeSnapshot
 
-A VolumeSnapshot defines a users request to snapshot a PVC. Let's see an example
+A VolumeSnapshot defines a request to take a snapshot of the PVC. For example:
 
 ```yaml
 # example-snapshot.yaml
@@ -93,7 +93,7 @@ Apply the YAML file:
 kubectl apply -f example-snapshot.yaml
 ```
 
-The VolumeSnapshot will be created, and IOMesh storage will dynamically create the VolumeSnapshotContent corresponding to the VolumeSnapshot. The VolumeSnapshotContent represents the entity of the VolumeSnapshot. The relationship between VolumeSnapshot and VolumeSnapshotContent is similar to PVC and PV. Let's check it
+The VolumeSnapshot object will be created, and IOMesh will create the VolumeSnapshotContent corresponding to the VolumeSnapshot. The VolumeSnapshotContent represents the entity of the VolumeSnapshot. The relationship between VolumeSnapshot and VolumeSnapshotContent is similar to PVC and PV.
 
 ```bash
 # kubectl get Volumesnapshots example-snapshot
@@ -134,7 +134,7 @@ kubectl apply -f example-restore.yaml
 
 ## Cloning
 
-A Clone is defined as a duplicate of an existing Kubernetes Volume, users can use iomesh storage clone feature like any other PVC with the exception of adding a dataSource that references an existing PVC in the same namespace:
+A Clone is defined as a copy of an existing Kubernetes Volume, users can clone a volume by create a PVC while adding a dataSource that linked to an existing PVC in the same namespace:
 
 ```yaml
 apiVersion: v1
@@ -156,11 +156,10 @@ spec:
 
 The result is a new PVC with the name `cloned-pvc` that has the exact same content as the specified source `existed-pvc`.
 
-##### Users need to be aware of the following when using this feature:
+Users need to be aware of the following when using this feature:
 
 1. You can only clone a PVC when it exists in the same namespace as the destination PVC (source and destination must be in the same namespace).
 2. Cloning is only supported within the same Storage Class.
    - Destination volume must be the same storage class as the source
    - Default storage class can be used and storageClassName omitted in the spec
 3. Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)
-
