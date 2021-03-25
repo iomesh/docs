@@ -14,11 +14,11 @@ IOMesh is a distributed storage system specially designed for Kubernetes workloa
 
 ## Key Features
 
-1. High Performance
+### High Performance
    For databases, performance is one of the key determinations. IOMesh has shown excellent performance in standard benchmark tests for Kubernetes. The Read/Write Latency is stable. This means that it can provide more stable and efficient data services.
-2. No Kernel Dependencies
-   IOMesh runs entirely in the userspace. It can provide more reliable service with efficient software fault isolation. When something wrong happens, the rest applications running on the same node can continue to run instead of causing the entire system to crash. Meanwhile, it simplifies the deployment and maintenance. There is no need to install any kernel module during deployment, and no need to consider kernel version compatibility in the future.
-3. Storage Performance Tiering
+### No Kernel Dependencies
+   IOMesh runs entirely in the userspace. It can provide more reliable service with efficient software fault isolation. When something wrong happens, the rest applications running on the same node can continue to run instead of causing the entire system to crash. Meanwhile, it simplifies the deployment and maintenance. There is no need to install any kernel module during deployment, and no need to consider kernel version compatibility.
+### Storage Performance Tiering
    IOMesh supports flexible deployment of hybrid disks including NVMe SSD, SATA SSD, HDD. This can help users make the most of their storage investment, maximizing the storage performance while controlling costs to a certain extent.
 
 ## Architecture
@@ -29,4 +29,4 @@ IOMesh is a distributed storage system specially designed for Kubernetes workloa
 
 | IOMesh Version | Kubernetes Version |
 | -------------- | ------------------ |
-| v0.1.0         | v1.17 or higher    |
+| v0.9.0         | v1.17 or higher    |

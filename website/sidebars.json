@@ -11,22 +11,19 @@
     "Storage Usage": [
         "storage-usage/setup-k8s-cluster-storage",
         "storage-usage/deploy-apps",
-        "storage-usage/application-operations"
+        "storage-usage/volume-operations"
     ],
     "IOMesh Operation":[
-        "iomesh-operation/monitoring-and-alters",
-        "iomesh-operation/cluster-operations",
-        "iomesh-operation/failover"
+        "iomesh-operation/monitoring",
+        "iomesh-operation/cluster-operations"
     ],
     "Stateful Applications":[
+        "stateful-applications/iomesh-for-mysql",
         "stateful-applications/iomesh-for-cassandra",
-        "stateful-applications/iomesh-for-mongodb",
-        "stateful-applications/iomesh-for-mysql"
+        "stateful-applications/iomesh-for-mongodb"
     ],
     "Additional Info":[
-        "additional-info/deployment-architectures",
-        "additional-info/performance-testing",
-        "additional-info/best-practice-in-production"
+        "additional-info/performance-testing"
     ]
   }
 }

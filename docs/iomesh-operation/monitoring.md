@@ -1,55 +1,39 @@
 ---
-id: monitoring-and-alters
-title: Monitoring and Alerts
-sidebar_label: Monitoring and Alerts
+id: monitoring
+title: Monitoring
+sidebar_label: Monitoring
 ---
 
-## Prometheus and Grafana
+IOMesh cluster can be monitored by Prometheus and Grafana.
 
-Prometheus is the most famours metrics scraching system all of the World. We supported Prometheus-format metrics endpoint in IOMesh Meta Server and IOMesh Chunk Server.
+## Integrating with Prometheus
 
-We also provide a basic Grafana dashboard to visualize the system metrics.
-
-## Installation
-
-###  with Prometheus Operator
-
-1. Install Prometheus by [Prometheus Operator][1]
-
-2. Install [Grafana][2]
-
-2. Export default config `iomesh-values.yaml` from Chart
-
-> **_NOTE_: If you already exported the config, you can skip this step.**
-
-```bash
-helm show values iomesh/iomesh > iomesh-values.yaml
-```
-
-4. Edit `iomesh-values.yaml` with any text editor you using. Save it.
+If Prometheus is installed by [Prometheus Operator][1]. Just modify `iomesh-values.yaml` with:
 
 ```yaml
 serviceMonitor:
   create: true
 ```
 
-4. Apply the IOMesh Cluster config
+Then upgrade the installed IOMesh Cluster:
 
-> **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
+> **_NOTE_: replace `my-iomesh` with your release name.**
 
 ```bash
 helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
-5. Download [iomesh-dashboard.json][3]
+The exporter will be created and metric data would be collected by Prometheus automatically.
 
-6. Import `iomesh-dashboard.json` into Grafana
+It is also possible to config Prometheus mannually by importing [iomesh-prometheus-kubernetes-sd-example.yaml][4]
 
-### with Prometheus Service Discovery
+## Integrating with Grafana
 
-Examle Config: [iomesh-prometheus-kubernetes-sd-example.yaml][4]
+Download and import [iomesh-dashboard.json][3] to any installed Grafana.
 
-## Metrics
+## Whole Metrics
+
+The whole metrics are shown below:
 
 ### zone:io
 

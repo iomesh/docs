@@ -6,8 +6,6 @@ sidebar_label: Performance Testing
 
 ## FIO-based Performance Testing
 
-### Steps
-
 1. Install fio testing pod
 
 ```shell
