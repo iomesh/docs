@@ -8,7 +8,7 @@ sidebar_label: Deploy Apps
 
 The general steps of deploying Deployment with persistent volumes are shown below:
 
-1. Create the StorageClass with `iomesh-example-sc` as `name`, along with the file system type, number of replicas, and thin-provision mode. For example:
+1. Create a StorageClass with `iomesh-example-sc` as `name`, along with the file system type, number of replicas, and thin-provision mode. For example:
 
    ```yaml
    kind: StorageClass
@@ -24,7 +24,7 @@ The general steps of deploying Deployment with persistent volumes are shown belo
      thinProvision: "true"
    ```
 
-2. Create PVC with `iomesh-example-sc` as `storageClassName`
+2. Create a PVC with `iomesh-example-sc` as `storageClassName`
 
    ```yaml
    # iomesh-mysql-pvc.yaml

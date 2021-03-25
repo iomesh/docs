@@ -6,7 +6,7 @@ sidebar_label: Cluster Operations
 
 IOMesh Cluster can be scaled and upgraded without interrupting the online services.
 
-## Scaling IOMesh storage cluster
+## Scale IOMesh storage cluster
 
 ### Meta Server
 
@@ -66,11 +66,9 @@ helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-v
 
 ## Upgrade IOMesh storage cluster
 
-IOMesh Storage Cluster keepin release new feature and bugfix.
+Follow the steps below to upgrade the IOMesh once a new version is released.
 
-Follow the step below to upgrade the IOMesh
-
-> **_NOTE_: If you only have 1 replicas of meta server or chunk server, the upgrade process will never start.**
+> **_NOTE_: If you only have 1 replica of meta server or chunk server, the upgrade process will never start.**
 
 1. Export default config `iomesh-values.yaml` from Chart
 
@@ -95,7 +93,7 @@ version: v5.0.0-rc5
 helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
-4. Wait new chunk server pod ready.
+4. Wait new chunk server pod gets ready.
 
 ```bash
 watch kubectl get pod --namespace iomesh-system
@@ -103,11 +101,11 @@ watch kubectl get pod --namespace iomesh-system
 
 ## Uninstallation IOMesh storage cluster
 
-> **_/!\ Attention_: Uninstall IOMesh storage cluster will lost all the data stored in IOMesh storage cluster. Including PVCs created with IOMesh StorageClass.**
+> **_/!\ Attention_: All data will be lost after you uninstall a IOMesh storage cluster, including PVCs created with IOMesh StorageClass.**
 
-Uninstallation IOMesh storage cluster
+Run the below command to unistall a IOMesh cluster.
 
-> **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
+> **_NOTE_: You may replace `my-iomesh` with your own name.**
 
 ```bash
 helm uninstall --namespace iomesh-system my-iomesh

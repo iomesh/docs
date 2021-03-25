@@ -6,7 +6,7 @@ sidebar_label: IOMesh for MongoDB
 
 ## Setup k8s Cluster Storage
 
-1. Create a file named `iomesh-mongodb-sc.yaml`, with the following content:
+1. Create a file named `iomesh-mongodb-sc.yaml` with the following content:
 
 ```yaml
 # iomesh-mongodb-sc.yaml
@@ -60,7 +60,7 @@ kubectl apply -f mongodb-service.yaml
 
 ### Create MongoDB cluster use pv provided for IOMesh Storage
 
-1. Using a statefulset to create a MongoDB cluster
+1. Use StatefulSet to create a MongoDB cluster
 
 ```yaml
 # mongodb-statefulset.yaml
@@ -118,7 +118,7 @@ spec:
 kubectl apply -f mongodb-statefulset.yaml
 ```
 
-IOMesh Storage will create Persistent Volumes for each MongoDB pod，whose file system is ext4, replica factor is 2 and thin provisioned.
+IOMesh Storage will create Persistent Volumes for each cassandra pod. These volumes use the ext4 file system with a replica factor of 2 and are thin provisioned.
 
 ## Operate MongoDB Data
 

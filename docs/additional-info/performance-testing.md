@@ -6,13 +6,13 @@ sidebar_label: Performance Testing
 
 ## FIO-based Performance Testing
 
-1. Install fio testing pod
+1. Create a pod for fio test
 
 ```shell
 kubectl apply -f http://www.iomesh.com/docs/assets/zbs-csi-driver/example/fio.yaml
 ```
 
-2. Wait until fio-pvc bound and fio pod ready
+2. Wait until fio-pvc bound is finished and fio pod is ready
 
 ```shell
 kubectl get pvc fio-pvc
@@ -31,7 +31,7 @@ kubectl wait --for=condition=Ready pod/fio
 pod/fio condition met
 ```
 
-3. Run fio
+3. Run fio tests
 
 ```shell
 kubectl exec -it fio sh
