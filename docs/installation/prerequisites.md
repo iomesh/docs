@@ -13,6 +13,10 @@ sidebar_label: Prerequisites
   - A 10GbE (or better) NICs, for IOMesh Data Network
   - 100G filesystem per worker for hostpath-provisioner
 
+> __Note__: Since IOMesh relies on some image from __docker.io__, __gcr.io__, __quay.io__, etc.
+> If it is the first time to install IOMesh, your network environment **MUST**
+> be able to access these registry.
+
 ## Setup Kubernetes Cluster
 
 ### Enable Kubernetes Features
