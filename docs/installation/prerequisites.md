@@ -10,8 +10,8 @@ sidebar_label: Prerequisites
 - Each worker node needs
   - At least one idle SSD, for IOMesh journal and cache
   - At least one idle HDD, for IOMesh datastore
-  - A 10GbE (or better) NICs, for IOMesh data network connectivity
-  - 100G available filesystem space per worker for hostpath-provisioner
+  - A 10GbE (or higher) NICs, for IOMesh data network connectivity
+  - 100G disk space per worker for hostpath-provisioner
 
 ## Setup worker node
 
@@ -54,7 +54,7 @@ sudo systemctl enable --now iscsid
 
 ### Setup local metadata store
 
-IOMesh uses local path `/opt/iomesh` for storing local metadata. User must ensure `/opt` have at least 100G free space.
+IOMesh uses local path `/opt/iomesh` to store metadata. User must ensure that there is at least 100G free space at `/opt`.
 
 ### Setup data network
 

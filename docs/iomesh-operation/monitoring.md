@@ -15,9 +15,9 @@ serviceMonitor:
   create: true
 ```
 
-Then upgrade the installed IOMesh Cluster:
+Then upgrade the existing IOMesh Cluster:
 
-> **_NOTE_: replace `my-iomesh` with your release name.**
+> **_NOTE_: You may replace `my-iomesh` with your release name.**
 
 ```bash
 helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
@@ -29,11 +29,11 @@ It is also possible to config Prometheus mannually by importing [iomesh-promethe
 
 ## Integrating with Grafana
 
-Download and import [iomesh-dashboard.json][3] to any installed Grafana.
+Download and import [iomesh-dashboard.json][3] to any existing Grafana.
 
 ## Whole Metrics
 
-The whole metrics are shown below:
+All metrics are as follows:
 
 ### zone:io
 

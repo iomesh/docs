@@ -8,7 +8,7 @@ sidebar_label: IOMesh for Cassandra
 
 ### Create a StorageClass
 
-1. Create a file named `iomesh-cassandra-sc.yaml`, with the following content:
+1. Create a file named `iomesh-cassandra-sc.yaml` with the following content:
 
 ```yaml
 # iomesh-cassandra-sc.yaml
@@ -61,7 +61,7 @@ kubectl apply -f cassandra-service.yaml
 
 ### Create Cassandra cluster use pv provided for IOMesh Storage
 
-1. Using a statefulset to create a cassandra cluster
+1. Use StatefulSet to create a cassandra cluster
 
 ```yaml
 # cassandra-statefulset.yaml
@@ -159,7 +159,7 @@ spec:
 kubectl apply -f cassandra-statefulset.yaml
 ```
 
-IOMesh Storage will create Persistent Volumes for each cassandra pod，whose file system is ext4, replica factor is 2 and thin provisioned.
+IOMesh Storage will create Persistent Volumes for each cassandra pod. These volumes use the ext4 file system with a replica factor of 2 and are thin provisioned.
 
 ## Operate Cassandra Data
 

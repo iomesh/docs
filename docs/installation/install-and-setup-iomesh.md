@@ -6,7 +6,7 @@ sidebar_label: Install and Setup IOMesh
 
 ## Quick Installation Guide
 
-Installation script varies for different OS distributions.
+Choose the right script to execute according to your OS distribution.
 
 > **_NOTE_: Helm3 would be installed automatically if it is not founded.**
 
@@ -27,7 +27,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://raw.githubusercontent.c
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Then wait until all IOMesh Cluster pods ready.
+Then wait until all IOMesh Cluster pods get ready.
 
 ```shell
 watch kubectl get --namespace iomesh-system pods
@@ -85,7 +85,7 @@ kubectl create -f ./config/crd
 kubectl apply -f ./deploy/kubernetes/snapshot-controller
 ```
 
-6. Verify snapshot-controller installation
+6. Verify the status of snapshot-controller installation
 
 ```shell
 kubectl get sts snapshot-controller -n kube-system
@@ -98,7 +98,7 @@ snapshot-controller   1/1     32s
 
 ### Install Helm3
 
-Skip this step if Helm3 is already installed.
+Note: You may skip this step if Helm3 is already installed.
 
 ```shell
 $ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -135,7 +135,7 @@ helm install my-iomesh-operator iomesh/operator \
 	       	--wait
 ```
 
-4. Wait until IOMesh Operator ready
+4. Wait until IOMesh Operator gets ready
 
 ```shell
 watch kubectl get --namespace iomesh-system pods
@@ -168,7 +168,7 @@ helm install my-iomesh iomesh/iomesh \
     --wait
 ```
 
-4. Wait until IOMesh Cluster pod ready.
+4. Wait until IOMesh Cluster pod gets ready.
 
 ```
 watch kubectl get --namespace iomesh-system pods
@@ -205,7 +205,7 @@ helm install my-iomesh-csi-driver iomesh/csi-driver \
     --wait
 ```
 
-4. Wait until IOMesh Cluster pod ready.
+4. Wait until IOMesh Cluster pod gets ready.
 
 ```
 watch kubectl get --namespace iomesh-system pods
