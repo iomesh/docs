@@ -130,7 +130,6 @@ install_iomesh_operator() {
 	helm install ${IOMESH_OPERATOR_RELEASE} ${IOMESH_OPERATOR_CHART} \
 	       	--namespace ${IOMESH_OPERATOR_NAMESPACE} \
 	       	--create-namespace \
-	       	--set hostpath-provisioner.pvDir=/mnt/iomesh/hostpath \
 	       	--wait 2> /dev/null
 	if [[ $? -ne 0 ]] ; then
 		error "fail to install IOMesh operator."

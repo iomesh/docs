@@ -32,10 +32,10 @@ readonly IOMESH_CSI_CHART="iomesh/csi-driver"
 readonly IOMESH_CSI_RELEASE="csi-driver"
 readonly MOUNT_ISCSI_LOCK="false"
 
-readonly ZK_REPLICAS=3
-readonly META_REPLICAS=3
-readonly CHUNK_REPLICAS=3
-readonly CSI_CONTROLLER_REPLICAS=3
+readonly ZK_REPLICAS=1
+readonly META_REPLICAS=1
+readonly CHUNK_REPLICAS=1
+readonly CSI_CONTROLLER_REPLICAS=1
 
 HAS_HELM="$(type "helm" &> /dev/null && echo true || echo false)"
 HAS_KUBECTL="$(type "kubectl" &> /dev/null && echo true || echo false)"
@@ -130,7 +130,6 @@ install_iomesh_operator() {
 	helm install ${IOMESH_OPERATOR_RELEASE} ${IOMESH_OPERATOR_CHART} \
 	       	--namespace ${IOMESH_OPERATOR_NAMESPACE} \
 	       	--create-namespace \
-	       	--set hostpath-provisioner.pvDir=/mnt/iomesh/hostpath \
 	       	--wait 2> /dev/null
 	if [[ $? -ne 0 ]] ; then
 		error "fail to install IOMesh operator."
