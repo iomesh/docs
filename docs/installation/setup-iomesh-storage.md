@@ -6,12 +6,11 @@ sidebar_label: Setup IOMesh Storage
 
 Block devices on worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize them to construct and provide distributed storage service.
 
-## Mount Block Devices
+By default, IOMesh doesn't mount any block devices. Users have to configure it manullay.
 
-IOMesh Chunk Server need 2 kinds of block device for different usages:
+## Mounting Block Devices
 
-- SSD for journals and caches
-- HDD for dataStores
+### Block Device Object
 
 IOMesh uses `OpenEBS/BlockDevice` to manage disks attached to Kubernetes worker nodes. After `zbs-operator` is deployed, `BlockDevice` CRs will be appeared in the same namespace with IOMesh cluster.
 
@@ -27,7 +26,7 @@ blockdevice-3fa2e2cb7e49bc96f4ed09209644382e   kind-control-plane   /dev/sda    
 blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
 ```
 
-Using following commands for showing details of devices:
+Using following commands for showing details of a device:
 
 ```shell
 kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
@@ -47,7 +46,7 @@ metadata:
     iomesh.com/bd-deviceType: disk
     iomesh.com/bd-driverType: SSD
     iomesh.com/bd-serial: 24da000347e1e4a9
-    iomesh.com/bd-vendor: SMARTX
+    iomesh.com/bd-vendor: ATA
     kubernetes.io/hostname: kind-control-plane
     ndm.io/blockdevice-type: blockdevice
     ndm.io/managed: "true"
@@ -66,7 +65,9 @@ Labels started with `iomesh.com/bd-` are created by IOMesh to indicate hardware 
 | `iomesh.com/bd-serial` | disk serial |
 | `iomesh.com/bd-vendor` | disk vendor |
 
-`chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block devices should be mounted to IOMesh cluster and how they should be mounted.
+### Device Map
+
+`chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block devices should be mounted to IOMesh cluster and how they are mounted.
 
 ```yaml
 chunk:
@@ -84,23 +85,27 @@ chunk:
       - blockdevice-demo-foo
 ```
 
-### Mount Type
+#### Mount Type
 
 IOMesh now provides 2 mount types:
 
-- `cacheWithJournal`: performance tier of storage pool. **MUST** ba a partitionable devcie. IOMesh will partition the device into 2 paritions 20 GiB for `journal` and the rest for `cache`.
-- `dataStore`:  capacity tier of storage pool. Can be any type of device.
+- `cacheWithJournal`: performance tier of storage pool. It **MUST** ba a partitionable devcie. IOMesh will partition the device into 2 paritions: 20 GiB for `journal` and the rest for `cache`. `SSD` or `NVMe` is recommanded to use here.
+- `dataStore`:  capacity tier of storage pool. `HDD` is recommaned here.
+
+#### Device Selector
 
 Device selector is defined by:
 
 | Name     | Type                                                         | Explain                                                      |
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| selector | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | the label selector to list `BlockDevice`                     |
-| exclude  | []string                                                     | the name list of `BlockDevice` which want to exclude from previous selected objects |
+| selector | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | label selector to list `BlockDevice`                     |
+| exclude  | []string                                                     | name list of `BlockDevice` which will be excluded from mounting |
 
-> **_NOTE_: selector will auto add a `kubernetes.io/hostname` selection to only select disks on the same node with Chunk Server.**
+All block devices selected by device selector will be mounted to IOMesh with the corresponding mount type.
 
-Here is an example configuration:
+#### Example
+
+Here is a full example of `deviceMap` configuration:
 ```yaml
 # ...
 chunk:
@@ -115,7 +120,6 @@ chunk:
           operator: In
           values:
           - SSD
-          - NVME
       exclude:
       - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
     dataStore:

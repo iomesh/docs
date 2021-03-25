@@ -15,15 +15,15 @@ Installation script varies for different OS distributions.
 <!--RHEL7/CentOS7-->
 
 ```shell
-export IOMESH_DATA_CIDR=10.234.1.0/24 # Every node running IOMesh must have an IP address belongs to this CIDR
-curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el7.sh | sh -
+# Every node running IOMesh must have an IP address belongs to IOMESH_DATA_CIDR
+export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el7.sh | sh -
 ```
 
 <!--RHEL8/CentOS8/CoreOS-->
 
 ```shell
-export IOMESH_DATA_CIDR=10.234.1.0/24 # Every node running IOMesh must have an IP address belongs to this CIDR
-curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el8.sh | sh -
+# Every node running IOMesh must have an IP address belongs to IOMESH_DATA_CIDR
+export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el8.sh | sh -
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
@@ -33,29 +33,31 @@ Then wait until all IOMesh Cluster pods ready.
 watch kubectl get --namespace iomesh-system pods
 ```
 
+Now IOMesh has been installed successfully!
+
 ## Customized Installation Guide
 
 This is the sophisticated installtion guide for customized configurations.
 
 ### Deploy Snapshot Controller
 
-Snapshot Controller manages the snapshot CRDs.
-There must be **only one instance** of Snapshot Controller running and **only one set** of volume snapshot CRDs installed per cluster.
+Install Snapshot Controller for creating snapshot of volumes.
+There should be **only one instance** of Snapshot Controller running in the Kubernetes cluster.
 
-1. Download and extract **[Kubernetes CSI external-controller](https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1)**
+1. Download and extract **[Kubernetes CSI external-snapshotter](https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1)**
 
 ```shell
 curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
 unzip release-2.1.zip && cd external-snapshotter-release-2.1
 ```
 
-2. Create Snapshot beta CRD
+2. Create Snapshot CRD
 
 ```shell
 kubectl create -f ./config/crd
 ```
 
-3. Modify `deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml` by adding a namespace for StatefulSet, eg. `kube-system`.
+3. Modify `deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml` by adding a namespace, eg. `kube-system`.
 
    ```yaml
    kind: StatefulSet
@@ -66,7 +68,7 @@ kubectl create -f ./config/crd
    # ...
    ```
 
-4. Modify `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace for StatefulSet. eg. `kube-system`
+4. Modify `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace. eg. `kube-system`
 
    ```yaml
    apiVersion: v1
@@ -107,7 +109,7 @@ $ ./get_helm.sh
 Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)** for more details.
 
 
-### Setup Helm repo
+### Setup Helm Repo
 
 ```shell
 helm repo add iomesh http://iomesh.com/charts
