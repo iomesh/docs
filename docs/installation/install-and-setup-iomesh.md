@@ -31,10 +31,23 @@ Follow the steps below to install a IOMesh Cluster.
 
 > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 
+Please choose your **node** OS:
+<!--DOCUSAURUS_CODE_TABS-->
+
+<!--RHEL7/CentOS7-->
+
 ```bash
 export IOMESH_DATA_CIDR=10.234.1.0/24 # data network CIDR
-curl -sSL https://iomesh.run/install-iomesh.sh | sh -
+curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -
 ```
+
+<!--RHEL8/CentOS8/CoreOS-->
+
+```bash
+export IOMESH_DATA_CIDR=10.234.1.0/24 # data network CIDR
+curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -
+```
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 2. Check your installation and wait for IOMesh Cluster pods all ready
 
