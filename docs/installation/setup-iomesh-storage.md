@@ -8,9 +8,6 @@ sidebar_label: Setup IOMesh Storage
 
 In order not to affect the business network, IOMesh Cluster needs an independent data network for data transmission, so you need to divide an independent network segment (`dataCIDR`) for the IOMesh chunk. Every data network interface has a data ip within `dataCIDR`.
 
-If IOMesh and computing nodes are deployed separately, then you also need to divide the access network segment (`accessCIDR`) and ensure that IOMesh and computing nodes are under the same network segment.
-Every access network interface has a access ip within `accessCIDR`.
-
 1. Export default config from chart
 
 > **_NOTE_: If you already exported the config, you can skip this step.**
@@ -23,8 +20,7 @@ helm show values iomesh/iomesh > iomesh-values.yaml
 
 ```yaml
 chunk:
-  dataCIDR: "172.96.1.0/24" # change to your own data network cidr
-  accessCIDR: "172.96.1.0/24" # change to your own access network cidr
+  dataCIDR: "10.234.1.0/24" # change to your own data network cidr
 ```
 
 3. Apply the IOMesh Cluster config
