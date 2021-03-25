@@ -148,7 +148,7 @@ install_iomesh() {
 	       	--create-namespace \
 	       	--set chunk.dataCIDR="${IOMESH_DATA_CIDR}" \
 	       	--set meta.replicaCount="${META_REPLICAS}" \
-	       	--set zookeeper.replicas="${ZK_REPLICAS}" 2> /dev/null
+	       	--set zookeeper.replicas="${ZK_REPLICAS}" > /dev/null
 	if [[ $? -ne 0 ]] ; then
 		error "fail to install IOMesh."
 	fi
