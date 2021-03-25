@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-# Copyright (C) 2013-2021 SmartX
+# Copyright (C) 2021 IOMesh
 # All rights reserved.
 
 # install_iomesh.sh: install iomesh in your kubernetes cluster
 
 # You must be prepared as follows before run install_iomesh.sh:
 #
-# 1. IOMESH_DATA_CIDR MUST be set as environment variable, According to the 
+# 1. IOMESH_DATA_CIDR MUST be set as environment variable, According to the
 #    network environment of your k8s cluster, for an example:
 #
 #        export IOMESH_DATA_CIDR=192.168.1.0/20
 #
-#    See more detail about IOMESH_DATA_CIDR in http://iomesh.com/docs/next/installation/setup-iomesh-storage 
-# 
+#    See more detail about IOMESH_DATA_CIDR in http://iomesh.com/docs/next/installation/setup-iomesh-storage
+#
 # 2. Since IOMesh relies on some mirrors from docker.io, gcr.io, quay.io, etc.
-#    if it is the first time to install IOMesh, your network environment MUST 
+#    if it is the first time to install IOMesh, your network environment MUST
 #    be able to access these websites quickly
 #
 
@@ -68,7 +68,7 @@ install_snapshot_controller() {
 
 	if ! curl -LOs https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip ; then
 		error "fail to external-snapshotter, please confirm whether the connection to github.com is ok?"
-	fi	
+	fi
 	unzip release-2.1.zip &> /dev/null
 	kubectl create -f external-snapshotter-release-2.1/config/crd
 	kubectl apply -f external-snapshotter-release-2.1/deploy/kubernetes/snapshot-controller -n kube-system
@@ -91,7 +91,7 @@ install_helm() {
 	info "start install helm"
 	if ! curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 ; then
 		error "fail to get helm installed script, please confirm whether the connection to raw.githubusercontent.com is ok?"
-	fi	
+	fi
 	chmod 700 get_helm.sh
 	if ! ./get_helm.sh ; then
 		error "fail to get helm when running get_helm.sh"
@@ -158,7 +158,7 @@ install_iomesh() {
 	while true ; do
 		if kubectl get pod ${IOMESH_RELEASE}-chunk-0 -n ${IOMESH_NAMESPACE} &> /dev/null ; then
 			break
-		fi	
+		fi
 
 		sleep 5
 		timeout=$(( timeout-5 ))
@@ -215,13 +215,13 @@ helm_repo_init() {
 release_deployed_correctly() {
 	helm status "${1}" -n "${2}" | grep deployed &> /dev/null
 	if [[ $? -ne 0 ]] ; then
-		error "${1} installed fail, check log use helm and kubectl."	
+		error "${1} installed fail, check log use helm and kubectl."
 	fi
 }
 
 verify_installed() {
 	release_deployed_correctly "${IOMESH_OPERATOR_RELEASE}" "${IOMESH_OPERATOR_NAMESPACE}"
-	release_deployed_correctly "${IOMESH_RELEASE}" "${IOMESH_NAMESPACE}" 
+	release_deployed_correctly "${IOMESH_RELEASE}" "${IOMESH_NAMESPACE}"
 	release_deployed_correctly "${IOMESH_CSI_RELEASE}" "${IOMESH_CSI_NAMESPACE}"
 	info "IOMesh Deployment Completed!"
 }
