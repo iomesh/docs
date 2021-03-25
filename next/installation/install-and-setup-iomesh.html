@@ -72,30 +72,16 @@ $ ./get_helm.sh
 <h2><a class="anchor" aria-hidden="true" id="install-iomesh-cluster"></a><a href="#install-iomesh-cluster" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh Cluster</h2>
 <p>Follow the steps below to install a IOMesh Cluster.</p>
 <ol>
-<li>Add <a href="http://iomesh.com/charts">IOMesh Helm Repo</a></li>
-</ol>
-<pre><code class="hljs css language-bash">helm repo add iomesh iomesh.com/charts
-</code></pre>
-<ol start="2">
-<li>Prepare hostpath dir</li>
-</ol>
-<p>IOMesh Operator will deploy hostpath-provisioner who manages local storage in pvc/pv way.  IOMesh Operator will use hostpath-provisioner'pv to deploy IOMesh cluster.</p>
-<pre><code class="hljs css language-bash"><span class="hljs-comment"># Execute the following commands on each worker node</span>
-mkdir -p /mnt/iomesh/hostpath
-mount /dev/&lt;formatted-partition&gt; /mnt/iomesh/hostpath
-</code></pre>
-<blockquote>
-<p><strong><em>NOTE</em>: append a fstab entry to <code>/etc/fstab</code> to persist hostpath's mount operation.</strong></p>
-</blockquote>
-<ol start="3">
 <li>Install iomesh chart</li>
 </ol>
 <blockquote>
 <p><strong><em>NOTE</em>: <code>my-iomesh</code> is release name, maybe you want to modify it.</strong></p>
 </blockquote>
-<pre><code class="hljs css language-bash">helm install --namespace iomesh-system --create-namespace my-iomesh iomesh/iomesh --<span class="hljs-built_in">set</span> hostpath-provisioner.pvDir=/mnt/iomesh/hostpath
-</code></pre>
-<ol start="4">
+<p>Please choose your <strong>node</strong> OS:</p>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-1-tab-2" class="nav-link active" data-group="group_1" data-tab="tab-group-1-content-2">RHEL7/CentOS7</div><div id="tab-group-1-tab-3" class="nav-link" data-group="group_1" data-tab="tab-group-1-content-3">RHEL8/CentOS8/CoreOS</div></div><div class="tab-content"><div id="tab-group-1-content-2" class="tab-pane active" data-group="group_1" tabindex="-1"><div><span><pre><code class="hljs css language-bash"><span class="hljs-built_in">export</span> IOMESH_DATA_CIDR=10.234.1.0/24 <span class="hljs-comment"># data network CIDR</span><br />curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el7.sh | sh -<br /></code></pre>
+</span></div></div><div id="tab-group-1-content-3" class="tab-pane" data-group="group_1" tabindex="-1"><div><span><pre><code class="hljs css language-bash"><span class="hljs-built_in">export</span> IOMESH_DATA_CIDR=10.234.1.0/24 <span class="hljs-comment"># data network CIDR</span><br />curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el8.sh | sh -<br /></code></pre>
+</span></div></div></div></div>
+<ol start="2">
 <li>Check your installation and wait for IOMesh Cluster pods all ready</li>
 </ol>
 <pre><code class="hljs css language-bash">watch kubectl get --namespace iomesh-system pods
@@ -105,6 +91,78 @@ mount /dev/&lt;formatted-partition&gt; /mnt/iomesh/hostpath
 </blockquote>
 <h2><a class="anchor" aria-hidden="true" id="customize-iomesh-cluster"></a><a href="#customize-iomesh-cluster" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customize IOMesh Cluster</h2>
 <p>The basic install only make the cluster run. If you want to change some config of the cluster, such as image url, tolerations or mount device etc. You can follow the step to customize your own IOMesh Cluster</p>
+<h3><a class="anchor" aria-hidden="true" id="deploy-snapshot-controller"></a><a href="#deploy-snapshot-controller" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploy Snapshot Controller</h3>
+<blockquote>
+<p>Only for <code>Kubernetes &gt;= v1.13.0</code></p>
+</blockquote>
+<p>Volume Snapshot Controller manages the snapshot CRDs.
+There must be <strong>only one instance</strong> of Volume Snapshot Controller running and <strong>only one set</strong> of volume snapshot CRDs installed per cluster.</p>
+<ol>
+<li>Clone <strong><a href="https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1">Kubernetes CSI external-controller</a></strong></li>
+</ol>
+<pre><code class="hljs css language-shell">curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
+unzip release-2.1.zip &amp;&amp; cd external-snapshotter-release-2.1
+</code></pre>
+<ol start="2">
+<li>Create Snapshot beta CRD</li>
+</ol>
+<pre><code class="hljs css language-shell">kubectl create -f ./config/crd
+</code></pre>
+<ol start="3">
+<li><p>Open and edit <code>deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml</code>. Add a namespace for StatefulSet. eg. <code>kube-system</code></p>
+<p>Editing results are showing below.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">StatefulSet</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">snapshot-controller</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span> <span class="hljs-comment"># &lt;-- Add namespace here</span>
+<span class="hljs-comment"># ...</span>
+</code></pre></li>
+<li><p>Open and edit <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml</code>. Add a namespace for StatefulSet. eg. <code>kube-system</code></p>
+<p>Editing results are showing below.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">snapshot-controller</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span> <span class="hljs-comment"># &lt;-- Add namespace here</span>
+<span class="hljs-comment"># ...</span>
+</code></pre></li>
+<li><p>Install Snapshot Controller</p></li>
+</ol>
+<pre><code class="hljs css language-shell">kubectl apply -f ./deploy/kubernetes/snapshot-controller
+</code></pre>
+<ol start="6">
+<li>Verify snapshot-controller installation</li>
+</ol>
+<pre><code class="hljs css language-shell">kubectl get sts snapshot-controller -n kube-system
+</code></pre>
+<pre><code class="hljs css language-output">NAME                  READY   AGE
+snapshot-controller   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     <span class="hljs-number">32</span>s
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="install-iomesh-operator"></a><a href="#install-iomesh-operator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh Operator</h3>
+<ol>
+<li>Export default <code>iomesh-operator.yaml</code> of IOMesh Operator chart</li>
+</ol>
+<pre><code class="hljs css language-bash">helm show values iomesh/operator &gt; iomesh-operator.yaml
+</code></pre>
+<ol start="2">
+<li><p>Edit the <code>iomesh-operator.yaml</code></p></li>
+<li><p>Install IOMesh Operator</p></li>
+</ol>
+<blockquote>
+<p><strong><em>NOTE</em>: <code>my-iomesh-operator</code> is release name, maybe you want to modify it.</strong></p>
+</blockquote>
+<pre><code class="hljs">helm <span class="hljs-keyword">install</span> my-iomesh-<span class="hljs-keyword">operator</span> iomesh/<span class="hljs-keyword">operator</span> \
+            <span class="hljs-comment">--namespace iomesh-system \</span>
+            <span class="hljs-comment">--create-namespace \</span>
+            <span class="hljs-comment">--wait</span>
+</code></pre>
+<ol start="4">
+<li>Wait IOMesh Operator ready</li>
+</ol>
+<pre><code class="hljs">watch kubectl <span class="hljs-keyword">get</span> --<span class="hljs-keyword">namespace</span> iomesh-system pods
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="install-iomesh-cluster-1"></a><a href="#install-iomesh-cluster-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh Cluster</h3>
 <ol>
 <li>Export default <code>iomesh-values.yaml</code> of IOMesh Cluster chart</li>
 </ol>
@@ -112,25 +170,52 @@ mount /dev/&lt;formatted-partition&gt; /mnt/iomesh/hostpath
 </code></pre>
 <ol start="2">
 <li><p>Edit the <code>iomesh-values.yaml</code> with any text editor you love</p></li>
-<li><p>If you already installed the IOMesh Cluster, you can update it</p></li>
+<li><p>Or, you want to install a new IOMesh Cluster</p></li>
 </ol>
 <blockquote>
 <p><strong><em>NOTE</em>: <code>my-iomesh</code> is release name, maybe you want to modify it.</strong></p>
 </blockquote>
-<pre><code class="hljs css language-bash">helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
-</code></pre>
-<ol start="4">
-<li>Or, you want to install a new IOMesh Cluster</li>
-</ol>
-<blockquote>
-<p><strong><em>NOTE</em>: <code>my-iomesh</code> is release name, maybe you want to modify it.</strong></p>
-</blockquote>
-<pre><code class="hljs css language-bash">helm install \
+<pre><code class="hljs css language-bash">helm install my-iomesh iomesh/iomesh \
     --create-namespace \
     --namespace iomesh-system \
     --values iomesh-values.yaml \
-    --<span class="hljs-built_in">set</span> hostpath-provisioner.pvDir=/mnt/iomesh/hostpath \
-    my-iomesh \
-    iomesh/iomesh
+    --<span class="hljs-built_in">wait</span>
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/installation/prerequisites"><span class="arrow-prev">← </span><span>Prerequisites</span></a><a class="docs-next button" href="/docs/next/installation/setup-iomesh-storage"><span>Setup IOMesh Storage</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#supported-platforms">Supported Platforms</a></li><li><a href="#setup-helm">Setup Helm</a></li><li><a href="#install-iomesh-cluster">Install IOMesh Cluster</a></li><li><a href="#customize-iomesh-cluster">Customize IOMesh Cluster</a></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
+<ol start="4">
+<li>Wait IOMesh Cluster pod ready</li>
+</ol>
+<pre><code class="hljs">watch kubectl <span class="hljs-keyword">get</span> --<span class="hljs-keyword">namespace</span> iomesh-system pods
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="install-iomesh-csi-driver"></a><a href="#install-iomesh-csi-driver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh CSI driver</h3>
+<ol>
+<li>Export default <code>iomesh-csi-driver.yaml</code> of IOMesh Cluster chart</li>
+</ol>
+<pre><code class="hljs css language-bash">helm show values iomesh/csi-driver &gt; iomesh-csi-driver.yaml
+</code></pre>
+<ol start="2">
+<li>Edit <code>iomesh-csi-driver.yaml</code></li>
+</ol>
+<p>If your chunk node is <code>CentOS8</code> or <code>CoreOS</code>, please set <code>mountIscsiLock</code> to <code>true</code></p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">driver:</span>
+  <span class="hljs-attr">node:</span>
+    <span class="hljs-attr">driver:</span>
+      <span class="hljs-attr">mountIscsiLock:</span> <span class="hljs-literal">true</span>
+</code></pre>
+<ol start="3">
+<li>Install IOMesh CSI driver</li>
+</ol>
+<blockquote>
+<p><strong><em>NOTE</em>: <code>my-iomesh-csi-driver</code> is release name, maybe you want to modify it.</strong></p>
+</blockquote>
+<pre><code class="hljs css language-bash">helm install my-iomesh-csi-driver iomesh/csi-driver \
+    --create-namespace \
+    --namespace iomesh-system \
+    --values iomesh-csi-driver.yaml \
+    --<span class="hljs-built_in">wait</span>
+</code></pre>
+<ol start="4">
+<li>Wait IOMesh Cluster pod ready</li>
+</ol>
+<pre><code class="hljs">watch kubectl <span class="hljs-keyword">get</span> --<span class="hljs-keyword">namespace</span> iomesh-system pods
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/installation/prerequisites"><span class="arrow-prev">← </span><span>Prerequisites</span></a><a class="docs-next button" href="/docs/next/installation/setup-iomesh-storage"><span>Setup IOMesh Storage</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#supported-platforms">Supported Platforms</a></li><li><a href="#setup-helm">Setup Helm</a></li><li><a href="#install-iomesh-cluster">Install IOMesh Cluster</a></li><li><a href="#customize-iomesh-cluster">Customize IOMesh Cluster</a><ul class="toc-headings"><li><a href="#deploy-snapshot-controller">Deploy Snapshot Controller</a></li><li><a href="#install-iomesh-operator">Install IOMesh Operator</a></li><li><a href="#install-iomesh-cluster-1">Install IOMesh Cluster</a></li><li><a href="#install-iomesh-csi-driver">Install IOMesh CSI driver</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"></footer></div></body></html>
