@@ -1,0 +1,32 @@
+{
+  "version-0.9.0-docs": {
+    "Introduction": [
+      "version-0.9.0-introduction/introduction"
+    ],
+    "Installation": [
+      "version-0.9.0-installation/prerequisites",
+      "version-0.9.0-installation/install-and-setup-iomesh",
+      "version-0.9.0-installation/setup-iomesh-storage"
+    ],
+    "Storage Usage": [
+      "version-0.9.0-storage-usage/setup-k8s-cluster-storage",
+      "version-0.9.0-storage-usage/deploy-apps",
+      "version-0.9.0-storage-usage/application-operations"
+    ],
+    "IOMesh Operation": [
+      "version-0.9.0-iomesh-operation/monitoring-and-alters",
+      "version-0.9.0-iomesh-operation/cluster-operations",
+      "version-0.9.0-iomesh-operation/failover"
+    ],
+    "Stateful Applications": [
+      "version-0.9.0-stateful-applications/iomesh-for-cassandra",
+      "version-0.9.0-stateful-applications/iomesh-for-mongodb",
+      "version-0.9.0-stateful-applications/iomesh-for-mysql"
+    ],
+    "Additional Info": [
+      "version-0.9.0-additional-info/deployment-architectures",
+      "version-0.9.0-additional-info/performance-testing",
+      "version-0.9.0-additional-info/best-practice-in-production"
+    ]
+  }
+}

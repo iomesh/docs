@@ -6,9 +6,11 @@
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
+    "delete-version": "docusaurus-delete-version",
     "rename-version": "docusaurus-rename-version"
   },
   "devDependencies": {
-    "docusaurus": "^1.14.7"
+    "docusaurus": "^1.14.7",
+    "docusaurus-delete-version": "^0.1.1"
   }
 }
