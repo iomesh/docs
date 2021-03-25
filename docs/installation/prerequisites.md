@@ -98,73 +98,11 @@ kubectl wait --for=condition=Ready  pod/kube-apiserver-<suffix> -n kube-system
 pod/kube-apiserver-<suffix> condition met
 ```
 
-
-### Deploy Snapshot Controller
-
-> Only for `Kubernetes >= v1.13.0`
-
-Volume Snapshot Controller manages the snapshot CRDs.
-There must be **only one instance** of Volume Snapshot Controller running and **only one set** of volume snapshot CRDs installed per cluster.
-
-1. Clone **[Kubernetes CSI external-controller](https://github.com/kubernetes-csi/external-snapshotter/tree/release-2.1)**
-
-```shell
-curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
-unzip release-2.1.zip && cd external-snapshotter-release-2.1
-```
-
-2. Create Snapshot beta CRD
-
-```shell
-kubectl create -f ./config/crd
-```
-
-3. Open and edit `deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml`. Add a namespace for StatefulSet. eg. `kube-system`
-
-   Editing results are showing below.
-
-   ```yaml
-   kind: StatefulSet
-   apiVersion: apps/v1
-   metadata:
-     name: snapshot-controller
-     namespace: kube-system # <-- Add namespace here
-   # ...
-   ```
-
-4. Open and edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml`. Add a namespace for StatefulSet. eg. `kube-system`
-
-   Editing results are showing below.
-
-   ```yaml
-   apiVersion: v1
-   kind: ServiceAccount
-   metadata:
-     name: snapshot-controller
-     namespace: kube-system # <-- Add namespace here
-   # ...
-   ```
-
-5. Install Snapshot Controller
-
-```shell
-kubectl apply -f ./deploy/kubernetes/snapshot-controller
-```
-
-6. Verify snapshot-controller installation
-
-```shell
-kubectl get sts snapshot-controller -n kube-system
-```
-
-```output
-NAME                  READY   AGE
-snapshot-controller   1/1     32s
-```
-
 ## Setup worker node
 
 For each Kubernetes worker node that you want to run IOMesh, do the following setups:
+
+### Setup Open-ISCSI
 
 1. Install open-iscsi
 
@@ -197,4 +135,18 @@ suso sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 
 ```shell
 sudo systemctl enable --now iscsid
+```
+
+### Setup local metadata store
+
+> **_NOTE_: append a fstab entry to `/etc/fstab` to persist hostpath's mount operation.**
+
+1. Prepare hostpath dir
+
+IOMesh Operator will deploy hostpath-provisioner who manages local storage in pvc/pv way.  IOMesh Operator will use hostpath-provisioner'pv to deploy IOMesh cluster.
+
+```bash
+# Execute the following commands on each worker node
+mkdir -p /mnt/iomesh/hostpath
+mount /dev/<formatted-partition> /mnt/iomesh/hostpath
 ```
