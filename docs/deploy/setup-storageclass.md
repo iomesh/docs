@@ -4,7 +4,7 @@ title: Setup StorageClass
 sidebar_label: Setup StorageClass
 ---
 
-A StorageClass has parameters that define IOMesh volume properties.
+The IOMesh storage class parameters are:
 
 | Parameters                | Values                        | Default | Description                        |
 | ------------------------- | ----------------------------- | ------- | ---------------------------------- |
@@ -12,14 +12,10 @@ A StorageClass has parameters that define IOMesh volume properties.
 | replicaFactor             | "1", "2", "3"                 | "2"     | replica factor                     |
 | thinProvision             | "true", "false"               | "true"  | thin provision or thick provision. |
 
-After IOMesh CSI driver is installed, a default StorageClass `iomesh-csi-driver-default` would be created. You may also create a new StorageClass with customized parameters.
+After IOMesh CSI driver was installed, a default StorageClass `iomesh-csi-driver-default` would be created. You may also create a new StorageClass with customized parameters:
 
 
 ```yaml
-storageclass.yaml
-```
-
-```output
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -35,8 +31,4 @@ parameters:
   # "true" / "false"
   thinProvision: "true"
 volumeBindingMode: Immediate
-```
-
-```shell
-kubectl apply -f storageclass.yaml
 ```

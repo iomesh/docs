@@ -6,13 +6,13 @@ sidebar_label: Setup IOMesh
 
 Block devices on worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize them to construct and provide distributed storage service.
 
-By default, IOMesh doesn't mount any block devices. Users have to configure it manually.
+By default, IOMesh doesn't mount any block devices. Users have to configure it manually after installing.
 
 ## Mount Block Devices
 
 ### Block Device Object
 
-IOMesh uses `OpenEBS/BlockDevice` to manage disks attached to Kubernetes worker nodes. After IOMesh operator is deployed, `BlockDevice` CRs will be appeared in the same namespace with IOMesh cluster.
+IOMesh uses OpenEBS's [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager) to manage disks attached to Kubernetes worker nodes. After IOMesh operator is deployed, `BlockDevice` CRs will be created in the same namespace with IOMesh cluster:
 
 ```bash
 kubectl --namespace iomesh-system -o wide get blockdevice
@@ -25,7 +25,7 @@ blockdevice-3fa2e2cb7e49bc96f4ed09209644382e   kind-control-plane   /dev/sda    
 blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
 ```
 
-Use following commands to show the details of a device:
+Use following commands to show the details of a block device:
 
 ```shell
 kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
@@ -52,7 +52,7 @@ metadata:
 # ...
 ```
 
-Labels started with `iomesh.com/bd-` are created by IOMesh to indicate hardware properties.
+Labels started with `iomesh.com/bd-` are created by IOMesh to describe hardware properties:
 
 | Name | Describe |
 | --- | --- |
@@ -64,7 +64,7 @@ Labels started with `iomesh.com/bd-` are created by IOMesh to indicate hardware 
 
 ### Device Map
 
-`chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block devices should be mounted to IOMesh cluster and how would they be mounted.
+`chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block device should be mounted to IOMesh cluster and how would they be mounted.
 
 ```yaml
 chunk:
@@ -86,8 +86,8 @@ chunk:
 
 IOMesh provides 2 mount types now:
 
-- `cacheWithJournal`: performance tier of storage pool. It **MUST** ba a partitionable devcie. IOMesh will partition the device into 2 paritions: 20 GiB for `journal` and the rest for `cache`. `SATA` or `NVMe` SSD is recommanded.
-- `dataStore`:  capacity tier of storage pool. `SATA` or `SAS` HDD is recommanded.
+- `cacheWithJournal`: used for performance tier of storage pool. It **MUST** ba a partitionable block device. IOMesh will partition the device into 2 paritions: one is for `journal` and another is for `cache`. `SATA` or `NVMe` SSD is recommanded.
+- `dataStore`:  used for capacity tier of storage pool. `SATA` or `SAS` HDD is recommanded.
 
 #### Device Selector
 
@@ -102,7 +102,7 @@ All block devices selected by device selector will be mounted to IOMesh with the
 
 #### Example
 
-Here is a full example of `deviceMap` configuration:
+Here is a full example of `chunk/deviceMap` configuration:
 ```yaml
 # ...
 chunk:
