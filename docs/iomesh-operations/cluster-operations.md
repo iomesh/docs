@@ -6,7 +6,7 @@ sidebar_label: Cluster Operations
 
 IOMesh Cluster can be scaled and upgraded without interrupting the online services.
 
-## Scale IOMesh storage cluster
+## Scale IOMesh Storage Cluster
 
 ### Meta Server
 
@@ -93,7 +93,7 @@ version: v5.0.0-rc5
 helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
-4. Wait new chunk server pod gets ready.
+4. Wait new chunk server pods are ready.
 
 ```bash
 watch kubectl get pod --namespace iomesh-system

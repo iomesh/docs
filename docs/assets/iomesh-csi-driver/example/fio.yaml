@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: fio-pvc
 spec:
-  storageClassName: zbs-csi-driver-default
+  storageClassName: iomesh-csi-driver-default
   volumeMode: Block
   accessModes:
     - ReadWriteOnce
