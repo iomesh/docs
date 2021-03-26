@@ -31,8 +31,8 @@ kubectl get pvc example-pvc
 ```
 
 ```output
-NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS             AGE
-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            zbs-csi-driver-default   11m
+NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
 ```
 
 To expand this PVC to 20Gi, just modify the PVC declaration:
@@ -68,8 +68,8 @@ kubectl get pvc example-pvc
 ```
 
 ```output
-NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS             AGE
-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            zbs-csi-driver-default   11m
+NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
 ```
 
 ```bash
@@ -78,5 +78,5 @@ kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca
 
 ```output
 NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
-pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   zbs-csi-driver-default
+pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
 ```

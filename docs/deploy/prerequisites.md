@@ -13,7 +13,7 @@ sidebar_label: Prerequisites
   - A 10GbE (or higher) NICs, for IOMesh data network connectivity
   - 100G disk space per worker for hostpath-provisioner
 
-## Setup worker node
+## Setup Worker Node
 
 For each Kubernetes worker node that you want to run IOMesh, do the following setups:
 
@@ -52,10 +52,10 @@ sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 sudo systemctl enable --now iscsid
 ```
 
-### Setup local metadata store
+### Setup Local Metadata Store
 
 IOMesh uses local path `/opt/iomesh` to store metadata. User must ensure that there is at least 100G free space at `/opt`.
 
-### Setup data network
+### Setup Data Network
 
 To avoid contention on network bandwith, it would be better to setup a seperate network segment for IOMesh cluster. The `dataCIDR` defines the IP block for the IOMesh data network. Every node running IOMesh should have an interface whose IP address belongs to the `dataCIDR`.

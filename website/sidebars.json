@@ -13,7 +13,7 @@
     "Volume Operations": [
         "volume-operations/create-volume",
         "volume-operations/expand-volume",
-        "volume-operations/snapshot-and-clone"
+        "volume-operations/snapshot-restore-and-clone"
     ],
     "IOMesh Operations":[
         "iomesh-operations/monitoring",

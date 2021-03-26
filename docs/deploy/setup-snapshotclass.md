@@ -4,6 +4,7 @@ title: Setup SnapshotClass
 sidebar_label: Setup SnapshotClass
 ---
 
+SnapshotClass object must be created before executing snapshot, resore and clone operations.
 
 ```yaml
 snapshotclass.yaml

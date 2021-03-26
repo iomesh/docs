@@ -1,12 +1,12 @@
 ---
-id: snapshot-and-clone
-title: Snapshot And Clone
-sidebar_label: Snapshot And Clone
+id: snapshot-restore-and-clone
+title: Snapshot, Restore And Clone
+sidebar_label: Snapshot, Restore And Clone
 ---
 
 ## Snapshot
 
-IOMesh provides the ability to create a snapshot of a existing persistent volume.
+IOMesh provides the ability to create a snapshot of an existing persistent volume.
 
 A VolumeSnapshot object defines a request of taking a snapshot of the PVC.
 
@@ -24,7 +24,7 @@ metadata:
 spec:
   volumeSnapshotClassName: iomesh-csi-driver-default
   source:
-    persistentVolumeClaimName: mongodb-data-pvc # user wants to snapshot the mongodb-data-pvc PVC
+    persistentVolumeClaimName: mongodb-data-pvc # PVC name that want to take snapshot
 ```
 
 Apply the YAML file:
@@ -33,7 +33,7 @@ Apply the YAML file:
 kubectl apply -f example-snapshot.yaml
 ```
 
-The VolumeSnapshot object will be created, and IOMesh will create the VolumeSnapshotContent corresponding to the VolumeSnapshot. The VolumeSnapshotContent represents the entity of the VolumeSnapshot.
+After VolumeSnapshot object created, a corresponding VolumeSnapshotContent will be created by IOMesh.
 
 ```bash
 kubectl get Volumesnapshots example-snapshot
@@ -46,7 +46,7 @@ example-snapshot   mongodb-data-pvc     6Gi            snapcontent-fb64d696-725b
 
 ## Restore
 
-User can restore volume snapshots by creating a PVC which dataSource field reference to the snapshots.
+User can restore volume snapshots by creating a PVC which `dataSource` field reference to a snapshot.
 
 For example:
 
@@ -102,12 +102,9 @@ spec:
   volumeMode: Block
 ```
 
-The result is a new PVC with the name `cloned-pvc` that has the exact same content as the specified source `existed-pvc`.
+After applying it, a clone of `existing-pvc` will be created.
 
-Users need to be aware of the following when using this feature:
+There are some limitations on clone operation:
 
-1. You can only clone a PVC when it exists in the same namespace as the destination PVC (source and destination must be in the same namespace).
-2. Cloning is only supported within the same Storage Class.
-   - Destination volume must be the same storage class as the source
-   - Default storage class can be used and storageClassName omitted in the spec
-3. Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)
+1. A cloned PVC must exist at the same namespace with the original PVC with same StorageClass.
+2. The new and source PVC must have the same VolumeMode setting.

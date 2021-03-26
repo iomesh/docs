@@ -9,7 +9,7 @@ sidebar_label: Performance Testing
 1. Create a pod for fio test
 
 ```shell
-kubectl apply -f http://www.iomesh.com/docs/assets/zbs-csi-driver/example/fio.yaml
+kubectl apply -f http://www.iomesh.com/docs/assets/iomesh-csi-driver/example/fio.yaml
 ```
 
 2. Wait until fio-pvc bound is finished and fio pod is ready
@@ -19,8 +19,8 @@ kubectl get pvc fio-pvc
 ```
 
 ```output
-NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS             AGE
-fio-pvc   Bound    pvc-d7916b34-50cd-49bd-86f9-5287db1265cb   30Gi       RWO            zbs-csi-driver-default   15s
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS                AGE
+fio-pvc   Bound    pvc-d7916b34-50cd-49bd-86f9-5287db1265cb   30Gi       RWO            iomesh-csi-driver-default   15s
 ```
 
 ```shell

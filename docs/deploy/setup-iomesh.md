@@ -12,7 +12,7 @@ By default, IOMesh doesn't mount any block devices. Users have to configure it m
 
 ### Block Device Object
 
-IOMesh uses `OpenEBS/BlockDevice` to manage disks attached to Kubernetes worker nodes. After `zbs-operator` is deployed, `BlockDevice` CRs will be appeared in the same namespace with IOMesh cluster.
+IOMesh uses `OpenEBS/BlockDevice` to manage disks attached to Kubernetes worker nodes. After IOMesh operator is deployed, `BlockDevice` CRs will be appeared in the same namespace with IOMesh cluster.
 
 ```bash
 kubectl --namespace iomesh-system -o wide get blockdevice
