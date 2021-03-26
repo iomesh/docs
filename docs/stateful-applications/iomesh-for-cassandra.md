@@ -6,12 +6,13 @@ sidebar_label: IOMesh for Cassandra
 
 ## Setup k8s Cluster Storage
 
-### Create a StorageClass
-
 1. Create a file named `iomesh-cassandra-sc.yaml` with the following content:
 
-```yaml
-# iomesh-cassandra-sc.yaml
+```text
+iomesh-cassandra-sc.yaml
+```
+
+```output
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -37,8 +38,11 @@ kubectl apply -f iomesh-cassandra-sc.yaml
 
 1. Create a Service used for DNS lookups between Cassandra Pods and clients within your cluster
 
-```yaml
-# cassandra-service.yaml
+```text
+cassandra-service.yaml
+```
+
+```output
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,8 +67,11 @@ kubectl apply -f cassandra-service.yaml
 
 1. Use StatefulSet to create a cassandra cluster
 
-```yaml
-# cassandra-statefulset.yaml
+```text
+cassandra-statefulset.yaml
+```
+
+```output
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:

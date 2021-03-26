@@ -1,12 +1,10 @@
 ---
-id: setup-k8s-cluster-storage
-title: Setup k8s Cluster Storage
-sidebar_label: Setup k8s Cluster Storage
+id: setup-storageclass
+title: Setup StorageClass
+sidebar_label: Setup StorageClass
 ---
 
-## Setup a StorageClass
-
-StorageClass have parameters that define IOMesh volume properties.
+A StorageClass has parameters that define IOMesh volume properties.
 
 | Parameters                | Values                        | Default | Description                        |
 | ------------------------- | ----------------------------- | ------- | ---------------------------------- |
@@ -18,14 +16,15 @@ After IOMesh CSI driver is installed, a default StorageClass `iomesh-csi-driver-
 
 
 ```yaml
-# storageclass.yaml
+storageclass.yaml
+```
+
+```output
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: my-iomesh-csi-driver-default
-# driver.name in values.yaml
-provisioner: com.iomesh.csi-driver
-# Delete / Retain
+provisioner: com.iomesh.csi-driver # <-- driver.name in iomesh-values.yaml
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 parameters:
@@ -40,26 +39,4 @@ volumeBindingMode: Immediate
 
 ```shell
 kubectl apply -f storageclass.yaml
-```
-
-## Setup SnapshotClass
-
-Just like StorageClass provides a way for administrators to describe the "classes" of storage they offer when provisioning a volume, VolumeSnapshotClass provides a way to describe the "classes" of storage when provisioning a volume snapshot.
-
-> **_Note:_ Only for `Kubernetes >= v1.13.0` or `Openshift >= v4.0`**
-
-```yaml
-# snapshotclass.yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
-kind: VolumeSnapshotClass
-metadata:
-  name: iomesh-csi-driver-default
-# driver.name in values.yaml
-driver: <dirver.name>
-# Delete / Retain
-deletionPolicy: Retain
-```
-
-```shell
-kubectl apply -f snapshotclass.yaml
 ```

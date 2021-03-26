@@ -31,7 +31,7 @@ It is also possible to config Prometheus mannually by importing [iomesh-promethe
 
 Download and import [iomesh-dashboard.json][3] to any existing Grafana.
 
-## Whole Metrics
+## Metrics
 
 All metrics are as follows:
 

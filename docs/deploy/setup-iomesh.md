@@ -1,7 +1,7 @@
 ---
-id: setup-iomesh-storage
-title: Setup IOMesh Storage
-sidebar_label: Setup IOMesh Storage
+id: setup-iomesh
+title: Setup IOMesh
+sidebar_label: Setup IOMesh
 ---
 
 Block devices on worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize them to construct and provide distributed storage service.
@@ -17,9 +17,8 @@ IOMesh uses `OpenEBS/BlockDevice` to manage disks attached to Kubernetes worker 
 ```bash
 kubectl --namespace iomesh-system -o wide get blockdevice
 ```
-Examle output:
 
-```bash
+```output
 NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
 blockdevice-097b6628acdcd83a2fc6a5fc9c301e01   kind-control-plane   /dev/vdb1    ext4     107373116928   Unclaimed    Active   10m
 blockdevice-3fa2e2cb7e49bc96f4ed09209644382e   kind-control-plane   /dev/sda              9659464192     Unclaimed    Active   10m
@@ -32,9 +31,7 @@ Use following commands to show the details of a device:
 kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
 ```
 
-Example output:
-
-```yaml
+```output
 apiVersion: openebs.io/v1alpha1
 kind: BlockDevice
 metadata:

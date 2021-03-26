@@ -1,7 +1,7 @@
 ---
-id: install-and-setup-iomesh
-title: Install and Setup IOMesh
-sidebar_label: Install and Setup IOMesh
+id: install-iomesh
+title: Install IOMesh
+sidebar_label: Install IOMesh
 ---
 
 ## Quick Installation Guide
@@ -39,7 +39,7 @@ Now IOMesh has been installed successfully!
 
 This is the sophisticated installtion guide for customized configurations.
 
-### Deploy Snapshot Controller
+### Install Snapshot Controller
 
 Install Snapshot Controller for creating snapshot of volumes.
 There should be **only one instance** of Snapshot Controller running in the Kubernetes cluster.
@@ -51,7 +51,7 @@ curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-
 unzip release-2.1.zip && cd external-snapshotter-release-2.1
 ```
 
-2. Create Snapshot CRD
+2. Create Snapshot Controller CRD
 
 ```shell
 kubectl create -f ./config/crd
@@ -59,25 +59,25 @@ kubectl create -f ./config/crd
 
 3. Modify `deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml` by adding a namespace, eg. `kube-system`.
 
-   ```yaml
-   kind: StatefulSet
-   apiVersion: apps/v1
-   metadata:
-     name: snapshot-controller
-     namespace: kube-system # <-- Add namespace here
-   # ...
-   ```
+```yaml
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: snapshot-controller
+  namespace: kube-system # <-- Add namespace here
+# ...
+```
 
 4. Modify `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace. eg. `kube-system`
 
-   ```yaml
-   apiVersion: v1
-   kind: ServiceAccount
-   metadata:
-     name: snapshot-controller
-     namespace: kube-system # <-- Add namespace here
-   # ...
-   ```
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: snapshot-controller
+  namespace: kube-system # <-- Add namespace here
+# ...
+```
 
 5. Install Snapshot Controller
 
@@ -101,9 +101,9 @@ snapshot-controller   1/1     32s
 Note: You may skip this step if Helm3 is already installed.
 
 ```shell
-$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-$ chmod 700 get_helm.sh
-$ ./get_helm.sh
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
 ```
 
 Please refer to **[Install Helm](https://helm.sh/docs/intro/install/)** for more details.

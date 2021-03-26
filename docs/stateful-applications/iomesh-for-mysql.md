@@ -6,12 +6,13 @@ sidebar_label: IOMesh for MySQL
 
 ## Setup k8s Cluster Storage
 
-### Create a StorageClass
-
 1. Create a file named `iomesh-mysql-sc.yaml` with the following content:
 
-```yaml
-# iomesh-mysql-sc.yaml
+```text
+iomesh-mysql-sc.yaml
+```
+
+```output
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -35,8 +36,11 @@ kubectl apply -f iomesh-mysql-sc.yaml
 
 1. Create a file named `mysql-deployment.yaml`. It describes a Deployment that runs MySQL and creates a PVC that consumes the IOMesh storage.
 
-```yaml
-# mysql-deployment.yaml
+```text
+mysql-deployment.yaml
+```
+
+```output
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

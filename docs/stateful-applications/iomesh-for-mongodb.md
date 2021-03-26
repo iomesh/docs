@@ -8,8 +8,11 @@ sidebar_label: IOMesh for MongoDB
 
 1. Create a file named `iomesh-mongodb-sc.yaml` with the following content:
 
-```yaml
-# iomesh-mongodb-sc.yaml
+```text
+iomesh-mongodb-sc.yaml
+```
+
+```output
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -35,8 +38,11 @@ kubectl apply -f iomesh-mongodb-sc.yaml
 
 1. Create a Service used for DNS lookups between MongoDB Pods and clients within your cluster
 
-```yaml
-# mongodb-service.yaml
+```text
+mongodb-service.yaml
+```
+
+```output
 apiVersion: v1
 kind: Service
 metadata:
@@ -62,8 +68,11 @@ kubectl apply -f mongodb-service.yaml
 
 1. Use StatefulSet to create a MongoDB cluster
 
-```yaml
-# mongodb-statefulset.yaml
+```text
+mongodb-statefulset.yaml
+```
+
+```output
 apiVersion: apps/v1beta1
 kind: StatefulSet
 metadata:
