@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>IOMesh for MongoDB · IOMesh</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Setup k8s Cluster Storage"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="IOMesh for MongoDB · IOMesh"/><meta property="og:type" content="website"/><meta property="og:url" content="http://iomesh.com/docs/"/><meta property="og:description" content="## Setup k8s Cluster Storage"/><meta property="og:image" content="http://iomesh.com/docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://iomesh.com/docs/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs/css/main.css"/><script src="/docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs/"><img class="logo" src="/docs/img/favicon.ico" alt="IOMesh"/><h2 class="headerTitleWithLogo">IOMesh</h2></a><a href="/docs/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs" target="_self">Docs</a></li><li class=""><a href="https://github.com/iomesh" target="_blank">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Stateful Applications</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Introduction</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/introduction/introduction">Introduction</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Installation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/installation/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/docs/next/installation/install-and-setup-iomesh">Install and Setup IOMesh</a></li><li class="navListItem"><a class="navItem" href="/docs/next/installation/setup-iomesh-storage">Setup IOMesh Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Storage Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/storage-usage/setup-k8s-cluster-storage">Setup k8s Cluster Storage</a></li><li class="navListItem"><a class="navItem" href="/docs/next/storage-usage/deploy-apps">Deploy Apps</a></li><li class="navListItem"><a class="navItem" href="/docs/next/storage-usage/volume-operations">Volume Operations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh Operation</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/iomesh-operation/monitoring">Monitoring</a></li><li class="navListItem"><a class="navItem" href="/docs/next/iomesh-operation/cluster-operations">Cluster Operations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-cassandra">IOMesh for Cassandra</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Additional Info</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/additional-info/performance-testing">Performance Testing</a></li></ul></div></div></section></div><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>IOMesh for MongoDB · IOMesh</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Setup k8s Cluster Storage"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="IOMesh for MongoDB · IOMesh"/><meta property="og:type" content="website"/><meta property="og:url" content="http://iomesh.com/docs/"/><meta property="og:description" content="## Setup k8s Cluster Storage"/><meta property="og:image" content="http://iomesh.com/docs/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://iomesh.com/docs/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/docs/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/docs/js/scrollSpy.js"></script><link rel="stylesheet" href="/docs/css/main.css"/><script src="/docs/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/docs/"><img class="logo" src="/docs/img/favicon.ico" alt="IOMesh"/><h2 class="headerTitleWithLogo">IOMesh</h2></a><a href="/docs/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs" target="_self">Docs</a></li><li class=""><a href="https://github.com/iomesh" target="_blank">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Stateful Applications</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/about-iomesh/introduction">Introduction</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/deploy/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/docs/next/deploy/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/docs/next/deploy/setup-iomesh">Setup IOMesh</a></li><li class="navListItem"><a class="navItem" href="/docs/next/deploy/setup-storageclass">Setup StorageClass</a></li><li class="navListItem"><a class="navItem" href="/docs/next/deploy/setup-snapshotclass">Setup SnapshotClass</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/volume-operations/create-volume">Create Volume</a></li><li class="navListItem"><a class="navItem" href="/docs/next/volume-operations/expand-volume">Expand Volume</a></li><li class="navListItem"><a class="navItem" href="/docs/next/volume-operations/snapshot-and-clone">Snapshot And Clone</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/iomesh-operations/monitoring">Monitoring</a></li><li class="navListItem"><a class="navItem" href="/docs/next/iomesh-operations/cluster-operations">Cluster Operations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-cassandra">IOMesh for Cassandra</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/next/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Additional Info</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/next/additional-info/performance-testing">Performance Testing</a></li></ul></div></div></section></div><script>
             var coll = document.getElementsByClassName('collapsible');
             var checkActiveCategory = true;
             for (var i = 0; i < coll.length; i++) {
@@ -58,18 +58,19 @@
 <ol>
 <li>Create a file named <code>iomesh-mongodb-sc.yaml</code> with the following content:</li>
 </ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-comment"># iomesh-mongodb-sc.yaml</span>
-<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
-<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-mongodb-sc</span>
-<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.csi-driver</span> <span class="hljs-comment"># driver.name in values.yaml when install IOMesh</span>
-<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Retain</span>
-<span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
-<span class="hljs-attr">parameters:</span>
-  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">"ext4"</span>
-  <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"2"</span>
-  <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
+<pre><code class="hljs css language-text">iomesh-mongodb-sc.yaml
+</code></pre>
+<pre><code class="hljs css language-output"><span class="hljs-symbol">kind:</span> StorageClass
+<span class="hljs-symbol">apiVersion:</span> storage.k8s.io/v1
+<span class="hljs-symbol">metadata:</span>
+<span class="hljs-symbol">  name:</span> iomesh-mongodb-sc
+<span class="hljs-symbol">provisioner:</span> com.iomesh.csi-driver <span class="hljs-meta"># driver.name in values.yaml when install IOMesh</span>
+<span class="hljs-symbol">reclaimPolicy:</span> Retain
+<span class="hljs-symbol">allowVolumeExpansion:</span> true
+<span class="hljs-symbol">parameters:</span>
+  csi.storage.k8s.io/fstype: <span class="hljs-string">"ext4"</span>
+<span class="hljs-symbol">  replicaFactor:</span> <span class="hljs-string">"2"</span>
+<span class="hljs-symbol">  thinProvision:</span> <span class="hljs-string">"true"</span>
 </code></pre>
 <ol start="2">
 <li>Apply the yaml config:</li>
@@ -81,8 +82,9 @@
 <ol>
 <li>Create a Service used for DNS lookups between MongoDB Pods and clients within your cluster</li>
 </ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-comment"># mongodb-service.yaml</span>
-<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<pre><code class="hljs css language-text">mongodb-service.yaml
+</code></pre>
+<pre><code class="hljs css language-output"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
 <span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>
 <span class="hljs-attr">metadata:</span>
   <span class="hljs-attr">name:</span> <span class="hljs-string">mongo</span>
@@ -105,53 +107,54 @@
 <ol>
 <li>Use StatefulSet to create a MongoDB cluster</li>
 </ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-comment"># mongodb-statefulset.yaml</span>
-<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1beta1</span>
-<span class="hljs-attr">kind:</span> <span class="hljs-string">StatefulSet</span>
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">mongo</span>
-<span class="hljs-attr">spec:</span>
-  <span class="hljs-attr">selector:</span>
-    <span class="hljs-attr">matchLabels:</span>
-      <span class="hljs-attr">role:</span> <span class="hljs-string">mongo</span>
-      <span class="hljs-attr">environment:</span> <span class="hljs-string">test</span>
-  <span class="hljs-attr">serviceName:</span> <span class="hljs-string">"mongo"</span>
-  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
-  <span class="hljs-attr">template:</span>
-    <span class="hljs-attr">metadata:</span>
-      <span class="hljs-attr">labels:</span>
-        <span class="hljs-attr">role:</span> <span class="hljs-string">mongo</span>
-        <span class="hljs-attr">environment:</span> <span class="hljs-string">test</span>
-    <span class="hljs-attr">spec:</span>
-      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">10</span>
-      <span class="hljs-attr">containers:</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">mongo</span>
-        <span class="hljs-attr">image:</span> <span class="hljs-string">mongo</span>
-        <span class="hljs-attr">command:</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-string">mongod</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-string">"--replSet"</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-string">rs0</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-string">"--smallfiles"</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-string">"--noprealloc"</span>
-        <span class="hljs-attr">ports:</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">27017</span>
-        <span class="hljs-attr">volumeMounts:</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">mongo-persistent-storage</span>
-            <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/data/db</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">mongo-sidecar</span>
-        <span class="hljs-attr">image:</span> <span class="hljs-string">cvallance/mongo-k8s-sidecar</span>
-        <span class="hljs-attr">env:</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">MONGO_SIDECAR_POD_LABELS</span>
-            <span class="hljs-attr">value:</span> <span class="hljs-string">"role=mongo,environment=test"</span>
-  <span class="hljs-attr">volumeClaimTemplates:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">metadata:</span>
-      <span class="hljs-attr">name:</span> <span class="hljs-string">mongodb-data</span>
-    <span class="hljs-attr">spec:</span>
-      <span class="hljs-attr">accessModes:</span> <span class="hljs-string">[</span> <span class="hljs-string">"ReadWriteOnce"</span> <span class="hljs-string">]</span>
-      <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-mongodb-sc</span> <span class="hljs-comment"># storageClass created above</span>
-      <span class="hljs-attr">resources:</span>
-        <span class="hljs-attr">requests:</span>
-          <span class="hljs-attr">storage:</span> <span class="hljs-string">10Gi</span>
+<pre><code class="hljs css language-text">mongodb-statefulset.yaml
+</code></pre>
+<pre><code class="hljs css language-output"><span class="hljs-attribute">apiVersion</span>: apps/v1beta1
+<span class="hljs-attribute">kind</span>: StatefulSet
+<span class="hljs-attribute">metadata</span>:
+  <span class="hljs-attribute">name</span>: mongo
+<span class="hljs-attribute">spec</span>:
+  <span class="hljs-attribute">selector</span>:
+    <span class="hljs-attribute">matchLabels</span>:
+      <span class="hljs-attribute">role</span>: mongo
+      <span class="hljs-attribute">environment</span>: test
+  <span class="hljs-attribute">serviceName</span>: <span class="hljs-string">"mongo"</span>
+  <span class="hljs-attribute">replicas</span>: <span class="hljs-number">3</span>
+  <span class="hljs-attribute">template</span>:
+    <span class="hljs-attribute">metadata</span>:
+      <span class="hljs-attribute">labels</span>:
+        <span class="hljs-attribute">role</span>: mongo
+        <span class="hljs-attribute">environment</span>: test
+    <span class="hljs-attribute">spec</span>:
+      <span class="hljs-attribute">terminationGracePeriodSeconds</span>: <span class="hljs-number">10</span>
+      <span class="hljs-attribute">containers</span>:
+      - <span class="hljs-attribute">name</span>: mongo
+        <span class="hljs-attribute">image</span>: mongo
+        <span class="hljs-attribute">command</span>:
+          - mongod
+          - <span class="hljs-string">"--replSet"</span>
+          - rs0
+          - <span class="hljs-string">"--smallfiles"</span>
+          - <span class="hljs-string">"--noprealloc"</span>
+        <span class="hljs-attribute">ports</span>:
+          - <span class="hljs-attribute">containerPort</span>: <span class="hljs-number">27017</span>
+        <span class="hljs-attribute">volumeMounts</span>:
+          - <span class="hljs-attribute">name</span>: mongo-persistent-storage
+            <span class="hljs-attribute">mountPath</span>: /data/db
+      - <span class="hljs-attribute">name</span>: mongo-sidecar
+        <span class="hljs-attribute">image</span>: cvallance/mongo-k8s-sidecar
+        <span class="hljs-attribute">env</span>:
+          - <span class="hljs-attribute">name</span>: MONGO_SIDECAR_POD_LABELS
+            <span class="hljs-attribute">value</span>: <span class="hljs-string">"role=mongo,environment=test"</span>
+  <span class="hljs-attribute">volumeClaimTemplates</span>:
+  - <span class="hljs-attribute">metadata</span>:
+      <span class="hljs-attribute">name</span>: mongodb-data
+    <span class="hljs-attribute">spec</span>:
+      <span class="hljs-attribute">accessModes</span>: [ <span class="hljs-string">"ReadWriteOnce"</span> ]
+      <span class="hljs-attribute">storageClassName</span>: iomesh-mongodb-sc # storageClass created above
+      <span class="hljs-attribute">resources</span>:
+        <span class="hljs-attribute">requests</span>:
+          <span class="hljs-attribute">storage</span>: <span class="hljs-number">10</span>Gi
 </code></pre>
 <ol start="2">
 <li>Apply the yaml config:</li>
