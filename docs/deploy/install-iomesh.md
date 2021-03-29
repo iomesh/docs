@@ -59,35 +59,19 @@ unzip release-2.1.zip && cd external-snapshotter-release-2.1
 kubectl create -f ./config/crd
 ```
 
-3. Edit `deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml` by adding a namespace, eg. `kube-system`:
-
-```yaml
-kind: StatefulSet
-apiVersion: apps/v1
-metadata:
-  name: snapshot-controller
-  namespace: kube-system # <-- Add namespace here
-# ...
-```
-
-4. Edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace. eg. `kube-system`:
-
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: snapshot-controller
-  namespace: kube-system # <-- Add namespace here
-# ...
-```
-
-5. Install snapshot controller:
+3. Edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace, eg. `kube-system`:
 
 ```shell
-kubectl apply -f ./deploy/kubernetes/snapshot-controller
+sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 ```
 
-6. Wait until snapshot controller is ready:
+4. Install snapshot controller, eg. `kube-system`:
+
+```shell
+kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
+```
+
+5. Wait until snapshot controller is ready:
 
 ```shell
 kubectl get sts snapshot-controller -n kube-system
@@ -183,7 +167,34 @@ watch kubectl get --namespace iomesh-system pods
 helm show values iomesh/csi-driver > iomesh-csi-driver.yaml
 ```
 
-2. Customize `iomesh-csi-driver.yaml`:
+2. Get IOMesh Meta access address
+
+```shell
+kubectl -n iomesh-system get svc iomesh-access
+```
+
+get ip address in `CLUSTER_IP` section
+
+```
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                        AGE
+iomesh-access   ClusterIP   10.233.1.125   <none>        3260/TCP,10206/TCP,10201/TCP   12m
+```
+
+3. Fill IOMesh Meta access address in to `iomesh-csi-driver.yaml`
+
+```yaml
+driver:
+  metaAddr: "<IOMesh Meta access address>:10206"
+```
+
+Example:
+
+```yaml
+driver:
+  metaAddr: "10.233.1.125:10206"
+```
+
+4. Customize `iomesh-csi-driver.yaml`:
 
 > **__NOTE__: For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`.**
 
@@ -194,7 +205,7 @@ driver:
       mountIscsiLock: true
 ```
 
-3. Install IOMesh CSI driver
+5. Install IOMesh CSI driver
 
 > **_NOTE_: replace `my-iomesh-csi-driver` with your release name.**
 
@@ -206,7 +217,7 @@ helm install my-iomesh-csi-driver iomesh/csi-driver \
     --wait
 ```
 
-4. Wait until IOMesh Cluster pods are ready.
+6. Wait until IOMesh Cluster pods are ready.
 
 ```
 watch kubectl get --namespace iomesh-system pods

@@ -72,14 +72,14 @@ chunk:
     <mount-type>:
       selector:
         matchLabels:
-          foo: bar
+          <label-key>: <label-value>
         matchExpressions:
-        - key: foo
+        - key: <label-key>
           operator: In
           Values:
-          - bar
+          - <label-value>
       exclude:
-      - blockdevice-demo-foo
+      - <block-device-name>
 ```
 
 #### Mount Type
@@ -104,31 +104,31 @@ All block devices selected by device selector will be mounted to IOMesh with the
 
 Here is a full example of `chunk/deviceMap` configuration:
 ```yaml
-# ...
-chunk:
   # ...
-  deviceMap:
-    cacheWithJournal:
-      selector:
-        matchLabels:
-          iomesh.com/bd-deviceType: disk
-        matchExpressions:
-        - key: iomesh.com/bd-driverType
-          operator: In
-          values:
-          - SSD
-      exclude:
-      - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
-    dataStore:
-      selector:
-        matchExpressions:
-        - key: iomesh.com/bd-driverType
-          operator: In
-          values:
-          - HDD
-      exclude:
-      - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
-  # ...
+  chunk:
+    # ...
+    deviceMap:
+      cacheWithJournal:
+        selector:
+          matchLabels:
+            iomesh.com/bd-deviceType: disk
+          matchExpressions:
+          - key: iomesh.com/bd-driverType
+            operator: In
+            values:
+            - SSD
+        exclude:
+        - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
+      dataStore:
+        selector:
+          matchExpressions:
+          - key: iomesh.com/bd-driverType
+            operator: In
+            values:
+            - HDD
+        exclude:
+        - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
+    # ...
 ```
 
 After having a correct `chunk/deviceMap` configuration, apply it to the cluster.
