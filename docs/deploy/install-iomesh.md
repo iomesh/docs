@@ -167,7 +167,7 @@ watch kubectl get --namespace iomesh-system pods
 helm show values iomesh/csi-driver > iomesh-csi-driver.yaml
 ```
 
-2. Get IOMesh Meta access address
+2. Get IOMesh access service address
 
 ```shell
 kubectl -n iomesh-system get svc iomesh-access
@@ -180,12 +180,7 @@ NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                
 iomesh-access   ClusterIP   10.233.1.125   <none>        3260/TCP,10206/TCP,10201/TCP   12m
 ```
 
-3. Fill IOMesh Meta access address in to `iomesh-csi-driver.yaml`
-
-```yaml
-driver:
-  metaAddr: "<IOMesh Meta access address>:10206"
-```
+3. Edit `iomesh-csi-driver.yaml` by adding field `metaAddr`
 
 Example:
 

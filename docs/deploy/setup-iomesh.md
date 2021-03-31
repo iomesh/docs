@@ -67,19 +67,20 @@ Labels started with `iomesh.com/bd-` are created by IOMesh to describe hardware 
 `chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block device should be mounted to IOMesh cluster and how would they be mounted.
 
 ```yaml
-chunk:
-  deviceMap:
-    <mount-type>:
-      selector:
-        matchLabels:
-          <label-key>: <label-value>
-        matchExpressions:
-        - key: <label-key>
-          operator: In
-          Values:
-          - <label-value>
-      exclude:
-      - <block-device-name>
+spec:
+  chunk:
+    deviceMap:
+      <mount-type>:
+        selector:
+          matchLabels:
+            <label-key>: <label-value>
+          matchExpressions:
+          - key: <label-key>
+            operator: In
+            Values:
+            - <label-value>
+        exclude:
+        - <block-device-name>
 ```
 
 #### Mount Type
@@ -104,6 +105,7 @@ All block devices selected by device selector will be mounted to IOMesh with the
 
 Here is a full example of `chunk/deviceMap` configuration:
 ```yaml
+spec:
   # ...
   chunk:
     # ...
