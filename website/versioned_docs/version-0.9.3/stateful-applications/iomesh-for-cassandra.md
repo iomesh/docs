@@ -1,23 +1,19 @@
 ---
-id: version-0.9.0-iomesh-for-cassandra
+id: version-0.9.3-iomesh-for-cassandra
 title: IOMesh for Cassandra
 sidebar_label: IOMesh for Cassandra
 original_id: iomesh-for-cassandra
 ---
 
-## Prerequisites
-
-- **A running IOMesh cluster**. Refer to the [Installation](http://iomesh.com/docs/installation/install-and-setup-iomesh) page for details about how to install IOMesh.
-- **Kubectl**. Refer to the [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) page of the Kubernetes documentation for details about installing `kubectl`.
-
 ## Setup k8s Cluster Storage
 
-### Create a StorageClass
+1. Create a file named `iomesh-cassandra-sc.yaml` with the following content:
 
-1. Create a file named `iomesh-cassandra-sc.yaml`, with the following content:
+```text
+iomesh-cassandra-sc.yaml
+```
 
-```yaml
-# iomesh-cassandra-sc.yaml
+```output
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -43,8 +39,11 @@ kubectl apply -f iomesh-cassandra-sc.yaml
 
 1. Create a Service used for DNS lookups between Cassandra Pods and clients within your cluster
 
-```yaml
-# cassandra-service.yaml
+```text
+cassandra-service.yaml
+```
+
+```output
 apiVersion: v1
 kind: Service
 metadata:
@@ -67,10 +66,13 @@ kubectl apply -f cassandra-service.yaml
 
 ### Create Cassandra cluster use pv provided for IOMesh Storage
 
-1. Using a statefulset to create a cassandra cluster
+1. Use StatefulSet to create a cassandra cluster
 
-```yaml
-# cassandra-statefulset.yaml
+```text
+cassandra-statefulset.yaml
+```
+
+```output
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -116,7 +118,7 @@ spec:
         lifecycle:
           preStop:
             exec:
-              command: 
+              command:
               - /bin/sh
               - -c
               - nodetool drain
@@ -165,7 +167,7 @@ spec:
 kubectl apply -f cassandra-statefulset.yaml
 ```
 
-IOMesh Storage will create Persistent Volumes for each cassandra pod，whose file system is ext4, replica factor is 2 and thin provisioned.
+IOMesh Storage will create Persistent Volumes for each cassandra pod. These volumes use the ext4 file system with a replica factor of 2 and are thin provisioned.
 
 ## Operate Cassandra Data
 

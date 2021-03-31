@@ -1,23 +1,19 @@
 ---
-id: version-0.9.0-iomesh-for-mysql
+id: version-0.9.3-iomesh-for-mysql
 title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 original_id: iomesh-for-mysql
 ---
 
-## Prerequisites
-
-- **A running IOMesh cluster**. Refer to the [Installation](http://iomesh.com/docs/installation/install-and-setup-iomesh) page for details about how to install IOMesh.
-- **Kubectl**. Refer to the [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) page of the Kubernetes documentation for details about installing `kubectl`.
-
 ## Setup k8s Cluster Storage
 
-### Create a StorageClass
+1. Create a file named `iomesh-mysql-sc.yaml` with the following content:
 
-1. Create a file named `iomesh-mysql-sc.yaml`, with the following content:
+```text
+iomesh-mysql-sc.yaml
+```
 
-```yaml
-# iomesh-mysql-sc.yaml
+```output
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -39,10 +35,13 @@ kubectl apply -f iomesh-mysql-sc.yaml
 
 ## Deploy MySQL
 
-1. Create a file named mysql-deployment.yaml, this YAML file describes a Deployment that runs MySQL and create a PVC use IOMesh storage.
+1. Create a file named `mysql-deployment.yaml`. It describes a Deployment that runs MySQL and creates a PVC that consumes the IOMesh storage.
 
-```yaml
-# mysql-deployment.yaml
+```text
+mysql-deployment.yaml
+```
+
+```output
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
