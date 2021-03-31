@@ -1,5 +1,5 @@
 ---
-id: version-0.9.0-performance-testing
+id: version-0.9.3-performance-testing
 title: Performance Testing
 sidebar_label: Performance Testing
 original_id: performance-testing
@@ -7,23 +7,21 @@ original_id: performance-testing
 
 ## FIO-based Performance Testing
 
-### Steps
-
-1. Install fio testing pod
+1. Create a pod for fio test
 
 ```shell
-kubectl apply -f http://www.iomesh.com/docs/assets/zbs-csi-driver/example/fio.yaml
+kubectl apply -f http://www.iomesh.com/docs/assets/iomesh-csi-driver/example/fio.yaml
 ```
 
-2. Wait until fio-pvc bound and fio pod ready
+2. Wait until fio-pvc bound is finished and fio pod is ready
 
 ```shell
 kubectl get pvc fio-pvc
 ```
 
 ```output
-NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS             AGE
-fio-pvc   Bound    pvc-d7916b34-50cd-49bd-86f9-5287db1265cb   30Gi       RWO            zbs-csi-driver-default   15s
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS                AGE
+fio-pvc   Bound    pvc-d7916b34-50cd-49bd-86f9-5287db1265cb   30Gi       RWO            iomesh-csi-driver-default   15s
 ```
 
 ```shell
@@ -34,7 +32,7 @@ kubectl wait --for=condition=Ready pod/fio
 pod/fio condition met
 ```
 
-3. Run fio
+3. Run fio tests
 
 ```shell
 kubectl exec -it fio sh
