@@ -155,7 +155,7 @@ install_iomesh() {
 	fi
 
 	#TODO(ziyin): check more resouces after install
-	timeout=200 # 200s
+	timeout=400 # 400s
 	while true ; do
 		if kubectl get pod ${IOMESH_RELEASE}-chunk-0 -n ${IOMESH_NAMESPACE} &> /dev/null ; then
 			break
