@@ -86,31 +86,16 @@ unzip release-2.1.zip &amp;&amp; cd external-snapshotter-release-2.1
 <pre><code class="hljs css language-shell">kubectl create -f ./config/crd
 </code></pre>
 <ol start="3">
-<li>Edit <code>deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml</code> by adding a namespace, eg. <code>kube-system</code>:</li>
+<li>Edit <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml</code> by adding a namespace, eg. <code>kube-system</code>:</li>
 </ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">StatefulSet</span>
-<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">snapshot-controller</span>
-  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span> <span class="hljs-comment"># &lt;-- Add namespace here</span>
-<span class="hljs-comment"># ...</span>
+<pre><code class="hljs css language-shell">sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 </code></pre>
 <ol start="4">
-<li>Edit <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml</code> by adding a namespace. eg. <code>kube-system</code>:</li>
+<li>Install snapshot controller, eg. <code>kube-system</code>:</li>
 </ol>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
-<span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span>
-<span class="hljs-attr">metadata:</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">snapshot-controller</span>
-  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span> <span class="hljs-comment"># &lt;-- Add namespace here</span>
-<span class="hljs-comment"># ...</span>
+<pre><code class="hljs css language-shell">kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
 </code></pre>
 <ol start="5">
-<li>Install snapshot controller:</li>
-</ol>
-<pre><code class="hljs css language-shell">kubectl apply -f ./deploy/kubernetes/snapshot-controller
-</code></pre>
-<ol start="6">
 <li>Wait until snapshot controller is ready:</li>
 </ol>
 <pre><code class="hljs css language-shell">kubectl get sts snapshot-controller -n kube-system
@@ -189,6 +174,22 @@ chmod 700 get_helm.sh
 <pre><code class="hljs css language-shell">helm show values iomesh/csi-driver &gt; iomesh-csi-driver.yaml
 </code></pre>
 <ol start="2">
+<li>Get IOMesh access service address</li>
+</ol>
+<pre><code class="hljs css language-shell">kubectl -n iomesh-system get svc iomesh-access
+</code></pre>
+<p>get ip address in <code>CLUSTER_IP</code> section</p>
+<pre><code class="hljs">NAME           <span class="hljs-built_in"> TYPE </span>       CLUSTER-IP     EXTERNAL-IP   PORT(S)                        AGE
+iomesh-access   ClusterIP   10.233.1.125   &lt;none&gt;        3260/TCP,10206/TCP,10201/TCP   12m
+</code></pre>
+<ol start="3">
+<li>Edit <code>iomesh-csi-driver.yaml</code> by adding field <code>metaAddr</code></li>
+</ol>
+<p>Example:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">driver:</span>
+  <span class="hljs-attr">metaAddr:</span> <span class="hljs-string">"10.233.1.125:10206"</span>
+</code></pre>
+<ol start="4">
 <li>Customize <code>iomesh-csi-driver.yaml</code>:</li>
 </ol>
 <blockquote>
@@ -199,7 +200,7 @@ chmod 700 get_helm.sh
     <span class="hljs-attr">driver:</span>
       <span class="hljs-attr">mountIscsiLock:</span> <span class="hljs-literal">true</span>
 </code></pre>
-<ol start="3">
+<ol start="5">
 <li>Install IOMesh CSI driver</li>
 </ol>
 <blockquote>
@@ -211,7 +212,7 @@ chmod 700 get_helm.sh
     --values iomesh-csi-driver.yaml \
     --wait
 </code></pre>
-<ol start="4">
+<ol start="6">
 <li>Wait until IOMesh Cluster pods are ready.</li>
 </ol>
 <pre><code class="hljs">watch kubectl <span class="hljs-keyword">get</span> --<span class="hljs-keyword">namespace</span> iomesh-system pods
