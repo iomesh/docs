@@ -13,6 +13,6 @@ apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshotClass
 metadata:
   name: iomesh-csi-driver-default
-driver: <dirver.name>  # <-- driver.name in iomesh-values.yaml
+driver: com.iomesh.csi-driver  # <-- driver.name in iomesh-values.yaml
 deletionPolicy: Retain
 ```
