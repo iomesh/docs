@@ -132,7 +132,7 @@ install_iomesh_operator() {
 	       	--namespace ${IOMESH_OPERATOR_NAMESPACE} \
 	       	--create-namespace \
 	       	--set hostpath-provisioner.pvDir=/mnt/iomesh/hostpath \
-	       	--wait 2> /dev/null
+	       	--wait  2>&1 | grep -vi "warning"
 	if [[ $? -ne 0 ]] ; then
 		error "fail to install IOMesh operator."
 	fi
@@ -149,7 +149,7 @@ install_iomesh() {
 	       	--create-namespace \
 	       	--set chunk.dataCIDR="${IOMESH_DATA_CIDR}" \
 	       	--set meta.replicaCount="${META_REPLICAS}" \
-	       	--set zookeeper.replicas="${ZK_REPLICAS}" 2> /dev/null
+	       	--set zookeeper.replicas="${ZK_REPLICAS}" 2>&1 | grep -vi "warning"
 	if [[ $? -ne 0 ]] ; then
 		error "fail to install IOMesh."
 	fi
@@ -193,7 +193,7 @@ install_iomesh_csi() {
 		--set driver.metaAddr="${meta_proxy_addr}":10206 \
 		--set driver.controller.replicas="${CSI_CONTROLLER_REPLICAS}" \
 		--set driver.node.mountIscsiLock="${MOUNT_ISCSI_LOCK}" \
-	       	--wait 2> /dev/null
+	       	--wait 2>&1 | grep -vi "warning"
 	if [[ $? -ne 0 ]] ; then
 		error "fail to install IOMesh csi."
 	fi
