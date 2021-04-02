@@ -1,5 +1,5 @@
 ---
-id: version-0.9.3-best-practice-in-production
+id: version-0.9.4-best-practice-in-production
 title: Best Practice in Production
 sidebar_label: Best Practice in Production
 original_id: best-practice-in-production

@@ -1,5 +1,5 @@
 ---
-id: version-0.9.3-setup-storageclass
+id: version-0.9.4-setup-storageclass
 title: Setup StorageClass
 sidebar_label: Setup StorageClass
 original_id: setup-storageclass
