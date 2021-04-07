@@ -59,7 +59,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: example-restore
-clonespec:
+spec:
   storageClassName: iomesh-csi-driver-default
   dataSource:
     name: example-snapshot
