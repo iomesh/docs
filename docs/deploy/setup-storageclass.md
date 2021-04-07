@@ -12,7 +12,7 @@ The IOMesh storage class parameters are:
 | replicaFactor             | "1", "2", "3"                 | "2"     | replica factor                     |
 | thinProvision             | "true", "false"               | "true"  | thin provision or thick provision. |
 
-After IOMesh CSI driver was installed, a default StorageClass `iomesh-csi-driver-default` would be created. You may also create a new StorageClass with customized parameters:
+After IOMesh CSI driver was installed, a default StorageClass `iomesh-csi-driver` would be created. You may also create a new StorageClass with customized parameters:
 
 
 ```yaml
