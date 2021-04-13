@@ -11,9 +11,20 @@
 }
 
 @media only screen and (min-width: 1024px) {
+   /* .navPusher {
+      padding-top: 80px;
+   } */
+
+   .onPageNav {
+      top: 120px;
+   }
 }
 
 @media only screen and (max-width: 1023px) {
+   .docMainWrapper .wrapper {
+      padding-top: 40px;
+   }
+
 }
 
 @media only screen and (min-width: 1400px) {
@@ -22,7 +33,159 @@
 @media only screen and (min-width: 1500px) {
 }
 
+.navPusher {
+   padding-top: 80px;
+}
+
+.docsNavContainer .toc .navBreadcrumb {
+   background-color: #F1F2F3;
+}
+
+.toggleNav h2 i {
+   font-style: normal;
+}
+
 .language-output {
    margin-top: -20px;
-   background-color: #e8e8e8;
+}
+
+.fixedHeaderContainer {
+   background: #fff;
+   border-bottom: 1px solid #D1D5DB;
+}
+
+.fixedHeaderContainer a {
+   height: 64px;
+   color: #000;
+}
+
+.fixedHeaderContainer header img {
+   margin-left: -16px;
+}
+
+.fixedHeaderContainer header h3 {
+   font-size: 0.8rem;
+   color: #9CA3AF;
+   font-weight: normal;
+   text-decoration: none;
+   padding: 4px 6px;
+   border-radius: 4px;
+   background: #E5E7EB;
+}
+
+.fixedHeaderContainer header h3:hover {
+   color: #6B7280;
+}
+
+.navigationWrapper.navigationSlider {
+   display: none;
+}
+
+.toc .toggleNav .navGroup .navGroupCategoryTitle {
+   font-size: 1.15rem;
+   color: #1F2937;
+}
+
+.toc .toggleNav ul li a {
+   font-size: 0.95rem;
+   color: #6B7280;
+}
+
+body {
+   font-size: 18px;
+}
+
+h1 {
+   font-size: 2rem;
+}
+
+h2 {
+   font-size: 1.5rem;
+}
+
+
+pre code {
+   border-radius: 8px;
+}
+
+.hljs {
+   background: #2b3b5a;
+}
+
+pre code.language-output {
+   border-radius: 0 0 8px 8px;
+   background: #142340;
+}
+
+a:hover {
+   color: #A468FF;
+}
+
+article a {
+   transition: color .2s;
+   display: inline-block;
+   position: relative;
+}
+
+article a:before {
+   content: "";
+   display: block;
+   position: absolute;
+   width: 0;
+   height: 3px;
+   background-color: #A468FF;
+   transition: width .2s, left .2s;
+   bottom: 0;
+   left: 50%;
+   opacity: .6;
+}
+
+article a:hover {
+   color: #A468FF;
+}
+
+article a:hover:before {
+   width: 100%;
+   left: 0;
+}
+
+.button {
+   border: none;
+   border-radius: 0.375rem;
+   font-size: 1rem;
+   text-transform: none;
+}
+
+.button:hover {
+   background-color: #984eff14;
+   color: #974EFF;
+}
+
+.tabs {
+   border: none;
+}
+
+blockquote {
+   position: relative;
+   padding-left: 36px;
+   border-radius: 8px;;
+}
+
+blockquote:before {
+   content: "💡";
+   display: block;
+   position: absolute;
+   font-size: 24px;
+   left: 6px;
+   top: 8px;
+}
+
+blockquote strong {
+   font-weight: normal;
+}
+
+blockquote em {
+   font-style: normal;
+   color: #D97706;
+   font-weight: 600;
 }
