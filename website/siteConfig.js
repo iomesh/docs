@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: "IOMesh", // Title for your website.
+  title: "Documentation", // Title for your website.
   tagline: "A website for IOMesh",
   url: "http://iomesh.com", // Your website URL
   baseUrl: "/docs/", // Base URL for your project */
@@ -46,8 +46,8 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: "img/favicon.ico",
-  footerIcon: "img/favicon.ico",
+  headerIcon: "img/IOMesh_logo_on_white.png",
+  footerIcon: "img/IOMesh_logo_on_white.png",
   favicon: "img/favicon.ico",
 
   /* Colors for website */
