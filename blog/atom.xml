@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://iomesh.com/docs/blog</id>
-    <title>IOMesh Blog</title>
+    <title>Documentation Blog</title>
     <updated>2017-10-24T06:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://iomesh.com/docs/blog"/>
-    <subtitle>The best place to stay up-to-date with the latest IOMesh news and events.</subtitle>
-    <logo>http://iomesh.com/docs/img/favicon.ico</logo>
+    <subtitle>The best place to stay up-to-date with the latest Documentation news and events.</subtitle>
+    <logo>http://iomesh.com/docs/img/IOMesh_logo_on_white.png</logo>
     <rights>Copyright © 2021 IOMesh</rights>
     <entry>
         <title type="html"><![CDATA[New Version 1.0.0]]></title>
