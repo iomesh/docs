@@ -1,5 +1,5 @@
 ---
-id: version-0.9.4-setup-snapshotclass
+id: version-0.9.5-setup-snapshotclass
 title: Setup SnapshotClass
 sidebar_label: Setup SnapshotClass
 original_id: setup-snapshotclass

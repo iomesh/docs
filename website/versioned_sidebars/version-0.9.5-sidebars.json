@@ -1,0 +1,31 @@
+{
+  "version-0.9.5-docs": {
+    "About IOMesh": [
+      "version-0.9.5-about-iomesh/introduction"
+    ],
+    "Deploy": [
+      "version-0.9.5-deploy/prerequisites",
+      "version-0.9.5-deploy/install-iomesh",
+      "version-0.9.5-deploy/setup-iomesh",
+      "version-0.9.5-deploy/setup-storageclass",
+      "version-0.9.5-deploy/setup-snapshotclass"
+    ],
+    "Volume Operations": [
+      "version-0.9.5-volume-operations/create-volume",
+      "version-0.9.5-volume-operations/expand-volume",
+      "version-0.9.5-volume-operations/snapshot-restore-and-clone"
+    ],
+    "IOMesh Operations": [
+      "version-0.9.5-iomesh-operations/monitoring",
+      "version-0.9.5-iomesh-operations/cluster-operations"
+    ],
+    "Stateful Applications": [
+      "version-0.9.5-stateful-applications/iomesh-for-mysql",
+      "version-0.9.5-stateful-applications/iomesh-for-cassandra",
+      "version-0.9.5-stateful-applications/iomesh-for-mongodb"
+    ],
+    "Additional Info": [
+      "version-0.9.5-additional-info/performance-testing"
+    ]
+  }
+}
