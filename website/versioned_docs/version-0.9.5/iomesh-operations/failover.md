@@ -1,5 +1,5 @@
 ---
-id: version-0.9.4-failover
+id: version-0.9.5-failover
 title: Failover
 sidebar_label: Failover
 original_id: failover
