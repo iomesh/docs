@@ -1,5 +1,5 @@
 ---
-id: version-0.9.4-cluster-operations
+id: version-0.9.5-cluster-operations
 title: Cluster Operations
 sidebar_label: Cluster Operations
 original_id: cluster-operations

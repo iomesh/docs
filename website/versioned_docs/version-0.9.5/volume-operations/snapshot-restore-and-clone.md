@@ -1,5 +1,5 @@
 ---
-id: version-0.9.4-snapshot-restore-and-clone
+id: version-0.9.5-snapshot-restore-and-clone
 title: Snapshot, Restore And Clone
 sidebar_label: Snapshot, Restore And Clone
 original_id: snapshot-restore-and-clone
@@ -60,7 +60,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: example-restore
-clonespec:
+spec:
   storageClassName: iomesh-csi-driver-default
   dataSource:
     name: example-snapshot

@@ -1,5 +1,5 @@
 ---
-id: version-0.9.4-install-iomesh
+id: version-0.9.5-install-iomesh
 title: Install IOMesh
 sidebar_label: Install IOMesh
 original_id: install-iomesh
@@ -50,8 +50,8 @@ Instasll CSI snapshotter to enable Volume Snapshot feature.
 1. Download and extract CSI external-snapshotter:
 
 ```shell
-curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip
-unzip release-2.1.zip && cd external-snapshotter-release-2.1
+curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.tar.gz
+tar -xf release-2.1.tar.gz && cd external-snapshotter-release-2.1
 ```
 
 2. Install Snapshot CRDs:
