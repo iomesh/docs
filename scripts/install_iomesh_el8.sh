@@ -40,14 +40,13 @@ readonly CSI_CONTROLLER_REPLICAS=3
 HAS_HELM="$(type "helm" &> /dev/null && echo true || echo false)"
 HAS_KUBECTL="$(type "kubectl" &> /dev/null && echo true || echo false)"
 HAS_CURL="$(type "curl" &> /dev/null && echo true || echo false)"
-HAS_UNZIP="$(type "unzip" &> /dev/null && echo true || echo false)"
 
 info() {
 	echo "[Info][$(date +'%Y-%m-%dT%H:%M:%S%z')]: $@" >&2
 }
 
 cleanup() {
-	rm -rf release-2.1.zip &> /dev/null
+	rm -rf release-2.1.tar.gz &> /dev/null
 	rm -rf external-snapshotter-release-2.1 &> /dev/null
 	rm -rf get_helm.sh &> /dev/null
 }
@@ -66,10 +65,10 @@ install_snapshot_controller() {
 	fi
 	info "start install snapshot controller."
 
-	if ! curl -LOs https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.zip ; then
+	if ! curl -LOs https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.tar.gz ; then
 		error "fail to external-snapshotter, please confirm whether the connection to github.com is ok?"
 	fi
-	unzip release-2.1.zip &> /dev/null
+	tar -xf release-2.1.tar.gz &> /dev/null
 	kubectl create -f external-snapshotter-release-2.1/config/crd
 	sed -i  "s/namespace:\ default/namespace:\ kube-system/g" external-snapshotter-release-2.1/deploy/kubernetes/snapshot-controller/*
 	kubectl apply -f external-snapshotter-release-2.1/deploy/kubernetes/snapshot-controller -n kube-system
@@ -107,10 +106,6 @@ verify_supported() {
 
 	if [[ "${HAS_CURL}" != "true" ]]; then
 		error "curl is required"
-	fi
-
-	if [[ "${HAS_UNZIP}" != "true" ]]; then
-		error "unzip is required"
 	fi
 
 	if [[ "${HAS_HELM}" != "true" ]]; then
