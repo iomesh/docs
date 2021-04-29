@@ -58,9 +58,9 @@ class Footer extends React.Component {
             >
               <img src="../img/YouTube_footer.svg" width={16} height={16} />
             </a>
+          </div>
         </div>
-      </div>
-    </footer>
+      </footer>
     );
   }
 }
