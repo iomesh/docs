@@ -8,6 +8,9 @@
 /* your custom css */
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+   .fixedHeaderContainer header img {
+      margin-right: 4px;
+   }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -67,7 +70,10 @@
    margin-left: -16px;
 }
 
+ /* Version - Temporarily Hidden*/
+
 .fixedHeaderContainer header h3 {
+   display: none; 
    font-size: 0.8rem;
    color: #9CA3AF;
    font-weight: normal;
@@ -229,16 +235,24 @@ blockquote em {
 
 .nav-footer {
    background: none;
-   border-top: 1px solid rgba(209,213,219,1);
    color: #202020;
    font-size: 14px;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    font-weight: 400;
    line-height: 24px;
+   
+}
+
+.footerWrapper {
+   max-width: 1400px;
    padding: 1.5em;
    display: flex;
+   flex-wrap: wrap;
    justify-content: space-between;
+   margin: 0 auto;
+
+   border-top: 1px solid rgba(209,213,219,1);
 }
 
 .footerLink {
