@@ -38,8 +38,7 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { href: '/docs', label: "Docs" },
-    { href: "https://github.com/iomesh", label: "GitHub", external: true },
+    { href: 'https://www.iomesh.com', label: "Back to IOMesh Home" },
   ],
 
   // If you have users set above, you add it here:
