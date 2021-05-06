@@ -24,7 +24,7 @@ class Footer extends React.Component {
             <a className="footerLink" href="https://iomesh.com/spec">Spec</a>
             <a
               className="footerLink"
-              href="http://doc.iomesh.com/next/about-iomesh/introduction"
+              href="http://docs.iomesh.com/next/about-iomesh/introduction"
               target="_blank"
               rel="noreferrer"
             >
