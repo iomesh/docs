@@ -33,5 +33,5 @@ Download and import [iomesh-dashboard.json][3] to any existing Grafana.
 
 [1]: https://github.com/prometheus-operator/prometheus-operator
 [2]: https://grafana.com/grafana/download
-[3]: http://www.iomesh.com/docs/assets/iomesh-operation/iomesh-dashboard.json
-[4]: http://www.iomesh.com/docs/assets/iomesh-operation/iomesh-prometheus-kubernetes-sd-example.yaml
+[3]: https://raw.githubusercontent.com/iomesh/docs/master/docs/assets/iomesh-operation/ioemsh-dashobard.json
+[4]: https://raw.githubusercontent.com/iomesh/docs/master/docs/assets/iomesh-operation/iomesh-prometheus-kubernetes-sd-example.yaml
