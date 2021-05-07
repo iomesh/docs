@@ -16,14 +16,14 @@ Choose the right script to execute according to your OS distribution:
 
 ```shell
 # Every node running IOMesh must have an IP address belongs to IOMESH_DATA_CIDR
-export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el7.sh | sh -
+export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/scripts/install_iomesh_el7.sh | sh -
 ```
 
 <!--RHEL8/CentOS8/CoreOS-->
 
 ```shell
 # Every node running IOMesh must have an IP address belongs to IOMESH_DATA_CIDR
-export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://raw.githubusercontent.com/iomesh/docs/master/scripts/install_iomesh_el8.sh | sh -
+export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/scripts/install_iomesh_el8.sh | sh -
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
