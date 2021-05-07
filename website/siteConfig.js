@@ -25,6 +25,7 @@ const siteConfig = {
   tagline: "A website for IOMesh",
   url: "http://docs.iomesh.com", // Your website URL
   baseUrl: "/", // Base URL for your project */
+  cname: "docs.iomesh.com",
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
