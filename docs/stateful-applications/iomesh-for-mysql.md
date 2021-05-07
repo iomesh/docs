@@ -106,4 +106,4 @@ kubectl apply -f mysql-deployment.yaml
 
 ## Operate MySQL Data
 
-User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the pv  where MySQL data is located, see reference for details [application-operations](http://iomesh.com/docs/storage-usage/application-operations)
+User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the pv  where MySQL data is located, see reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)

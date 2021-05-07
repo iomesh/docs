@@ -131,4 +131,4 @@ IOMesh Storage will create Persistent Volumes for each cassandra pod. These volu
 
 ## Operate MongoDB Data
 
-User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the Persistent Volumes  where MongoDB data is located, see reference for details [application-operations](http://iomesh.com/docs/storage-usage/application-operations)
+User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the Persistent Volumes  where MongoDB data is located, see reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
