@@ -35,6 +35,9 @@ watch kubectl get --namespace iomesh-system pods
 
 Now IOMesh has been installed successfully!
 
+> **_NOTE_: If any error occurs during the installation process, the IOMesh resources which installed by the script will be reserved for troubleshooting. You can use the uninstall script to clean up all IOMesh resources installed in the k8s cluster:
+ `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -`**
+
 ## Customized Installation Guide
 
 This is the sophisticated installtion guide for customized configurations.
