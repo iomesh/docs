@@ -1,7 +1,8 @@
 ---
-id: performance-testing
+id: version-0.9.7-performance-testing
 title: Performance Testing
 sidebar_label: Performance Testing
+original_id: performance-testing
 ---
 
 ## FIO-based Performance Testing
