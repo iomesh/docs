@@ -1,7 +1,8 @@
 ---
-id: create-volume
+id: version-0.9.7-create-volume
 title: Create Volume
 sidebar_label: Create Volume
+original_id: create-volume
 ---
 
 A volume can be created by the following YAML. User should ensure that the corresponding StorageClass already exists.
