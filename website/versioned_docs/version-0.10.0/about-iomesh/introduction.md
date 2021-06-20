@@ -1,7 +1,8 @@
 ---
-id: introduction
+id: version-0.10.0-introduction
 title: Introduction
 sidebar_label: Introduction
+original_id: introduction
 ---
 
 ## What is IOMesh？
