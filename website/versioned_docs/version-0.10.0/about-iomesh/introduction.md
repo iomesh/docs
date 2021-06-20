@@ -1,7 +1,8 @@
 ---
-id: introduction
+id: version-0.10.0-introduction
 title: Introduction
 sidebar_label: Introduction
+original_id: introduction
 ---
 
 ## What is IOMesh？
@@ -23,7 +24,7 @@ IOMesh is a distributed storage system specially designed for Kubernetes workloa
 
 ## Architecture
 
-![IOMesh arch](https://user-images.githubusercontent.com/78140947/122766241-e2352c00-d2d3-11eb-9630-bb5b428c3178.png)
+![iomesh-architecture](https://user-images.githubusercontent.com/78140947/116510446-8499ea00-a8f7-11eb-9b1b-fc61a0fbf4b0.png)
 
 ## Compatibility List with Kubernetes
 
