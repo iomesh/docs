@@ -8,10 +8,10 @@ sidebar_label: Prerequisites
 
 - A Kubernetes 1.17+ cluster with at least 3 worker nodes
 - Each worker node needs
-  - At least one idle SSD for IOMesh journal and cache
-  - At least one idle HDD for IOMesh datastore
-  - A 10GbE (or higher) network interface for IOMesh data network connectivity
-  - 100G disk space for hostpath-provisioner
+  - At least one free SSD for IOMesh journal and cache
+  - At least one free HDD for IOMesh datastore
+  - A 10GbE NIC or above for IOMesh storage network
+  - At least 100GB free space on /opt
 
 ## Setup Worker Node
 
