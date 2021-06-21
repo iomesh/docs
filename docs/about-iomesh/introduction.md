@@ -23,7 +23,7 @@ IOMesh is a distributed storage system specially designed for Kubernetes workloa
 
 ## Architecture
 
-![iomesh-architecture](https://user-images.githubusercontent.com/78140947/116510446-8499ea00-a8f7-11eb-9b1b-fc61a0fbf4b0.png)
+![IOMesh arch](https://user-images.githubusercontent.com/78140947/122766241-e2352c00-d2d3-11eb-9630-bb5b428c3178.png)
 
 ## Compatibility List with Kubernetes
 
