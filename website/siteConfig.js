@@ -46,8 +46,8 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: "img/IOMesh_logo_on_white.png",
-  footerIcon: "img/IOMesh_logo_on_white.png",
+  headerIcon: "img/IOMesh_logo_on_white.svg",
+  footerIcon: "img/IOMesh_logo_on_white.svg",
   favicon: "img/favicon.ico",
 
   /* Colors for website */
