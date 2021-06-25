@@ -51,39 +51,39 @@ Instasll CSI snapshotter to enable Volume Snapshot feature.
 
 1. Download and extract CSI external-snapshotter:
 
-```shell
-curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.tar.gz
-tar -xf release-2.1.tar.gz && cd external-snapshotter-release-2.1
-```
+    ```shell
+    curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.tar.gz
+    tar -xf release-2.1.tar.gz && cd external-snapshotter-release-2.1
+    ```
 
 2. Install Snapshot CRDs:
 
-```shell
-kubectl create -f ./config/crd
-```
+    ```shell
+    kubectl create -f ./config/crd
+    ```
 
 3. Edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace, eg. `kube-system`:
 
-```shell
-sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
-```
+    ```shell
+    sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+    ```
 
 4. Install snapshot controller, eg. `kube-system`:
 
-```shell
-kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
-```
+    ```shell
+    kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
+    ```
 
 5. Wait until snapshot controller is ready:
 
-```shell
-kubectl get sts snapshot-controller -n kube-system
-```
+    ```shell
+    kubectl get sts snapshot-controller -n kube-system
+    ```
 
-```output
-NAME                  READY   AGE
-snapshot-controller   1/1     32s
-```
+    ```output
+    NAME                  READY   AGE
+    snapshot-controller   1/1     32s
+    ```
 
 ### Install Helm3
 
@@ -107,119 +107,119 @@ helm repo add iomesh http://iomesh.com/charts
 
 1. Download `iomesh-operator.yaml` with default configurations:
 
-```shell
-helm show values iomesh/operator > iomesh-operator.yaml
-```
+    ```shell
+    helm show values iomesh/operator > iomesh-operator.yaml
+    ```
 
 2. Customize the `iomesh-operator.yaml`:
 
 3. Install IOMesh Operator:
 
-> **_NOTE_: replace `my-iomesh-operator` with your release name.**
-```shell
-helm install my-iomesh-operator iomesh/operator \
-	       	--namespace iomesh-system \
-	       	--create-namespace \
-	       	--wait
-```
+    > **_NOTE_: replace `my-iomesh-operator` with your release name.**
+    ```shell
+    helm install my-iomesh-operator iomesh/operator \
+    	       	--namespace iomesh-system \
+    	       	--create-namespace \
+    	       	--wait
+    ```
 
 4. Wait until IOMesh Operator is ready:
 
-```shell
-watch kubectl get --namespace iomesh-system pods
-```
+    ```shell
+    watch kubectl get --namespace iomesh-system pods
+    ```
 
 ### Install IOMesh Cluster
 
 1. Download `iomesh-values.yaml` with default configurations:
 
-```shell
-helm show values iomesh/iomesh > iomesh-values.yaml
-```
+    ```shell
+    helm show values iomesh/iomesh > iomesh-values.yaml
+    ```
 
 2. Customize the `iomesh-values.yaml`:
 
-```yaml
-chunk:
-  dataCIDR: "10.234.1.0/24" # change to data network CIDR
-```
+    ```yaml
+    chunk:
+      dataCIDR: "10.234.1.0/24" # change to data network CIDR
+    ```
 
 3. Install IOMesh Cluster:
 
-> **_NOTE_: replace `my-iomesh` with your release name.**
+    > **_NOTE_: replace `my-iomesh` with your release name.**
 
-```shell
-helm install my-iomesh iomesh/iomesh \
-    --create-namespace \
-    --namespace iomesh-system \
-    --values iomesh-values.yaml \
-    --wait
-```
+    ```shell
+    helm install my-iomesh iomesh/iomesh \
+        --create-namespace \
+        --namespace iomesh-system \
+        --values iomesh-values.yaml \
+        --wait
+    ```
 
 4. Wait until IOMesh Cluster pods are ready:
 
-```
-watch kubectl get --namespace iomesh-system pods
-```
+    ```
+    watch kubectl get --namespace iomesh-system pods
+    ```
 
 ### Install IOMesh CSI driver
 
 1. Download `iomesh-csi-driver.yaml` with default configurations:
 
-```shell
-helm show values iomesh/csi-driver > iomesh-csi-driver.yaml
-```
+    ```shell
+    helm show values iomesh/csi-driver > iomesh-csi-driver.yaml
+    ```
 
 2. Get IOMesh access service address
 
-```shell
-kubectl -n iomesh-system get svc iomesh-access
-```
+    ```shell
+    kubectl -n iomesh-system get svc iomesh-access
+    ```
 
-get ip address in `CLUSTER_IP` section
+    get ip address in `CLUSTER_IP` section
 
-```
-NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                        AGE
-iomesh-access   ClusterIP   10.233.1.125   <none>        3260/TCP,10206/TCP,10201/TCP   12m
-```
+    ```
+    NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                        AGE
+    iomesh-access   ClusterIP   10.233.1.125   <none>        3260/TCP,10206/TCP,10201/TCP   12m
+    ```
 
 3. Edit `iomesh-csi-driver.yaml` by adding field `metaAddr`
 
-Example:
+    Example:
 
-```yaml
-driver:
-  metaAddr: "10.233.1.125:10206"
-```
+    ```yaml
+    driver:
+      metaAddr: "10.233.1.125:10206"
+    ```
 
 4. Customize `iomesh-csi-driver.yaml`:
 
-> **__NOTE__: For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`.**
+    > **__NOTE__: For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`.**
 
-```yaml
-driver:
-  node:
+    ```yaml
     driver:
-      mountIscsiLock: true
-```
+      node:
+        driver:
+          mountIscsiLock: true
+    ```
 
 5. Install IOMesh CSI driver
 
-> **_NOTE_: replace `my-iomesh-csi-driver` with your release name.**
+    > **_NOTE_: replace `my-iomesh-csi-driver` with your release name.**
 
-```shell
-helm install my-iomesh-csi-driver iomesh/csi-driver \
-    --create-namespace \
-    --namespace iomesh-system \
-    --values iomesh-csi-driver.yaml \
-    --wait
-```
+    ```shell
+    helm install my-iomesh-csi-driver iomesh/csi-driver \
+        --create-namespace \
+        --namespace iomesh-system \
+        --values iomesh-csi-driver.yaml \
+        --wait
+    ```
 
 6. Wait until IOMesh Cluster pods are ready.
 
-```
-watch kubectl get --namespace iomesh-system pods
-```
+    ```
+    watch kubectl get --namespace iomesh-system pods
+    ```
 
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network

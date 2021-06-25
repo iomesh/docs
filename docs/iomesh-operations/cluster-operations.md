@@ -72,32 +72,32 @@ Follow the steps below to upgrade the IOMesh once a new version is released.
 
 1. Export default config `iomesh-values.yaml` from Chart
 
-> **_NOTE_: If you already exported the config, you can skip this step.**
+    > **_NOTE_: If you already exported the config, you can skip this step.**
 
-```bash
-helm show values iomesh/iomesh > iomesh-values.yaml
-```
+    ```bash
+    helm show values iomesh/iomesh > iomesh-values.yaml
+    ```
 
 2. Edit `iomesh-values.yaml`
 
-```yaml
-# The version of the IOMeshCluster. You get new release from: http://iomesh.com/docs/release/releases
-version: v5.0.0-rc5
-```
+    ```yaml
+    # The version of the IOMeshCluster. You get new release from: http://iomesh.com/docs/release/releases
+    version: v5.0.0-rc5
+    ```
 
 3. Upgrade the IOMesh Cluster
 
-> **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
+    > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
 
-```bash
-helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
-```
+    ```bash
+    helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+    ```
 
 4. Wait new chunk server pods are ready.
 
-```bash
-watch kubectl get pod --namespace iomesh-system
-```
+    ```bash
+    watch kubectl get pod --namespace iomesh-system
+    ```
 
 ## Uninstallation IOMesh storage cluster
 

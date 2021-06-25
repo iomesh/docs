@@ -21,40 +21,36 @@ For each Kubernetes worker node that will run IOMesh, do the following steps:
 
 1. Install open-iscsi:
 
-<!--DOCUSAURUS_CODE_TABS-->
+  <!--DOCUSAURUS_CODE_TABS-->
+    <!--RHEL/CentOS-->
+    ```shell
+    sudo yum install iscsi-initiator-utils -y
+    ```
+    <!--Ubuntu-->
+    ```shell
+    sudo apt-get install open-iscsi -y
+    ```
 
-<!--RHEL/CentOS-->
-
-```shell
-sudo yum install iscsi-initiator-utils -y
-```
-
-<!--Ubuntu-->
-
-```shell
-sudo apt-get install open-iscsi -y
-```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
+  <!--END_DOCUSAURUS_CODE_TABS-->
 
 2. Edit `/etc/iscsi/iscsid.conf` by setting `node.startup` to `manual`:
 
-```shell
-sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
-```
+    ```shell
+    sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
+    ```
 
 3. Disable SELinux:
 
-```shell
-sudo setenforce 0
-sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
-```
+    ```shell
+    sudo setenforce 0
+    sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+    ```
 
 4. Start `iscsid` service:
 
-```shell
-sudo systemctl enable --now iscsid
-```
+    ```shell
+    sudo systemctl enable --now iscsid
+    ```
 
 ### Setup Local Metadata Store
 
