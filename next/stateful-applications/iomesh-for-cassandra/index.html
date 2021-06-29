@@ -56,8 +56,7 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">IOMesh for Cassandra</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="setup-k8s-cluster-storage"></a><a href="#setup-k8s-cluster-storage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup k8s Cluster Storage</h2>
 <ol>
-<li>Create a file named <code>iomesh-cassandra-sc.yaml</code> with the following content:</li>
-</ol>
+<li><p>Create a file named <code>iomesh-cassandra-sc.yaml</code> with the following content:</p>
 <pre><code class="hljs css language-text">iomesh-cassandra-sc.yaml
 </code></pre>
 <pre><code class="hljs css language-output"><span class="hljs-symbol">kind:</span> StorageClass
@@ -71,17 +70,15 @@
   csi.storage.k8s.io/fstype: <span class="hljs-string">"ext4"</span>
 <span class="hljs-symbol">  replicaFactor:</span> <span class="hljs-string">"2"</span>
 <span class="hljs-symbol">  thinProvision:</span> <span class="hljs-string">"true"</span>
-</code></pre>
-<ol start="2">
-<li>Apply the yaml config:</li>
-</ol>
+</code></pre></li>
+<li><p>Apply the yaml config:</p>
 <pre><code class="hljs css language-bash">kubectl apply -f iomesh-cassandra-sc.yaml
-</code></pre>
+</code></pre></li>
+</ol>
 <h2><a class="anchor" aria-hidden="true" id="deploy-cassandra"></a><a href="#deploy-cassandra" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploy Cassandra</h2>
 <h3><a class="anchor" aria-hidden="true" id="create-a-headless-service-for-cassandra"></a><a href="#create-a-headless-service-for-cassandra" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create a headless Service for Cassandra</h3>
 <ol>
-<li>Create a Service used for DNS lookups between Cassandra Pods and clients within your cluster</li>
-</ol>
+<li><p>Create a Service used for DNS lookups between Cassandra Pods and clients within your cluster</p>
 <pre><code class="hljs css language-text">cassandra-service.yaml
 </code></pre>
 <pre><code class="hljs css language-output"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
@@ -96,16 +93,14 @@
   <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">9042</span>
   <span class="hljs-attr">selector:</span>
     <span class="hljs-attr">app:</span> <span class="hljs-string">cassandra</span>
-</code></pre>
-<ol start="2">
-<li>Apply the yaml config:</li>
-</ol>
+</code></pre></li>
+<li><p>Apply the yaml config:</p>
 <pre><code class="hljs css language-bash">kubectl apply -f cassandra-service.yaml
-</code></pre>
+</code></pre></li>
+</ol>
 <h3><a class="anchor" aria-hidden="true" id="create-cassandra-cluster-use-pv-provided-for-iomesh-storage"></a><a href="#create-cassandra-cluster-use-pv-provided-for-iomesh-storage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create Cassandra cluster use pv provided for IOMesh Storage</h3>
 <ol>
-<li>Use StatefulSet to create a cassandra cluster</li>
-</ol>
+<li><p>Use StatefulSet to create a cassandra cluster</p>
 <pre><code class="hljs css language-text">cassandra-statefulset.yaml
 </code></pre>
 <pre><code class="hljs css language-output"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span>
@@ -194,12 +189,11 @@
       <span class="hljs-attr">resources:</span>
         <span class="hljs-attr">requests:</span>
           <span class="hljs-attr">storage:</span> <span class="hljs-string">10Gi</span>
-</code></pre>
-<ol start="2">
-<li>Apply the yaml config:</li>
-</ol>
+</code></pre></li>
+<li><p>Apply the yaml config:</p>
 <pre><code class="hljs css language-bash">kubectl apply -f cassandra-statefulset.yaml
-</code></pre>
+</code></pre></li>
+</ol>
 <p>IOMesh Storage will create Persistent Volumes for each cassandra pod. These volumes use the ext4 file system with a replica factor of 2 and are thin provisioned.</p>
 <h2><a class="anchor" aria-hidden="true" id="operate-cassandra-data"></a><a href="#operate-cassandra-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Operate Cassandra Data</h2>
 <p>User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the Persistent Volumes  where Cassandra data is located, see reference for details <a href="https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone">application-operations</a></p>
