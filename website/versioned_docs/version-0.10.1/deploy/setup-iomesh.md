@@ -1,7 +1,8 @@
 ---
-id: setup-iomesh
+id: version-0.10.1-setup-iomesh
 title: Setup IOMesh
 sidebar_label: Setup IOMesh
+original_id: setup-iomesh
 ---
 
 Block devices on worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize them to construct and provide distributed storage service.
