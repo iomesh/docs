@@ -149,7 +149,7 @@ install_iomesh() {
 		error "fail to install IOMesh."
 	fi
 
-	#TODO(ziyin): check more resouces after install
+	#TODO(ziyin): check more resources after install
 	timeout=400 # 400s
 	while true ; do
 		if kubectl get pod ${IOMESH_RELEASE}-chunk-0 -n ${IOMESH_NAMESPACE} &> /dev/null ; then
@@ -159,13 +159,13 @@ install_iomesh() {
 		sleep 5
 		timeout=$(( timeout-5 ))
 		if [[ $timeout -le 0 ]] ; then
-			error "IOMesh resouces not all ready, use kubectl to check reason"
+			error "IOMesh resources not all ready, use kubectl to check reason"
 		fi
 	done
 
 	kubectl wait pod/${IOMESH_RELEASE}-chunk-0 --for condition=ready  -n ${IOMESH_NAMESPACE} --timeout=600s
 	if [[ $? -ne 0 ]] ; then
-		error "IOMesh resouces not all ready, use kubectl to check reason"
+		error "IOMesh resources not all ready, use kubectl to check reason"
 	fi
 }
 
