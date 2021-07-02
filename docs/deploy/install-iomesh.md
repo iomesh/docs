@@ -167,12 +167,34 @@ helm repo add iomesh http://iomesh.com/charts
     helm show values iomesh/iomesh > iomesh-values.yaml
     ```
 
-2. Customize the `iomesh-values.yaml`, fill in the `dataCIDR` according to your network:
+2. Customize the `iomesh-values.yaml`
+
+   **(required)** fill in the `dataCIDR` according to your network:
 
     ```yaml
     chunk:
       dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
     ```
+
+   **(optional)** If you only want iomesh to use a part of k8s node's disks, 
+   configure the specific node's label in the `chunk.podPolicy.affinity`, for
+   example:
+   
+   ```yaml
+   chunk:
+     podPolicy:
+       affinity:
+         nodeAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+             - matchExpressions:
+               - key: kubernetes.io/hostname # specific node label's key
+                 operator: In
+                 values:
+                 - iomesh-worker-0 # specific node label's value
+                 - iomesh-worker-1
+    ```
+    More info about pod affinity configuration rule see: [pod affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 
 
 3. Install IOMesh Cluster:
 
