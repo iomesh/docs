@@ -72,7 +72,7 @@ install_snapshot_controller() {
 	kubectl create -f external-snapshotter-release-2.1/config/crd
 	sed -i  "s/namespace:\ default/namespace:\ kube-system/g" external-snapshotter-release-2.1/deploy/kubernetes/snapshot-controller/*
 	kubectl apply -f external-snapshotter-release-2.1/deploy/kubernetes/snapshot-controller -n kube-system
-	# TODO(ziyin): ensure snapshot-controller container pull success
+	kubectl wait pod -l app=snapshot-controller --for condition=ready -n kube-system --timeout -1s
 	info "snapshot controller install completed"
 }
 
