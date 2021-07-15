@@ -1,14 +1,14 @@
 ---
 id: snapshot-restore-and-clone
-title: Snapshot, Restore And Clone
-sidebar_label: Snapshot, Restore And Clone
+title: Snapshot, Restore and Clone
+sidebar_label: Snapshot, Restore and Clone
 ---
 
 ## Snapshot
 
-IOMesh provides the ability to create a snapshot of an existing persistent volume.
+IOMesh is able to create a snapshot for an existing persistent volume (PV) by using a VolumeSnapshot object.
 
-A VolumeSnapshot object defines a request of taking a snapshot of the PVC.
+A VolumeSnapshot object defines a request for taking a snapshot by using a PVC.
 
 For example:
 
@@ -33,7 +33,7 @@ Apply the YAML file:
 kubectl apply -f example-snapshot.yaml
 ```
 
-After VolumeSnapshot object created, a corresponding VolumeSnapshotContent will be created by IOMesh.
+After the VolumeSnapshot object is created, a corresponding VolumeSnapshotContent object will be created by IOMesh.
 
 ```bash
 kubectl get Volumesnapshots example-snapshot
@@ -46,7 +46,7 @@ example-snapshot   mongodb-data-pvc     6Gi            snapcontent-fb64d696-725b
 
 ## Restore
 
-User can restore volume snapshots by creating a PVC which `dataSource` field reference to a snapshot.
+User can restore a volume snapshot by creating a PVC in which the `dataSource` field references to a snapshot.
 
 For example:
 
@@ -80,7 +80,7 @@ kubectl apply -f example-restore.yaml
 
 ## Clone
 
-Users can clone a volume by create a PVC while adding a dataSource that linked to an existing PVC in the same namespace.
+Users can clone a persistent volume (PV) by creating a PVC while adding a dataSource linked to an existing PVC in the same namespace.
 
 For example:
 
@@ -102,9 +102,9 @@ spec:
   volumeMode: Block
 ```
 
-After applying it, a clone of `existing-pvc` will be created.
+After applying the YAML file, a clone of `existing-pvc` will be created.
 
 There are some limitations on clone operation:
 
-1. A cloned PVC must exist at the same namespace with the original PVC with same StorageClass.
-2. The new and source PVC must have the same VolumeMode setting.
+1. A cloned PVC must exist in the same namespace as the original PVC with the same StorageClass.
+2. The new source PVC must have the same VolumeMode setting.
