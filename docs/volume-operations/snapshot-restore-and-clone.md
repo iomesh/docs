@@ -6,9 +6,9 @@ sidebar_label: Snapshot, Restore and Clone
 
 ## Snapshot
 
-IOMesh is able to create a snapshot for an existing persistent volume (PV) by using a VolumeSnapshot object.
+Users can use IOMesh to create a snapshot for an existing persistent volume (PV).
 
-A VolumeSnapshot object defines a request for taking a snapshot by using a PVC.
+A VolumeSnapshot object defines a request for taking a snapshot of the PVC.
 
 For example:
 
@@ -106,5 +106,5 @@ After applying the YAML file, a clone of `existing-pvc` will be created.
 
 There are some limitations on clone operation:
 
-1. A cloned PVC must exist in the same namespace as the original PVC with the same StorageClass.
-2. The new source PVC must have the same VolumeMode setting.
+1. A cloned PVC must exist in the same namespace as the original PVC.
+2. Both PVCs must have the same StorageClass and VolumeMode setting.
