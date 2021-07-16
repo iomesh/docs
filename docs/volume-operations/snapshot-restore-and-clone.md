@@ -94,6 +94,12 @@ spec:
   volumeMode: Block
 ```
 
+Apply the YAML file:
+
+```bash
+kubectl apply -f example-clone.yaml
+```
+
 After applying the YAML file, a clone of `existing-pvc` will be created.
 
 There are some limitations on clone operation:
