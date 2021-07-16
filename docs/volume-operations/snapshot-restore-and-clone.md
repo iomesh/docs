@@ -46,7 +46,7 @@ example-snapshot   mongodb-data-pvc     6Gi            snapcontent-fb64d696-725b
 
 ## Restore
 
-User can restore a volume snapshot by creating a PVC in which the `dataSource` field references to a snapshot.
+Users can restore a volume snapshot by creating a PVC in which the `dataSource` field references to a snapshot.
 
 For example:
 
