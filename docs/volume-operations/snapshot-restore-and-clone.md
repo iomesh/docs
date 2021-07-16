@@ -12,11 +12,7 @@ A VolumeSnapshot object defines a request for taking a snapshot of the PVC.
 
 For example:
 
-```text
-example-snapshot.yaml
-```
-
-```output
+```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
@@ -50,11 +46,7 @@ Users can restore a volume snapshot by creating a PVC in which the `dataSource` 
 
 For example:
 
-```text
-restore.yaml
-```
-
-```output
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
