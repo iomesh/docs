@@ -6,13 +6,9 @@ sidebar_label: IOMesh for MySQL
 
 ## Setup k8s Cluster Storage
 
-1. Create a file named `iomesh-mysql-sc.yaml` with the following content:
+1. Create a file named `iomesh-mysql-sc.yaml` with the following contentS:
 
-    ```text
-    iomesh-mysql-sc.yaml
-    ```
-
-    ```output
+    ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
@@ -36,11 +32,7 @@ sidebar_label: IOMesh for MySQL
 
 1. Create a file named `mysql-deployment.yaml`. It describes a Deployment that runs MySQL and creates a PVC that consumes the IOMesh storage.
 
-    ```text
-    mysql-deployment.yaml
-    ```
-
-    ```output
+    ```yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
@@ -106,4 +98,4 @@ sidebar_label: IOMesh for MySQL
 
 ## Operate MySQL Data
 
-User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the pv  where MySQL data is located, see reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+Users can use the features provided by IOMesh storage to perform such operations as expansion/snapshot/rollback/clone of the Persistent Volumes where MySQL data are located, see the reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)

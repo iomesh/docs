@@ -4,9 +4,9 @@ title: Setup StorageClass
 sidebar_label: Setup StorageClass
 ---
 
-The IOMesh storage class parameters are:
+The parameters of IOMesh storage class are:
 
-| Parameters                | Values                        | Default | Description                        |
+| Parameter                 | Value                         | Default | Description                        |
 | ------------------------- | ----------------------------- | ------- | ---------------------------------- |
 | csi.storage.k8s.io/fstype | "xfs", "ext2", "ext3", "ext4" | "ext4"  | volume File system type            |
 | replicaFactor             | "1", "2", "3"                 | "2"     | replica factor                     |

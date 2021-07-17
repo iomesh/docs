@@ -4,7 +4,7 @@ title: Cluster Operations
 sidebar_label: Cluster Operations
 ---
 
-IOMesh Cluster can be scaled and upgraded without interrupting the online services.
+IOMesh Cluster can be scaled out and upgraded without interrupting the online services.
 
 ## Scale IOMesh Storage Cluster
 
@@ -66,11 +66,11 @@ helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-v
 
 ## Upgrade IOMesh storage cluster
 
-Follow the steps below to upgrade the IOMesh once a new version is released.
+Follow the following steps to upgrade IOMesh once a new version is released.
 
 > **_NOTE_: If you only have 1 replica of meta server or chunk server, the upgrade process will never start.**
 
-1. Export default config `iomesh-values.yaml` from Chart
+1. Export the default config `iomesh-values.yaml` from Chart
 
     > **_NOTE_: If you already exported the config, you can skip this step.**
 
@@ -81,29 +81,29 @@ Follow the steps below to upgrade the IOMesh once a new version is released.
 2. Edit `iomesh-values.yaml`
 
     ```yaml
-    # The version of the IOMeshCluster. You get new release from: http://iomesh.com/docs/release/releases
+    # The version of the IOMeshCluster. You get a new release from: http://iomesh.com/docs/release/releases
     version: v5.0.0-rc5
     ```
 
 3. Upgrade the IOMesh Cluster
 
-    > **_NOTE_: `my-iomesh` is release name, maybe you want to modify it.**
+    > **_NOTE_: `my-iomesh` is the release name, you may modify it.**
 
     ```bash
     helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
     ```
 
-4. Wait new chunk server pods are ready.
+4. Wait untill the new chunk server pods are ready.
 
     ```bash
     watch kubectl get pod --namespace iomesh-system
     ```
 
-## Uninstallation IOMesh storage cluster
+## Uninstall IOMesh storage cluster
 
 > **_/!\ Attention_: All data will be lost after you uninstall a IOMesh storage cluster, including PVCs created with IOMesh StorageClass.**
 
-Run the below command to unistall a IOMesh cluster.
+Run the following command to unistall a IOMesh cluster.
 
 > **_NOTE_: You may replace `my-iomesh` with your own name.**
 
