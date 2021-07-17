@@ -4,9 +4,9 @@ title: Setup IOMesh
 sidebar_label: Setup IOMesh
 ---
 
-Block devices on worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize them to construct and provide distributed storage service.
+Block devices at worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize the devices to construct and provide distributed storage service.
 
-By default, IOMesh doesn't mount any block devices. Users have to configure it manually after installing.
+By default, IOMesh doesn't mount any block devices. Users have to configure IOMesh manually after installing.
 
 ## Mount Block Devices
 
@@ -25,7 +25,7 @@ blockdevice-3fa2e2cb7e49bc96f4ed09209644382e   kind-control-plane   /dev/sda    
 blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
 ```
 
-Use following commands to show the details of a block device:
+Use the following commands to show the details of a block device:
 
 ```shell
 kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
@@ -64,7 +64,7 @@ Labels started with `iomesh.com/bd-` are created by IOMesh to describe hardware 
 
 ### Device Map
 
-`chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block device should be mounted to IOMesh cluster and how would they be mounted.
+`chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block devices should be mounted to IOMesh cluster and how they would be mounted.
 
 ```yaml
 spec:
@@ -87,8 +87,8 @@ spec:
 
 IOMesh provides 2 mount types now:
 
-- `cacheWithJournal`: used for performance tier of storage pool. It **MUST** ba a partitionable block device. IOMesh will partition the device into 2 paritions: one is for `journal` and another is for `cache`. `SATA` or `NVMe` SSD is recommanded.
-- `dataStore`:  used for capacity tier of storage pool. `SATA` or `SAS` HDD is recommanded.
+- `cacheWithJournal`: used for performance tier of storage pool. It **MUST** ba a partitionable block device. IOMesh will partition the device into 2 paritions: one for `journal` and another for `cache`. Either `SATA` or `NVMe` SSD is recommanded.
+- `dataStore`:  used for capacity tier of storage pool. Either `SATA` or `SAS` HDD is recommanded.
 
 #### Device Selector
 
@@ -103,7 +103,7 @@ All block devices selected by device selector will be mounted to IOMesh with the
 
 #### Example
 
-Here is a full example of `chunk/deviceMap` configuration:
+Here is a full example of `chunk/deviceMap` configurations:
 ```yaml
 spec:
   # ...
@@ -133,7 +133,7 @@ spec:
     # ...
 ```
 
-After having a correct `chunk/deviceMap` configuration, apply it to the cluster.
+After having the correct `chunk/deviceMap` configurations, apply to the cluster.
 
 > **_NOTE_: You may replace `my-iomesh` with your release name.**
 
@@ -141,7 +141,7 @@ After having a correct `chunk/deviceMap` configuration, apply it to the cluster.
 helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
-Now run `kubectl --namespace iomesh-system -o wide get blockdevice` will see the `BlockDevice` we selected become `Claimed`
+Now run `kubectl --namespace iomesh-system -o wide get blockdevice` to see that the state of `BlockDevice` we selected becomes `Claimed`
 
 ```bash
 kubectl --namespace iomesh-system -o wide get blockdevice

@@ -4,11 +4,11 @@ title: Monitoring
 sidebar_label: Monitoring
 ---
 
-IOMesh cluster can be monitored by Prometheus and Grafana.
+IOMesh cluster can be monitored by using Prometheus and Grafana.
 
 ## Integrating with Prometheus
 
-If Prometheus was installed by [Prometheus Operator][1] at the same Kubernetes cluster with IOMesh, just modify `iomesh-values.yaml` with:
+If Prometheus was installed by [Prometheus Operator][1] in the same Kubernetes cluster with IOMesh, simply modify `iomesh-values.yaml` with:
 
 ```yaml
 serviceMonitor:
@@ -23,7 +23,7 @@ Then upgrade the existing IOMesh Cluster:
 helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
-The exporter will be created and metric data would be collected by Prometheus automatically.
+An exporter will be created and the metric data would be collected by Prometheus automatically.
 
 It is also possible to configure Prometheus mannually by importing [iomesh-prometheus-kubernetes-sd-example.yaml][4].
 

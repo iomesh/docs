@@ -4,7 +4,7 @@ title: Create Volume
 sidebar_label: Create Volume
 ---
 
-A volume can be created by the following YAML. User should ensure that the corresponding StorageClass already exists.
+A volume can be created by using the following YAML file. Users should ensure that the corresponding `StorageClass` already exists.
 
 ```yaml
 apiVersion: v1

@@ -4,9 +4,9 @@ title: Best Practice in Production
 sidebar_label: Best Practice in Production
 ---
 
-## Recommended Hardware Configuration for Production Environment
+## Recommended Hardware Configurations in Production Environment
 
-The recommended hardware configuration for production is as follows.
+The recommended hardware configurations are as follows.
 
 | Hardware        | Requirements             | No   |
 | --------------- | ------------------------ | ---- |

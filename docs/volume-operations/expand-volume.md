@@ -4,15 +4,11 @@ title: Expand Volume
 sidebar_label: Expand Volume
 ---
 
-IOMesh volumes are allowed to be expanded after creation, no matter whether it is being used or not.
+IOMesh volumes can be expanded after creation, no matter whether they are being used or not.
 
-Here is an example. Assume that there is a PVC named example-pvc which capacity is 10Gi:
+In the following example, assume that there is a PVC named `example-pvc` and its capacity is `10Gi`:
 
-```bash
-example-pvc.yaml
-```
-
-```output
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -23,8 +19,10 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 10Gi # original capacity
 ```
+
+Apply the YAML file:
 
 ```bash
 kubectl get pvc example-pvc
@@ -35,13 +33,9 @@ NAME          STATUS   VOLUME                                     CAPACITY    AC
 example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
 ```
 
-To expand this PVC to 20Gi, just modify the PVC declaration:
+To expand the capacity of this PVC to `20Gi`, simply modify the PVC declaration:
 
-```bash
-example-pvc.yaml
-```
-
-```output
+```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -52,10 +46,10 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi # expand to 20Gi
+      storage: 20Gi # now expand capacity from 10 Gi to 20Gi
 ```
 
-Apply it to Kubernetes:
+Apply the new YAML file:
 
 ```bash
 kubectl apply -f example-pvc.yaml
