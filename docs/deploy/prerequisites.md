@@ -11,11 +11,11 @@ sidebar_label: Prerequisites
   - At least one free SSD for IOMesh journal and cache
   - At least one free HDD for IOMesh datastore
   - A 10GbE NIC or above for IOMesh storage network
-  - At least 100GB free space on /opt
+  - At least 100GB free space at /opt
 
 ## Setup Worker Node
 
-For each Kubernetes worker node that will run IOMesh, do the following steps:
+For each Kubernetes worker node that will run IOMesh, follow the following steps:
 
 ### Setup Open-ISCSI
 
@@ -54,8 +54,8 @@ For each Kubernetes worker node that will run IOMesh, do the following steps:
 
 ### Setup Local Metadata Store
 
-IOMesh uses local path `/opt/iomesh` to store metadata. Ensure that there is at least 100G free space at `/opt`.
+IOMesh uses local path `/opt/iomesh` to store metadata. Ensure that there is at least 100 GB free space at `/opt`.
 
 ### Setup Data Network
 
-To avoid contention on network bandwith, it is necessary to setup a seperate network segment for IOMesh cluster. The `dataCIDR` defines the IP block for IOMesh data network. Every node running IOMesh should have an interface whose IP address belongs to the `dataCIDR`.
+To avoid contention on network bandwith, it is necessary to setup a seperate network segment for IOMesh cluster. The `dataCIDR` defines the IP block for IOMesh data network. Every node running IOMesh should have an interface with IP address belonging to the `dataCIDR`.

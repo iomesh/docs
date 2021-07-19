@@ -6,13 +6,9 @@ sidebar_label: IOMesh for Cassandra
 
 ## Setup k8s Cluster Storage
 
-1. Create a file named `iomesh-cassandra-sc.yaml` with the following content:
+1. Create a file named `iomesh-cassandra-sc.yaml` with the following contents:
 
-    ```text
-    iomesh-cassandra-sc.yaml
-    ```
-
-    ```output
+    ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
@@ -36,13 +32,9 @@ sidebar_label: IOMesh for Cassandra
 
 ### Create a headless Service for Cassandra
 
-1. Create a Service used for DNS lookups between Cassandra Pods and clients within your cluster
+1. Create a Service used for DNS lookup between Cassandra Pods and the clients within your cluster
 
-    ```text
-    cassandra-service.yaml
-    ```
-
-    ```output
+    ```yaml
     apiVersion: v1
     kind: Service
     metadata:
@@ -63,15 +55,11 @@ sidebar_label: IOMesh for Cassandra
     kubectl apply -f cassandra-service.yaml
     ```
 
-### Create Cassandra cluster use pv provided for IOMesh Storage
+### Create Cassandra cluster using pv provided for IOMesh Storage
 
-1. Use StatefulSet to create a cassandra cluster
+1. Use StatefulSet to create a Cassandra cluster
 
-    ```text
-    cassandra-statefulset.yaml
-    ```
-
-    ```output
+    ```yaml
     apiVersion: apps/v1
     kind: StatefulSet
     metadata:
@@ -166,8 +154,8 @@ sidebar_label: IOMesh for Cassandra
     kubectl apply -f cassandra-statefulset.yaml
     ```
 
-IOMesh Storage will create Persistent Volumes for each cassandra pod. These volumes use the ext4 file system with a replica factor of 2 and are thin provisioned.
+IOMesh Storage will create Persistent Volumes for each Cassandra pod. These volumes use ext4 file system with a replica factor of 2 and thin provision.
 
 ## Operate Cassandra Data
 
-User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the Persistent Volumes  where Cassandra data is located, see reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+Users can use the features provided by IOMesh storage to perform such operations as expansion/snapshot/rollback/clone of the Persistent Volumes where Cassandra data are located, see the reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)

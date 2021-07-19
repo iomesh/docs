@@ -6,13 +6,9 @@ sidebar_label: IOMesh for MongoDB
 
 ## Setup k8s Cluster Storage
 
-1. Create a file named `iomesh-mongodb-sc.yaml` with the following content:
+1. Create a file named `iomesh-mongodb-sc.yaml` with the following contents:
 
-    ```text
-    iomesh-mongodb-sc.yaml
-    ```
-
-    ```output
+    ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
@@ -36,13 +32,9 @@ sidebar_label: IOMesh for MongoDB
 
 ### Create a headless Service for MongoDB
 
-1. Create a Service used for DNS lookups between MongoDB Pods and clients within your cluster
+1. Create a Service used for DNS lookups between MongoDB Pods and the clients within your cluster
 
-    ```text
-    mongodb-service.yaml
-    ```
-
-    ```output
+    ```yaml
     apiVersion: v1
     kind: Service
     metadata:
@@ -64,15 +56,11 @@ sidebar_label: IOMesh for MongoDB
     kubectl apply -f mongodb-service.yaml
     ```
 
-### Create MongoDB cluster use pv provided for IOMesh Storage
+### Create MongoDB cluster using pv provided for IOMesh Storage
 
 1. Use StatefulSet to create a MongoDB cluster
 
-    ```text
-    mongodb-statefulset.yaml
-    ```
-
-    ```output
+    ```yaml
     apiVersion: apps/v1beta1
     kind: StatefulSet
     metadata:
@@ -127,8 +115,8 @@ sidebar_label: IOMesh for MongoDB
     kubectl apply -f mongodb-statefulset.yaml
     ```
 
-    IOMesh Storage will create Persistent Volumes for each cassandra pod. These volumes use the ext4 file system with a replica factor of 2 and are thin provisioned.
+IOMesh Storage will create Persistent Volumes for each MongoDB pod. These volumes use ext4 file system with a replica factor of 2 and thin provision.
 
 ## Operate MongoDB Data
 
-User can use the feature provided by IOMesh storage to perform operations such as expansion/snapshot/rollback/clone of the Persistent Volumes  where MongoDB data is located, see reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+Users can use the features provided by IOMesh storage to perform such operations as expansion/snapshot/rollback/clone of the Persistent Volumes where MongoDB data are located, see the reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)

@@ -40,7 +40,7 @@ Now IOMesh has been installed successfully!
 
 ## Customized Installation Guide
 
-This is the sophisticated installtion guide for customized configurations.
+This is the installtion guide for customized configurations.
 
 ### Install CSI Snapshotter
 
@@ -62,13 +62,13 @@ Instasll CSI snapshotter to enable Volume Snapshot feature.
     kubectl create -f ./config/crd
     ```
 
-3. Edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace, eg. `kube-system`:
+3. Edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace, e.g., `kube-system`:
 
     ```shell
     sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
     ```
 
-4. Install snapshot controller, eg. `kube-system`:
+4. Install snapshot controller, e.g., `kube-system`:
 
     ```shell
     kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
@@ -95,7 +95,7 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-For more details please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
+For more details, please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
 
 ### Setup Helm Repo
 
@@ -134,7 +134,7 @@ helm repo add iomesh http://iomesh.com/charts
     TEST SUITE: None
     ```
 
-4. You can run `kubectl --namespace iomesh-system get pods` to check out the result:
+4. You can run `kubectl --namespace iomesh-system get pods` to check out the results:
     
     ```bash
     kubectl --namespace iomesh-system get pods
@@ -194,7 +194,7 @@ helm repo add iomesh http://iomesh.com/charts
                  - iomesh-worker-0 # specific node label's value
                  - iomesh-worker-1
     ```
-    More info about pod affinity configuration rule see: [pod affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 
+    For more information about pod affinity configuration rule, see: [pod affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 
 
 3. Install IOMesh Cluster:
 
@@ -314,7 +314,7 @@ helm repo add iomesh http://iomesh.com/charts
     TEST SUITE: None
     ```
 
-5. You can run `kubectl --namespace iomesh-system get pods` to check out the result:
+5. You can run `kubectl --namespace iomesh-system get pods` to check out the results:
 
     ```bash
     kubectl --namespace iomesh-system get pods
@@ -356,7 +356,7 @@ helm repo add iomesh http://iomesh.com/charts
     operator-6b87858cbd-sf72b                                 1/1     Running   0          12m
     ```
 
-IOMeshCluster now install successed, go to [Setup IOMesh](setup-iomesh.md).
+IOMeshCluster is now installed successfully, please go to [Setup IOMesh](setup-iomesh.md).
 
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
