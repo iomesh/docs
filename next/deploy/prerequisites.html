@@ -74,7 +74,10 @@
 </span></div></div></div></div></p></li>
 <li><p>Edit <code>/etc/iscsi/iscsid.conf</code> by setting <code>node.startup</code> to <code>manual</code>:</p>
 <pre><code class="hljs css language-shell">sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
-</code></pre></li>
+</code></pre>
+<blockquote>
+<p><strong><em>NOTE</em>: The default value of the MaxRecvDataSegmentLength in /etc/iscsi/iscsi.conf is 32,768, which limits the maximum number of PVs(about 80,000) in IOMesh. If you want to create more than 80,000 PVs in IOMesh, it is recommended to set the value of MaxRecvDataSegmentLength to 163,840 or higher.</strong></p>
+</blockquote></li>
 <li><p>Disable SELinux:</p>
 <pre><code class="hljs css language-shell">sudo setenforce 0
 sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
