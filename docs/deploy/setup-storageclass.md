@@ -32,3 +32,9 @@ parameters:
   thinProvision: "true"
 volumeBindingMode: Immediate
 ```
+
+> _About the `reclaimPolicy`_
+> 
+> The `reclaimPolicy` attribute of `StorageClass` can have two values of `Retain` and `Delete`, and the default is `Delete`. When a `PV` is created through `StorageClass`, its `persistentVolumeReclaimPolicy` attribute will inherit the `reclaimpolicy` attribute from `StorageClass`. You can also modify the value of `persistentVolumeReclaimPolicy` manually.
+> 
+> The value of `reclaimPolicy` in the example is `Retain`, which means that, if you delete a `PVC`, the `PV` under the `PVC` will not be deleted, but will enter the `Released` state. Please note that, if you delete the `PV`, the corresponding IOMesh volume will not be deleted, instead, you need to change the value of `persistentVolumeReclaimPolicy` of the `PV` to `Delete` and then delete the `PV`. Or before creating a `PV`, you can set the value of `reclaimpolicy` of `StorageClass`  to `Delete` so that all the resources will be released in cascade.
