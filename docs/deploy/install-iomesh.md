@@ -360,3 +360,31 @@ IOMeshCluster is now installed successfully, please go to [Setup IOMesh](setup-i
 
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
+
+## Install IOMesh on OpenShift Container Platform
+
+For OpenShift cluster, you can also install and use IOMesh through the IOMesh Operator on the OperatorHub page of the Red Hat OpenShift Container Platform.
+
+### Pre-Install
+
+Run IOMesh Operator pre-installation script in an environment where oc or kubectl can be used to access the OpenShift cluster, the script will install the dependencies of IOMesh Operator and specific IOMesh settings for the OpenShift cluster:
+
+    ```shell
+    curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
+    ```
+
+### Install IOMesh Operator
+
+1. Log in to your OpenShift Container Platform and visit the OperatorHub page. Select IOMesh Operator and click Install to start the installation of IOMesh Operator.
+
+2. On the Installed Operators > IOMesh Operator > Create instance > YAML view, fill in an IOMesh Custom Resources according to IOMesh [YAML](https://iomesh.run/iomesh.yaml), change the spec.*.dataCIDR to your own data network CIDR.
+
+### Install CSI Driver
+
+Run IOMesh Operator post-installation script in an environment where oc or kubectl can be used to access the OpenShift cluster, the script will install IOMesh CSI Driver:
+
+    ```shell
+    curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
+    ```
+    
+IOMeshCluster is now installed successfully, please go to [Setup IOMesh](setup-iomesh.md).
