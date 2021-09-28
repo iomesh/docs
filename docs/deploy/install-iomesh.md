@@ -369,9 +369,9 @@ For OpenShift cluster, you can also install and use IOMesh through the IOMesh Op
 
 Run IOMesh Operator pre-installation script in an environment where oc or kubectl can be used to access the OpenShift cluster, the script will install the dependencies of IOMesh Operator and specific IOMesh settings for the OpenShift cluster:
 
-    ```shell
-    curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
-    ```
+```shell
+curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
+```
 
 ### Install IOMesh Operator
 
@@ -383,8 +383,8 @@ Run IOMesh Operator pre-installation script in an environment where oc or kubect
 
 Run IOMesh Operator post-installation script in an environment where oc or kubectl can be used to access the OpenShift cluster, the script will install IOMesh CSI Driver:
 
-    ```shell
-    curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
-    ```
+```shell
+curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
+```
     
 IOMeshCluster is now installed successfully, please go to [Setup IOMesh](setup-iomesh.md).
