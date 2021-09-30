@@ -26,6 +26,9 @@
     ],
     "Additional Info":[
         "additional-info/performance-testing"
+    ],
+    "References": [
+        "references/metrics"
     ]
   }
 }
