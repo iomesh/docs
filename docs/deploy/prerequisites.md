@@ -6,7 +6,7 @@ sidebar_label: Prerequisites
 
 ## Installation Requirements
 
-- A Kubernetes 1.17+ cluster with at least 3 worker nodes
+- A Kubernetes (from v1.17 to v1.21) cluster with at least 3 worker nodes
 - Each worker node needs
   - At least one free SSD for IOMesh journal and cache
   - At least one free HDD for IOMesh datastore
