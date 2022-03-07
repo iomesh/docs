@@ -4,9 +4,9 @@ title: Prerequisites
 sidebar_label: Prerequisites
 ---
 
-## Installation Requirements
+## Installation Requirements lll
 
-- A Kubernetes 1.17+ cluster with at least 3 worker nodes
+- A Kubernetes (from v1.17 to v1.21) cluster with at least 3 worker nodes
 - Each worker node needs
   - At least one free SSD for IOMesh journal and cache
   - At least one free HDD for IOMesh datastore
@@ -45,6 +45,13 @@ For each Kubernetes worker node that will run IOMesh, follow the following steps
     ```shell
     sudo setenforce 0
     sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+    ```
+
+4. Ensure `iscsi_tcp` kernel module is loaded:
+
+    ```shell
+    sudo modprobe iscsi_tcp
+    sudo echo iscsi_tcp > /etc/modules-load.d/iscsi_tcp.conf
     ```
 
 4. Start `iscsid` service:

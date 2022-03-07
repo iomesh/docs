@@ -115,10 +115,10 @@ helm repo add iomesh http://iomesh.com/charts
 
 3. Install IOMesh Operator:
 
-    > **_NOTE_: replace `my-iomesh-operator` with your release name.**
+    > **_NOTE_: replace `iomesh-operator` with your release name.**
 
     ```shell
-    helm install my-iomesh-operator iomesh/operator \
+    helm install iomesh-operator iomesh/operator \
                 --create-namespace \
                 --namespace iomesh-system \
                 --values iomesh-operator.yaml \
@@ -126,7 +126,7 @@ helm repo add iomesh http://iomesh.com/charts
     ```
 
     ```output
-    NAME: my-iomesh-operator
+    NAME: iomesh-operator
     LAST DEPLOYED: Wed Jun 30 15:06:12 2021
     NAMESPACE: iomesh-system
     STATUS: deployed
@@ -142,10 +142,10 @@ helm repo add iomesh http://iomesh.com/charts
 
     ```output
     NAME                                                     READY   STATUS    RESTARTS   AGE
-    my-iomesh-operator-hostpath-provisioner-pnjhg            1/1     Running   0          2m21s
-    my-iomesh-operator-hostpath-provisioner-vfpmb            1/1     Running   0          2m21s
-    my-iomesh-operator-hostpath-provisioner-z5njn            1/1     Running   0          2m21s
-    my-iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl   1/1     Running   0          2m21s
+    iomesh-operator-hostpath-provisioner-pnjhg            1/1     Running   0          2m21s
+    iomesh-operator-hostpath-provisioner-vfpmb            1/1     Running   0          2m21s
+    iomesh-operator-hostpath-provisioner-z5njn            1/1     Running   0          2m21s
+    iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl   1/1     Running   0          2m21s
     ndm-cluster-exporter-8675b6f567-thxj5                    1/1     Running   0          2m21s
     ndm-node-exporter-8lgrn                                  1/1     Running   0          2m22s
     ndm-node-exporter-g96s7                                  1/1     Running   0          2m22s
@@ -198,10 +198,10 @@ helm repo add iomesh http://iomesh.com/charts
 
 3. Install IOMesh Cluster:
 
-    > **_NOTE_: replace `my-iomesh` with your release name.**
+    > **_NOTE_: replace `iomesh` with your release name.**
 
     ```shell
-    helm install my-iomesh iomesh/iomesh \
+    helm install iomesh iomesh/iomesh \
         --create-namespace \
         --namespace iomesh-system \
         --values iomesh-values.yaml \
@@ -209,7 +209,7 @@ helm repo add iomesh http://iomesh.com/charts
     ```
 
     ```output
-    NAME: my-iomesh
+    NAME: iomesh
     LAST DEPLOYED: Wed Jun 30 16:00:32 2021
     NAMESPACE: iomesh-system
     STATUS: deployed
@@ -228,19 +228,19 @@ helm repo add iomesh http://iomesh.com/charts
     iomesh-iscsi-redirector-6xlq5                            1/2     Running   2          29s
     iomesh-iscsi-redirector-pm75v                            1/2     Running   2          29s
     iomesh-iscsi-redirector-qmcfv                            1/2     Running   2          29s
-    my-iomesh-chunk-0                                        3/3     Running   0          28s
-    my-iomesh-chunk-1                                        3/3     Running   0          21s
-    my-iomesh-chunk-2                                        3/3     Running   0          17s
-    my-iomesh-meta-0                                         2/2     Running   0          29s
-    my-iomesh-meta-1                                         2/2     Running   0          29s
-    my-iomesh-meta-2                                         2/2     Running   0          29s
-    my-iomesh-operator-hostpath-provisioner-pnjhg            1/1     Running   0          10m
-    my-iomesh-operator-hostpath-provisioner-vfpmb            1/1     Running   0          10m
-    my-iomesh-operator-hostpath-provisioner-z5njn            1/1     Running   0          10m
-    my-iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl   1/1     Running   0          10m
-    my-iomesh-zookeeper-0                                    1/1     Running   0          90s
-    my-iomesh-zookeeper-1                                    1/1     Running   0          77s
-    my-iomesh-zookeeper-2                                    1/1     Running   0          53s
+    iomesh-chunk-0                                        3/3     Running   0          28s
+    iomesh-chunk-1                                        3/3     Running   0          21s
+    iomesh-chunk-2                                        3/3     Running   0          17s
+    iomesh-meta-0                                         2/2     Running   0          29s
+    iomesh-meta-1                                         2/2     Running   0          29s
+    iomesh-meta-2                                         2/2     Running   0          29s
+    iomesh-operator-hostpath-provisioner-pnjhg            1/1     Running   0          10m
+    iomesh-operator-hostpath-provisioner-vfpmb            1/1     Running   0          10m
+    iomesh-operator-hostpath-provisioner-z5njn            1/1     Running   0          10m
+    iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl   1/1     Running   0          10m
+    iomesh-zookeeper-0                                    1/1     Running   0          90s
+    iomesh-zookeeper-1                                    1/1     Running   0          77s
+    iomesh-zookeeper-2                                    1/1     Running   0          53s
     ndm-cluster-exporter-8675b6f567-thxj5                    1/1     Running   0          10m
     ndm-node-exporter-8lgrn                                  1/1     Running   0          10m
     ndm-node-exporter-g96s7                                  1/1     Running   0          10m
@@ -262,27 +262,7 @@ helm repo add iomesh http://iomesh.com/charts
     helm show values iomesh/csi-driver > iomesh-csi-driver.yaml
     ```
 
-2. Get IOMesh access service address
-
-    ```shell
-    kubectl -n iomesh-system get svc iomesh-access
-    ```
-
-    ```output
-    NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                        AGE
-    iomesh-access   ClusterIP   10.233.27.220   <none>        3260/TCP,10206/TCP,10201/TCP   12m
-    ```
-
-    get ip address in `CLUSTER_IP` section
-
 3. Edit `iomesh-csi-driver.yaml`
-
-    Example:
-
-    ```yaml
-    driver:
-      metaAddr: "10.233.1.125:10206"
-    ```
 
     > **__NOTE__: For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`.**
 
@@ -295,10 +275,10 @@ helm repo add iomesh http://iomesh.com/charts
 
 4. Install IOMesh CSI driver
 
-    > **_NOTE_: replace `my-iomesh-csi-driver` with your release name.**
+    > **_NOTE_: replace `iomesh-csi-driver` with your release name.**
 
     ```shell
-    helm install my-iomesh-csi-driver iomesh/csi-driver \
+    helm install iomesh-csi-driver iomesh/csi-driver \
         --create-namespace \
         --namespace iomesh-system \
         --values iomesh-csi-driver.yaml \
@@ -306,7 +286,7 @@ helm repo add iomesh http://iomesh.com/charts
     ```
 
     ```output
-    NAME: my-iomesh-csi-driver
+    NAME: iomesh-csi-driver
     LAST DEPLOYED: Wed Jun 30 16:04:13 2021
     NAMESPACE: iomesh-system
     STATUS: deployed
@@ -324,25 +304,25 @@ helm repo add iomesh http://iomesh.com/charts
     iomesh-iscsi-redirector-6xlq5                             2/2     Running   2          3m55s
     iomesh-iscsi-redirector-pm75v                             2/2     Running   2          3m55s
     iomesh-iscsi-redirector-qmcfv                             2/2     Running   2          3m55s
-    my-iomesh-chunk-0                                         3/3     Running   0          3m54s
-    my-iomesh-chunk-1                                         3/3     Running   0          3m47s
-    my-iomesh-chunk-2                                         3/3     Running   0          3m43s
-    my-iomesh-csi-driver-controller-plugin-7c67879774-6v4z8   6/6     Running   0          73s
-    my-iomesh-csi-driver-controller-plugin-7c67879774-cjnw6   6/6     Running   0          73s
-    my-iomesh-csi-driver-controller-plugin-7c67879774-z6wkl   6/6     Running   0          73s
-    my-iomesh-csi-driver-node-plugin-2cr8r                    3/3     Running   0          73s
-    my-iomesh-csi-driver-node-plugin-qcwxf                    3/3     Running   0          73s
-    my-iomesh-csi-driver-node-plugin-tnbpf                    3/3     Running   0          73s
-    my-iomesh-meta-0                                          2/2     Running   0          3m55s
-    my-iomesh-meta-1                                          2/2     Running   0          3m55s
-    my-iomesh-meta-2                                          2/2     Running   0          3m55s
-    my-iomesh-operator-hostpath-provisioner-pnjhg             1/1     Running   0          12m
-    my-iomesh-operator-hostpath-provisioner-vfpmb             1/1     Running   0          12m
-    my-iomesh-operator-hostpath-provisioner-z5njn             1/1     Running   0          12m
-    my-iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl    1/1     Running   0          12m
-    my-iomesh-zookeeper-0                                     1/1     Running   0          4m56s
-    my-iomesh-zookeeper-1                                     1/1     Running   0          4m43s
-    my-iomesh-zookeeper-2                                     1/1     Running   0          4m19s
+    iomesh-chunk-0                                         3/3     Running   0          3m54s
+    iomesh-chunk-1                                         3/3     Running   0          3m47s
+    iomesh-chunk-2                                         3/3     Running   0          3m43s
+    iomesh-csi-driver-controller-plugin-7c67879774-6v4z8   6/6     Running   0          73s
+    iomesh-csi-driver-controller-plugin-7c67879774-cjnw6   6/6     Running   0          73s
+    iomesh-csi-driver-controller-plugin-7c67879774-z6wkl   6/6     Running   0          73s
+    iomesh-csi-driver-node-plugin-2cr8r                    3/3     Running   0          73s
+    iomesh-csi-driver-node-plugin-qcwxf                    3/3     Running   0          73s
+    iomesh-csi-driver-node-plugin-tnbpf                    3/3     Running   0          73s
+    iomesh-meta-0                                          2/2     Running   0          3m55s
+    iomesh-meta-1                                          2/2     Running   0          3m55s
+    iomesh-meta-2                                          2/2     Running   0          3m55s
+    iomesh-operator-hostpath-provisioner-pnjhg             1/1     Running   0          12m
+    iomesh-operator-hostpath-provisioner-vfpmb             1/1     Running   0          12m
+    iomesh-operator-hostpath-provisioner-z5njn             1/1     Running   0          12m
+    iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl    1/1     Running   0          12m
+    iomesh-zookeeper-0                                     1/1     Running   0          4m56s
+    iomesh-zookeeper-1                                     1/1     Running   0          4m43s
+    iomesh-zookeeper-2                                     1/1     Running   0          4m19s
     ndm-cluster-exporter-8675b6f567-thxj5                     1/1     Running   0          12m
     ndm-node-exporter-8lgrn                                   1/1     Running   0          12m
     ndm-node-exporter-g96s7                                   1/1     Running   0          12m

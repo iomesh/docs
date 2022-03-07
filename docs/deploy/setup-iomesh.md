@@ -132,16 +132,9 @@ spec:
         - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
     # ...
 ```
+    > **_NOTE_: The blockdevice used by IOMesh cannot have an existing filesystem, please pay attention to the `FSTYPE` field output by the command `kubectl --namespace iomesh-system -o wide get blockdevice`.**
 
-After having the correct `chunk/deviceMap` configurations, apply to the cluster.
-
-> **_NOTE_: You may replace `my-iomesh` with your release name.**
-
-```bash
-helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
-```
-
-Now run `kubectl --namespace iomesh-system -o wide get blockdevice` to see that the state of `BlockDevice` we selected becomes `Claimed`
+After having the correct deviceMap configurations, apply it to `iomesh.spec.chunk.deviceMap` by running `kubectl edit --namespace iomesh-system iomesh`, then run `kubectl --namespace iomesh-system -o wide get blockdevice` to see that the state of `BlockDevice` we selected becomes `Claimed`
 
 ```bash
 kubectl --namespace iomesh-system -o wide get blockdevice
