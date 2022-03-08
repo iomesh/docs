@@ -24,6 +24,9 @@
         "stateful-applications/iomesh-for-cassandra",
         "stateful-applications/iomesh-for-mongodb"
     ],
+    "Advanced Usage":[
+        "advanced-usage/external-iscsi"
+    ],
     "Additional Info":[
         "additional-info/performance-testing"
     ],
