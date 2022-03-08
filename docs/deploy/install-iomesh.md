@@ -262,27 +262,7 @@ helm repo add iomesh http://iomesh.com/charts
     helm show values iomesh/csi-driver > iomesh-csi-driver.yaml
     ```
 
-2. Get IOMesh access service address
-
-    ```shell
-    kubectl -n iomesh-system get svc iomesh-access
-    ```
-
-    ```output
-    NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                        AGE
-    iomesh-access   ClusterIP   10.233.27.220   <none>        3260/TCP,10206/TCP,10201/TCP   12m
-    ```
-
-    get ip address in `CLUSTER_IP` section
-
-3. Edit `iomesh-csi-driver.yaml`
-
-    Example:
-
-    ```yaml
-    driver:
-      metaAddr: "10.233.1.125:10206"
-    ```
+2. Edit `iomesh-csi-driver.yaml`
 
     > **__NOTE__: For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`.**
 
@@ -293,7 +273,7 @@ helm repo add iomesh http://iomesh.com/charts
           mountIscsiLock: true
     ```
 
-4. Install IOMesh CSI driver
+3. Install IOMesh CSI driver
 
     > **_NOTE_: replace `iomesh-csi-driver` with your release name.**
 
@@ -314,7 +294,7 @@ helm repo add iomesh http://iomesh.com/charts
     TEST SUITE: None
     ```
 
-5. You can run `kubectl --namespace iomesh-system get pods` to check out the results:
+4. You can run `kubectl --namespace iomesh-system get pods` to check out the results:
 
     ```bash
     kubectl --namespace iomesh-system get pods
