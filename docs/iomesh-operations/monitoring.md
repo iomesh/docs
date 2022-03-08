@@ -17,10 +17,10 @@ serviceMonitor:
 
 Then upgrade the existing IOMesh Cluster:
 
-> **_NOTE_: You may replace `my-iomesh` with your release name.**
+> **_NOTE_: You may replace `iomesh` with your release name.**
 
 ```bash
-helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
 An exporter will be created and the metric data would be collected by Prometheus automatically.

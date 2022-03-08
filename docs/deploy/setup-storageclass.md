@@ -19,7 +19,7 @@ After IOMesh CSI driver was installed, a default StorageClass `iomesh-csi-driver
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: my-iomesh-csi-driver-default
+  name: iomesh-csi-driver-default
 provisioner: com.iomesh.csi-driver # <-- driver.name in iomesh-values.yaml
 reclaimPolicy: Retain
 allowVolumeExpansion: true
