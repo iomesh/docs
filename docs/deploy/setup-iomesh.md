@@ -135,10 +135,10 @@ spec:
 
 After having the correct `chunk/deviceMap` configurations, apply to the cluster.
 
-> **_NOTE_: You may replace `my-iomesh` with your release name.**
+> **_NOTE_: You may replace `iomesh` with your release name.**
 
 ```bash
-helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
 Now run `kubectl --namespace iomesh-system -o wide get blockdevice` to see that the state of `BlockDevice` we selected becomes `Claimed`

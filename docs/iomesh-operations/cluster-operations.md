@@ -39,10 +39,10 @@ meta:
 
 Then apply the change:
 
-> **_NOTE_: replace `my-iomesh` with your release name.**
+> **_NOTE_: replace `iomesh` with your release name.**
 
 ```bash
-helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
 ### Chunk Server
@@ -58,10 +58,10 @@ chunk:
 
 Then apply the change:
 
-> **_NOTE_: replace `my-iomesh` with your release name.**
+> **_NOTE_: replace `iomesh` with your release name.**
 
 ```bash
-helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
 ```
 
 ## Upgrade IOMesh storage cluster
@@ -87,10 +87,10 @@ Follow the following steps to upgrade IOMesh once a new version is released.
 
 3. Upgrade the IOMesh Cluster
 
-    > **_NOTE_: `my-iomesh` is the release name, you may modify it.**
+    > **_NOTE_: `iomesh` is the release name, you may modify it.**
 
     ```bash
-    helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
     ```
 
 4. Wait untill the new chunk server pods are ready.
@@ -105,10 +105,10 @@ Follow the following steps to upgrade IOMesh once a new version is released.
 
 Run the following command to unistall a IOMesh cluster.
 
-> **_NOTE_: You may replace `my-iomesh` with your own name.**
+> **_NOTE_: You may replace `iomesh` with your own name.**
 
 ```bash
-helm uninstall --namespace iomesh-system my-iomesh
+helm uninstall --namespace iomesh-system iomesh
 ```
 
 [1]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#mount-device
