@@ -47,7 +47,14 @@ For each Kubernetes worker node that will run IOMesh, follow the following steps
     sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
     ```
 
-4. Start `iscsid` service:
+4. Ensure `iscsi_tcp` kernel module is loaded:
+
+    ```shell
+    sudo modprobe iscsi_tcp
+    sudo bash -c 'echo iscsi_tcp > /etc/modprobe.d/iscsi-tcp.conf'
+    ```
+
+5. Start `iscsid` service:
 
     ```shell
     sudo systemctl enable --now iscsid
