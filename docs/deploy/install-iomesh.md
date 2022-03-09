@@ -176,6 +176,12 @@ helm repo add iomesh http://iomesh.com/charts
       dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
     ```
 
+   **(required)** 配置集群部署模式，默认是混闪部署。全闪部署则需将 `allFlash` 设置为 `true`
+
+    ```yaml
+    allFlash: false # set allFlash to true in allFlash deployment mode
+    ```
+
    **(optional)** If you only want iomesh to use a part of k8s node's disks, 
    configure the specific node's label in the `chunk.podPolicy.affinity`, for
    example:

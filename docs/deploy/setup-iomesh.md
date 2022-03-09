@@ -84,11 +84,14 @@ spec:
 ```
 
 #### Mount Type
+In `hybrid-flash` deployment mode, IOMesh provides 2 mount types:
 
-IOMesh provides 2 mount types now:
+- `cacheWithJournal`: used for performance tier of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and another for `cache`. Either `SATA` or `NVMe` SSD is recommended.
+- `dataStore`:  used for capacity tier of storage pool. Either `SATA` or `SAS` HDD is recommended.
 
-- `cacheWithJournal`: used for performance tier of storage pool. It **MUST** ba a partitionable block device. IOMesh will partition the device into 2 paritions: one for `journal` and another for `cache`. Either `SATA` or `NVMe` SSD is recommanded.
-- `dataStore`:  used for capacity tier of storage pool. Either `SATA` or `SAS` HDD is recommanded.
+In `all-flash` deployment mode, IOMesh only provides 1 mount type:
+
+- `dataStoreWithJournal`: used for capacity tier of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.
 
 #### Device Selector
 
@@ -101,9 +104,7 @@ Device selector is defined by:
 
 All block devices selected by device selector will be mounted to IOMesh with the corresponding mount type.
 
-#### Example
-
-Here is a full example of `chunk/deviceMap` configurations:
+#### Example of deviceMap configuration in hybrid-flash deployment mode
 ```yaml
 spec:
   # ...
@@ -132,7 +133,28 @@ spec:
         - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
     # ...
 ```
-    > **_NOTE_: The blockdevice used by IOMesh cannot have an existing filesystem, please pay attention to the `FSTYPE` field output by the command `kubectl --namespace iomesh-system -o wide get blockdevice`.**
+
+#### Example of deviceMap configuration in all-flash deployment mode
+```yaml
+spec:
+  # ...
+  chunk:
+    # ...
+    deviceMap:
+      dataStoreWithJournal:
+        selector:
+          matchLabels:
+            iomesh.com/bd-deviceType: disk
+          matchExpressions:
+          - key: iomesh.com/bd-driverType
+            operator: In
+            values:
+            - SSD
+        exclude:
+        - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
+    # ...
+```
+> **_NOTE_: The blockdevice used by IOMesh cannot have an existing filesystem, please pay attention to the `FSTYPE` field output by the command `kubectl --namespace iomesh-system -owide get blockdevice`.**
 
 After having the correct deviceMap configurations, set it to `spec.chunk.deviceMap` by running `kubectl edit --namespace iomesh-system iomesh`, then run `kubectl --namespace iomesh-system -o wide get blockdevice` to verify that the state of `BlockDevice` we selected becomes `Claimed`
 

@@ -5,13 +5,23 @@ sidebar_label: Prerequisites
 ---
 
 ## Installation Requirements
+#### 集群节点数量
+A Kubernetes (from v1.17 to v1.21) cluster with at least 3 worker nodes
 
-- A Kubernetes (from v1.17 to v1.21) cluster with at least 3 worker nodes
-- Each worker node needs
-  - At least one free SSD for IOMesh journal and cache
-  - At least one free HDD for IOMesh datastore
-  - A 10GbE NIC or above for IOMesh storage network
-  - At least 100GB free space at /opt
+#### 磁盘需求
+##### 缓存盘
+* 全闪模式: 无需配置
+* 混闪模式: 每个 worker 节点至少有一块空闲的 SSD 磁盘，SSD 磁盘容量大于 60 GB
+
+##### 数据盘
+* 全闪模式: 每个 worker 节点至少有一块空闲的 SSD 磁盘，SSD 磁盘容量大于 60 GB
+* 混闪模式: 每个 worker 节点至少有一块空闲的 HDD 磁盘，HDD 磁盘容量大于 60 GB
+
+#### 网络需求
+10GbE NIC or above for IOMesh storage network
+
+#### 系统预留空间
+每个 worker 节点的 /opt 目录预留至少 100GB 空间用于存储 IOMesh 集群元数据
 
 ## Setup Worker Node
 
