@@ -62,9 +62,9 @@
 </code></pre>
 <p>Then upgrade the existing IOMesh Cluster:</p>
 <blockquote>
-<p><strong><em>NOTE</em>: You may replace <code>my-iomesh</code> with your release name.</strong></p>
+<p><strong><em>NOTE</em>: You may replace <code>iomesh</code> with your release name.</strong></p>
 </blockquote>
-<pre><code class="hljs css language-bash">helm upgrade --namespace iomesh-system my-iomesh iomesh/iomesh --values iomesh-values.yaml
+<pre><code class="hljs css language-bash">helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
 </code></pre>
 <p>An exporter will be created and the metric data would be collected by Prometheus automatically.</p>
 <p>It is also possible to configure Prometheus mannually by importing <a href="https://raw.githubusercontent.com/iomesh/docs/master/docs/assets/iomesh-operation/iomesh-prometheus-kubernetes-sd-example.yaml">iomesh-prometheus-kubernetes-sd-example.yaml</a>.</p>

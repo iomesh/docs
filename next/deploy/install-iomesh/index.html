@@ -119,15 +119,15 @@ chmod 700 get_helm.sh
 <li><p>Customize the <code>iomesh-operator.yaml</code></p></li>
 <li><p>Install IOMesh Operator:</p>
 <blockquote>
-<p><strong><em>NOTE</em>: replace <code>my-iomesh-operator</code> with your release name.</strong></p>
+<p><strong><em>NOTE</em>: replace <code>iomesh-operator</code> with your release name.</strong></p>
 </blockquote>
-<pre><code class="hljs css language-shell">helm install my-iomesh-operator iomesh/operator \
+<pre><code class="hljs css language-shell">helm install iomesh-operator iomesh/operator \
             --create-namespace \
             --namespace iomesh-system \
             --values iomesh-operator.yaml \
             --wait 
 </code></pre>
-<pre><code class="hljs css language-output">NAME: my-iomesh-operator
+<pre><code class="hljs css language-output">NAME: iomesh-operator
 LAST DEPLOYED: Wed Jun 30 15:06:12 2021
 NAMESPACE: iomesh-system
 STATUS: deployed
@@ -138,10 +138,10 @@ REVISION: 1
 <pre><code class="hljs css language-bash">kubectl --namespace iomesh-system get pods
 </code></pre>
 <pre><code class="hljs css language-output">NAME                                                     READY   STATUS    RESTARTS   AGE
-my-iomesh-operator-hostpath-provisioner-pnjhg            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
-my-iomesh-operator-hostpath-provisioner-vfpmb            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
-my-iomesh-operator-hostpath-provisioner-z5njn            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
-my-iomesh-operator-zookeeper-operator<span class="hljs-number">-6</span>cc8564d7c-j26wl   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
+iomesh-operator-hostpath-provisioner-pnjhg               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
+iomesh-operator-hostpath-provisioner-vfpmb               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
+iomesh-operator-hostpath-provisioner-z5njn               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
+iomesh-operator-zookeeper-operator<span class="hljs-number">-6</span>cc8564d7c-j26wl      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
 ndm-cluster-exporter<span class="hljs-number">-8675</span>b6f567-thxj5                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m21s
 ndm-node-exporter<span class="hljs-number">-8</span>lgrn                                  <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m22s
 ndm-node-exporter-g96s7                                  <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m22s
@@ -184,15 +184,15 @@ example:</p>
 <p>For more information about pod affinity configuration rule, see: <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">pod affinity</a></p></li>
 <li><p>Install IOMesh Cluster:</p>
 <blockquote>
-<p><strong><em>NOTE</em>: replace <code>my-iomesh</code> with your release name.</strong></p>
+<p><strong><em>NOTE</em>: replace <code>iomesh</code> with your release name.</strong></p>
 </blockquote>
-<pre><code class="hljs css language-shell">helm install my-iomesh iomesh/iomesh \
+<pre><code class="hljs css language-shell">helm install iomesh iomesh/iomesh \
     --create-namespace \
     --namespace iomesh-system \
     --values iomesh-values.yaml \
     --wait
 </code></pre>
-<pre><code class="hljs css language-output">NAME: my-iomesh
+<pre><code class="hljs css language-output">NAME: iomesh
 LAST DEPLOYED: Wed Jun 30 16:00:32 2021
 NAMESPACE: iomesh-system
 STATUS: deployed
@@ -206,19 +206,19 @@ REVISION: 1
 iomesh-iscsi-redirector<span class="hljs-number">-6</span>xlq5                            <span class="hljs-number">1</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">29</span>s
 iomesh-iscsi-redirector-pm75v                            <span class="hljs-number">1</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">29</span>s
 iomesh-iscsi-redirector-qmcfv                            <span class="hljs-number">1</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">29</span>s
-my-iomesh-chunk<span class="hljs-number">-0</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">28</span>s
-my-iomesh-chunk<span class="hljs-number">-1</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">21</span>s
-my-iomesh-chunk<span class="hljs-number">-2</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">17</span>s
-my-iomesh-meta<span class="hljs-number">-0</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">29</span>s
-my-iomesh-meta<span class="hljs-number">-1</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">29</span>s
-my-iomesh-meta<span class="hljs-number">-2</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">29</span>s
-my-iomesh-operator-hostpath-provisioner-pnjhg            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
-my-iomesh-operator-hostpath-provisioner-vfpmb            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
-my-iomesh-operator-hostpath-provisioner-z5njn            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
-my-iomesh-operator-zookeeper-operator<span class="hljs-number">-6</span>cc8564d7c-j26wl   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
-my-iomesh-zookeeper<span class="hljs-number">-0</span>                                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">90</span>s
-my-iomesh-zookeeper<span class="hljs-number">-1</span>                                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">77</span>s
-my-iomesh-zookeeper<span class="hljs-number">-2</span>                                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">53</span>s
+iomesh-chunk<span class="hljs-number">-0</span>                                           <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">28</span>s
+iomesh-chunk<span class="hljs-number">-1</span>                                           <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">21</span>s
+iomesh-chunk<span class="hljs-number">-2</span>                                           <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">17</span>s
+iomesh-meta<span class="hljs-number">-0</span>                                            <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">29</span>s
+iomesh-meta<span class="hljs-number">-1</span>                                            <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">29</span>s
+iomesh-meta<span class="hljs-number">-2</span>                                            <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">29</span>s
+iomesh-operator-hostpath-provisioner-pnjhg               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
+iomesh-operator-hostpath-provisioner-vfpmb               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
+iomesh-operator-hostpath-provisioner-z5njn               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
+iomesh-operator-zookeeper-operator<span class="hljs-number">-6</span>cc8564d7c-j26wl      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
+iomesh-zookeeper<span class="hljs-number">-0</span>                                       <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">90</span>s
+iomesh-zookeeper<span class="hljs-number">-1</span>                                       <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">77</span>s
+iomesh-zookeeper<span class="hljs-number">-2</span>                                       <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">53</span>s
 ndm-cluster-exporter<span class="hljs-number">-8675</span>b6f567-thxj5                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
 ndm-node-exporter<span class="hljs-number">-8</span>lgrn                                  <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
 ndm-node-exporter-g96s7                                  <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">10</span>m
@@ -259,15 +259,15 @@ iomesh-access   ClusterIP   10.233.27.220   &lt;none&gt;        3260/TCP,10206/T
 </code></pre></li>
 <li><p>Install IOMesh CSI driver</p>
 <blockquote>
-<p><strong><em>NOTE</em>: replace <code>my-iomesh-csi-driver</code> with your release name.</strong></p>
+<p><strong><em>NOTE</em>: replace <code>iomesh-csi-driver</code> with your release name.</strong></p>
 </blockquote>
-<pre><code class="hljs css language-shell">helm install my-iomesh-csi-driver iomesh/csi-driver \
+<pre><code class="hljs css language-shell">helm install iomesh-csi-driver iomesh/csi-driver \
     --create-namespace \
     --namespace iomesh-system \
     --values iomesh-csi-driver.yaml \
     --wait
 </code></pre>
-<pre><code class="hljs css language-output">NAME: my-iomesh-csi-driver
+<pre><code class="hljs css language-output">NAME: iomesh-csi-driver
 LAST DEPLOYED: Wed Jun 30 16:04:13 2021
 NAMESPACE: iomesh-system
 STATUS: deployed
@@ -280,25 +280,25 @@ REVISION: 1
 <pre><code class="hljs css language-output">iomesh-iscsi-redirector<span class="hljs-number">-6</span>xlq5                             <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m55s
 iomesh-iscsi-redirector-pm75v                             <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m55s
 iomesh-iscsi-redirector-qmcfv                             <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m55s
-my-iomesh-chunk<span class="hljs-number">-0</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m54s
-my-iomesh-chunk<span class="hljs-number">-1</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m47s
-my-iomesh-chunk<span class="hljs-number">-2</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m43s
-my-iomesh-csi-driver-controller-plugin<span class="hljs-number">-7</span>c67879774<span class="hljs-number">-6</span>v4z8   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
-my-iomesh-csi-driver-controller-plugin<span class="hljs-number">-7</span>c67879774-cjnw6   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
-my-iomesh-csi-driver-controller-plugin<span class="hljs-number">-7</span>c67879774-z6wkl   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
-my-iomesh-csi-driver-node-plugin<span class="hljs-number">-2</span>cr8r                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
-my-iomesh-csi-driver-node-plugin-qcwxf                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
-my-iomesh-csi-driver-node-plugin-tnbpf                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
-my-iomesh-meta<span class="hljs-number">-0</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m55s
-my-iomesh-meta<span class="hljs-number">-1</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m55s
-my-iomesh-meta<span class="hljs-number">-2</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m55s
-my-iomesh-operator-hostpath-provisioner-pnjhg             <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
-my-iomesh-operator-hostpath-provisioner-vfpmb             <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
-my-iomesh-operator-hostpath-provisioner-z5njn             <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
-my-iomesh-operator-zookeeper-operator<span class="hljs-number">-6</span>cc8564d7c-j26wl    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
-my-iomesh-zookeeper<span class="hljs-number">-0</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">4</span>m56s
-my-iomesh-zookeeper<span class="hljs-number">-1</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">4</span>m43s
-my-iomesh-zookeeper<span class="hljs-number">-2</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">4</span>m19s
+iomesh-chunk<span class="hljs-number">-0</span>                                            <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m54s
+iomesh-chunk<span class="hljs-number">-1</span>                                            <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m47s
+iomesh-chunk<span class="hljs-number">-2</span>                                            <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m43s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-7</span>c67879774<span class="hljs-number">-6</span>v4z8      <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-7</span>c67879774-cjnw6      <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-7</span>c67879774-z6wkl      <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
+iomesh-csi-driver-node-plugin<span class="hljs-number">-2</span>cr8r                       <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
+iomesh-csi-driver-node-plugin-qcwxf                       <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
+iomesh-csi-driver-node-plugin-tnbpf                       <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">73</span>s
+iomesh-meta<span class="hljs-number">-0</span>                                             <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m55s
+iomesh-meta<span class="hljs-number">-1</span>                                             <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m55s
+iomesh-meta<span class="hljs-number">-2</span>                                             <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m55s
+iomesh-operator-hostpath-provisioner-pnjhg                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
+iomesh-operator-hostpath-provisioner-vfpmb                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
+iomesh-operator-hostpath-provisioner-z5njn                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
+iomesh-operator-zookeeper-operator<span class="hljs-number">-6</span>cc8564d7c-j26wl       <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
+iomesh-zookeeper<span class="hljs-number">-0</span>                                        <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">4</span>m56s
+iomesh-zookeeper<span class="hljs-number">-1</span>                                        <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">4</span>m43s
+iomesh-zookeeper<span class="hljs-number">-2</span>                                        <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">4</span>m19s
 ndm-cluster-exporter<span class="hljs-number">-8675</span>b6f567-thxj5                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
 ndm-node-exporter<span class="hljs-number">-8</span>lgrn                                   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
 ndm-node-exporter-g96s7                                   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>m
