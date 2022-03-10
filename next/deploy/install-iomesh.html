@@ -237,18 +237,7 @@ operator<span class="hljs-number">-6</span>b87858cbd-sf72b                      
 <li><p>Download <code>iomesh-csi-driver.yaml</code> with default configurations:</p>
 <pre><code class="hljs css language-shell">helm show values iomesh/csi-driver &gt; iomesh-csi-driver.yaml
 </code></pre></li>
-<li><p>Get IOMesh access service address</p>
-<pre><code class="hljs css language-shell">kubectl -n iomesh-system get svc iomesh-access
-</code></pre>
-<pre><code class="hljs css language-output">NAME           <span class="hljs-built_in"> TYPE </span>       CLUSTER-IP     EXTERNAL-IP   PORT(S)                        AGE
-iomesh-access   ClusterIP   10.233.27.220   &lt;none&gt;        3260/TCP,10206/TCP,10201/TCP   12m
-</code></pre>
-<p>get ip address in <code>CLUSTER_IP</code> section</p></li>
 <li><p>Edit <code>iomesh-csi-driver.yaml</code></p>
-<p>Example:</p>
-<pre><code class="hljs css language-yaml"><span class="hljs-attr">driver:</span>
-  <span class="hljs-attr">metaAddr:</span> <span class="hljs-string">"10.233.1.125:10206"</span>
-</code></pre>
 <blockquote>
 <p><strong><strong>NOTE</strong>: For Kubernetes worker node OS is <code>CentOS8</code> or <code>CoreOS</code>, set <code>mountIscsiLock</code> to <code>true</code>. Otherwise, set it to <code>false</code>.</strong></p>
 </blockquote>
