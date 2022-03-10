@@ -101,9 +101,9 @@ Follow the following steps to upgrade IOMesh once a new version is released.
 
 ## Uninstall IOMesh storage cluster
 
-> **_/!\ Attention_: All data will be lost after you uninstall a IOMesh storage cluster, including PVCs created with IOMesh StorageClass.**
+> **_Attention_: All data will be lost after you uninstall an IOMesh storage cluster, including PVCs created with IOMesh StorageClass.**
 
-Run the following command to unistall a IOMesh cluster.
+Run the following command to uninstall an IOMesh cluster.
 
 > **_NOTE_: You may replace `iomesh` with your own name.**
 
