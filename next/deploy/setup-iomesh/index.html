@@ -165,13 +165,9 @@ blockdevice-f4681681be66411f226d1b6a690270c0   kind-<span class="hljs-section">c
         <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-097b6628acdcd83a2fc6a5fc9c301e01</span>
     <span class="hljs-comment"># ...</span>
 </code></pre>
-<p>After having the correct <code>chunk/deviceMap</code> configurations, apply to the cluster.</p>
-<blockquote>
-<p><strong><em>NOTE</em>: You may replace <code>iomesh</code> with your release name.</strong></p>
-</blockquote>
-<pre><code class="hljs css language-bash">helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
+<pre><code class="hljs">&gt; **_NOTE_: The blockdevice used by IOMesh cannot have an existing filesystem, please pay attention to the `FSTYPE` field output by the command `kubectl --namespace iomesh-system -o wide get blockdevice`.**
 </code></pre>
-<p>Now run <code>kubectl --namespace iomesh-system -o wide get blockdevice</code> to see that the state of <code>BlockDevice</code> we selected becomes <code>Claimed</code></p>
+<p>After having the correct deviceMap configurations, set it to <code>spec.chunk.deviceMap</code> by running <code>kubectl edit --namespace iomesh-system iomesh</code>, then run <code>kubectl --namespace iomesh-system -o wide get blockdevice</code> to verify that the state of <code>BlockDevice</code> we selected becomes <code>Claimed</code></p>
 <pre><code class="hljs css language-bash">kubectl --namespace iomesh-system -o wide get blockdevice
 </code></pre>
 <pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
