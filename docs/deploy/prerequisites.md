@@ -5,25 +5,25 @@ sidebar_label: Prerequisites
 ---
 
 ## Installation Requirements
-#### 集群节点数量
-A Kubernetes (from v1.17 to v1.21) cluster with at least 3 worker nodes
+#### Kubernetes Cluster Requirements
+A Kubernetes (from v1.17 to v1.21) cluster with at least 3 worker nodes.
 
-#### 磁盘需求
-##### 缓存盘
-* 全闪模式: 无需配置
-* 混闪模式: 每个 worker 节点至少有一块空闲的 SSD 磁盘，SSD 磁盘容量大于 60 GB
+#### Disk Requirements
+##### Cache Disk
+* All-flash mode: no configuration is required.
+* Hybrid-flash mode: there should be at least one available SSD on each worker node, and the SSD capacity should be larger than 60 GB.
 
-##### 数据盘
-* 全闪模式: 每个 worker 节点至少有一块空闲的 SSD 磁盘，SSD 磁盘容量大于 60 GB
-* 混闪模式: 每个 worker 节点至少有一块空闲的 HDD 磁盘，HDD 磁盘容量大于 60 GB
+##### Data Disk
+* All-flash mode: there should be at least one available SSD on each worker node, and the SSD capacity should be larger than 60 GB.
+* Hybrid-flash mode: there should be at least one available HDD on each worker node, and the HDD capacity should be larger than 60 GB.
 
-#### 网络需求
-10GbE NIC or above for IOMesh storage network
+#### Network Requirements
+Network cards of 10GbE or above are required for the IOMesh storage network.
 
-#### 系统预留空间
-每个 worker 节点的 /opt 目录预留至少 100GB 空间用于存储 IOMesh 集群元数据
+#### Reserved System Space
+At least 100GB of disk space is required in the /opt directory on each worker node for storing the IOMesh cluster metadata.
 
-## Setup Worker Node
+## Worker Node Setup
 
 For each Kubernetes worker node that will run IOMesh, follow the following steps:
 
