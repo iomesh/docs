@@ -169,14 +169,14 @@ helm repo add iomesh http://iomesh.com/charts
 
 2. Customize the `iomesh-values.yaml`
 
-   **(required)** fill in the `dataCIDR` according to your network:
+   **(required)** Fill in the `dataCIDR` according to your network:
 
     ```yaml
     chunk:
       dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
     ```
 
-   **(required)** 配置集群部署模式，默认是混闪部署。全闪部署则需将 `allFlash` 设置为 `true`
+   **(required)** Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set `allFlash` to `true`.
 
     ```yaml
     allFlash: false # set allFlash to true in allFlash deployment mode
