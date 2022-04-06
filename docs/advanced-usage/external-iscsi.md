@@ -91,7 +91,7 @@ Since IOMesh runs in a bare metal environment or in other cloud providers that d
 
     ```bash
     helm repo add metallb https://metallb.github.io/metallb
-    helm install metallb metallb/metallb --version 0.12.1
+    helm install metallb metallb/metallb --version 0.12.1 -n iomesh-system
     ```
 
 3. Create a `MetalLB` ConfigMap file called `metallb-config.yaml`, set the work mode of `MetalLB` to layer2 (based on arp), and allocate an IP address pool to `MetalLB`.
