@@ -86,7 +86,7 @@
 <ol>
 <li><p>Makre sure that the cluster meets the requirements for <code>MetalLB</code> in the <a href="https://metallb.universe.tf/installation/#preparation">Installation Preparation</a> section.</p></li>
 <li><p>Install <code>MetalLB</code></p>
-<pre><code class="hljs css language-bash">helm repo add metallb https://metallb.github.io/metallb<br />helm install metallb metallb/metallb --version 0.12.1<br /></code></pre></li>
+<pre><code class="hljs css language-bash">helm repo add metallb https://metallb.github.io/metallb<br />helm install metallb metallb/metallb --version 0.12.1 -n iomesh-system<br /></code></pre></li>
 <li><p>Create a <code>MetalLB</code> ConfigMap file called <code>metallb-config.yaml</code>, set the work mode of <code>MetalLB</code> to layer2 (based on arp), and allocate an IP address pool to <code>MetalLB</code>.</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">metallb</span><br /><span class="hljs-attr">data:</span><br />  <span class="hljs-attr">config:</span> <span class="hljs-string">|<br />    address-pools:<br />    - name: iomesh-access-address-pools<br />      protocol: layer2<br />      addresses:<br />      - &lt;fill-in-your-ip-address-pool-here&gt; # eg: "192.168.1.100-192.168.1.110" or "192.168.2.0/24"<br /></span></code></pre></li>
 </ol>
