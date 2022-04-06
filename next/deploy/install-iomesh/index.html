@@ -161,9 +161,12 @@ operator<span class="hljs-number">-6</span>b87858cbd-sf72b                      
 <pre><code class="hljs css language-shell">helm show values iomesh/iomesh &gt; iomesh-values.yaml
 </code></pre></li>
 <li><p>Customize the <code>iomesh-values.yaml</code></p>
-<p><strong>(required)</strong> fill in the <code>dataCIDR</code> according to your network:</p>
+<p><strong>(required)</strong> Fill in the <code>dataCIDR</code> according to your network:</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">chunk:</span>
   <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">"10.234.1.0/24"</span> <span class="hljs-comment"># change to your own data network CIDR</span>
+</code></pre>
+<p><strong>(required)</strong> Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set <code>allFlash</code> to <code>true</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">allFlash:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># set allFlash to true in allFlash deployment mode</span>
 </code></pre>
 <p><strong>(optional)</strong> If you only want iomesh to use a part of k8s node's disks,
 configure the specific node's label in the <code>chunk.podPolicy.affinity</code>, for
