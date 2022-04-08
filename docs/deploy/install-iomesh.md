@@ -176,10 +176,10 @@ helm repo add iomesh http://iomesh.com/charts
       dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
     ```
 
-   **(required)** Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set `allFlash` to `true`.
+   **(optional)** Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set `diskDeploymentMode` to `allFlash`.
 
     ```yaml
-    allFlash: false # set allFlash to true in allFlash deployment mode
+    diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash` in allFlash deployment mode
     ```
 
    **(optional)** If you only want iomesh to use a part of k8s node's disks, 
