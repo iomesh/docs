@@ -103,83 +103,38 @@ For more details, please refer to **[Install Helm](https://helm.sh/docs/intro/in
 helm repo add iomesh http://iomesh.com/charts
 ```
 
-### Install IOMesh Operator
+### Install IOMesh
 
-1. Download `iomesh-operator.yaml` with default configurations:
-
-    ```shell
-    helm show values iomesh/operator > iomesh-operator.yaml
-    ```
-
-2. Customize the `iomesh-operator.yaml`
-
-3. Install IOMesh Operator:
-
-    > **_NOTE_: replace `iomesh-operator` with your release name.**
+1. Download `iomesh.yaml` with default configurations:
 
     ```shell
-    helm install iomesh-operator iomesh/operator \
-                --create-namespace \
-                --namespace iomesh-system \
-                --values iomesh-operator.yaml \
-                --wait 
+    helm show values iomesh/iomesh > iomesh.yaml
     ```
 
-    ```output
-    NAME: iomesh-operator
-    LAST DEPLOYED: Wed Jun 30 15:06:12 2021
-    NAMESPACE: iomesh-system
-    STATUS: deployed
-    REVISION: 1
-    TEST SUITE: None
-    ```
-
-4. You can run `kubectl --namespace iomesh-system get pods` to check out the results:
-    
-    ```bash
-    kubectl --namespace iomesh-system get pods
-    ```
-
-    ```output
-    NAME                                                     READY   STATUS    RESTARTS   AGE
-    iomesh-operator-hostpath-provisioner-pnjhg               1/1     Running   0          2m21s
-    iomesh-operator-hostpath-provisioner-vfpmb               1/1     Running   0          2m21s
-    iomesh-operator-hostpath-provisioner-z5njn               1/1     Running   0          2m21s
-    iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl      1/1     Running   0          2m21s
-    ndm-cluster-exporter-8675b6f567-thxj5                    1/1     Running   0          2m21s
-    ndm-node-exporter-8lgrn                                  1/1     Running   0          2m22s
-    ndm-node-exporter-g96s7                                  1/1     Running   0          2m22s
-    ndm-node-exporter-xfgdg                                  1/1     Running   0          2m22s
-    node-disk-manager-9c622                                  1/1     Running   0          2m22s
-    node-disk-manager-vgqwm                                  1/1     Running   0          2m22s
-    node-disk-manager-vm7nw                                  1/1     Running   0          2m22s
-    node-disk-operator-7c84b8bd6c-mjqq4                      1/1     Running   0          2m21s
-    operator-6b87858cbd-8qdp6                                1/1     Running   0          2m21s
-    operator-6b87858cbd-lmftx                                1/1     Running   0          2m21s
-    operator-6b87858cbd-sf72b                                1/1     Running   0          2m21s
-    ```
-
-### Install IOMesh Cluster
-
-1. Download `iomesh-values.yaml` with default configurations:
-
-    ```shell
-    helm show values iomesh/iomesh > iomesh-values.yaml
-    ```
-
-2. Customize the `iomesh-values.yaml`
+2. Customize the `iomesh.yaml`
 
    **(required)** Fill in the `dataCIDR` according to your network:
 
     ```yaml
-    chunk:
-      dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
+    iomesh:
+      chunk:
+        dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
     ```
 
-   **(optional)** Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set `diskDeploymentMode` to `allFlash`.
+   **(required)** For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`:
 
     ```yaml
-    diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash` in allFlash deployment mode
+    csi-driver:
+      driver:
+        node:
+          driver:
+            mountIscsiLock: true
+    ```
+
+    **(optional)** Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set `diskDeploymentMode` to `allFlash`.
+
+    ```yaml
+    diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash` in all-flash deployment mode
     ```
 
    **(optional)** If you only want iomesh to use a part of k8s node's disks, 
@@ -187,20 +142,21 @@ helm repo add iomesh http://iomesh.com/charts
    example:
    
    ```yaml
-   chunk:
-     podPolicy:
-       affinity:
-         nodeAffinity:
-           requiredDuringSchedulingIgnoredDuringExecution:
-             nodeSelectorTerms:
-             - matchExpressions:
-               - key: kubernetes.io/hostname # specific node label's key
-                 operator: In
-                 values:
-                 - iomesh-worker-0 # specific node label's value
-                 - iomesh-worker-1
+   iomesh:
+     chunk:
+       podPolicy:
+         affinity:
+           nodeAffinity:
+             requiredDuringSchedulingIgnoredDuringExecution:
+               nodeSelectorTerms:
+               - matchExpressions:
+                 - key: kubernetes.io/hostname # specific node label's key
+                   operator: In
+                   values:
+                   - iomesh-worker-0 # specific node label's value
+                   - iomesh-worker-1
     ```
-    For more information about pod affinity configuration rule, see: [pod affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity) 
+    For more information about pod affinity configuration rule, see: [pod affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 
 3. Install IOMesh Cluster:
 
@@ -210,7 +166,7 @@ helm repo add iomesh http://iomesh.com/charts
     helm install iomesh iomesh/iomesh \
         --create-namespace \
         --namespace iomesh-system \
-        --values iomesh-values.yaml \
+        --values iomesh.yaml \
         --wait
     ```
 
@@ -230,119 +186,43 @@ helm repo add iomesh http://iomesh.com/charts
     ```
 
     ```output
-    NAME                                                     READY   STATUS    RESTARTS   AGE
-    iomesh-iscsi-redirector-6xlq5                            1/2     Running   2          29s
-    iomesh-iscsi-redirector-pm75v                            1/2     Running   2          29s
-    iomesh-iscsi-redirector-qmcfv                            1/2     Running   2          29s
-    iomesh-chunk-0                                           3/3     Running   0          28s
-    iomesh-chunk-1                                           3/3     Running   0          21s
-    iomesh-chunk-2                                           3/3     Running   0          17s
-    iomesh-meta-0                                            2/2     Running   0          29s
-    iomesh-meta-1                                            2/2     Running   0          29s
-    iomesh-meta-2                                            2/2     Running   0          29s
-    iomesh-operator-hostpath-provisioner-pnjhg               1/1     Running   0          10m
-    iomesh-operator-hostpath-provisioner-vfpmb               1/1     Running   0          10m
-    iomesh-operator-hostpath-provisioner-z5njn               1/1     Running   0          10m
-    iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl      1/1     Running   0          10m
-    iomesh-zookeeper-0                                       1/1     Running   0          90s
-    iomesh-zookeeper-1                                       1/1     Running   0          77s
-    iomesh-zookeeper-2                                       1/1     Running   0          53s
-    ndm-cluster-exporter-8675b6f567-thxj5                    1/1     Running   0          10m
-    ndm-node-exporter-8lgrn                                  1/1     Running   0          10m
-    ndm-node-exporter-g96s7                                  1/1     Running   0          10m
-    ndm-node-exporter-xfgdg                                  1/1     Running   0          10m
-    node-disk-manager-9c622                                  1/1     Running   0          10m
-    node-disk-manager-vgqwm                                  1/1     Running   0          10m
-    node-disk-manager-vm7nw                                  1/1     Running   0          10m
-    node-disk-operator-7c84b8bd6c-mjqq4                      1/1     Running   0          10m
-    operator-6b87858cbd-8qdp6                                1/1     Running   0          10m
-    operator-6b87858cbd-lmftx                                1/1     Running   0          10m
-    operator-6b87858cbd-sf72b                                1/1     Running   0          10m
+    NAME                                                  READY   STATUS    RESTARTS   AGE
+    csi-driver-controller-plugin-89b55d6b5-8r2fc          6/6     Running   10         2m8s
+    csi-driver-controller-plugin-89b55d6b5-d4rbr          6/6     Running   10         2m8s
+    csi-driver-controller-plugin-89b55d6b5-n5s48          6/6     Running   10         2m8s
+    csi-driver-node-plugin-9wccv                          3/3     Running   2          2m8s
+    csi-driver-node-plugin-mbpnk                          3/3     Running   2          2m8s
+    csi-driver-node-plugin-x6qrk                          3/3     Running   2          2m8s
+    iomesh-chunk-0                                        3/3     Running   0          52s
+    iomesh-chunk-1                                        3/3     Running   0          47s
+    iomesh-chunk-2                                        3/3     Running   0          43s
+    iomesh-hostpath-provisioner-8fzvj                     1/1     Running   0          2m8s
+    iomesh-hostpath-provisioner-gfl9k                     1/1     Running   0          2m8s
+    iomesh-hostpath-provisioner-htzx9                     1/1     Running   0          2m8s
+    iomesh-iscsi-redirector-96672                         2/2     Running   1          55s
+    iomesh-iscsi-redirector-c2pwm                         2/2     Running   1          55s
+    iomesh-iscsi-redirector-pcx8c                         2/2     Running   1          55s
+    iomesh-meta-0                                         2/2     Running   0          55s
+    iomesh-meta-1                                         2/2     Running   0          55s
+    iomesh-meta-2                                         2/2     Running   0          55s
+    iomesh-openebs-ndm-5457z                              1/1     Running   0          2m8s
+    iomesh-openebs-ndm-599qb                              1/1     Running   0          2m8s
+    iomesh-openebs-ndm-cluster-exporter-68c757948-gszzx   1/1     Running   0          2m8s
+    iomesh-openebs-ndm-node-exporter-kzjfc                1/1     Running   0          2m8s
+    iomesh-openebs-ndm-node-exporter-qc9pt                1/1     Running   0          2m8s
+    iomesh-openebs-ndm-node-exporter-v7sh7                1/1     Running   0          2m8s
+    iomesh-openebs-ndm-operator-56cfb5d7b6-srfzm          1/1     Running   0          2m8s
+    iomesh-openebs-ndm-svp9n                              1/1     Running   0          2m8s
+    iomesh-zookeeper-0                                    1/1     Running   0          2m3s
+    iomesh-zookeeper-1                                    1/1     Running   0          102s
+    iomesh-zookeeper-2                                    1/1     Running   0          76s
+    iomesh-zookeeper-operator-7b5f4b98dc-6mztk            1/1     Running   0          2m8s
+    operator-85877979-66888                               1/1     Running   0          2m8s
+    operator-85877979-s94vz                               1/1     Running   0          2m8s
+    operator-85877979-xqtml                               1/1     Running   0          2m8s
     ```
 
-### Install IOMesh CSI driver
-
-1. Download `iomesh-csi-driver.yaml` with default configurations:
-
-    ```shell
-    helm show values iomesh/csi-driver > iomesh-csi-driver.yaml
-    ```
-
-2. Edit `iomesh-csi-driver.yaml`
-
-    > **__NOTE__: For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`.**
-
-    ```yaml
-    driver:
-      node:
-        driver:
-          mountIscsiLock: true
-    ```
-
-3. Install IOMesh CSI driver
-
-    > **_NOTE_: replace `iomesh-csi-driver` with your release name.**
-
-    ```shell
-    helm install iomesh-csi-driver iomesh/csi-driver \
-        --create-namespace \
-        --namespace iomesh-system \
-        --values iomesh-csi-driver.yaml \
-        --wait
-    ```
-
-    ```output
-    NAME: iomesh-csi-driver
-    LAST DEPLOYED: Wed Jun 30 16:04:13 2021
-    NAMESPACE: iomesh-system
-    STATUS: deployed
-    REVISION: 1
-    TEST SUITE: None
-    ```
-
-4. You can run `kubectl --namespace iomesh-system get pods` to check out the results:
-
-    ```bash
-    kubectl --namespace iomesh-system get pods
-    ```
-
-    ```output
-    iomesh-iscsi-redirector-6xlq5                             2/2     Running   2          3m55s
-    iomesh-iscsi-redirector-pm75v                             2/2     Running   2          3m55s
-    iomesh-iscsi-redirector-qmcfv                             2/2     Running   2          3m55s
-    iomesh-chunk-0                                            3/3     Running   0          3m54s
-    iomesh-chunk-1                                            3/3     Running   0          3m47s
-    iomesh-chunk-2                                            3/3     Running   0          3m43s
-    iomesh-csi-driver-controller-plugin-7c67879774-6v4z8      6/6     Running   0          73s
-    iomesh-csi-driver-controller-plugin-7c67879774-cjnw6      6/6     Running   0          73s
-    iomesh-csi-driver-controller-plugin-7c67879774-z6wkl      6/6     Running   0          73s
-    iomesh-csi-driver-node-plugin-2cr8r                       3/3     Running   0          73s
-    iomesh-csi-driver-node-plugin-qcwxf                       3/3     Running   0          73s
-    iomesh-csi-driver-node-plugin-tnbpf                       3/3     Running   0          73s
-    iomesh-meta-0                                             2/2     Running   0          3m55s
-    iomesh-meta-1                                             2/2     Running   0          3m55s
-    iomesh-meta-2                                             2/2     Running   0          3m55s
-    iomesh-operator-hostpath-provisioner-pnjhg                1/1     Running   0          12m
-    iomesh-operator-hostpath-provisioner-vfpmb                1/1     Running   0          12m
-    iomesh-operator-hostpath-provisioner-z5njn                1/1     Running   0          12m
-    iomesh-operator-zookeeper-operator-6cc8564d7c-j26wl       1/1     Running   0          12m
-    iomesh-zookeeper-0                                        1/1     Running   0          4m56s
-    iomesh-zookeeper-1                                        1/1     Running   0          4m43s
-    iomesh-zookeeper-2                                        1/1     Running   0          4m19s
-    ndm-cluster-exporter-8675b6f567-thxj5                     1/1     Running   0          12m
-    ndm-node-exporter-8lgrn                                   1/1     Running   0          12m
-    ndm-node-exporter-g96s7                                   1/1     Running   0          12m
-    ndm-node-exporter-xfgdg                                   1/1     Running   0          12m
-    node-disk-manager-9c622                                   1/1     Running   0          12m
-    node-disk-manager-vgqwm                                   1/1     Running   0          12m
-    node-disk-manager-vm7nw                                   1/1     Running   0          12m
-    node-disk-operator-7c84b8bd6c-mjqq4                       1/1     Running   0          12m
-    operator-6b87858cbd-8qdp6                                 1/1     Running   0          12m
-    operator-6b87858cbd-lmftx                                 1/1     Running   0          12m
-    operator-6b87858cbd-sf72b                                 1/1     Running   0          12m
-    ```
-
-IOMeshCluster is now installed successfully, please go to [Setup IOMesh](setup-iomesh.md).
+IOMesh Cluster is now installed successfully. Please go to [Setup IOMesh](setup-iomesh.md).
 
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
