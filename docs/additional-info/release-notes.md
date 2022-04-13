@@ -41,7 +41,7 @@ The issues listed below are resolved in this release.
 * Probe cannot access the process name and causes a CrashLoop, as the process name has been modified.
 * Memory leaks because Probe does not reclaim RPC connections.
 * Memory leaks due to ZBS Client not being closed.
-* The newly created pods bound to PVCs time out when the number of pods bound to PVCs on a Kubernetes worker node exceed 100.
+* The newly created pods bound to PVCs time out when the number of pods bound to PVCs on a Kubernetes worker node exceeds 100.
 * A timeout occurs when formatting a PV as an XFS file system, as the capacity of PV exceeds 5TB.
 * The disk cannot be mounted while device manager logs show messages of successful mounting.
 
