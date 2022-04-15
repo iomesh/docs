@@ -94,7 +94,7 @@ IOMesh Compatibility
 ### Download Links
 IOMesh Offline Installation Package
 * Download Links:
-https://cm.smartx.com/share?code=e2cc01ef-95cb-4e60-a745-b88365488636
+https://download.smartx.com/iomesh-offline-v0.11.0.tgz
 * MD5: 25facf99281705129a9920bb899e43d2 
 
 
