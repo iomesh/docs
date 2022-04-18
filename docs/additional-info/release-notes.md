@@ -38,7 +38,7 @@ The issues listed below are resolved in this release.
 * NDM 1.7.x creates partitions for the disk by default when the WWID is not identified, causing the disk to be not mounted as cacheWithJournal or dataStoreWithJournal.
 * The disk cannot be mounted when installing IOMesh Operator in the OpenShift Container Platform.
 * The IOMesh system crashes because the loop device has been mounted by NDM.
-* Probe cannot access the process name and causes a CrashLoop, as the process name has been modified.
+* Probe cannot get the process status and causes a CrashLoop, as the process name has been modified.
 * Memory leaks because Probe does not close RPC connections.
 * Memory leaks due to ZBS Client not being freed.
 * The newly created pods attached with PVCs time out when the number of pods attached with PVCs on a Kubernetes worker node exceeds 100.
