@@ -74,7 +74,7 @@
 <p>This is the installtion guide for customized configurations.</p>
 <h3><a class="anchor" aria-hidden="true" id="install-csi-snapshotter"></a><a href="#install-csi-snapshotter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install CSI Snapshotter</h3>
 <p>The <a href="https://github.com/kubernetes-csi/external-snapshotter">CSI snapshotter</a> is part of Kubernetes implementation of Container Storage Interface (CSI).
-Instasll CSI snapshotter to enable Volume Snapshot feature.</p>
+Instasll CSI snapshotter to enable the Volume Snapshot feature.</p>
 <blockquote>
 <p><strong><em>NOTE</em>: CSI Snapshotter should be installed once per cluster</strong></p>
 </blockquote>
@@ -89,10 +89,10 @@ tar -xf release-2.1.tar.gz &amp;&amp; cd external-snapshotter-release-2.1
 <li><p>Edit <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml</code> by adding a namespace, e.g., <code>kube-system</code>:</p>
 <pre><code class="hljs css language-shell">sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 </code></pre></li>
-<li><p>Install snapshot controller, e.g., <code>kube-system</code>:</p>
+<li><p>Install Snapshot Controller, e.g., <code>kube-system</code>:</p>
 <pre><code class="hljs css language-shell">kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
 </code></pre></li>
-<li><p>Wait until snapshot controller is ready:</p>
+<li><p>Wait until the Snapshot Controller is ready:</p>
 <pre><code class="hljs css language-shell">kubectl get sts snapshot-controller -n kube-system
 </code></pre>
 <pre><code class="hljs css language-output">NAME                  READY   AGE
@@ -132,7 +132,7 @@ chmod 700 get_helm.sh
 <p><strong>(optional)</strong> Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set <code>diskDeploymentMode</code> to <code>allFlash</code>.</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">diskDeploymentMode:</span> <span class="hljs-string">"hybridFlash"</span> <span class="hljs-comment"># set `diskDeploymentMode` to `allFlash` in all-flash deployment mode</span>
 </code></pre>
-<p><strong>(optional)</strong> If you only want iomesh to use a part of k8s node's disks,
+<p><strong>(optional)</strong> If you only want IOMesh to use a part of k8s node's disks,
 configure the specific node's label in the <code>chunk.podPolicy.affinity</code>, for
 example:</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
@@ -207,6 +207,131 @@ operator<span class="hljs-number">-85877979</span>-xqtml                        
 </code></pre></li>
 </ol>
 <p>IOMesh Cluster is now installed successfully. Please go to <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="install-iomesh-offline"></a><a href="#install-iomesh-offline" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh Offline</h2>
+<h3><a class="anchor" aria-hidden="true" id="prepare-offline-installation-package"></a><a href="#prepare-offline-installation-package" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Prepare Offline Installation Package</h3>
+<ol>
+<li><p>Download <a href="https://download.smartx.com/iomesh-offline-v0.11.0.tgz">IOMesh offline installation package</a>.</p></li>
+<li><p>Decompress the offline installation package</p>
+<pre><code class="hljs css language-shell">tar -xf  iomesh-offline-v0.11.0.tgz &amp;&amp; cd iomesh-offline
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="load-images"></a><a href="#load-images" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Load Images</h3>
+<p>Load IOMesh images on each Kubernetes worker node, then execute the corresponding image load script according to your container runtime and container management tools.</p>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-7-tab-8" class="nav-link active" data-group="group_7" data-tab="tab-group-7-content-8">Docker</div><div id="tab-group-7-tab-9" class="nav-link" data-group="group_7" data-tab="tab-group-7-content-9">Containerd</div><div id="tab-group-7-tab-10" class="nav-link" data-group="group_7" data-tab="tab-group-7-content-10">Podman</div></div><div class="tab-content"><div id="tab-group-7-content-8" class="tab-pane active" data-group="group_7" tabindex="-1"><div><span><pre><code class="hljs css language-shell">docker load --input ./images/iomesh-offline-images.tar<br /></code></pre>
+</span></div></div><div id="tab-group-7-content-9" class="tab-pane" data-group="group_7" tabindex="-1"><div><span><pre><code class="hljs css language-shell">ctr --namespace k8s.io image import ./images/iomesh-offline-images.tar<br /></code></pre>
+</span></div></div><div id="tab-group-7-content-10" class="tab-pane" data-group="group_7" tabindex="-1"><div><span><pre><code class="hljs css language-shell">podman load --input ./images/iomesh-offline-images.tar<br /></code></pre>
+</span></div></div></div></div>
+<h3><a class="anchor" aria-hidden="true" id="install-iomesh-using-offline-installation-package"></a><a href="#install-iomesh-using-offline-installation-package" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh Using Offline Installation Package</h3>
+<h4><a class="anchor" aria-hidden="true" id="install-csi-snapshotter-1"></a><a href="#install-csi-snapshotter-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install CSI Snapshotter</h4>
+<p>The <a href="https://github.com/kubernetes-csi/external-snapshotter">CSI snapshotter</a> is part of Kubernetes implementation of Container Storage Interface (CSI).
+Instasll CSI snapshotter to enable the Volume Snapshot feature.</p>
+<blockquote>
+<p><strong><em>NOTE</em>: CSI Snapshotter should be installed once per cluster</strong></p>
+</blockquote>
+<ol>
+<li><p>Install Snapshot CRDs.</p>
+<pre><code class="hljs css language-shell">kubectl create -f ./charts/external-snapshotter/config/crd
+</code></pre></li>
+<li><p>Install Snapshot Controller.</p>
+<pre><code class="hljs css language-shell">kubectl apply -n kube-system -f ./charts/external-snapshotter/deploy/kubernetes/snapshot-controller
+</code></pre></li>
+<li><p>Wait until Snapshot Controller is ready.</p>
+<pre><code class="hljs css language-shell">kubectl get sts snapshot-controller -n kube-system
+</code></pre>
+<pre><code class="hljs css language-output">NAME                  READY   AGE
+snapshot-controller   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     <span class="hljs-number">32</span>s
+</code></pre></li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="install-iomesh-1"></a><a href="#install-iomesh-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh</h4>
+<ol>
+<li><p>Download <code>iomesh.yaml</code> with default configurations.</p>
+<pre><code class="hljs css language-shell">./helm show values charts/iomesh &gt; iomesh.yaml
+</code></pre></li>
+<li><p>Customize <code>iomesh.yaml</code>.</p>
+<p><strong>(required)</strong> Fill in <code>dataCIDR</code> according to your network:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">"10.234.1.0/24"</span> <span class="hljs-comment"># change to your own data network CIDR</span>
+</code></pre>
+<p><strong>(required)</strong> For Kubernetes worker node OS is <code>CentOS8</code> or <code>CoreOS</code>, set <code>mountIscsiLock</code> to <code>true</code>. Otherwise, set it to <code>false</code>:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">csi-driver:</span>
+  <span class="hljs-attr">driver:</span>
+    <span class="hljs-attr">node:</span>
+      <span class="hljs-attr">driver:</span>
+        <span class="hljs-attr">mountIscsiLock:</span> <span class="hljs-literal">true</span>
+</code></pre>
+<p><strong>(optional)</strong> If you only want IOMesh to use a part of k8s node's disks,
+configure the specific node's label in the <code>chunk.podPolicy.affinity</code>, for
+<strong>(optional)</strong> If you simply want IOMesh to utilize part of Kubernetes nodes, configure the labels of nodes to be utilized in <code>chunk.podPolicy.affinity</code>. For example:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span> <span class="hljs-comment"># specific node label's key</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-0</span> <span class="hljs-comment"># specific node label's value</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-1</span>
+</code></pre>
+<p>For more information about pod affinity configuration rule, see: <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">pod affinity</a></p></li>
+<li><p>Install the IOMesh cluster.</p>
+<pre><code class="hljs css language-shell">./helm install iomesh ./charts/iomesh \
+    --create-namespace \
+    --namespace iomesh-system \
+    --values iomesh.yaml \
+    --wait
+</code></pre>
+<pre><code class="hljs css language-output">NAME: iomesh
+LAST DEPLOYED: Wed Jun 30 16:00:32 2021
+NAMESPACE: iomesh-system
+STATUS: deployed
+REVISION: 1
+<span class="hljs-keyword">TEST </span>SUITE: None
+</code></pre></li>
+<li><p>Run <code>kubectl --namespace iomesh-system get pods</code> to check the result.</p>
+<pre><code class="hljs css language-bash">kubectl --namespace iomesh-system get pods
+</code></pre>
+<pre><code class="hljs css language-output">NAME                                                   READY   STATUS    RESTARTS   AGE
+iomesh-chunk<span class="hljs-number">-0</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">102</span>s
+iomesh-chunk<span class="hljs-number">-1</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">98</span>s
+iomesh-chunk<span class="hljs-number">-2</span>                                         <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">94</span>s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>b66557959-jhshb   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>b66557959-p4m9x   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>b66557959-w9qbq   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">10</span>         <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-node-plugin<span class="hljs-number">-6</span>pjpn                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-node-plugin-dj2cd                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m20s
+iomesh-csi-driver-node-plugin-stbdw                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">3</span>m20s
+iomesh-hostpath-provisioner<span class="hljs-number">-55</span>j8t                      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-hostpath-provisioner-c7jlz                      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-hostpath-provisioner-jqrsd                      <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-iscsi-redirector<span class="hljs-number">-675</span>vr                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">119</span>s
+iomesh-iscsi-redirector-d2j4m                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">119</span>s
+iomesh-iscsi-redirector-sjfjk                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">119</span>s
+iomesh-meta<span class="hljs-number">-0</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">104</span>s
+iomesh-meta<span class="hljs-number">-1</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">104</span>s
+iomesh-meta<span class="hljs-number">-2</span>                                          <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">104</span>s
+iomesh-openebs-ndm<span class="hljs-number">-569</span>pb                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm<span class="hljs-number">-9f</span>hln                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-cluster-exporter<span class="hljs-number">-68</span>c757948-vkkdz    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-m64j5                               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-node-exporter<span class="hljs-number">-2</span>brc6                 <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-node-exporter-g97q5                 <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-node-exporter-kvn88                 <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-openebs-ndm-operator<span class="hljs-number">-56</span>cfb5d7b6-gwlg9           <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+iomesh-zookeeper<span class="hljs-number">-0</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m14s
+iomesh-zookeeper<span class="hljs-number">-1</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m59s
+iomesh-zookeeper<span class="hljs-number">-2</span>                                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">2</span>m20s
+iomesh-zookeeper-operator<span class="hljs-number">-7</span>b5f4b98dc-fxfb6             <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+operator<span class="hljs-number">-85877979</span><span class="hljs-number">-5f</span>vvn                                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+operator<span class="hljs-number">-85877979</span><span class="hljs-number">-74</span>rl6                                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+operator<span class="hljs-number">-85877979</span>-cvgcz                                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">3</span>m20s
+</code></pre></li>
+</ol>
+<p>IOMesh Cluster has been installed successfully. Please go to <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
 <h2><a class="anchor" aria-hidden="true" id="install-iomesh-on-openshift-container-platform"></a><a href="#install-iomesh-on-openshift-container-platform" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh on OpenShift Container Platform</h2>
 <p>For OpenShift cluster, you can also install and use IOMesh through the IOMesh Operator on the OperatorHub page of the Red Hat OpenShift Container Platform.</p>
 <h3><a class="anchor" aria-hidden="true" id="pre-install"></a><a href="#pre-install" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pre-Install</h3>
@@ -223,4 +348,4 @@ operator<span class="hljs-number">-85877979</span>-xqtml                        
 <pre><code class="hljs css language-shell">curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
 </code></pre>
 <p>IOMeshCluster is now installed successfully, please go to <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy/prerequisites"><span class="arrow-prev">← </span><span>Prerequisites</span></a><a class="docs-next button" href="/next/deploy/setup-iomesh"><span>Setup IOMesh</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#quick-installation-guide">Quick Installation Guide</a></li><li><a href="#customized-installation-guide">Customized Installation Guide</a><ul class="toc-headings"><li><a href="#install-csi-snapshotter">Install CSI Snapshotter</a></li><li><a href="#install-helm3">Install Helm3</a></li><li><a href="#setup-helm-repo">Setup Helm Repo</a></li><li><a href="#install-iomesh">Install IOMesh</a></li></ul></li><li><a href="#install-iomesh-on-openshift-container-platform">Install IOMesh on OpenShift Container Platform</a><ul class="toc-headings"><li><a href="#pre-install">Pre-Install</a></li><li><a href="#install-iomesh-operator">Install IOMesh Operator</a></li><li><a href="#install-csi-driver">Install CSI Driver</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy/prerequisites"><span class="arrow-prev">← </span><span>Prerequisites</span></a><a class="docs-next button" href="/next/deploy/setup-iomesh"><span>Setup IOMesh</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#quick-installation-guide">Quick Installation Guide</a></li><li><a href="#customized-installation-guide">Customized Installation Guide</a><ul class="toc-headings"><li><a href="#install-csi-snapshotter">Install CSI Snapshotter</a></li><li><a href="#install-helm3">Install Helm3</a></li><li><a href="#setup-helm-repo">Setup Helm Repo</a></li><li><a href="#install-iomesh">Install IOMesh</a></li></ul></li><li><a href="#install-iomesh-offline">Install IOMesh Offline</a><ul class="toc-headings"><li><a href="#prepare-offline-installation-package">Prepare Offline Installation Package</a></li><li><a href="#load-images">Load Images</a></li><li><a href="#install-iomesh-using-offline-installation-package">Install IOMesh Using Offline Installation Package</a></li></ul></li><li><a href="#install-iomesh-on-openshift-container-platform">Install IOMesh on OpenShift Container Platform</a><ul class="toc-headings"><li><a href="#pre-install">Pre-Install</a></li><li><a href="#install-iomesh-operator">Install IOMesh Operator</a></li><li><a href="#install-csi-driver">Install CSI Driver</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
