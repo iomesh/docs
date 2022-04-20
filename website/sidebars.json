@@ -28,7 +28,8 @@
         "advanced-usage/external-iscsi"
     ],
     "Additional Info":[
-        "additional-info/performance-testing"
+        "additional-info/performance-testing",
+        "additional-info/release-notes"
     ],
     "References": [
         "references/metrics"

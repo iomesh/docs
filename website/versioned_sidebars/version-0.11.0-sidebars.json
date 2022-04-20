@@ -1,0 +1,38 @@
+{
+  "version-0.11.0-docs": {
+    "About IOMesh": [
+      "version-0.11.0-about-iomesh/introduction"
+    ],
+    "Deploy": [
+      "version-0.11.0-deploy/prerequisites",
+      "version-0.11.0-deploy/install-iomesh",
+      "version-0.11.0-deploy/setup-iomesh",
+      "version-0.11.0-deploy/setup-storageclass",
+      "version-0.11.0-deploy/setup-snapshotclass"
+    ],
+    "Volume Operations": [
+      "version-0.11.0-volume-operations/create-volume",
+      "version-0.11.0-volume-operations/expand-volume",
+      "version-0.11.0-volume-operations/snapshot-restore-and-clone"
+    ],
+    "IOMesh Operations": [
+      "version-0.11.0-iomesh-operations/monitoring",
+      "version-0.11.0-iomesh-operations/cluster-operations"
+    ],
+    "Stateful Applications": [
+      "version-0.11.0-stateful-applications/iomesh-for-mysql",
+      "version-0.11.0-stateful-applications/iomesh-for-cassandra",
+      "version-0.11.0-stateful-applications/iomesh-for-mongodb"
+    ],
+    "Advanced Usage": [
+      "version-0.11.0-advanced-usage/external-iscsi"
+    ],
+    "Additional Info": [
+      "version-0.11.0-additional-info/performance-testing",
+      "version-0.11.0-additional-info/release-notes"
+    ],
+    "References": [
+      "version-0.11.0-references/metrics"
+    ]
+  }
+}
