@@ -24,12 +24,11 @@ Network cards of 10GbE or above are required for the IOMesh storage network.
 At least 100GB of disk space is required in the /opt directory on each worker node for storing the IOMesh cluster metadata.
 
 ## Worker Node Setup
+Follow the steps below to set up each Kubernetes worker node that runs IOMesh.
 
-For each Kubernetes worker node that will run IOMesh, follow the following steps:
+### Set Up Open-iSCSI
 
-### Setup Open-ISCSI
-
-1. Install open-iscsi:
+1. Install open-iscsi.
 
   <!--DOCUSAURUS_CODE_TABS-->
     <!--RHEL/CentOS-->
@@ -43,37 +42,37 @@ For each Kubernetes worker node that will run IOMesh, follow the following steps
 
   <!--END_DOCUSAURUS_CODE_TABS-->
 
-2. Edit `/etc/iscsi/iscsid.conf` by setting `node.startup` to `manual`:
+2. Edit `/etc/iscsi/iscsid.conf` by setting `node.startup` to `manual`.
 
     ```shell
     sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
     ```
-    > **_NOTE_: The default value of the MaxRecvDataSegmentLength in /etc/iscsi/iscsi.conf is 32,768, which limits the maximum number of PVs(about 80,000) in IOMesh. If you want to create more than 80,000 PVs in IOMesh, it is recommended to set the value of MaxRecvDataSegmentLength to 163,840 or higher.**
-
-3. Disable SELinux:
+    > **_NOTE_: The default value of the MaxRecvDataSegmentLength in /etc/iscsi/iscsi.conf is set at 32,768, and the maximum number of PVs is limited to 80,000 in IOMesh. To create PVs more than 80,000 in IOMesh, it is recommended to set the value of MaxRecvDataSegmentLength to 163,840 or above.**
+    
+3. Disable SELinux.
 
     ```shell
     sudo setenforce 0
     sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
     ```
 
-4. Ensure `iscsi_tcp` kernel module is loaded:
+4. Ensure `iscsi_tcp` kernel module is loaded.
 
     ```shell
     sudo modprobe iscsi_tcp
     sudo bash -c 'echo iscsi_tcp > /etc/modprobe.d/iscsi-tcp.conf'
     ```
 
-5. Start `iscsid` service:
+5. Start `iscsid` service.
 
     ```shell
     sudo systemctl enable --now iscsid
     ```
+### Set Up Local Metadata Store
 
-### Setup Local Metadata Store
+IOMesh stores metadata in the local path `/opt/iomesh`. Ensure that there is at least 100Gb of available space at `/opt`. 
 
-IOMesh uses local path `/opt/iomesh` to store metadata. Ensure that there is at least 100 GB free space at `/opt`.
+### Set Up Data Network
 
-### Setup Data Network
+To avoid contention on network bandwidth, set up a separate network for the IOMesh Cluster. The `dataCIDR` defines IP block for the IOMesh data network. Every node running IOMesh should have an interface with an IP address belonging to `dataCIDR`.
 
-To avoid contention on network bandwith, it is necessary to setup a seperate network segment for IOMesh cluster. The `dataCIDR` defines the IP block for IOMesh data network. Every node running IOMesh should have an interface with IP address belonging to the `dataCIDR`.
