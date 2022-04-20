@@ -1,7 +1,8 @@
 ---
-id: prerequisites
+id: version-0.11.0-prerequisites
 title: Prerequisites
 sidebar_label: Prerequisites
+original_id: prerequisites
 ---
 
 ## Installation Requirements

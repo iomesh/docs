@@ -1,7 +1,8 @@
 ---
-id: install-iomesh
+id: version-0.11.0-install-iomesh
 title: Install IOMesh
 sidebar_label: Install IOMesh
+original_id: install-iomesh
 ---
 
 ## Quick Installation Guide
