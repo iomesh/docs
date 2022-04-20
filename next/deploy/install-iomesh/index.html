@@ -55,41 +55,39 @@
               }
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Install IOMesh</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="quick-installation-guide"></a><a href="#quick-installation-guide" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Quick Installation Guide</h2>
-<p>Choose the right script to execute according to your OS distribution:</p>
+<p>For quick installation, run the corresponding script below according to your OS distribution.</p>
 <blockquote>
-<p><strong><em>NOTE</em>: Helm3 would be installed automatically if it is not founded.</strong></p>
+<p><strong><em>NOTE</em>: Helm3 will be installed automatically if it is not found.</strong></p>
 </blockquote>
-<div class="tabs"><div class="nav-tabs"><div id="tab-group-4-tab-5" class="nav-link active" data-group="group_4" data-tab="tab-group-4-content-5">RHEL7/CentOS7</div><div id="tab-group-4-tab-6" class="nav-link" data-group="group_4" data-tab="tab-group-4-content-6">RHEL8/CentOS8/CoreOS</div></div><div class="tab-content"><div id="tab-group-4-content-5" class="tab-pane active" data-group="group_4" tabindex="-1"><div><span><pre><code class="hljs css language-shell"><span class="hljs-meta">#</span><span class="bash"> Every node running IOMesh must have an IP address belongs to IOMESH_DATA_CIDR</span><br />export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -<br /></code></pre>
-</span></div></div><div id="tab-group-4-content-6" class="tab-pane" data-group="group_4" tabindex="-1"><div><span><pre><code class="hljs css language-shell"><span class="hljs-meta">#</span><span class="bash"> Every node running IOMesh must have an IP address belongs to IOMESH_DATA_CIDR</span><br />export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -<br /></code></pre>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-4-tab-5" class="nav-link active" data-group="group_4" data-tab="tab-group-4-content-5">RHEL7/CentOS7</div><div id="tab-group-4-tab-6" class="nav-link" data-group="group_4" data-tab="tab-group-4-content-6">RHEL8/CentOS8/CoreOS</div></div><div class="tab-content"><div id="tab-group-4-content-5" class="tab-pane active" data-group="group_4" tabindex="-1"><div><span><pre><code class="hljs css language-shell"><span class="hljs-meta">#</span><span class="bash"> Every node running IOMesh must have an IP address belonging to IOMESH_DATA_CIDR</span><br />export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -<br /></code></pre>
+</span></div></div><div id="tab-group-4-content-6" class="tab-pane" data-group="group_4" tabindex="-1"><div><span><pre><code class="hljs css language-shell"><span class="hljs-meta">#</span><span class="bash"> Every node running IOMesh must have an IP address belonging to IOMESH_DATA_CIDR</span><br />export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -<br /></code></pre>
 </span></div></div></div></div>
-<p>Then wait until all IOMesh Cluster pods are ready:</p>
+<p>Wait for minutes. IOMesh will be installed successfully if all IOMesh Cluster pods are running.</p>
 <pre><code class="hljs css language-shell">watch kubectl get --namespace iomesh-system pods
 </code></pre>
-<p>Now IOMesh has been installed successfully!</p>
+<p>IOMesh has been installed successfully!</p>
 <blockquote>
-<p><strong><em>NOTE</em>: If any error occurs during the installation process, the IOMesh resources which installed by the script will be reserved for troubleshooting. You can use the uninstall script to clean up all IOMesh resources installed in the k8s cluster:
-<code>curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -</code></strong></p>
+<p><strong><em>NOTE</em>: IOMesh resources installed by running the entered script will be reserved for future troubleshooting if any error occurs during installation. You may enter the script below to remove all IOMesh resources from the Kubernetes Cluster: <code>curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -</code></strong></p>
 </blockquote>
 <h2><a class="anchor" aria-hidden="true" id="customized-installation-guide"></a><a href="#customized-installation-guide" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customized Installation Guide</h2>
-<p>This is the installtion guide for customized configurations.</p>
+<p>For installation with customized configurations, follow the steps below.</p>
 <h3><a class="anchor" aria-hidden="true" id="install-csi-snapshotter"></a><a href="#install-csi-snapshotter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install CSI Snapshotter</h3>
-<p>The <a href="https://github.com/kubernetes-csi/external-snapshotter">CSI snapshotter</a> is part of Kubernetes implementation of Container Storage Interface (CSI).
-Instasll CSI snapshotter to enable the Volume Snapshot feature.</p>
+<p>The <a href="https://github.com/kubernetes-csi/external-snapshotter">CSI snapshotter</a> is part of Kubernetes implementation of Container Storage Interface (CSI). Install CSI Snapshotter to enable the Volume Snapshot feature.</p>
 <blockquote>
-<p><strong><em>NOTE</em>: CSI Snapshotter should be installed once per cluster</strong></p>
+<p><strong><em>NOTE</em>: Install only one CSI Snapshotter per Kubernetes cluster.</strong></p>
 </blockquote>
 <ol>
-<li><p>Download and extract CSI external-snapshotter:</p>
+<li><p>Download and extract the CSI external-snapshotter.</p>
 <pre><code class="hljs css language-shell">curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.tar.gz
 tar -xf release-2.1.tar.gz &amp;&amp; cd external-snapshotter-release-2.1
 </code></pre></li>
-<li><p>Install Snapshot CRDs:</p>
+<li><p>Install Snapshot CRDs.</p>
 <pre><code class="hljs css language-shell">kubectl create -f ./config/crd
 </code></pre></li>
-<li><p>Edit <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml</code> by adding a namespace, e.g., <code>kube-system</code>:</p>
+<li><p>Edit <code>deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml</code> by adding a namespace, e.g., <code>kube-system</code>.</p>
 <pre><code class="hljs css language-shell">sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 </code></pre></li>
-<li><p>Install Snapshot Controller, e.g., <code>kube-system</code>:</p>
+<li><p>Install Snapshot Controller, e.g., <code>kube-system</code>.</p>
 <pre><code class="hljs css language-shell">kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
 </code></pre></li>
 <li><p>Wait until the Snapshot Controller is ready:</p>
@@ -101,23 +99,23 @@ snapshot-controller   <span class="hljs-number">1</span>/<span class="hljs-numbe
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="install-helm3"></a><a href="#install-helm3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install Helm3</h3>
 <blockquote>
-<p><strong><em>NOTE</em>: skip this step if Helm3 is already installed.</strong></p>
+<p><strong><em>NOTE</em>: Skip this step if Helm3 is already installed.</strong></p>
 </blockquote>
 <pre><code class="hljs css language-shell">curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 </code></pre>
 <p>For more details, please refer to <strong><a href="https://helm.sh/docs/intro/install/">Install Helm</a></strong>.</p>
-<h3><a class="anchor" aria-hidden="true" id="setup-helm-repo"></a><a href="#setup-helm-repo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup Helm Repo</h3>
+<h3><a class="anchor" aria-hidden="true" id="set-up-helm-repo"></a><a href="#set-up-helm-repo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Up Helm Repo</h3>
 <pre><code class="hljs css language-shell">helm repo add iomesh http://iomesh.com/charts
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="install-iomesh"></a><a href="#install-iomesh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh</h3>
 <ol>
-<li><p>Download <code>iomesh.yaml</code> with default configurations:</p>
+<li><p>Download <code>iomesh.yaml</code> with default configurations.</p>
 <pre><code class="hljs css language-shell">helm show values iomesh/iomesh &gt; iomesh.yaml
 </code></pre></li>
-<li><p>Customize the <code>iomesh.yaml</code></p>
-<p><strong>(required)</strong> Fill in the <code>dataCIDR</code> according to your network:</p>
+<li><p>Customize <code>iomesh.yaml</code>.</p>
+<p><strong>(required)</strong> Fill in <code>dataCIDR</code> according to your network.</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
   <span class="hljs-attr">chunk:</span>
     <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">"10.234.1.0/24"</span> <span class="hljs-comment"># change to your own data network CIDR</span>
@@ -132,9 +130,7 @@ chmod 700 get_helm.sh
 <p><strong>(optional)</strong> Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set <code>diskDeploymentMode</code> to <code>allFlash</code>.</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">diskDeploymentMode:</span> <span class="hljs-string">"hybridFlash"</span> <span class="hljs-comment"># set `diskDeploymentMode` to `allFlash` in all-flash deployment mode</span>
 </code></pre>
-<p><strong>(optional)</strong> If you only want IOMesh to use a part of k8s node's disks,
-configure the specific node's label in the <code>chunk.podPolicy.affinity</code>, for
-example:</p>
+<p><strong>(optional)</strong> If you simply want IOMesh to utilize part of Kubernetes nodes, configure the labels of nodes to be utilized in <code>chunk.podPolicy.affinity</code>. For example:</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
   <span class="hljs-attr">chunk:</span>
     <span class="hljs-attr">podPolicy:</span>
@@ -149,10 +145,10 @@ example:</p>
                 <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-0</span> <span class="hljs-comment"># specific node label's value</span>
                 <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-worker-1</span>
 </code></pre>
-<p>For more information about pod affinity configuration rule, see: <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">pod affinity</a></p></li>
-<li><p>Install IOMesh Cluster:</p>
+<p>For more information about pod affinity rules, see: <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">pod affinity</a>.</p></li>
+<li><p>Install IOMesh Cluster.</p>
 <blockquote>
-<p><strong><em>NOTE</em>: replace <code>iomesh</code> with your release name.</strong></p>
+<p><strong><em>NOTE</em>: Replace <code>iomesh</code> with your release name.</strong></p>
 </blockquote>
 <pre><code class="hljs css language-shell">helm install iomesh iomesh/iomesh \
     --create-namespace \
@@ -167,7 +163,7 @@ STATUS: deployed
 REVISION: 1
 <span class="hljs-keyword">TEST </span>SUITE: None
 </code></pre></li>
-<li><p>You can run <code>kubectl --namespace iomesh-system get pods</code> to check out the result:</p>
+<li><p>Run <code>kubectl --namespace iomesh-system get pods</code> to check the results.</p>
 <pre><code class="hljs css language-bash">kubectl --namespace iomesh-system get pods
 </code></pre>
 <pre><code class="hljs css language-output">NAME                                                  READY   STATUS    RESTARTS   AGE
@@ -333,19 +329,19 @@ operator<span class="hljs-number">-85877979</span>-cvgcz                        
 </ol>
 <p>IOMesh Cluster has been installed successfully. Please go to <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
 <h2><a class="anchor" aria-hidden="true" id="install-iomesh-on-openshift-container-platform"></a><a href="#install-iomesh-on-openshift-container-platform" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh on OpenShift Container Platform</h2>
-<p>For OpenShift cluster, you can also install and use IOMesh through the IOMesh Operator on the OperatorHub page of the Red Hat OpenShift Container Platform.</p>
+<p>You may also install and use IOMesh through the IOMesh Operator on the OperatorHub page of the Red Hat OpenShift Container Platform.</p>
 <h3><a class="anchor" aria-hidden="true" id="pre-install"></a><a href="#pre-install" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pre-Install</h3>
-<p>Run IOMesh Operator pre-installation script in an environment where oc or kubectl can be used to access the OpenShift cluster, the script will install the dependencies of IOMesh Operator and specific IOMesh settings for the OpenShift cluster:</p>
+<p>Run the script below, which will install the dependencies of the IOMesh Operator and configure IOMesh specifications and settings for the OpenShift Cluster. Note that the script should be executed in an environment where oc or kubectl can access the OpenShift Cluster.</p>
 <pre><code class="hljs css language-shell">curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="install-iomesh-operator"></a><a href="#install-iomesh-operator" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install IOMesh Operator</h3>
 <ol>
-<li><p>Log in to your OpenShift Container Platform and visit the OperatorHub page. Select IOMesh Operator and click Install to start the installation of IOMesh Operator.</p></li>
-<li><p>On the Installed Operators &gt; IOMesh Operator &gt; Create instance &gt; YAML view, fill in an IOMesh Custom Resources according to IOMesh <a href="https://iomesh.run/iomesh.yaml">YAML</a>, change the spec.*.dataCIDR to your own data network CIDR.</p></li>
+<li><p>Log in to the OpenShift Container Platform, then open the OperatorHub page. On the OperatorHub page, select IOMesh Operator and click Install to install IOMesh Operator.</p></li>
+<li><p>Select following the order: the Installed Operators &gt; IOMesh Operator &gt; Create instance &gt; YAML view, then fill in IOMesh Custom Resources according to IOMesh <a href="https://iomesh.run/iomesh.yaml">YAML</a>. Change the spec.*.dataCIDR to your data network CIDR.</p></li>
 </ol>
 <h3><a class="anchor" aria-hidden="true" id="install-csi-driver"></a><a href="#install-csi-driver" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install CSI Driver</h3>
-<p>Run IOMesh Operator post-installation script in an environment where oc or kubectl can be used to access the OpenShift cluster, the script will install IOMesh CSI Driver:</p>
+<p>Run the script below to install IOMesh CSI Driver. Note that the script should be executed in an environment where oc or kubectl can access the OpenShift Cluster.</p>
 <pre><code class="hljs css language-shell">curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
 </code></pre>
-<p>IOMeshCluster is now installed successfully, please go to <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy/prerequisites"><span class="arrow-prev">← </span><span>Prerequisites</span></a><a class="docs-next button" href="/next/deploy/setup-iomesh"><span>Setup IOMesh</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#quick-installation-guide">Quick Installation Guide</a></li><li><a href="#customized-installation-guide">Customized Installation Guide</a><ul class="toc-headings"><li><a href="#install-csi-snapshotter">Install CSI Snapshotter</a></li><li><a href="#install-helm3">Install Helm3</a></li><li><a href="#setup-helm-repo">Setup Helm Repo</a></li><li><a href="#install-iomesh">Install IOMesh</a></li></ul></li><li><a href="#install-iomesh-offline">Install IOMesh Offline</a><ul class="toc-headings"><li><a href="#prepare-offline-installation-package">Prepare Offline Installation Package</a></li><li><a href="#load-images">Load Images</a></li><li><a href="#install-iomesh-using-offline-installation-package">Install IOMesh Using Offline Installation Package</a></li></ul></li><li><a href="#install-iomesh-on-openshift-container-platform">Install IOMesh on OpenShift Container Platform</a><ul class="toc-headings"><li><a href="#pre-install">Pre-Install</a></li><li><a href="#install-iomesh-operator">Install IOMesh Operator</a></li><li><a href="#install-csi-driver">Install CSI Driver</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
+<p>IOMesh Cluster is installed successfully. Please go to <a href="/next/deploy/setup-iomesh">Setup IOMesh</a>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy/prerequisites"><span class="arrow-prev">← </span><span>Prerequisites</span></a><a class="docs-next button" href="/next/deploy/setup-iomesh"><span>Setup IOMesh</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#quick-installation-guide">Quick Installation Guide</a></li><li><a href="#customized-installation-guide">Customized Installation Guide</a><ul class="toc-headings"><li><a href="#install-csi-snapshotter">Install CSI Snapshotter</a></li><li><a href="#install-helm3">Install Helm3</a></li><li><a href="#set-up-helm-repo">Set Up Helm Repo</a></li><li><a href="#install-iomesh">Install IOMesh</a></li></ul></li><li><a href="#install-iomesh-offline">Install IOMesh Offline</a><ul class="toc-headings"><li><a href="#prepare-offline-installation-package">Prepare Offline Installation Package</a></li><li><a href="#load-images">Load Images</a></li><li><a href="#install-iomesh-using-offline-installation-package">Install IOMesh Using Offline Installation Package</a></li></ul></li><li><a href="#install-iomesh-on-openshift-container-platform">Install IOMesh on OpenShift Container Platform</a><ul class="toc-headings"><li><a href="#pre-install">Pre-Install</a></li><li><a href="#install-iomesh-operator">Install IOMesh Operator</a></li><li><a href="#install-csi-driver">Install CSI Driver</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
