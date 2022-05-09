@@ -41,48 +41,6 @@ IOMesh has been installed successfully!
 
 For installation with customized configurations, follow the steps below.
 
-### Install CSI Snapshotter
-
-The [CSI snapshotter](https://github.com/kubernetes-csi/external-snapshotter) is part of Kubernetes implementation of Container Storage Interface (CSI). Install CSI Snapshotter to enable the Volume Snapshot feature.
-
-> **_NOTE_: Install only one CSI Snapshotter per Kubernetes cluster.**
-
-1. Download and extract the CSI external-snapshotter.
-
-    ```shell
-    curl -LO https://github.com/kubernetes-csi/external-snapshotter/archive/release-2.1.tar.gz
-    tar -xf release-2.1.tar.gz && cd external-snapshotter-release-2.1
-    ```
-
-2. Install Snapshot CRDs.
-
-    ```shell
-    kubectl create -f ./config/crd
-    ```
-
-3. Edit `deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml` by adding a namespace, e.g., `kube-system`.
-
-    ```shell
-    sed -i "s/namespace: default/namespace: kube-system/g" deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
-    ```
-
-4. Install Snapshot Controller, e.g., `kube-system`.
-
-    ```shell
-    kubectl apply -n kube-system -f ./deploy/kubernetes/snapshot-controller
-    ```
-
-5. Wait until the Snapshot Controller is ready:
-
-    ```shell
-    kubectl get sts snapshot-controller -n kube-system
-    ```
-
-    ```output
-    NAME                  READY   AGE
-    snapshot-controller   1/1     32s
-    ```
-
 ### Install Helm3
 
 > **_NOTE_: Skip this step if Helm3 is already installed.**
@@ -117,16 +75,6 @@ helm repo add iomesh http://iomesh.com/charts
     iomesh:
       chunk:
         dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
-    ```
-
-   **(required)** For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`:
-
-    ```yaml
-    csi-driver:
-      driver:
-        node:
-          driver:
-            mountIscsiLock: true
     ```
 
     **(optional)** Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set `diskDeploymentMode` to `allFlash`.
@@ -255,36 +203,6 @@ podman load --input ./images/iomesh-offline-images.tar
 
 ### Install IOMesh Using Offline Installation Package
 
-#### Install CSI Snapshotter
-
-The [CSI snapshotter](https://github.com/kubernetes-csi/external-snapshotter) is part of Kubernetes implementation of Container Storage Interface (CSI).
-Instasll CSI snapshotter to enable the Volume Snapshot feature.
-
-> **_NOTE_: Install only one CSI Snapshotter per Kubernetes cluster.**
-
-1. Install Snapshot CRDs.
-
-    ```shell
-    kubectl create -f ./charts/external-snapshotter/config/crd
-    ```
-
-2. Install Snapshot Controller.
-
-    ```shell
-    kubectl apply -n kube-system -f ./charts/external-snapshotter/deploy/kubernetes/snapshot-controller
-    ```
-
-3. Wait until Snapshot Controller is ready.
-
-    ```shell
-    kubectl get sts snapshot-controller -n kube-system
-    ```
-
-    ```output
-    NAME                  READY   AGE
-    snapshot-controller   1/1     32s
-   ```
-
 #### Install IOMesh
 
 1. Download `iomesh.yaml` with default configurations.
@@ -301,16 +219,6 @@ Instasll CSI snapshotter to enable the Volume Snapshot feature.
     iomesh:
       chunk:
         dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
-    ```
-
-   **(required)** For Kubernetes worker node OS is `CentOS8` or `CoreOS`, set `mountIscsiLock` to `true`. Otherwise, set it to `false`:
-
-    ```yaml
-    csi-driver:
-      driver:
-        node:
-          driver:
-            mountIscsiLock: true
     ```
 
     **(optional)** If you simply want IOMesh to utilize part of Kubernetes nodes, configure the labels of nodes to be utilized in `chunk.podPolicy.affinity`. For example:
