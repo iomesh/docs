@@ -6,7 +6,14 @@ sidebar_label: Prerequisites
 
 ## Installation Requirements
 #### Kubernetes Cluster Requirements
-A Kubernetes (from v1.17 to v1.21) cluster with at least 3 worker nodes.
+A Kubernetes (from v1.17 to v1.24) cluster with at least 3 worker nodes.
+
+#### CPU and Memory Requirements
+##### CPU
+At least 6 cores on each worker node.
+
+##### Memory
+At least 12GB RAM on each worker node.
 
 #### Disk Requirements
 ##### Cache Disk
