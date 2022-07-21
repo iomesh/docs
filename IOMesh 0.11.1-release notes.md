@@ -28,7 +28,7 @@ Increase compatibility with Kubernetes versions 1.22 to 1.24.
 - Simplified Snapshot Controller installation. The Snapshot Controller will be installed with IOMesh. 
 
 ### Fixed Problems
-- Fixed the problem that the name of `iscsi-redirectd daemonset` did not meet expectations.
+- Fixed the problem that the name of `iscsi-redirectd daemonset` did not conform to the naming convention.
 - Fixed the problem that the operations of PR (Persistent Reservation) might fail due to non-compliance with the SCSI-3 PR protocol.
 - Fixed the problem that the time to mount a disk was occasionally too long.
 - Fixed the problem that configurations could not take effect when the user customized the NDM image repository.
@@ -52,7 +52,7 @@ Increase compatibility with Kubernetes versions 1.22 to 1.24.
 IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 
 ### IOMesh and Kubernetes Compatibility
-IOMesh is compatible with Kubernetes of versions 1.17 to 1.24.
+IOMesh is compatible with Kubernetes versions 1.17 to 1.24.
 
 ### IOMesh and Linux OS Compatibility
 IOMesh is compatible with CentOS 7, CentOS 8, CoreOS, RHEL 7, and RHEL 8.
