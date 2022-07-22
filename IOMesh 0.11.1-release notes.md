@@ -19,7 +19,7 @@ The release notes cover the following topics:
 
 ### New Feature
 
-Increase compatibility with Kubernetes versions 1.22 to 1.24.
+Add support for Kubernetes versions 1.22 to 1.24.
 
 ### Improved Features
 
