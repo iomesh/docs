@@ -29,7 +29,7 @@ Add support for Kubernetes versions 1.22 to 1.24.
 
 ### Fixed Problems
 - Fixed the problem that the name of `iscsi-redirectd daemonset` did not conform to the naming convention.
-- Fixed the problem that the operations of PR (Persistent Reservation) might fail due to non-compliance with the SCSI-3 PR protocol.
+- Fixed the problem that the operations of SCSI-3 PR (Persistent Reservation) might fail due to non-compliance with the SCSI-3 PR protocol.
 - Fixed the problem that the time to mount a disk was occasionally too long.
 - Fixed the problem that configurations could not take effect when the user customized the NDM image repository.
 - Fixed the problem that the number of PV replicas created or cloned from snapshots did not match that of original PV replicas.
