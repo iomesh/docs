@@ -4,21 +4,21 @@ title: Release Notes
 sidebar_label: Release Notes
 ---
 
-# IOMesh 0.11.1 Release Notes
+## IOMesh 0.11.1 Release Notes
 
-## What's New 
+### What's New 
 
-### New Feature
+#### New Feature
 
 Add support for Kubernetes versions 1.22 to 1.24.
 
-### Improved Features
+#### Improved Features
 
 - Optimized the method of clearing corresponding LUNs in IOMesh after deleting the PV with the reclaim policy set to **Retain**. 
 - Improved the way of managing `open-iscsi` to ease IOMesh installation on various Linux distribution software. 
 - Simplified Snapshot Controller installation. The Snapshot Controller will be installed together with IOMesh. 
 
-### Fixed Problems
+#### Fixed Problems
 
 - Fixed the problem that the name of `iscsi-redirectd daemonset` did not conform to the naming convention.
 - Fixed the problem that the operations of SCSI-3 PR (Persistent Reservation) might fail due to non-compliance with the SCSI-3 PR protocol.
@@ -26,7 +26,7 @@ Add support for Kubernetes versions 1.22 to 1.24.
 - Fixed the problem that configurations could not take effect when the user customized the NDM image repository.
 - Fixed the problem that the number of cloned PV replicas or PV replicas created from a snapshot might be inconsistent with that of original PV replicas.
 
-## Specifications
+### Specifications
 
 | Component | Version|
 | -------| -------|
@@ -37,13 +37,13 @@ Add support for Kubernetes versions 1.22 to 1.24.
 |node-disk-manager|1.8.0|
 |hostpath-provisioner|0.5.2|
 
-## Compatibility
+### Compatibility
 
-### Server Architecture Compatibility for IOMesh  
+#### Server Architecture Compatibility for IOMesh  
 
 IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 
-### Kubernetes and Linux OS Compatibility for IOMesh
+#### Kubernetes and Linux OS Compatibility for IOMesh
 
 <table>
 <thead>
@@ -77,9 +77,9 @@ IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 >
 > IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
 
-## Download Link
+### Download Link
 
-### IOMesh Offline Installation Package
+#### IOMesh Offline Installation Package
 
 - Download Link
      
