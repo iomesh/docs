@@ -25,7 +25,7 @@ Add support for Kubernetes versions 1.22 to 1.24.
 
 - Optimized the method of clearing corresponding LUNs in IOMesh after deleting the PV with its retention policy set to **Retain**. 
 - Optimized `open-iscsi` containerization so that IOMesh installation and operation will not rely on Linux distros.
-- Simplified Snapshot Controller installation. The Snapshot Controller will be installed with IOMesh. 
+- Simplified Snapshot Controller installation. The Snapshot Controller will be installed together with IOMesh. 
 
 ### Fixed Problems
 - Fixed the problem that the name of `iscsi-redirectd daemonset` did not conform to the naming convention.
