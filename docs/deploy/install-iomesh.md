@@ -174,11 +174,11 @@ IOMesh Cluster is now installed successfully. Please go to [Setup IOMesh](setup-
 ## Install IOMesh Offline
 
 ### Prepare Offline Installation Package
-1. Download [IOMesh offline installation package](https://download.smartx.com/iomesh-offline-v0.11.0.tgz).
+1. Download [IOMesh offline installation package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
 
 2. Decompress the offline installation package
     ```shell
-    tar -xf  iomesh-offline-v0.11.0.tgz && cd iomesh-offline
+    tar -xf  iomesh-offline-v0.11.1.tgz && cd iomesh-offline
     ```
 
 ### Load Images

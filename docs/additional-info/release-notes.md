@@ -77,22 +77,6 @@ IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 >
 > IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
 
-### Download Link
-
-#### IOMesh Offline Installation Package
-
-- Download Link
-     
-       >- <>
-
-    - MD5: 
-
-        ```
-        
-        ```
-
-
-
 ## IOMesh 0.11.0 Release Notes
 
 ### What's New
@@ -185,13 +169,3 @@ IOMesh Compatibility
 <li>RHEL 8</li>
 </tbody>
 </table> 
-
-### Download Links
-
-IOMesh Offline Installation Package
-* Download Links:
-https://download.smartx.com/iomesh-offline-v0.11.0.tgz
-* MD5: 25facf99281705129a9920bb899e43d2 
-
-
-
