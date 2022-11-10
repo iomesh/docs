@@ -105,6 +105,9 @@ Device selector is defined by:
 All block devices selected by device selector will be mounted to IOMesh with the corresponding mount type.
 
 #### Example of DeviceMap Configuration in Hybrid-Flash Deployment Mode
+
+##### Example 1
+Select the block device with the label iomesh.com/bd-driverType equal to SSD and mount it as cacheWithJournal, equal to SSD and mount it as cacheWithJournal
 ```yaml
 spec:
   # ...
@@ -131,6 +134,73 @@ spec:
             - HDD
         exclude:
         - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
+    # ...
+```
+
+##### Example 2
+Customize labels and mount block devices by selecting them
+
+1. add label `customize/labels: "cacheWithJournal"` for block device `name: blockdevice-first`
+    ```yaml
+    apiVersion: openebs.io/v1alpha1
+    kind: BlockDevice
+    metadata:
+      annotations:
+        internal.openebs.io/uuid-scheme: gpt
+      generation: 1
+      labels:
+        customize/labels: "cacheWithJournal"
+        iomesh.com/bd-devicePath: dev.sda
+        iomesh.com/bd-deviceType: disk
+        iomesh.com/bd-driverType: SSD
+        iomesh.com/bd-serial: 24da000347e1e4a9
+        iomesh.com/bd-vendor: ATA
+        kubernetes.io/hostname: kind-control-plane
+        ndm.io/blockdevice-type: blockdevice
+        ndm.io/managed: "true"
+      namespace: iomesh-system
+      name: blockdevice-first
+    ```
+
+    add label `customize/labels: "dataStore"` for block device `name: blockdevice-second`
+    ```yaml
+    apiVersion: openebs.io/v1alpha1
+    kind: BlockDevice
+    metadata:
+      annotations:
+        internal.openebs.io/uuid-scheme: gpt
+      generation: 1
+      labels:
+        customize/labels: "dataStore" 
+        iomesh.com/bd-devicePath: dev.sdb
+        iomesh.com/bd-deviceType: disk
+        iomesh.com/bd-driverType: HDD
+        iomesh.com/bd-serial: 24da000347e1e111
+        iomesh.com/bd-vendor: ATA
+        kubernetes.io/hostname: kind-control-plane
+        ndm.io/blockdevice-type: blockdevice
+        ndm.io/managed: "true"
+      namespace: iomesh-system
+      name: blockdevice-second
+    ```
+
+
+2. Mount on block devices by selecting custom labels
+```yaml
+spec:
+  # ...
+  chunk:
+    # ...
+    deviceMap:
+      cacheWithJournal:
+        selector:
+          matchLabels:
+            customize/labels: "cacheWithJournal"
+      dataStore:
+        selector:
+          matchLabels:
+            customize/labels: "dataStore"
+
     # ...
 ```
 
