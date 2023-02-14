@@ -4,6 +4,8 @@ title: Setup SnapshotClass
 sidebar_label: Setup SnapshotClass
 ---
 
+## Setting Up SnapshotClass
+
 [Kubernetes VolumeSnapshotClass](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/) objects are analogous to StorageClass. It helps to define multiple storage classes and is referenced by Volume Snapshots to associate the snapshot with the required Snapshot Class. Each Volume Snapshot is associated with a single Volume Snapshot Class.
 
 A Volume Snapshot Class is created with the following definition:

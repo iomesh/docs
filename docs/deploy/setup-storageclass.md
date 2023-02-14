@@ -4,6 +4,8 @@ title: Setup StorageClass
 sidebar_label: Setup StorageClass
 ---
 
+## Creating StorageClass
+
 The parameters of IOMesh storage class are:
 
 | Parameter                 | Value                         | Default | Description                        |

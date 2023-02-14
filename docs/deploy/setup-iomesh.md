@@ -4,13 +4,16 @@ title: Setup IOMesh
 sidebar_label: Setup IOMesh
 ---
 
+
+## Setting Up IOMesh
+
 Block devices at worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize the devices to construct and provide distributed storage service.
 
 By default, IOMesh doesn't mount any block devices. Users have to configure IOMesh manually after installing.
 
-## Mount Block Devices
+### Mount Block Devices
 
-### Block Device Object
+#### Block Device Object
 
 IOMesh uses OpenEBS's [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager) to manage disks attached to Kubernetes worker nodes. After IOMesh operator is deployed, `BlockDevice` CRs will be created in the same namespace with IOMesh cluster:
 
