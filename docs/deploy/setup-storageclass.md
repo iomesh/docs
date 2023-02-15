@@ -6,7 +6,13 @@ sidebar_label: Setup StorageClass
 
 ## Creating StorageClass
 
-The parameters of IOMesh storage class are:
+When IOMesh is installed, a default StorageClass `iomesh-csi-driver` will be created.  
+
+When IOMesh is installed, a default StorageClass `iomesh-csi-driver` will be created.  
+
+Storage Classes have parameters that describe volumes belonging to the storage class, and are used for PVC. 
+
+In `iomesh-csi-driver`, configure parameters as below:
 
 | Parameter                 | Value                         | Default | Description                        |
 | ------------------------- | ----------------------------- | ------- | ---------------------------------- |
@@ -14,7 +20,7 @@ The parameters of IOMesh storage class are:
 | replicaFactor             | "2", "3"                      | "2"     | replica factor                     |
 | thinProvision             | "true", "false"               | "true"  | thin provision or thick provision. |
 
-After IOMesh CSI driver was installed, a default StorageClass `iomesh-csi-driver` would be created. You may also create a new StorageClass with customized parameters:
+You may also create a new StorageClass with customized parameters:
 
 
 ```yaml

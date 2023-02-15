@@ -7,33 +7,38 @@ sidebar_label: Setup IOMesh
 
 ## Setting Up IOMesh
 
-Block devices at worker nodes are needed to be mounted to IOMesh cluster so that IOMesh could utilize the devices to construct and provide distributed storage service.
+Once IOMesh is installed, you should mount block devices (aka disks) on the Kubernetes worker node onto the IOMesh cluster so that IOMesh can use these storage resources to deliver storage services. 
 
-By default, IOMesh doesn't mount any block devices. Users have to configure IOMesh manually after installing.
+### Viewing Block Device Objects 
+**Object** is a basic unit of Kubernetes resources, and in IOMesh, a specific block device can be viewed as a block device object. To mount block devices onto IOMesh, you first need to know what block devices are available and their details.  
 
-### Mount Block Devices
+IOMesh manages disks on Kubernetes worker nodes by using OpenEBS's [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager). When deploying IOMesh, BlockDevice CR will be created at the same time in the same NameSpace as the IOMesh cluster, in which NameSpace you can see block devices available for use.
 
-#### Block Device Object
-
-IOMesh uses OpenEBS's [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager) to manage disks attached to Kubernetes worker nodes. After IOMesh operator is deployed, `BlockDevice` CRs will be created in the same namespace with IOMesh cluster:
+Run the command below to get block devices.
 
 ```bash
 kubectl --namespace iomesh-system -o wide get blockdevice
 ```
 
+After running the command, you will see a list as shown below:
 ```output
 NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
 blockdevice-097b6628acdcd83a2fc6a5fc9c301e01   kind-control-plane   /dev/vdb1    ext4     107373116928   Unclaimed    Active   10m
 blockdevice-3fa2e2cb7e49bc96f4ed09209644382e   kind-control-plane   /dev/sda              9659464192     Unclaimed    Active   10m
 blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
 ```
+>**Note:**
+>
+> The block devices used by IOMesh should not contain any existing filesystem. Make sure the field **FSTYPE** of the block device is blank.
 
-Use the following commands to show the details of a block device:
+
+To get details of a specific block device, run the command below:
 
 ```shell
 kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
 ```
 
+After running the command, you should see:
 ```output
 apiVersion: openebs.io/v1alpha1
 kind: BlockDevice
@@ -55,19 +60,26 @@ metadata:
 # ...
 ```
 
-Labels started with `iomesh.com/bd-` are created by IOMesh to describe hardware properties:
+Labels with `iomesh.com/bd-` are created by IOMesh to show hardware properties. For detailed information, refer to the table below:
 
-| Name | Describe |
+| Filed | Description |
 | --- | --- |
-| `iomesh.com/bd-devicePath` | the device path on node |
-| `iomesh.com/bd-deviceType` | disk, loop, partition etc. |
-| `iomesh.com/bd-driverType` | HDD, SSD, NVME |
-| `iomesh.com/bd-serial` | disk serial |
-| `iomesh.com/bd-vendor` | disk vendor |
+| `iomesh.com/bd-devicePath` | Shows the device path on the worker node.|
+| `iomesh.com/bd-deviceType` | Shows if it is a disk or a partition.|
+| `iomesh.com/bd-driverType` | Shows the driver type, incluing HDD, SSD, NVMe.|
+| `iomesh.com/bd-serial` | Shows the disk serial number.|
+| `iomesh.com/bd-vendor` | Shows the disk vendor.|
 
-### Device Map
+获取、查看块设备的详细信息
 
-`chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block devices should be mounted to IOMesh cluster and how they would be mounted.
+### Mounting Block Device to IOMesh Cluster
+
+### Device Map （挂载块设备到 IOMesh cluster)
+
+`chunk/deviceMap` in `iomesh.yaml` is used to indicate which block devices should be mounted to IOMesh cluster and how they would be mounted.
+
+筛选的逻辑：筛选任意一个块设备
+
 
 ```yaml
 spec:
@@ -96,7 +108,7 @@ In `all-flash` deployment mode, IOMesh only provides one mount type:
 
 - `dataStoreWithJournal`: used for capacity tier of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.
 
-#### Device Selector
+#### Device Selector (筛选规则：通过 label 来筛选 device)
 
 Device selector is defined by:
 

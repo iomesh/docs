@@ -11,7 +11,7 @@ On the node console, follow the steps below to set up each Kubernetes worker nod
 
 ### Setting Up `Open-iSCSI`
 
-1. On the node console, run the commands below to install `open-iSCSI`
+1. On the node console, run the commands below to install `open-iSCSI`.
    <!--DOCUSAURUS_CODE_TABS-->
 
    <!--RHEL/CentOS-->

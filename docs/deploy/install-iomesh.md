@@ -5,35 +5,35 @@ sidebar_label: Install IOMesh
 ---
 
 ## Installing IOMesh
-IOMesh can be deployed on the kubernetes platform or Openshift container platform. If you choose to install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
+IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you choose to install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
 
-### Installing IOMesh in Kubernetes 
+### Installing IOMesh on Kubernetes 
 #### Quick Installation
 
-1. Run the corresponding file to execute according to the version of your operating system.
+1. Run the corresponding commands according to your Linux distribution. Replace `10.234.1.0/24` with the actual network segment.
 
    > **Note:**
    > 
-   > `Helm3`, the package management tool for Kubernetes, is included in the script. It will be installed automatically if it is not found.
+   > `Helm3`, a package manager for Kubernetes, is included in the commands below. It will be installed automatically if it is not found.
 
     <!--DOCUSAURUS_CODE_TABS-->
 
     <!--RHEL7/CentOS7-->
 
    ```shell
-   # The IP address of each worker node running IOMesh must be within the IOMESH_DATA_CIDR segment.
+   # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment. 
    export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -
    ```
 
     <!--RHEL8/CentOS8/CoreOS-->
 
    ```shell
-      # The IP address of each worker node running IOMesh must be within the IOMESH_DATA_CIDR segment.
-       export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -
+   # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
+   export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -
    ```
     <!--END_DOCUSAURUS_CODE_TABS-->
 
-2. Wait for a few minutes after executing the script file, and then execute the following command. If the pods of each node in the IOMesh cluster run normally, it indicates that IOMesh is installed successfully.
+2. After executing the commands above, wait for a few minutes. Then run the command below to see if all pods in each worker node is running. If yes, it indicates IOMesh is installed successfully.
 
    ```shell
    watch kubectl get --namespace iomesh-system pods
@@ -41,19 +41,16 @@ IOMesh can be deployed on the kubernetes platform or Openshift container platfor
 
    > **Note:**
    > 
-   > 上述脚本文件在安装结束后仍将会继续保留，以便在安装出现错误时帮助排除故障。您可以通过运行脚本 curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -，删除 IOMesh 安装脚本文件。
-   
-   After installation, IOMesh resources left by running the script will be saved for future troubleshooting
-   
-   IOMesh resources installed by running the entered script will be reserved for future troubleshooting if any error occurs during installation. You may enter the script below to remove all IOMesh resources from the Kubernetes Cluster: `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -`**
+   > IOMesh resources left by running the commands will be saved for troubleshooting if any error occurs during installation. You can run `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to 
+   remove all IOMesh resources from the Kubernetes cluster.
 
 #### Manual Installation
 
-If you want to do some configurations on your own, follow the steps below to manually install IOMesh.
+If you want to configure parameters during installation on your own, follow the steps below to manually install IOMesh.
 
-##### Installing `Helm3`
+##### Installing `Helm`
 
-Run the commands below to install `Helm3`. Skip this step if `Helm3` is already installed.
+Run the commands below to install `Helm`. Skip this step if `Helm` is already installed. 
 
 ```shell
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -61,9 +58,10 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 ```
 
-For more details, please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
+For more details, please refer to **[Installing Helm](https://helm.sh/docs/intro/install/)**.
 
-##### Setting Up Helm Repo
+##### Adding IOMesh Helm Repo
+Run the commands below to add the IOMesh Helm repository.
 
 ```shell
 helm repo add iomesh http://iomesh.com/charts
@@ -71,29 +69,31 @@ helm repo add iomesh http://iomesh.com/charts
 
 ##### Installing IOMesh
 
-1. Download `iomesh.yaml` with default configurations.
+1. Export the IOMesh default configuration file into `iomesh.yaml`. 
 
     ```shell
     helm show values iomesh/iomesh > iomesh.yaml
     ```
 
-2. Customize `iomesh.yaml`.
+2. Configure `iomesh.yaml`.
 
-   **(required)** Fill in `dataCIDR` according to your network.
+   Mandatory：Locate the field `dataCIDR` and then fill in your network CIDR.
 
     ```yaml
     iomesh:
       chunk:
-        dataCIDR: "10.234.1.0/24" # change to your own data network CIDR
+        dataCIDR: "10.234.1.0/24" # Replace "10.234.1.0/24" with the actual dataCIDR.
     ```
 
-    **(optional)** Configure the deployment mode for the cluster, and the default is hybrid-flash deployment. For all-flash deployment, you need to set `diskDeploymentMode` to `allFlash`.
+    Optional: Locate the field `diskDeploymentMode` and then fill in the cluster deployment mode. The system defaults to hybrid-flash mode `hybridFlash`. You can also set it to `allFlash`.
 
     ```yaml
-    diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash` in all-flash deployment mode
+    diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash`.
     ```
    
-   **(optional)** If you simply want IOMesh to utilize part of Kubernetes nodes, configure the labels of nodes to be utilized in `chunk.podPolicy.affinity`. For example:
+   Optional: If you want to specify disks of Kubernetes nodes for IOMesh, configure the values of the node label.
+
+   In the example below, specify the values of 
    
    ```yaml
    iomesh:
@@ -104,17 +104,24 @@ helm repo add iomesh http://iomesh.com/charts
              requiredDuringSchedulingIgnoredDuringExecution:
                nodeSelectorTerms:
                - matchExpressions:
-                 - key: kubernetes.io/hostname # specific node label's key
+                 - key: kubernetes.io/hostname 
                    operator: In
                    values:
                    - iomesh-worker-0 # specific node label's value
                    - iomesh-worker-1
     ```
+
+    Under the filed `values`, specify which node you want to install IOMesh. )
+
+
+   一般建议是配 values, 如果想要更多的配置，可以参考 pod affnity
     For more information about pod affinity rules, see: [pod affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-3. Install IOMesh Cluster.
+    chunk 在哪个节点上，就用哪个节点的盘
 
-    > **_NOTE_: Replace `iomesh` with your release name.**
+3. Deploy IOMesh cluster.
+
+   Replace `iomesh` with your release name and run commands below to deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -124,6 +131,8 @@ helm repo add iomesh http://iomesh.com/charts
         --wait
     ```
 
+
+    After running the commands above, you will see:
     ```output
     NAME: iomesh
     LAST DEPLOYED: Wed Jun 30 16:00:32 2021
@@ -175,19 +184,18 @@ helm repo add iomesh http://iomesh.com/charts
     operator-85877979-s94vz                               1/1     Running   0          2m8s
     operator-85877979-xqtml                               1/1     Running   0          2m8s
     ```
-
-IOMesh Cluster is now installed successfully. Please go to [Setup IOMesh](setup-iomesh.md).
+  If all pods are running properly as shown above, it indicates IOMesh is installed successfully.
 
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
-## Installing IOMesh in OpenShift
+## Installing IOMesh on OpenShift
 
 You may also install and use IOMesh through the IOMesh Operator on the OperatorHub page of the Red Hat OpenShift Container Platform.
 
-### Pre-Install
+### 
 
-Run the script below, which will install the dependencies of the IOMesh Operator and configure IOMesh specifications and settings for the OpenShift Cluster. Note that the script should be executed in an environment where oc or kubectl can access the OpenShift Cluster. 
+Run the command below to install the dependencies of IOMesh Operator and configure IOMesh specifications and settings for the OpenShift cluster. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster. 
 
 ```shell
 curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
@@ -195,13 +203,13 @@ curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
 
 ### Installing IOMesh Operator
 
-1. Log in to the OpenShift Container Platform, then open the OperatorHub page. On the OperatorHub page, select IOMesh Operator and click Install to install IOMesh Operator.
+1. Log in to the OpenShift Container Platform and then open the OperatorHub page. On the OperatorHub page, select **IOMesh Operator** and click **Install** to install IOMesh Operator.
 
-2. Select following the order: the Installed Operators > IOMesh Operator > Create instance > YAML view, then fill in IOMesh Custom Resources according to IOMesh [YAML](https://iomesh.run/iomesh.yaml). Change the spec.*.dataCIDR to your data network CIDR.
+2. Select **Installed Operators** > **IOMesh Operator** > **Create instance** > **YAML view**. Then fill in IOMesh Custom Resources according to IOMesh [YAML](https://iomesh.run/iomesh.yaml). Change `spec.*.dataCIDR` to your data network CIDR.
 
 ### Installing IOMesh CSI Driver
 
-Run the script below to install IOMesh CSI Driver. Note that the script should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster.
+Run the command below to install IOMesh CSI Driver. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster.
 
 ```shell
 curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
