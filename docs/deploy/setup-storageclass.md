@@ -6,22 +6,32 @@ sidebar_label: Setup StorageClass
 
 ## Creating StorageClass
 
-When IOMesh is installed, a default StorageClass `iomesh-csi-driver` will be created.  
+The best practice to use PV and PVC is to create a StorageClass that describes 
 
-When IOMesh is installed, a default StorageClass `iomesh-csi-driver` will be created.  
 
+
+使用 PV 和 PVC 的最佳实践，是你要创建一个 StorageClass 来描述这个 PV
+
+StorageClass describes storage type and are used for PVC
+
+storageclass 是什么，在 IOMesh 能干什么，如何使用/配置
 Storage Classes have parameters that describe volumes belonging to the storage class, and are used for PVC. 
 
-In `iomesh-csi-driver`, configure parameters as below:
+### Configuring `iomesh-csi-driver`
 
-| Parameter                 | Value                         | Default | Description                        |
-| ------------------------- | ----------------------------- | ------- | ---------------------------------- |
-| csi.storage.k8s.io/fstype | "xfs", "ext2", "ext3", "ext4" | "ext4"  | volume File system type            |
+`iomesh-csi-driver` is a volume plug-in running in the Kubernetes cluster and is used for provisioning persistent volumes of IOMesh. When IOMesh is installed, `iomesh-csi-driver` as a default StorageClass will be created. You can configure its parameters as below. Note that it cannot be modified once you have complete the configuration.
+
+| Parameter| Available Values| Default | Description|
+| ----- | ----- | ------- | ---------- |
+| csi.storage.k8s.io/fstype | "xfs", "ext2", "ext3", "ext4" | "ext4"  | File system type            |
 | replicaFactor             | "2", "3"                      | "2"     | replica factor                     |
 | thinProvision             | "true", "false"               | "true"  | thin provision or thick provision. |
 
-You may also create a new StorageClass with customized parameters:
 
+
+### Creating a StorageClass
+
+If none of StorageClasses meet usage requirements, you can create a new one and specify its parameters.
 
 ```yaml
 kind: StorageClass

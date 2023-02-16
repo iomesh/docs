@@ -6,9 +6,12 @@ sidebar_label: Setup SnapshotClass
 
 ## Setting Up SnapshotClass
 
-[Kubernetes VolumeSnapshotClass](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/) objects are analogous to StorageClass. It helps to define multiple storage classes and is referenced by Volume Snapshots to associate the snapshot with the required Snapshot Class. Each Volume Snapshot is associated with a single Volume Snapshot Class.
+Each volume snapshot is bound to a SnapshotClass that describes the classes and types of snapshots when provisioning a volume snapshot. In IOMesh, a SnapshotClass is equivalent to a storage policy, in which you can specify `provisioner` and `deletionpolicy`.  
 
-A Volume Snapshot Class is created with the following definition:
+
+需要写具体的步骤么
+
+In this example, 
 
 ```yaml
 apiVersion: snapshot.storage.k8s.io/v1beta1
@@ -18,3 +21,4 @@ metadata:
 driver: com.iomesh.csi-driver  # <-- driver.name in iomesh-values.yaml
 deletionPolicy: Retain
 ```
+
