@@ -4,36 +4,16 @@ title: Expand Volume
 sidebar_label: Expand Volume
 ---
 
-IOMesh volumes can be expanded after creation, no matter whether they are being used or not.
+## Expanding PVC
 
-In the following example, assume that there is a PVC named `example-pvc` and its capacity is `10Gi`:
+**Prerequisites**
+- Volume expansion support for PVC is in Kubernetes 1.11 or above, which is already required in [Prerequisites](#prerequisites).
+- The StorageClass must have `allowVolumeExpansion` set to `true`. The default StorageClass `iomesh-csi-driver` already has  `allowVolumeExpansion` set to `true`. If a StorageClass is created and configured with customized parameters, verify `allowVolumeExpansion` is set to `true`.  
 
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: example-pvc
-spec:
-  storageClassName: iomesh-csi-driver-default
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi # original capacity
-```
 
-Apply the YAML file:
+**Procedure**
 
-```bash
-kubectl get pvc example-pvc
-```
-
-```output
-NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
-```
-
-To expand the capacity of this PVC to `20Gi`, simply modify the PVC declaration:
+1. Create and configure the YAML file. The following example assumes a PVC named `example-pvc` with a capacity of `10Gi`.
 
 ```yaml
 apiVersion: v1
@@ -46,31 +26,61 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi # now expand capacity from 10 Gi to 20Gi
+      storage: 10Gi # The original capacity of the PVC.
 ```
+2. Run the following command to apply the YAML file.
 
-Apply the new YAML file:
+   ```bash
+   kubectl get pvc `example-pvc`
+   ```
+   After running the command, you should see an example below:
+   ```output
+   NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+   example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
+   ```
 
-```bash
-kubectl apply -f example-pvc.yaml
-```
+3. Set the field `storage` to a new value such as 20Gi.
 
-Then check the result:
+   ```yaml
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+   name: example-pvc
+    spec:
+      storageClassName: iomesh-csi-driver-default
+      accessModes:
+        - ReadWriteOnce
+    resources:
+      requests:
+        storage: 20Gi # Expand capacity from 10 Gi to 20Gi.
+    ```
 
-```bash
-kubectl get pvc example-pvc
-```
+3. Run the following command to apply the new YAML file.
 
-```output
-NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
-```
+   ```bash
+   kubectl apply -f example-pvc.yaml
+   ```
 
-```bash
-kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca
-```
+4. Run the following command to check results. 
 
-```output
-NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
-pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
-```
+   ```bash
+   kubectl get pvc example-pvc # 检查的是 PVC 的容量
+   ```
+
+   After running the command, you should see an example below:
+
+   ```output
+   NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+   example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
+   ```
+
+5. Run the following command to 这个命令是干嘛的
+   ```bash
+   kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # 检查的是 PV 的容量
+   ```
+
+   After running the command, you should see an example below:
+   ```output
+   NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
+   pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
+   ```

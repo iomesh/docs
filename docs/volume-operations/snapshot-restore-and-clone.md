@@ -4,77 +4,104 @@ title: Snapshot, Restore and Clone
 sidebar_label: Snapshot, Restore and Clone
 ---
 
-## Snapshot
+## Snapshot, RollBack, and Clone
 
-Users can use IOMesh to create a snapshot for an existing persistent volume (PV).
+### Creating PV Snapshot
 
-A VolumeSnapshot object defines a request for taking a snapshot of the PVC.
+You can take a snapshot for an existing PV using IOMesh. A VolumeSnapshot object defines a request for creating a snapshot for a PVC
 
-For example:
 
-```yaml
-apiVersion: snapshot.storage.k8s.io/v1beta1
-kind: VolumeSnapshot
-metadata:
-  name: example-snapshot
-spec:
-  volumeSnapshotClassName: iomesh-csi-driver-default
-  source:
-    persistentVolumeClaimName: mongodb-data-pvc # PVC name that want to take snapshot
-```
 
-Apply the YAML file:
+A VolumeSnapshot allows you to specify different attributes belonging to a `volumesnapshot`. These attributes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same StorageClass of a PVC.
 
-```text
-kubectl apply -f example-snapshot.yaml
-```
 
-After the VolumeSnapshot object is created, a corresponding VolumeSnapshotContent object will be created by IOMesh.
 
-```bash
-kubectl get Volumesnapshots example-snapshot
-```
 
+
+
+Each VolumeSnapshot contains a spec and a status. `persistentVolumeClaimName` refers to the name of the PVC for the snapshot and is required for dynamically provisioning a snapshot.
+
+A volume snapshot can request a particular class by specifying the name of a VolumeSnapshotClass using the attribute volumeSnapshotClassName. If nothing is set, then the default class is used if available.
+
+创建的是 Snapshot
+
+1. Create and configure the YAML file.
+
+    ```yaml
+    apiVersion: snapshot.storage.k8s.io/v1beta1
+    kind: VolumeSnapshot
+    metadata:
+      name: example-snapshot
+    spec:
+      volumeSnapshotClassName: iomesh-csi-driver-default
+      source:
+        persistentVolumeClaimName: mongodb-data-pvc # PVC name that want to take snapshot
+    ```
+
+2. Run the following command to apply the YAML file. 会生成一个 volumesnapshot object ？
+
+    ```text
+    kubectl apply -f example-snapshot.yaml
+    ```
+
+3. After the VolumeSnapshot object is created, a corresponding VolumeSnapshotContent object will be created by IOMesh.
+
+    ```bash
+    kubectl get Volumesnapshots example-snapshot
+    ```
+
+  After running the command, you should see an example below:
 ```output
 NAME               SOURCEPVC            RESTORESIZE    SNAPSHOTCONTENT                                    CREATIONTIME
 example-snapshot   mongodb-data-pvc     6Gi            snapcontent-fb64d696-725b-4f1b-9847-c95e25b68b13   10h
 ```
 
-## Restore
+### Restoring VolumeSnapshot
 
-Users can restore a volume snapshot by creating a PVC in which the `dataSource` field references to a snapshot.
+通过创建 PVC 来恢复一个 volumesnapshot
 
-For example:
+You can restore a PV snapshot by creating a PVC with specifying the `dataSource` field referencing to the target snapshot.
 
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: example-restore
-spec:
-  storageClassName: iomesh-csi-driver-default
-  dataSource:
-    name: example-snapshot
-    kind: VolumeSnapshot
-    apiGroup: snapshot.storage.k8s.io
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 6Gi
-```
+**Procedure**
 
-Apply the YAML file:
+1. Create and configure the YAML file.
 
-```bash
-kubectl apply -f example-restore.yaml
-```
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: example-restore
+    spec:
+      storageClassName: iomesh-csi-driver-default
+      dataSource:
+        name: example-snapshot
+        kind: VolumeSnapshot
+        apiGroup: snapshot.storage.k8s.io
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 6Gi
+    ```
 
-## Clone
+2. Run the following command to apply the YAML file. Replace `example-restore.yaml` with the YAML file name.
 
-Users can clone a persistent volume (PV) by creating a PVC while adding a dataSource linked to an existing PVC in the same namespace.
+    ```bash
+    kubectl apply -f example-restore.yaml
+    ```
 
-For example:
+### Volume Cloning
+A clone is a duplicate of an existing volume on the system; data on the source is duplicated to the destination. To clone a PVC, you should specify an existing PVC in the `dataSource` field so that the user can clone a volume based on it.
+
+Before cloning a PVC, be aware of the following:
+- The source PVC and the destination PVC must be in the same namespace.
+- The source PVC and the destination PVC must have the same StorageClass and VolumeMode configurations.
+
+通过创建 PVC 来克隆一个 volume
+
+
+**Procedure**
+1. Create and configure the YAML file.
 
 ```yaml
 apiVersion: v1
@@ -84,25 +111,20 @@ metadata:
 spec:
   storageClassName: iomesh-csi-driver-default
   dataSource:
-    name: existing-pvc # an existing PVC in the same namespace
+    name: existing-pvc # The source PVC in the same namespace. 
     kind: PersistentVolumeClaim
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 5Gi # The capacity value must be the same or larger than that of the source volume.
   volumeMode: Block
 ```
 
-Apply the YAML file:
+2. Run the following command to apply the YAML file.
 
-```bash
-kubectl apply -f example-clone.yaml
-```
+   ```bash
+   kubectl apply -f example-clone.yaml
+   ```
+   Once done, a clone of `existing-pvc` will be created.
 
-After applying the YAML file, a clone of `existing-pvc` will be created.
-
-There are some limitations on clone operation:
-
-1. A cloned PVC must exist in the same namespace as the original PVC.
-2. Both PVCs must have the same StorageClass and VolumeMode setting.

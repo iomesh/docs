@@ -4,7 +4,6 @@ title: Setup IOMesh
 sidebar_label: Setup IOMesh
 ---
 
-
 ## Setting Up IOMesh
 
 Once IOMesh is installed, you should mount block devices (aka disks) from the Kubernetes worker nodes onto the IOMesh cluster so that IOMesh can use them to provide storage. 
