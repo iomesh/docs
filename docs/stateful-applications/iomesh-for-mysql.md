@@ -4,9 +4,9 @@ title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 ---
 
-## Setup k8s Cluster Storage
+## Configure Kubernetes Cluster Storage
 
-1. Create a file named `iomesh-mysql-sc.yaml` with the following contentS:
+1. Create a YAML file named `iomesh-mysql-sc.yaml` and configure it with the following fields.
 
     ```yaml
     kind: StorageClass
@@ -22,13 +22,13 @@ sidebar_label: IOMesh for MySQL
       thinProvision: "true"
     ```
 
-2. Apply the yaml config:
+2. Run the following command to apply the YAML file.
 
     ```bash
     kubectl apply -f iomesh-mysql-sc.yaml
     ```
 
-## Deploy MySQL
+## Deploying MySQL
 
 1. Create a file named `mysql-deployment.yaml`. It describes a Deployment that runs MySQL and creates a PVC that consumes the IOMesh storage.
 

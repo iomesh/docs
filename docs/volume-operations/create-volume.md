@@ -29,15 +29,15 @@ Ensure that there is already a StorageClass available for use.
         requests:
           storage: 10Gi
     ```
-   Refer to k8s for configurations.
+   For details, refer to Kubernetes documentation.
+  
 
-2. Run the command to create a PVC.
+2. Run the following command to create a PVC.
 
    ```
    $ kubectl create -f pvc-1.yml
    ```
-
-   Once created, IOMesh will sense this PVC, create a new PV based on the spec in that PVC, and bind it to that PVC. Once done, PV and PVC are available for pod use.
+   Once created, IOMesh will sense this PVC and create a new PV based on the `spec` in this PVC, binding the PV with this PVC. Then this pair of PV and PVC will be available for pod use.
 
 3. Run the following command to check for results.
 

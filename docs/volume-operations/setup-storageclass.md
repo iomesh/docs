@@ -6,6 +6,8 @@ sidebar_label: Setup StorageClass
 
 ## Creating StorageClass
 
+The best practice to use PV and PVC is to create a StorageClass that describes th class and attributes of the PV.
+
 The best practice to use PV and PVC is to create a StorageClass that describes 
 
 
@@ -19,7 +21,7 @@ Storage Classes have parameters that describe volumes belonging to the storage c
 
 ### Viewing Default StorageClass
 
-`iomesh-csi-driver` is a volume plug-in running in the Kubernetes cluster and is used for provisioning persistent volumes of IOMesh. When IOMesh is installed, `iomesh-csi-driver` as a default StorageClass will be created. You can configure its parameters as below. Note that it cannot be modified once you have complete the configuration.
+`iomesh-csi-driver` is a volume plug-in running in the Kubernetes cluster and is used for provisioning IOMesh persistent volumes. It is created as the default StorageClass when IOMesh is installed and deployed and cannot be configured once created.
 
 | Parameter| Default | Description|
 | ----- | ----- | ---------- |
@@ -33,39 +35,41 @@ Storage Classes have parameters that describe volumes belonging to the storage c
 
 If none of StorageClasses meet usage requirements, you can create a new one and specify its parameters.
 
-1. Create and configure 
-
 | Parameter| Available Values| Default | Description|
 | ----- | ----- | ------- | ---------- |
-| csi.storage.k8s.io/fstype | "xfs", "ext2", "ext3", "ext4" | "ext4"  | File system type            |
-| replicaFactor             | "2", "3"                      | "2"     | replica factor                     |
-| thinProvision             | "true", "false"               | "true"  | thin provision or thick provision. |
+| csi.storage.k8s.io/fstype | "xfs", "ext2", "ext3", "ext4" | "ext4"  | The file system type.           |
+| replicaFactor             | "2", "3"                      | "2"     | The number of replicas.                    |
+| thinProvision             | "true", "false"               | "true"  | The provisioning type. |
 
-```yaml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: iomesh-csi-driver-default
-provisioner: com.iomesh.csi-driver # <-- driver.name in iomesh-values.yaml
-reclaimPolicy: Retain
-allowVolumeExpansion: true
-parameters:
-  # "ext4" / "ext3" / "ext2" / "xfs"
-  csi.storage.k8s.io/fstype: "ext4"
-  # "2" / "3"
-  replicaFactor: "2"
-  # "true" / "false"
-  thinProvision: "true"
-volumeBindingMode: Immediate
-```
+1. Create and configure the YAML file. 
 
-> _About the `reclaimPolicy`_
-> 
-> The `reclaimPolicy` attribute of `StorageClass` can have two values of `Retain` and `Delete`, and the default is `Delete`. When a `PV` is created through `StorageClass`, its `persistentVolumeReclaimPolicy` attribute will inherit the `reclaimpolicy` attribute from `StorageClass`. You can also modify the value of `persistentVolumeReclaimPolicy` manually.
-> 
-> The value of `reclaimPolicy` in the example is `Retain`, which means that, if you delete a `PVC`, the `PV` under the `PVC` will not be deleted, but will enter the `Released` state. Please note that, if you delete the `PV`, the corresponding IOMesh volume will not be deleted, instead, you need to change the value of `persistentVolumeReclaimPolicy` of the `PV` to `Delete` and then delete the `PV`. Or before creating a `PV`, you can set the value of `reclaimpolicy` of `StorageClass`  to `Delete` so that all the resources will be released in cascade.
+    ```yaml
+    kind: StorageClass
+    apiVersion: storage.k8s.io/v1
+    metadata:
+      name: iomesh-csi-driver-default
+    provisioner: com.iomesh.csi-driver # <-- driver.name in iomesh-values.yaml
+    reclaimPolicy: Retain
+    allowVolumeExpansion: true
+    parameters:
+      # "ext4" / "ext3" / "ext2" / "xfs"
+      csi.storage.k8s.io/fstype: "ext4"
+      # "2" / "3"
+      replicaFactor: "2"
+      # "true" / "false"
+      thinProvision: "true"
+    volumeBindingMode: Immediate
+    ```
 
-2. Run the command to apply 
-```
-kubectl apply -f sc.yaml
-```
+    > _About `reclaimPolicy`_
+    > 
+    > The `reclaimPolicy` field of `StorageClass` can have two values, `Retain` and `Delete`, and the default is Delete. When a `PV` is created through a StorageClass, its `persistentVolumeReclaimPolicy` will inherit the original `reclaimpolicy` value from the StorageClass. You can also modify this value. 
+    > 
+    > The value of `reclaimPolicy` in the example is `Retain`, which means that, if you delete a `PVC`, the `PV` under the `PVC` will not be deleted, but will enter the `Released` state. Please note that, if you delete the `PV`, the corresponding IOMesh volume will not be deleted, instead, you need to change the value of `persistentVolumeReclaimPolicy` of the `PV` to `Delete` and then delete the `PV`. Or before creating a `PV`, you can set the value of `reclaimpolicy` of `StorageClass`  to `Delete` so that all the resources will be released in cascade.
+
+2. Run the command to apply the YAML file.
+
+    ```
+    kubectl apply -f sc.yaml
+    ```
+  

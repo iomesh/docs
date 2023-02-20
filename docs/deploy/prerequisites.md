@@ -6,10 +6,11 @@ sidebar_label: Prerequisites
 
 ## Prerequisites
 
-Verify the following requirements before installing and deploying IOMesh.
+Before installing and deploying IOMesh, verify the following requirements.
 
 ### Kubernetes Cluster
-A Kubernetes cluster to run IOMesh should consist of at least three worker nodes, and the Kubernetes version should be between 1.17 and 1.24.
+- A Kubernetes cluster consisting of at least three worker nodes.
+- The Kubernetes version should be between 1.17 and 1.24.
 
 ### Hardware for Each Worker Node
 |Hardware|Requirements|

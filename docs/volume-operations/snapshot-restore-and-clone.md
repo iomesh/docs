@@ -58,6 +58,8 @@ example-snapshot   mongodb-data-pvc     6Gi            snapcontent-fb64d696-725b
 
 ### Restoring VolumeSnapshot
 
+Restoring a PV snapshot means creating a PVC with specifying `dataSource` referencing to the target snapshot.
+
 通过创建 PVC 来恢复一个 volumesnapshot
 
 You can restore a PV snapshot by creating a PVC with specifying the `dataSource` field referencing to the target snapshot.
