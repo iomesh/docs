@@ -8,7 +8,7 @@ sidebar_label: Snapshot, Restore and Clone
 
 ### Creating PV Snapshot
 
-You can take a snapshot for an existing PV using IOMesh. A VolumeSnapshot object defines a request for creating a snapshot for a PVC
+You can take a snapshot for an existing PV using IOMesh. A VolumeSnapshot object defines a request for creating a snapshot for a PVC.
 
 
 
@@ -100,6 +100,7 @@ Before cloning a PVC, be aware of the following:
 - The source PVC and the destination PVC must have the same StorageClass and VolumeMode configurations.
 
 通过创建 PVC 来克隆一个 volume
+
 
 
 **Procedure**

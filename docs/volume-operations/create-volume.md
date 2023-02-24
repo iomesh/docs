@@ -44,3 +44,6 @@ Ensure that there is already a StorageClass available for use.
    ```
    $ kubectl get pvc pvc-1.yml
    ```
+
+4. 加一个查看 PV 的命令
+   

@@ -6,6 +6,8 @@ sidebar_label: Expand Volume
 
 ## Expanding PVC
 
+修改 PVC 里面的参数，之后创建的 PV 会按修改后的容量来
+
 **Prerequisites**
 - Volume expansion support for PVC is in Kubernetes 1.11 or above, which is already required in [Prerequisites](#prerequisites).
 - The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to "true". 
