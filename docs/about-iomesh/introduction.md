@@ -10,7 +10,7 @@ IOMesh is a distributed storage system specifically designed for Kubernetes work
 
 - Create or delete persistent volumes thousands of times per minute for Kubernetes pods. 
 - Easy to operate and maintain. IOMesh is implemented on Kubernetes, so if you know Kubernetes operation and maintenance well, you know how to operate and maintain IOMesh well.
-- Scale at will. IOMesh can implement small-scale deployment and scale storage by adding disks or nodes.
+- Scale on demand. IOMesh can implement small-scale deployment and scale storage by adding disks or nodes.
 
 ## Key Features
 
