@@ -20,7 +20,6 @@ Before installing and deploying IOMesh, verify the following requirements.
 |Physical Disks|<p>All-flash mode: No configuration is needed for cache disks; At least one SSD with an available capacity greater than 60 GB on each worker node.</p> <p>Hybrid-flash mode: For cache disks, at least one SSD with an available capacity greater than 60 GB; for data disk, at least one HDD with an available capacity greater than 60 GB on each worker node.
 |Physical NIC|A physical NIC of 10 GBE for IOMesh storage network. |
 
-### System Space Reservation
-On each worker node, make sure that at least 100 GB of disk space is reserved in the `/opt` directory for storing IOMesh cluster metadata.
+
 
 
