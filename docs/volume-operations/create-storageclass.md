@@ -7,8 +7,7 @@ sidebar_label: Setup StorageClass
 ## Creating StorageClass
 
 The best practice to use PV and PVC is to create a StorageClass that describes th class and attributes of the PV.
-
-The best practice to use PV and PVC is to create a StorageClass that describes 
+ 
 
 
 
@@ -28,8 +27,6 @@ Storage Classes have parameters that describe volumes belonging to the storage c
 | csi.storage.k8s.io/fstype | "ext4"  | File system type |
 | replicaFactor             |"2"     | replica factor                     |
 | thinProvision             | "true"  | thin provision or thick provision. |
-
-
 
 ### Creating a StorageClass
 
