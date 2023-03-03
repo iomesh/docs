@@ -1,31 +1,12 @@
 ---
-id: install-iomesh
+id: installiomesh
 title: Install IOMesh
 sidebar_label: Install IOMesh
 ---
 
-## Quick Installation Guide
+# Quick Installation Guide
 
 For quick installation, run the corresponding script below according to your OS distribution.
-
-> **_NOTE_: Helm3 will be installed automatically if it is not found.**
-
-<!--DOCUSAURUS_CODE_TABS-->
-
-<!--RHEL7/CentOS7-->
-
-```shell
-# Every node running IOMesh must have an IP address belonging to IOMESH_DATA_CIDR
-export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -
-```
-
-<!--RHEL8/CentOS8/CoreOS-->
-
-```shell
-# Every node running IOMesh must have an IP address belonging to IOMESH_DATA_CIDR
-export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -
-```
-<!--END_DOCUSAURUS_CODE_TABS-->
 
 Wait for minutes. IOMesh will be installed successfully if all IOMesh Cluster pods are running. 
 
@@ -41,7 +22,7 @@ IOMesh has been installed successfully!
 
 For installation with customized configurations, follow the steps below.
 
-### Install Helm3
+## Install Helm3
 
 > **_NOTE_: Skip this step if Helm3 is already installed.**
 
@@ -53,13 +34,13 @@ chmod 700 get_helm.sh
 
 For more details, please refer to **[Install Helm](https://helm.sh/docs/intro/install/)**.
 
-### Set Up Helm Repo
+## Set Up Helm Repo
 
 ```shell
 helm repo add iomesh http://iomesh.com/charts
 ```
 
-### Install IOMesh
+## Install IOMesh
 
 1. Download `iomesh.yaml` with default configurations.
 

@@ -4,30 +4,30 @@ title: Prerequisites
 sidebar_label: Prerequisites
 ---
 
-## Installation Requirements
-#### Kubernetes Cluster Requirements
+# Installation Requirements
+## Kubernetes Cluster Requirements
 A Kubernetes (from v1.17 to v1.24) cluster with at least 3 worker nodes.
 
-#### CPU and Memory Requirements
-##### CPU
+### CPU and Memory Requirements
+#### CPU
 At least 6 cores on each worker node.
 
-##### Memory
+#### Memory
 At least 12GB RAM on each worker node.
 
 #### Disk Requirements
-##### Cache Disk
+#### Cache Disk
 * All-flash mode: no configuration is required.
 * Hybrid-flash mode: there should be at least one available SSD on each worker node, and the SSD capacity should be larger than 60 GB.
 
-##### Data Disk
+#### Data Disk
 * All-flash mode: there should be at least one available SSD on each worker node, and the SSD capacity should be larger than 60 GB.
 * Hybrid-flash mode: there should be at least one available HDD on each worker node, and the HDD capacity should be larger than 60 GB.
 
-#### Network Requirements
+### Network Requirements
 Network cards of 10GbE or above are required for the IOMesh storage network.
 
-#### Reserved System Space
+### Reserved System Space
 At least 100GB of disk space is required in the /opt directory on each worker node for storing the IOMesh cluster metadata.
 
 ## Worker Node Setup

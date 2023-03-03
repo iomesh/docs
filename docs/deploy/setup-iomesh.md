@@ -8,9 +8,9 @@ Block devices at worker nodes are needed to be mounted to IOMesh cluster so that
 
 By default, IOMesh doesn't mount any block devices. Users have to configure IOMesh manually after installing.
 
-## Mount Block Devices
+# Mount Block Devices
 
-### Block Device Object
+## Block Device Object
 
 IOMesh uses OpenEBS's [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager) to manage disks attached to Kubernetes worker nodes. After IOMesh operator is deployed, `BlockDevice` CRs will be created in the same namespace with IOMesh cluster:
 
@@ -62,7 +62,7 @@ Labels started with `iomesh.com/bd-` are created by IOMesh to describe hardware 
 | `iomesh.com/bd-serial` | disk serial |
 | `iomesh.com/bd-vendor` | disk vendor |
 
-### Device Map
+## Device Map
 
 `chunk/deviceMap` in `iomesh-values.yaml` is used to indicate which block devices should be mounted to IOMesh cluster and how they would be mounted.
 
@@ -83,7 +83,7 @@ spec:
         - <block-device-name>
 ```
 
-#### Mount Type
+### Mount Type
 In `hybrid-flash` deployment mode, IOMesh provides two mount types:
 
 - `cacheWithJournal`: used for performance tier of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `cache`. Either `SATA` or `NVMe` SSD is recommended.
@@ -93,7 +93,7 @@ In `all-flash` deployment mode, IOMesh only provides one mount type:
 
 - `dataStoreWithJournal`: used for capacity tier of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.
 
-#### Device Selector
+### Device Selector
 
 Device selector is defined by:
 
@@ -104,7 +104,7 @@ Device selector is defined by:
 
 All block devices selected by device selector will be mounted to IOMesh with the corresponding mount type.
 
-#### Example of DeviceMap Configuration in Hybrid-Flash Deployment Mode
+### Example of DeviceMap Configuration in Hybrid-Flash Deployment Mode
 ```yaml
 spec:
   # ...
@@ -134,7 +134,7 @@ spec:
     # ...
 ```
 
-#### Example of DeviceMap Configuration in All-Flash Deployment Mode
+### Example of DeviceMap Configuration in All-Flash Deployment Mode
 ```yaml
 spec:
   # ...

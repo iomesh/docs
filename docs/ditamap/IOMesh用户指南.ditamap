@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bookmap PUBLIC "-//OASIS//DTD DITA BookMap//EN"
+"bookmap.dtd">
+<bookmap xml:lang="en-US">
+  <booktitle>
+    <mainbooktitle>User Guide</mainbooktitle>
+  </booktitle>
+
+  <bookmeta>
+    <authorinformation>
+      <organizationinfo>
+        <namedetails>
+          <personname>
+            <lastname>SmartX</lastname>
+          </personname>
+        </namedetails>
+      </organizationinfo>
+    </authorinformation>
+
+    <publisherinformation>
+      <organization>SmartX</organization>
+    </publisherinformation>
+
+    <critdates>
+      <created date="2023-02-17"/>
+      <revised golive="2023-02-17" modified="2023-02-17"/>
+    </critdates>
+
+    <prodinfo>
+      <prodname>IOMesh</prodname>
+      <vrmlist>
+        <vrm release="" version="1.0"/>
+      </vrmlist>
+    </prodinfo>
+
+    <bookrights>
+      <copyrfirst>
+        <year>2023</year>
+      </copyrfirst>
+      <bookowner>
+        <organization>SmartX</organization>
+      </bookowner>
+    </bookrights>
+  </bookmeta>
+  <frontmatter>
+    <booklists>
+      <toc/>
+    </booklists>
+  </frontmatter>
+
+  <chapter format="markdown" 
+           href="../about-iomesh/introduction.md"/>
+
+  <chapter format="markdown"  href="../deploy/prerequisites.md">
+      <topicref format="markdown" href="../deploy/install-iomesh.md"/> 
+      <topicref format="markdown" href="../deploy/setup-iomesh.md"/>
+      <topicref format="markdown" href="../deploy/setup-snapshotclass.md"/>
+  </chapter>
+
+  </bookmap>

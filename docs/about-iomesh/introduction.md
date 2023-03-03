@@ -4,7 +4,7 @@ title: Introduction
 sidebar_label: Introduction
 ---
 
-## What is IOMesh？
+# What is IOMesh？
 
 IOMesh is a distributed storage system specially designed for Kubernetes workloads, providing reliable persistent storage capabilities for containerized stateful applications such as MySQL, Cassandra, and MongoDB.
 
@@ -21,6 +21,4 @@ IOMesh is a distributed storage system specially designed for Kubernetes workloa
 ### Storage Performance Tiering
    IOMesh supports flexible deployment of hybrid disks including NVMe SSD, SATA SSD and HDD. This can help users make the most of their storage investment, minimize the cost of each block while maximizing the storage performance.
 
-## Architecture
 
-![IOMesh arch](https://user-images.githubusercontent.com/78140947/122766241-e2352c00-d2d3-11eb-9630-bb5b428c3178.png)
