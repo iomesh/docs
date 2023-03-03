@@ -12,7 +12,8 @@ Before installing and deploying IOMesh, verify the following requirements.
 - A Kubernetes cluster consisting of at least three worker nodes.
 - The Kubernetes version should be between 1.17 and 1.24.
 
-### Hardware for Each Worker Node
+### Worker Node Hardware
+Ensure each worker node should have the following configurations.
 |Hardware|Requirements|
 |---|---|
 |CPU|At least 6 cores|
@@ -20,6 +21,7 @@ Before installing and deploying IOMesh, verify the following requirements.
 |Physical Disks|<p>All-flash mode: No configuration is needed for cache disks; At least one SSD with an available capacity greater than 60 GB on each worker node.</p> <p>Hybrid-flash mode: For cache disks, at least one SSD with an available capacity greater than 60 GB; for data disk, at least one HDD with an available capacity greater than 60 GB on each worker node.
 |Physical NIC|A physical NIC of 10 GBE for IOMesh storage network. |
 
-
+## System Space Reservation
+On each worker node, ensure that at least 100GB of disk space is reserved in the /opt directory for storing IOMesh cluster metadata.
 
 

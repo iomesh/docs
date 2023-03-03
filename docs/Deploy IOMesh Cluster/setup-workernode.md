@@ -6,12 +6,11 @@ sidebar_label: Setting Up Worker Node
 
 ## Setting Up Worker Node
 
-On the node console, follow the steps below to set up each Kubernetes worker node on which IOMesh will be running. 
-
+After ensuring all requirements in [Prerequisites](#../) are met, set up each worker node on which IOMesh will be installed and running.
 
 ### Setting Up `Open-iSCSI`
 
-1. On the node console, run the commands below to install `open-iSCSI`.
+1. On the node console, run the following command to install `open-iSCSI`.
    <!--DOCUSAURUS_CODE_TABS-->
 
    <!--RHEL/CentOS-->
