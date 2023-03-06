@@ -1,11 +1,11 @@
 ---
 id: install-iomesh
-title: Install IOMesh
+title: Installing IOMesh
 sidebar_label: Install IOMesh
 ---
 
 ## Installing IOMesh
-IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you choose to install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
+IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
 
 ### Installing IOMesh on Kubernetes 
 #### Quick Installation
@@ -57,7 +57,7 @@ If you want to configure parameters during installation on your own, follow the 
     ```
     For more details, refer to **[Installing Helm](https://helm.sh/docs/intro/install/)**.
 
-2. Run the following commands below to add the IOMesh Helm repository.
+2. Run the following command to add the IOMesh Helm repository.
 
    ```shell
    helm repo add iomesh http://iomesh.com/charts
@@ -113,7 +113,7 @@ If you want to configure parameters during installation on your own, follow the 
 
 5. Deploy IOMesh cluster.
 
-   Replace `iomesh` with your release name and run commands below to deploy the IOMesh cluster.
+   Replace `iomesh` with your release name (什么是 release name) and run commands below to deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -123,7 +123,7 @@ If you want to configure parameters during installation on your own, follow the 
         --wait
     ```
 
-    After running the commands above, you will see:
+    After running the commands above, you should see:
     ```output
     NAME: iomesh
     LAST DEPLOYED: Wed Jun 30 16:00:32 2021
@@ -175,32 +175,35 @@ If you want to configure parameters during installation on your own, follow the 
     operator-85877979-s94vz                               1/1     Running   0          2m8s
     operator-85877979-xqtml                               1/1     Running   0          2m8s
     ```
-  If the status of all pods is Running as shown above, the IOMesh has been installed successfully.
+    If the status of all pods is Running as shown above, then IOMesh has been installed successfully.
 
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
 ## Installing IOMesh on OpenShift
 
+IOMesh is also supported for the RedHat OpenShift container platform. You may install IOMesh through the IOMesh Operator on the OpenShift platform. 
+
 You may also install and use IOMesh through the IOMesh Operator on the OperatorHub page of the Red Hat OpenShift Container Platform.
 
-Run the command below to install the dependencies of IOMesh Operator and configure IOMesh specifications and settings for the OpenShift cluster. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster. 
+**Procedure**
 
-```shell
-curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
-```
+1. Run the following command to install IOMesh Operator dependencies and configure IOMesh specifications and settings for the IOMesh OpenShift cluster. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster. 
 
-### Installing IOMesh Operator
+    ```shell
+    curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
+    ```
+2. Install IOMesh Operator.
 
-1. Log in to the OpenShift Container Platform and then open the OperatorHub page. On the OperatorHub page, select **IOMesh Operator** and click **Install** to install IOMesh Operator.
+   - Log in to the OpenShift Container Platform and then open the OperatorHub page. On the OperatorHub page, select **IOMesh Operator** and click **Install** to install IOMesh Operator.
 
-2. Select **Installed Operators** > **IOMesh Operator** > **Create instance** > **YAML view**. Then fill in IOMesh Custom Resources according to IOMesh [YAML](https://iomesh.run/iomesh.yaml). Change `spec.*.dataCIDR` to your data network CIDR.
+   - Select **Installed Operators** > **IOMesh Operator** > **Create instance** > **YAML view**. Then fill in IOMesh Custom Resources according to IOMesh [YAML](https://iomesh.run/iomesh.yaml). Change `spec.*.dataCIDR` to your data network CIDR.
 
-### Installing IOMesh CSI Driver
+3. Install IOMesh CSI Driver.
 
-Run the command below to install IOMesh CSI Driver. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster.
+   Run the command below to install IOMesh CSI Driver. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster.
 
-```shell
-curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
-```
+    ```shell
+    curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
+    ```
 

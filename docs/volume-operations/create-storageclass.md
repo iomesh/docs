@@ -6,17 +6,7 @@ sidebar_label: Setup StorageClass
 
 ## Creating StorageClass
 
-The best practice to use PV and PVC is to create a StorageClass that describes th class and attributes of the PV.
- 
-
-
-
-使用 PV 和 PVC 的最佳实践，是你要创建一个 StorageClass 来描述这个 PV
-
-StorageClass describes storage type and are used for PVC
-
-storageclass 是什么，在 IOMesh 能干什么，如何使用/配置
-Storage Classes have parameters that describe volumes belonging to the storage class, and are used for PVC. 
+The best practice of using PV and PVCs is to create a StorageClass that describes the class and attributes of PV. In IOMesh, `iomesh-csi-driver` as the default StorageClass will be created when IOMesh is installed.  
 
 ### Viewing Default StorageClass
 
@@ -28,7 +18,7 @@ Storage Classes have parameters that describe volumes belonging to the storage c
 | replicaFactor             |"2"     | replica factor                     |
 | thinProvision             | "true"  | thin provision or thick provision. |
 
-### Creating a StorageClass
+### Creating StorageClass
 
 If none of StorageClasses meet usage requirements, you can create a new one and specify its parameters.
 
