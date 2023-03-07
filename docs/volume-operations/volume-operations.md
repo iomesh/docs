@@ -38,15 +38,14 @@ Ensure that there is already a StorageClass available for use.
    ```
    $ kubectl create -f pvc-1.yml
    ```
-   Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them. Then the pair of PV and PVC will be available for use. （是创建，还是 search for 
+   Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them. Then the pair of PV and PVC will be available for use. 
 
 3. Run the following command to check for results.
 
    ```
-   $ kubectl get pvc pvc-1.yml
+   $ kubectl get pvc pvc-1.yaml
    ```
 
-4. 加一个查看 PV 的命令
 
 ### Expanding PV
 To expand the capacity of a PV, you should modify its corresponding PVC. Once done, the newly generated PVs will be created with the new capacity. 
@@ -159,10 +158,10 @@ A clone is a duplicate of an existing volume in the system and data on the sourc
       volumeMode: Block
     ```
 
-2. Run the following command to apply the YAML file.
+2. Run the following command to apply the YAML file. Once done, a clone of `existing-pvc` will be created.
 
    ```bash
    kubectl apply -f example-clone.yaml
    ```
-   Once done, a clone of `existing-pvc` will be created.
+   
 

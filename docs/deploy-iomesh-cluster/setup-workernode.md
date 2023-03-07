@@ -62,5 +62,5 @@ IOMesh stores metadata in local `/opt/iomesh`, so make sure that there is at lea
 ### Creating Storage Network
 
 To avoid contention on network bandwidth, you need to create a storage network for IOMesh. 这个存储网络设置有啥具体要求不
-
+万兆网络
 

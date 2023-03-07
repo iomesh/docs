@@ -6,11 +6,11 @@ sidebar_label: Setup StorageClass
 
 ## Creating StorageClass
 
-The best practice of using PV and PVCs is to create a StorageClass that describes the class and attributes of PV. In IOMesh, `iomesh-csi-driver` as the default StorageClass will be created when IOMesh is installed.  
+The best practice of using PV and PVC is to create a StorageClass that describes the class and attributes of PV. When the installation of IOMesh is completed, `iomesh-csi-driver` will be created at the same time as the default StorageClass and cannot be modified afterward. You can also create a StorageClass with custom configurations.
 
 ### Viewing Default StorageClass
 
-`iomesh-csi-driver` is a volume plug-in running in the Kubernetes cluster and is used for provisioning IOMesh persistent volumes. It is created as the default StorageClass when IOMesh is installed and deployed and cannot be configured once created.
+`iomesh-csi-driver` is a volume plug-in running in the Kubernetes cluster and is used for provisioning IOMesh persistent volumes. It is created as the default StorageClass when IOMesh is installed and cannot be configured once created.
 
 | Parameter| Default | Description|
 | ----- | ----- | ---------- |
@@ -20,7 +20,7 @@ The best practice of using PV and PVCs is to create a StorageClass that describe
 
 ### Creating StorageClass
 
-If none of StorageClasses meet usage requirements, you can create a new one and specify its parameters.
+If none of StorageClasses meet usage requirements, you can create a new one and specify its parameters. Parameters available for modification is listed below:
 
 | Parameter| Available Values| Default | Description|
 | ----- | ----- | ------- | ---------- |
@@ -39,7 +39,7 @@ If none of StorageClasses meet usage requirements, you can create a new one and 
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
-      # "ext4" / "ext3" / "ext2" / "xfs"
+      # "ext4" / "ext3" / "ext2" / "xfs" 是只能选一个 Specify the filetype
       csi.storage.k8s.io/fstype: "ext4"
       # "2" / "3"
       replicaFactor: "2"

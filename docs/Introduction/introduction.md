@@ -1,7 +1,7 @@
 ---
 id: introduction
-title: Introduction to IOMesh
-sidebar_label: Introduction to IOMesh
+title: Introduction 
+sidebar_label: Introduction
 ---
 
 ## What is IOMesh?
