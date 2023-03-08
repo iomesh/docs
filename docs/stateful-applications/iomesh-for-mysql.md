@@ -4,18 +4,18 @@ title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 ---
 
-有状态应用和 IOMesh 之间的关系
+IOMesh provides persistent storage for stateful applications like Cassandra, MySQL, and MongDB. The following section describes how to deploy these stateful applications using IOMesh.
 
-IOMesh 通过 PV 为有状态
-
-
-This tutorial assumes that your cluster is configured to dynamically provision PersistentVolumes. If your cluster is not configured to do so, you will have to manually provision two 1 GiB volumes prior to starting this tutorial. (这一步已经在 IOMesh 做了)
-
-## Configure Kubernetes Cluster Storage (这一步和 mysql 有啥关系)
+## IOMesh for MySQL
 
 MySQL 需要 PVC，创建 PVC 需要 storageclass (动态置备，PVC 会根据 storageclass 自动创建 PV)
 
-1. Create a YAML file named `iomesh-mysql-sc.yaml`, which is a StorageClass, and refer to the following example to configure it. 自定义的
+**Prerequisite**
+
+Verify that your IOMesh cluster is already deployed. 
+
+**Procedure**
+1. Create the StorageClass `iomesh-mysql-sc.yaml`. You can directly use the default StorageClass or create one with custom parameters. Refer to [Creating StorageClass](../volume-operations/create-storageclass.md#creating-storageclass) for detailed information.
 
     ```yaml
     kind: StorageClass
@@ -36,18 +36,12 @@ MySQL 需要 PVC，创建 PVC 需要 storageclass (动态置备，PVC 会根据 
     ```bash
     kubectl apply -f iomesh-mysql-sc.yaml
     ```
-
-## Deploying MySQL
-
-1. Create a YAML file named `mysql-deployment.yaml`. (It describes a Deployment that runs MySQL and creates a PVC that consumes the IOMesh storage. 啥意思）
-
-deployment 用来管理多个 pod
-
+3. Create a YAML file named `mysql-deployment.yaml` that contains `PersistentVolumeClaim`, `Service`, and `Deployment`.
     ```yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: iomesh-mysql-pvc # 通过这个文件创建的 PVC
+      name: iomesh-mysql-pvc 
     spec:
       storageClassName: iomesh-mysql-sc
       accessModes:
@@ -86,7 +80,7 @@ deployment 用来管理多个 pod
           - image: mysql:5.6
             name: mysql
             env:
-              # Use secret in real usage 啥啥啥意思？ Enter the password
+              # Enter a password to allow access to the database.
             - name: MYSQL_ROOT_PASSWORD
               value: password
             ports:
@@ -98,15 +92,15 @@ deployment 用来管理多个 pod
           volumes:
           - name: mysql-persistent-storage
             persistentVolumeClaim:
-              claimName: iomesh-mysql-pvc # pvc from iomesh created above 啥啥啥啥意思
+              claimName: iomesh-mysql-pvc 
     ```
 
-2. Run the following command to apply the YAML file.
+4. Run the following command to apply the YAML file.
 
     ```bash
     kubectl apply -f mysql-deployment.yaml
     ```
 
-## Operating MySQL Data
+Once done, persistent volumes will be created by IOMesh for each MySQL pod, and each persistent volume will have configurations such as filetype and replication factor as configured in the StorageClass.
 
 You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)

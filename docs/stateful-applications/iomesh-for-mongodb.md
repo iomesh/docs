@@ -4,16 +4,24 @@ title: IOMesh for MongoDB
 sidebar_label: IOMesh for MongoDB
 ---
 
-## Setup k8s Cluster Storage
+## IOMesh for MongoDB
 
-1. Create a file named `iomesh-mongodb-sc.yaml` with the following contents:
+XXXXXXXXXXX 简要概述关系和流程
+
+**Prerequisites**
+
+Verify the IOMesh cluster is already deployed.
+
+**Procedure**
+
+1. Create a StorageClass named `iomesh-mongodb-sc.yaml` with the following parameters.
 
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-mongodb-sc
-    provisioner: com.iomesh.csi-driver # driver.name in values.yaml when install IOMesh
+    provisioner: com.iomesh.csi-driver # driver.name in IOMesh.yaml when install IOMesh
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
@@ -22,17 +30,13 @@ sidebar_label: IOMesh for MongoDB
       thinProvision: "true"
     ```
 
-2. Apply the yaml config:
+2. Run the following command to apply the YAML file.
 
     ```bash
     kubectl apply -f iomesh-mongodb-sc.yaml
     ```
 
-## Deploy MongoDB
-
-### Create a headless Service for MongoDB
-
-1. Create a Service used for DNS lookups between MongoDB Pods and the clients within your cluster
+3. Create a headless service which is used for DNS lookups between MongoDB Pods and the clients within your cluster
 
     ```yaml
     apiVersion: v1
@@ -50,15 +54,12 @@ sidebar_label: IOMesh for MongoDB
         role: mongo
     ```
 
-2. Apply the yaml config:
+4. Running the command to apply the YAML file.
 
     ```bash
     kubectl apply -f mongodb-service.yaml
     ```
-
-### Create MongoDB cluster using pv provided for IOMesh Storage
-
-1. Use StatefulSet to create a MongoDB cluster
+5. Create a StatefulSet for MongoDB. In the field `storageClassName`, type the StorageClass you choose in Step 1.
 
     ```yaml
     apiVersion: apps/v1beta1
@@ -109,14 +110,12 @@ sidebar_label: IOMesh for MongoDB
               storage: 10Gi
     ```
 
-2. Apply the yaml config:
+6. Run the following command to apply the YAML file.
 
     ```bash
     kubectl apply -f mongodb-statefulset.yaml
     ```
 
-IOMesh Storage will create Persistent Volumes for each MongoDB pod. These volumes use ext4 file system with a replica factor of 2 and thin provision.
+Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as filetype and replication factor as configured in the StorageClass.
 
-## Operate MongoDB Data
-
-Users can use the features provided by IOMesh storage to perform such operations as expansion/snapshot/rollback/clone of the Persistent Volumes where MongoDB data are located, see the reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+Once done, Once done, you can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)

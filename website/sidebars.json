@@ -1,38 +1,14 @@
 {
   "docs": {
     "About IOMesh": [
-      "about-iomesh/introduction"
+      "introduction/introduction"
     ],
-    "Deploy": [
-      "deploy/prerequisites",
-      "deploy/install-iomesh",
-      "deploy/setup-iomesh",
-      "deploy/setup-storageclass",
-      "deploy/setup-snapshotclass"
-    ],
-    "Volume Operations": [
-        "volume-operations/create-volume",
-        "volume-operations/expand-volume",
-        "volume-operations/snapshot-restore-and-clone"
-    ],
-    "IOMesh Operations":[
-        "iomesh-operations/monitoring",
-        "iomesh-operations/cluster-operations"
-    ],
-    "Stateful Applications":[
-        "stateful-applications/iomesh-for-mysql",
-        "stateful-applications/iomesh-for-cassandra",
-        "stateful-applications/iomesh-for-mongodb"
-    ],
-    "Advanced Usage":[
-        "advanced-usage/external-iscsi"
-    ],
-    "Additional Info":[
-        "additional-info/performance-testing",
-        "additional-info/release-notes"
-    ],
-    "References": [
-        "references/metrics"
+    "Deploy IOMesh Cluster": [
+      "deploy-iomesh-cluster/prerequisites",
+      "deploy-iomesh-cluster/setup-workernode",
+      "deploy-iomesh-cluster/install-iomesh",
+      "deploy-iomesh-cluster/setup-iomesh",
+      "deploy-iomesh-cluster/activate-license"
     ]
   }
 }
