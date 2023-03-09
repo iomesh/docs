@@ -59,6 +59,8 @@ Checkout [Monitoring](../iomesh-operations/monitoring.md) to enable the metrics 
 | `zbs_chunk_data_space_use_rate` | max(provisioned space, used space) / valid data space |
 | `zbs_chunk_valid_data_space_bytes` | the valid data space |
 | `zbs_chunk_failure_data_space_bytes` | the failure data space |
+| `zbs_chunk_temporary_replica_space_bytes` | temporary replica space used |
+| `zbs_chunk_temporary_replica_num` | temporary replica num |
 
 ### chunk:migrate&recover
 
@@ -101,6 +103,7 @@ Checkout [Monitoring](../iomesh-operations/monitoring.md) to enable the metrics 
 | `zbs_cluster_avg_read_size_bytes` | read avg request size |
 | `zbs_cluster_avg_readwrite_size_bytes` | read write avg request size |
 
+
 ### cluster:cache
 
 | metrics name | describe |
@@ -130,6 +133,8 @@ Checkout [Monitoring](../iomesh-operations/monitoring.md) to enable the metrics 
 | `zbs_cluster_provisioned_data_space_bytes` | the provisioned data space |
 | `zbs_cluster_chunks_unsafe_failure_space` | chunks whose used space is larger than cluster unused space |
 | `zbs_cluster_zone_space_diff_proportion` | zone space diff quotient cluster total spaces |
+| `zbs_cluster_temporary_replica_space_bytes` | cluster temporary replica space used |
+| `zbs_cluster_temporary_replica_num` | cluster temporary replica num |
 
 ### cluster:migrate&recover
 
@@ -143,20 +148,47 @@ Checkout [Monitoring](../iomesh-operations/monitoring.md) to enable the metrics 
 
 ## volume
 
-### volume:io
+### volume:space
 
 | metrics name | describe |
 | --- | --- |
 | `zbs_volume_shared_logical_size_bytes` | shared logical size |
 | `zbs_volume_unique_logical_size_bytes` | unique logical size |
 | `zbs_volume_logical_size_bytes` | total logical size |
+
+### volume:io
+
+| metrics name | describe |
+| --- | --- |
 | `zbs_volume_readwrite_latency_ns` | readwrite_latency_ns of volume |
 | `zbs_volume_readwrite_speed_bps` | readwrite_speed_bps of volume |
-| `zbs_volume_readwrite_iop30s` | readwrite_iop30s of volume |
-| `zbs_volume_write_speed_bps` | write_speed_bps of volume |
-| `zbs_volume_read_iops` | read_iops of volume |
+| `zbs_volume_readwrite_size_bytes` | readwrite size of volue |
 | `zbs_volume_readwrite_iops` | readwrite_iops of volume |
-| `zbs_volume_write_latency_ns` | write_latency_ns of volume |
-| `zbs_volume_read_speed_bps` | read_speed_bps of volume |
+| `zbs_volume_readwrite_iop30s` | readwrite_iop30s of volume |
 | `zbs_volume_read_latency_ns` | read_latency_ns of volume |
+| `zbs_volume_read_speed_bps` | read_speed_bps of volume |
+| `zbs_volume_read_size_bytes` | read size of volume |
+| `zbs_volume_read_iops` | read_iops of volume |
+| `zbs_volume_write_latency_ns` | write_latency_ns of volume |
+| `zbs_volume_write_speed_bps` | write_speed_bps of volume |
+| `zbs_volume_write_size_bytes` | write size of volume |
 | `zbs_volume_write_iops` | write_iops of volume |
+| `zbs_volume_avg_iodepth` | average io depth of volume |
+| `zbs_volume_ioctx_read_iops` | read_iops in io context of volume |
+| `zbs_volume_ioctx_read_speed_bps` | read_speed_bps in io context of volume |
+| `zbs_volume_ioctx_read_latency_ns` | read_latency_ns in io context of volume |
+| `zbs_volume_ioctx_write_iops` | write_iops in io context of volume |
+| `zbs_volume_ioctx_write_speed_bps` | write_speed_bps in io context of volume |
+| `zbs_volume_ioctx_write_latency_ns` | write_latency_ns in io context of volume |
+| `zbs_volume_ioctx_readwrite_iops` | readwrite_iops in io context of volume |
+| `zbs_volume_ioctx_readwrite_speed_bps` | readwrite_speed_bps in io context of volume |
+| `zbs_volume_ioctx_readwrite_latency_ns` | readwrite_latency_ns in io context of volume |
+| `zbs_volume_ioctx_local_read_iops` | local_read_iops in io context of volume |
+| `zbs_volume_ioctx_local_read_speed_bps` | local_read_speed_bps in io context of volume |
+| `zbs_volume_ioctx_local_read_latency_ns` | local_read_latency_ns in io context of volume |
+| `zbs_volume_ioctx_local_write_iops` | local_write_iops in io context of volume |
+| `zbs_volume_ioctx_local_write_speed_bps` | local_write_speed_bps in io context of volume |
+| `zbs_volume_ioctx_local_write_latency_ns` | local_write_latency_ns in io context of volume |
+| `zbs_volume_ioctx_local_readwrite_iops` | local_readwrite_iops in io context of volume |
+| `zbs_volume_ioctx_local_readwrite_speed_bps` | local_readwrite_speed_bps in io context of volume |
+| `zbs_volume_ioctx_local_readwrite_latency_ns` | local_readwrite_latency_ns in io context of volume |
