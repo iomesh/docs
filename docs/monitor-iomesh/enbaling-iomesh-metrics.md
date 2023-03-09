@@ -6,10 +6,11 @@ sidebar_label: Enabling IOMesh Metrics
 
 ## Enabling Metrics for IOMesh
 
-XXXXXXXXXXbalalala 讲一下 iomesh 和 promethus 啥监控的关系
+Monitoring IOMesh storage is implemented on the monitoring capabilities of Prometheus. So make sure you have installed Prometheus and Prometheus Operator, and Prometheus is installed in the IOMesh system NameSpace.
 
+**Prerequisite**
 
-IOMesh 的监控功能基于 P 实现，在启用 IOMesh 监控前确认你已经安装好 P 和 P Operator, 且 P 安装在 IOMesh system namespace 下。
+Verify that Prometheus and Prometheus Operator are installed, and Prometheus is located in the IOMesh system NameSpace.
 
 **Procedure**
 
