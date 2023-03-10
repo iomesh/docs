@@ -8,7 +8,7 @@ IOMesh provides persistent storage for stateful applications like Cassandra, MyS
 
 ## IOMesh for MySQL
 
-MySQL 需要 PVC，创建 PVC 需要 storageclass (动态置备，PVC 会根据 storageclass 自动创建 PV)
+需要一段话简述 IOMesh 和 Stateful Application 的关系。
 
 **Prerequisite**
 
@@ -103,4 +103,4 @@ Verify that your IOMesh cluster is already deployed.
 
 Once done, persistent volumes will be created by IOMesh for each MySQL pod, and each persistent volume will have configurations such as filetype and replication factor as configured in the StorageClass.
 
-You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].

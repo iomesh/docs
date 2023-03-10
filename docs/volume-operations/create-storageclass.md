@@ -6,40 +6,42 @@ sidebar_label: Setup StorageClass
 
 ## Creating StorageClass
 
-The best practice of using PV and PVC is to create a StorageClass that describes the class and attributes of PV. When the installation of IOMesh is completed, `iomesh-csi-driver` will be created at the same time as the default StorageClass and cannot be modified afterward. You can also create a StorageClass with custom configurations.
+The best practice of using PV and PVC is to create a StorageClass that describes the class and attributes of persistent volumes. When the installation of IOMesh is completed, `iomesh-csi-driver` will be created at the same time as the default StorageClass and cannot be modified afterward. You can also create a StorageClass with custom configurations.
 
 ### Viewing Default StorageClass
 
 `iomesh-csi-driver` is a volume plug-in running in the Kubernetes cluster and is used for provisioning IOMesh persistent volumes. It is created as the default StorageClass when IOMesh is installed and cannot be configured once created.
 
-| Parameter| Default | Description|
+| Parameter| Default Value | Description|
 | ----- | ----- | ---------- |
-| csi.storage.k8s.io/fstype | "ext4"  | File system type |
-| replicaFactor             |"2"     | replica factor                     |
-| thinProvision             | "true"  | thin provision or thick provision. |
+| csi.storage.k8s.io/fstype | "ext4"  | The file system type.  |
+| replicaFactor             |"2"     | The number of replicas.                     |
+| thinProvision             | "true"  | The provisioning type, |
 
 ### Creating StorageClass
 
-If none of StorageClasses meet usage requirements, you can create a new one and specify its parameters. Parameters available for modification is listed below:
+If none of StorageClasses meet usage requirements, you can create a new one and specify its parameters. Refer to the following for parameters available for modification.
 
-| Parameter| Available Values| Default | Description|
+| Parameter| Available Values| Default Value | Description|
 | ----- | ----- | ------- | ---------- |
 | csi.storage.k8s.io/fstype | "xfs", "ext2", "ext3", "ext4" | "ext4"  | The file system type.           |
 | replicaFactor             | "2", "3"                      | "2"     | The number of replicas.                    |
 | thinProvision             | "true", "false"               | "true"  | The provisioning type. |
 
-1. Create and configure the YAML file. 
+**Procedure**
+
+1. Create a YAML file and configure its parameters.
 
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-csi-driver-default
-    provisioner: com.iomesh.csi-driver # <-- driver.name in iomesh-values.yaml
+    provisioner: com.iomesh.csi-driver 
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
-      # "ext4" / "ext3" / "ext2" / "xfs" 是只能选一个 Specify the filetype
+      # "ext4" / "ext3" / "ext2" / "xfs" # Specify the file system type.
       csi.storage.k8s.io/fstype: "ext4"
       # "2" / "3"
       replicaFactor: "2"

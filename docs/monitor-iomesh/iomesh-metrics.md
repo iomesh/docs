@@ -42,7 +42,7 @@ Before monitoring IOMesh storage, you should understand IOMesh metrics which can
 | `zbs_chunk_cache_capacity_bytes` | Shows the total amount of cache space. |
 | `zbs_chunk_read_cache_hit_ratio` | Shows read cache hit ratio. |
 | `zbs_chunk_write_cache_hit_ratio` | Shows write cache hit ratio. |
-| `zbs_chunk_readwrite_cache_hit_ratio` | SHows read/write cache hit ratio. |
+| `zbs_chunk_readwrite_cache_hit_ratio` | Shows read/write cache hit ratio. |
 | `zbs_chunk_dirty_cache_ratio` | dirty cache ratio 只查查查到了 dirty background ratio |
 | `zbs_chunk_dirty_cache_space_bytes` | Shows the amount of dirty cache space.|
 | `zbs_chunk_valid_cache_space_bytes` | Shows the amount of valid cache space.|
@@ -61,7 +61,7 @@ Before monitoring IOMesh storage, you should understand IOMesh metrics which can
 **Chuck Temporary Replica**
 | Metrics | Description |
 | --- | --- |
-| `zbs_chunk_temporary_replica_space_bytes` | Shows the amount of space used by temporary replicas.|
+| `zbs_chunk_temporary_replica_space_bytes` | Shows the amount of space consumed by temporary replicas.|
 | `zbs_chunk_temporary_replica_num` | Shows the number of temporary replicas.|
 
 **Chunk Migration & Recovery**

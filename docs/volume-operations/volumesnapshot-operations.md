@@ -30,7 +30,7 @@ Ensure that there is already a SnapshotClass.
 
     ```
 
-2. Apply the YAML file by running the following command. A VolumeSnapshot will be created.
+2. Run the following command to apply the YAML file. A VolumeSnapshot will be created.
 
     ```text
     kubectl apply -f example-snapshot.yaml
@@ -74,9 +74,8 @@ Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource
           storage: 6Gi
     ```
 
-2. Apply the YAML file by running the following command. Replace `example-restore.yaml` with the YAML file name.
+2. Run the following command to apply the YAML file. Replace `example-restore.yaml` with the YAML file name.
 
     ```bash
     kubectl apply -f example-restore.yaml
     ```
-    运行完这个命令，会出现什么结果，生成一个 PVC 

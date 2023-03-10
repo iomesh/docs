@@ -6,9 +6,7 @@ sidebar_label: IOMesh for MongoDB
 
 ## IOMesh for MongoDB
 
-XXXXXXXXXXX 简要概述关系和流程
-
-**Prerequisites**
+**Prerequisite**
 
 Verify the IOMesh cluster is already deployed.
 
@@ -21,7 +19,7 @@ Verify the IOMesh cluster is already deployed.
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-mongodb-sc
-    provisioner: com.iomesh.csi-driver # driver.name in IOMesh.yaml when install IOMesh
+    provisioner: com.iomesh.csi-driver 
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
@@ -36,7 +34,7 @@ Verify the IOMesh cluster is already deployed.
     kubectl apply -f iomesh-mongodb-sc.yaml
     ```
 
-3. Create a headless service which is used for DNS lookups between MongoDB Pods and the clients within your cluster
+3. Create a headless service which is used for DNS lookups between MongoDB Pods and the clients within your cluster.
 
     ```yaml
     apiVersion: v1
@@ -104,7 +102,7 @@ Verify the IOMesh cluster is already deployed.
           name: mongodb-data
         spec:
           accessModes: [ "ReadWriteOnce" ]
-          storageClassName: iomesh-mongodb-sc # storageClass created above
+          storageClassName: iomesh-mongodb-sc # The StorageClass in Step 1.
           resources:
             requests:
               storage: 10Gi
@@ -118,4 +116,4 @@ Verify the IOMesh cluster is already deployed.
 
 Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as filetype and replication factor as configured in the StorageClass.
 
-Once done, Once done, you can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+Once done, Once done, you can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].

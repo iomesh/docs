@@ -17,7 +17,6 @@ A SnapshotClass in IOMesh is equivalent to a storage policy that specifies param
 
 ### Creating SnapshotClass
 If the default SnapshotClass does not meet usage requirements, you can create a new one and specify fields `driver` and `deletionpolicy`.  
-确认driver 名字是下面那个
 
 **Procedure**
 1. Create a YAML file and specify the field `driver`. 
@@ -27,7 +26,7 @@ If the default SnapshotClass does not meet usage requirements, you can create a 
     kind: VolumeSnapshotClass
     metadata:
       name: iomesh-csi-driver-default
-    driver: com.iomesh.csi-driver  # The driver name in iomesh.yaml.(这个文件在自定义安装创建的)
+    driver: com.iomesh.csi-driver  # The driver name in iomesh.yaml during manual installation.
     deletionPolicy: Retain # Whether you want to delete IOMesh volumes.
     ```
 

@@ -41,7 +41,7 @@ IOMesh can be deployed on the Kubernetes platform or Openshift container platfor
 
    > **Note:**
    > 
-   > IOMesh resources left by running the commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to 
+   > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to 
    remove all IOMesh resources from the Kubernetes cluster.
 
 #### Manual Installation
@@ -83,9 +83,9 @@ If you want to configure parameters during installation on your own, follow the 
     diskDeploymentMode: "hybridFlash" # set `diskDeploymentMode` to `allFlash`.
     ```
    
-   Optional: If you want to specify disks of Kubernetes nodes for IOMesh, configure the values of the node label.
+   Optional: If you want to specify specific disks on Kubernetes nodes for IOMesh, configure the values of the node label.
 
-   In this example, specify the values. 
+   In this example, specify the node where you want to install IOMesh in the field `values`.
    
    ```yaml
    iomesh:
@@ -103,17 +103,9 @@ If you want to configure parameters during installation on your own, follow the 
                    - iomesh-worker-1
     ```
 
-    Under the filed `values`, specify which node you want to install IOMesh. )
+    It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 
-
-   一般建议是配 values, 如果想要更多的配置，可以参考 pod affnity
-    For more information about pod affinity rules, see: [pod affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
-
-    chunk 在哪个节点上，就用哪个节点的盘
-
-5. Deploy IOMesh cluster.
-
-   Replace `iomesh` with your release name (什么是 release name) and run commands below to deploy the IOMesh cluster.
+5. Run the following commands to deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -123,7 +115,7 @@ If you want to configure parameters during installation on your own, follow the 
         --wait
     ```
 
-    After running the commands above, you should see:
+    After running the commands above, you should see an example like:
     ```output
     NAME: iomesh
     LAST DEPLOYED: Wed Jun 30 16:00:32 2021
@@ -138,7 +130,7 @@ If you want to configure parameters during installation on your own, follow the 
     ```bash
     kubectl --namespace iomesh-system get pods
     ```
-
+    After running the command, you should see an example like:
     ```output
     NAME                                                  READY   STATUS    RESTARTS   AGE
     csi-driver-controller-plugin-89b55d6b5-8r2fc          6/6     Running   10         2m8s
@@ -175,20 +167,27 @@ If you want to configure parameters during installation on your own, follow the 
     operator-85877979-s94vz                               1/1     Running   0          2m8s
     operator-85877979-xqtml                               1/1     Running   0          2m8s
     ```
-    If the status of all pods is Running as shown above, then IOMesh has been installed successfully.
+    If the status of all pods is `Running` as shown above, then IOMesh has been installed successfully.
 
 [1]: http://iomesh.com/charts
 [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
 ## Installing IOMesh on OpenShift
 
-IOMesh is also supported for the RedHat OpenShift container platform. You may install IOMesh through the IOMesh Operator on the OpenShift platform. 
+IOMesh also provides support for the RedHat OpenShift container platform. You may install IOMesh through the IOMesh Operator on the OpenShift platform. 
 
-You may also install and use IOMesh through the IOMesh Operator on the OperatorHub page of the Red Hat OpenShift Container Platform.
+**Prerequisites**
+- The OpenShift cluster has at least three worker nodes.
+- The OpenShift version is greater than 4.0.
+- Verify that each worker node meets [hardware requirements](#prerequisites.md).
+- Verify that there is at least 100 Gb of data disk in the `/opt` directory on each worker node to store IOMesh metadata. 
+
 
 **Procedure**
 
-1. Run the following command to install IOMesh Operator dependencies and configure IOMesh specifications and settings for the IOMesh OpenShift cluster. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster. 
+1. Run the following command to install IOMesh Operator dependencies and configure IOMesh specifications and settings for the IOMesh OpenShift cluster. 
+
+   Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster. 
 
     ```shell
     curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
@@ -201,7 +200,7 @@ You may also install and use IOMesh through the IOMesh Operator on the OperatorH
 
 3. Install IOMesh CSI Driver.
 
-   Run the command below to install IOMesh CSI Driver. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster.
+   Run the following command to install IOMesh CSI Driver. Note that the command should be executed in an environment where `oc` or `kubectl` can access the OpenShift cluster.
 
     ```shell
     curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -

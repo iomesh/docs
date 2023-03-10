@@ -138,7 +138,7 @@ Verify the IOMesh cluster is already deployed.
           name: cassandra-data
         spec:
           accessModes: "ReadWriteOnce"
-          storageClassName: iomesh-cassandra-sc # the storageClass you created in the first step.
+          storageClassName: iomesh-cassandra-sc # The storageClass you created in the first step.
           resources:
             requests:
               storage: 10Gi
@@ -153,5 +153,4 @@ Verify the IOMesh cluster is already deployed.
 
 Persistent volumes will be created for each Cassandra pod, and each persistent volume will have configurations such as filetype and replication factor as configured in the StorageClass.
 
-Once done, you can expand, snapshot, or clone volumes were Cassandra data are located. For details, refer to [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
-
+Once done, you can expand, snapshot, or clone volumes where Cassandra data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].

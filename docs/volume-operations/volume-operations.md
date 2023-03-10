@@ -8,8 +8,7 @@ sidebar_label: Volume Operations
 
 ### Creating PV
 
-(创建 PV 的逻辑）To create a PV, you should first create a PVC. When a PVC is created, PV will be created accordingly 
-request specific size and access modes
+To create a PV, you should first create a PVC. Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them together. Then the pair of PV and PVC will be ready to use.
 
 **Prerequisite**
 
@@ -36,9 +35,8 @@ Ensure that there is already a StorageClass available for use.
 2. Run the following command to create a PVC.
 
    ```
-   $ kubectl create -f pvc-1.yml
+   $ kubectl create -f pvc-1.yaml
    ```
-   Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them. Then the pair of PV and PVC will be available for use. 
 
 3. Run the following command to check for results.
 
@@ -77,13 +75,13 @@ To expand the capacity of a PV, you should modify its corresponding PVC. Once do
    ```bash
    kubectl get pvc example-pvc
    ```
-   After running the command, you should see an example like like this:
+   After running the command, you should see an example like this:
    ```output
    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
    ```
 
-3. Set the field `storage` to a new value such as 20Gi.
+3. Set the field `storage` to a new value.
 
    ```yaml
    apiVersion: v1
@@ -96,7 +94,7 @@ To expand the capacity of a PV, you should modify its corresponding PVC. Once do
         - ReadWriteOnce
     resources:
       requests:
-        storage: 20Gi # Expand capacity from 10 Gi to 20Gi.
+        storage: 20Gi # Enter a new capacity value.
     ```
 
 3. Run the following command to apply the new YAML file.
@@ -130,7 +128,7 @@ To expand the capacity of a PV, you should modify its corresponding PVC. Once do
    ```
 
 ### Cloning PV
-A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should specify an existing PVC in the field `dataSource` so that the user can clone a volume based on it.
+A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
 
 **Prerequisites**:
 - The source PVC and the destination PVC must be in the same namespace.
