@@ -9,6 +9,17 @@
       "deploy-iomesh-cluster/install-iomesh",
       "deploy-iomesh-cluster/setup-iomesh",
       "deploy-iomesh-cluster/activate-license"
+    ],
+    "Volume Operations": [
+      "volume-operations/create-storageclass",
+      "volume-operations/volume-operations",
+      "volume-operations/create-snapshotclass",
+      "volume-operations/volumesnapshot-operations"
+    ],
+    "Deploying Stateful Applications": [
+    "stateful-applications/iomesh-for-mysql",
+    "stateful-applications/iomesh-for-cassandra",
+    "stateful-applications/iomesh-for-mongodb"
     ]
   }
 }

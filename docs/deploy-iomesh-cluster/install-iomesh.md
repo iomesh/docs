@@ -8,7 +8,8 @@ sidebar_label: Install IOMesh
 IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
 
 ### Installing IOMesh on Kubernetes 
-#### Quick Installation
+
+**Quick Installation**
 
 1. Run the corresponding command according to your Linux distribution to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the above command, wait for a few minutes. 
 
@@ -44,7 +45,7 @@ IOMesh can be deployed on the Kubernetes platform or Openshift container platfor
    > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to 
    remove all IOMesh resources from the Kubernetes cluster.
 
-#### Manual Installation
+**Manual Installation**
 
 If you want to configure parameters during installation on your own, follow the steps below to manually install IOMesh.
 
