@@ -4,8 +4,6 @@ title: IOMesh for Cassandra
 sidebar_label: IOMesh for Cassandra
 ---
 
-## Deploy Cassandra with IOMesh
-
 **Prerequisite**
 
 Verify the IOMesh cluster is already deployed.

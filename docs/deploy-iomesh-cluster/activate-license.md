@@ -1,7 +1,7 @@
 ---
 id: activate-license
-title: Activate License
-sidebar_label: Activate License
+title: Activating License
+sidebar_label: Activating License
 ---
 
 ## Activating License

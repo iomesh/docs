@@ -8,15 +8,15 @@ sidebar_label: Introduction
 
 IOMesh is a distributed storage system specifically designed for Kubernetes workloads, providing reliable persistent storage for containerized stateful applications such as MySQL, Cassandra, and MongoDB. 
 
-- Create or delete persistent volumes thousands of times per minute for Kubernetes pods. 
-- Easy to operate and maintain. IOMesh is implemented on Kubernetes, so if you know Kubernetes operation and maintenance well, you know how to operate and maintain IOMesh well.
-- Scale on demand. IOMesh can implement small-scale deployment and scale storage by adding disks or nodes.
+- Create or remove persistent volumes thousands of times per minute for Kubernetes pods. 
+- Easy to operate and maintain. IOMesh is implemented on Kubernetes, so as long as you are familiar with Kubernetes, you will know how to manage and maintain IOMesh.
+- Scale on demand. Deploy IOMesh with a small-size storage and scale storage by adding disks or nodes.
 
-## Key Features
+## Key Features 
 
 ### High Performance 
 
-The database leveraging IOMesh block storage has been tested with lower read/write latency and higher QPS/TPS, ensuring stable operation of data services.
+Databases leveraging IOMesh block storage have been tested to have lower read/write latency and higher QPS/TPS, ensuring stable operation of data services.
 
 ### Kernel Independent 
    

@@ -1,10 +1,8 @@
 ---
-id: setup-storageclass
-title: Setup StorageClass
-sidebar_label: Setup StorageClass
+id: create-storageclass
+title: Creating StorageClass
+sidebar_label: Creating StorageClass
 ---
-
-## Creating StorageClass
 
 The best practice of using PV and PVC is to create a StorageClass that describes the class and attributes of persistent volumes. When the installation of IOMesh is completed, `iomesh-csi-driver` will be created at the same time as the default StorageClass and cannot be modified afterward. You can also create a StorageClass with custom configurations.
 

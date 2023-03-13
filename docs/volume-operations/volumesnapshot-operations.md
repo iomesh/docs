@@ -4,8 +4,6 @@ title: VolumeSnapshot Operations
 sidebar_label: VolumeSnapshot Operations
 ---
 
-## VolumeSnapshot Operations
-
 ### Creating VolumeSnapshot
 
 A VolumeSnapshot is a request for snapshot of a volume and similar to a PVC, while a VolumeSnapshotContent is the snapshot taken from a volume provisioned in the cluster. 
@@ -56,26 +54,26 @@ Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource
 
 1. Create a YAML file and replace `example-snapshot` with the real snapshot name.
 
-    ```yaml
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: example-restore
-    spec:
-      storageClassName: iomesh-csi-driver-default
-      dataSource:
-        name: example-snapshot
-        kind: VolumeSnapshot
-        apiGroup: snapshot.storage.k8s.io
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 6Gi
-    ```
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: example-restore
+spec:
+  storageClassName: iomesh-csi-driver-default
+  dataSource:
+    name: example-snapshot
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 6Gi
+```
 
 2. Run the following command to apply the YAML file. Replace `example-restore.yaml` with the YAML file name.
 
-    ```bash
-    kubectl apply -f example-restore.yaml
-    ```
+```bash
+kubectl apply -f example-restore.yaml
+```
