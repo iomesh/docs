@@ -19,7 +19,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
 kubectl --namespace iomesh-system -o wide get blockdevice
 ```
 
-  After running the command, you should see an example like:
+After running the command, you should see an example like:
 
 ```output
 NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
@@ -28,17 +28,18 @@ blockdevice-3fa2e2cb7e49bc96f4ed09209644382e   kind-control-plane   /dev/sda    
 blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
 ```
  
-   >**Note:**
-   >
-   > Ensure the field `FSTYPE` for each IOMesh block device is blank.
+>**Note:**
+>
+> Ensure the field `FSTYPE` for each IOMesh block device is blank.
    
 2. To get details of an individual block device, run the following command. Replace `<device_name>` with the block device name.
 
-   ```shell
-   kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
-   ```
+```shell
+kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
+```
 
 After running the command, you should see an example like:
+
 ```output
 apiVersion: openebs.io/v1alpha1
 kind: BlockDevice
@@ -77,32 +78,31 @@ Simply put, device mapping is filtering block devices that meet requirements and
 
 1. In `iomesh.yaml`, locate the field `chunk/deviceMap` that specifies which block devices will be mounted onto the IOMesh cluster.
 
-    ```yaml
-    spec:
-      chunk:
-        deviceMap:
-          <mount-type>:
-            selector:
-              matchLabels:
-                <label-key>: <label-value>
-              matchExpressions:
-              - key: <label-key>
-                operator: In
-                Values:
-                - <label-value>
-            exclude:
-            - <block-device-name>
-    ```
+```yaml
+spec:
+  chunk:
+    deviceMap:
+      <mount-type>:
+        selector:
+          matchLabels:
+            <label-key>: <label-value>
+          matchExpressions:
+          - key: <label-key>
+            operator: In
+            Values:
+            - <label-value>
+        exclude:
+        - <block-device-name>
+```
+
 2. Specify the field `mount-type` according to the deployment mode.
    
-   IOMesh provides support for two deployment modes: all-flash or hybrid.
+IOMesh provides support for two deployment modes: all-flash or hybrid.
 
-   When selecting `hybrid`, configure the fields `cacheWithJournal` and `dataStore`. 
-
-   - `cacheWithJournal`: used for the performance layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `cache`. Either `SATA` or `NVMe` SSD is recommended.
-   - `dataStore`:  used for the capacity layer of storage pool. Either `SATA` or `SAS` HDD is recommended.
+When selecting `hybrid`, configure the fields `cacheWithJournal` and `dataStore`. `cacheWithJournal`is used for the performance layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `cache`. Either `SATA` or `NVMe` SSD is recommended. `dataStore` is used for the capacity layer of storage pool. Either `SATA` or `SAS` HDD is recommended.
       
 An deviceMap example for hybrid mode:
+
 ```yaml
 spec:
   # ...
@@ -132,10 +132,7 @@ spec:
     # ...
 ```
 
-
-   When selecting `allflash`, configure the fields `cacheWithJournal` and `dataStore`.
-   
-   `dataStoreWithJournal`: used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.
+When selecting `allflash`, configure the fields `cacheWithJournal` and `dataStore`. `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.
 
 An DeviceMap example for all-flash mode:
 ```yaml
@@ -169,16 +166,18 @@ spec:
    All block devices selected by device selector will be mounted to IOMesh with the corresponding mount type.
 
 4. Run the following command to set it to `spec.chunk.deviceMap`. 
+
 ```bash
 kubectl edit --namespace iomesh-system iomesh 
 ```
 
 5. Run the following command to verify that `STATUS` of `BlockDevice` you select becomes `Claimed`.
+
 ```bash
 kubectl --namespace iomesh-system -o wide get blockdevice
 ```
 
-   After running the command, you should see an example below:
+After running the command, you should see an example below:
 
 ```output
 NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE

@@ -6,7 +6,7 @@ sidebar_label: Activating License
 
 ## Activating License
 
-需补充：IOMesh 许可类型 （一句话介绍许可使用背景即可，具体的许可信息放在【集群运维】部分）
+需补充：IOMesh 许可类型 （想用一句话介绍 IOMesh 许可，但不知道怎么说比较好，具体的许可信息打算放在【集群运维】部分）
 
 **Procedure**
 

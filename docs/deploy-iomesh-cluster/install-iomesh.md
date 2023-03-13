@@ -4,14 +4,13 @@ title: Installing IOMesh
 sidebar_label: Installing IOMesh
 ---
 
-## Installing IOMesh
 IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
 
 ### Installing IOMesh on Kubernetes 
 
 #### Quick Installation
 
-1. Run the corresponding command according to your Linux distribution to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the above command, wait for a few minutes. 
+1. Run the corresponding command according to your Linux distribution to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the following command, wait for a few minutes. 
 > **Note:**
 > 
 > `Helm3`, a package manager for Kubernetes, is included in the commands below. It will be installed automatically if it is not found. 
@@ -71,7 +70,7 @@ helm show values iomesh/iomesh > iomesh.yaml
 
 4. Configure `iomesh.yaml`.
 
-Mandatory：Locate the field `dataCIDR` and then fill in your network CIDR.
+Mandatory: Locate the field `dataCIDR` and then fill in your network CIDR.
 
 ```yaml
   iomesh:

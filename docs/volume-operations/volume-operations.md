@@ -98,13 +98,13 @@ resources:
     storage: 20Gi # Enter a new capacity value.
 ```
 
-3. Run the following command to apply the new YAML file.
+4. Run the following command to apply the new YAML file.
 
 ```bash
 kubectl apply -f example-pvc.yaml
 ```
 
-4. Run the following command to check the capacity of the PVC.
+5. Run the following command to check the capacity of the PVC.
 
 ```bash
 kubectl get pvc example-pvc 
@@ -117,7 +117,7 @@ NAME          STATUS   VOLUME                                     CAPACITY    AC
 example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
 ```
 
-5. Run the following command to check the PV capacity.
+6. Run the following command to check the PV capacity.
    
 ```bash
 kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca 
