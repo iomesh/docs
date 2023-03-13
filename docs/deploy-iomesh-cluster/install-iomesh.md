@@ -9,7 +9,7 @@ IOMesh can be deployed on the Kubernetes platform or Openshift container platfor
 
 ### Installing IOMesh on Kubernetes 
 
-**Quick Installation**
+#### Quick Installation ####
 
 1. Run the corresponding command according to your Linux distribution to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the above command, wait for a few minutes. 
 
@@ -45,7 +45,7 @@ IOMesh can be deployed on the Kubernetes platform or Openshift container platfor
    > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to 
    remove all IOMesh resources from the Kubernetes cluster.
 
-**Manual Installation**
+#### Manual Installation ####
 
 If you want to configure parameters during installation on your own, follow the steps below to manually install IOMesh.
 
@@ -177,7 +177,7 @@ IOMesh can also be installed and running on the RedHat OpenShift container platf
 
 **Prerequisites**
 - The Openshift cluster has at least three worker nodes, and the OpenShift version is greater than 4.0.
-- Verify that each Openshift worker node meets [hardware requirements](#prerequisites.md).
+- Verify that each Openshift worker node meets [hardware requirements].
 - Verify that there is at least 100 Gb of data disk in the `/opt` directory on each worker node to store IOMesh metadata. 
 - Verify that `oc` or `kubectl` can access the OpenShift cluster.  
 
