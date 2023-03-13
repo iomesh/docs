@@ -16,7 +16,7 @@
       "volume-operations/create-snapshotclass",
       "volume-operations/volume-snapshot-operations"
     ],
-    "Stateful Applications": [
+    "Deploy Stateful Applications": [
       "stateful-applications/iomesh-for-mysql",
       "stateful-applications/iomesh-for-cassandra",
       "stateful-applications/iomesh-for-mongodb"
