@@ -75,11 +75,12 @@ To expand the capacity of a PV, you should modify its corresponding PVC. Once do
    ```bash
    kubectl get pvc example-pvc
    ```
-   After running the command, you should see an example like this:
-   ```output
-   NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-   example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
-   ```
+   After running the command, you should see an example like:
+
+```output
+NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
+```
 
 3. Set the field `storage` to a new value.
 

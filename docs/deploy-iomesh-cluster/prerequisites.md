@@ -16,9 +16,9 @@ Before installing and deploying IOMesh, verify the following requirements.
 Ensure each worker node has the following configurations.
 |Hardware|Requirements|
 |---|---|
-|CPU|At least 6 cores|
-|Memory|At least 12 GB|
-|Physical Disks|<p>All-flash mode: No configuration is needed for cache disks; at least one SSD with an available capacity greater than 60 GB on each worker node.</p> <p>Hybrid-flash mode: For cache disks, at least one SSD with an available capacity greater than 60 GB; for data disk, at least one HDD with an available capacity greater than 60 GB on each worker node.
+|CPU|At least 6 cores for each worker node.|
+|Memory|At least 12 GB for each worker node.|
+|Physical Disks|<p>All-flash mode: Requires no configuration for cache disks; for data disks, at least one SSD with an available capacity greater than 60 GB on each worker node.</p><p>Hybrid-flash mode: For cache disks, at least one SSD with an available capacity greater than 60 GB; for data disks, at least one HDD with an available capacity greater than 60 GB on each worker node.</p>
 |Physical NIC|A physical NIC of 10 GBE for IOMesh storage network. |
 
 ## System Space Reservation

@@ -58,7 +58,7 @@ If none of StorageClasses meet usage requirements, you can create a new one and 
 
 2. Run the command to apply the YAML file.
 
-    ```
-    kubectl apply -f sc.yaml
-    ```
+```
+kubectl apply -f sc.yaml
+```
   
