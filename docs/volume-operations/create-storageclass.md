@@ -30,29 +30,29 @@ If none of StorageClasses meet usage requirements, you can create a new one and 
 
 1. Create a YAML file and configure its parameters.
 
-    ```yaml
-    kind: StorageClass
-    apiVersion: storage.k8s.io/v1
-    metadata:
-      name: iomesh-csi-driver-default
-    provisioner: com.iomesh.csi-driver 
-    reclaimPolicy: Retain
-    allowVolumeExpansion: true
-    parameters:
-      # "ext4" / "ext3" / "ext2" / "xfs" # Specify the file system type.
-      csi.storage.k8s.io/fstype: "ext4"
-      # "2" / "3"
-      replicaFactor: "2"
-      # "true" / "false"
-      thinProvision: "true"
-    volumeBindingMode: Immediate
-    ```
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: iomesh-csi-driver-default
+provisioner: com.iomesh.csi-driver 
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+parameters:
+  # "ext4" / "ext3" / "ext2" / "xfs" # Specify the file system type.
+  csi.storage.k8s.io/fstype: "ext4"
+  # "2" / "3"
+  replicaFactor: "2"
+  # "true" / "false"
+  thinProvision: "true"
+volumeBindingMode: Immediate
+```
 
-    > _About `reclaimPolicy`_
-    > 
-    > The `reclaimPolicy` field of `StorageClass` can have two values, `Retain` and `Delete`, and the default is Delete. When a `PV` is created through a StorageClass, its `persistentVolumeReclaimPolicy` will inherit the original `reclaimpolicy` value from the StorageClass. You can also modify this value. 
-    > 
-    > The value of `reclaimPolicy` in the example is `Retain`, which means that, if you delete a `PVC`, the `PV` under the `PVC` will not be deleted, but will enter the `Released` state. Please note that, if you delete the `PV`, the corresponding IOMesh volume will not be deleted, instead, you need to change the value of `persistentVolumeReclaimPolicy` of the `PV` to `Delete` and then delete the `PV`. Or before creating a `PV`, you can set the value of `reclaimpolicy` of `StorageClass`  to `Delete` so that all the resources will be released in cascade.
+> About `reclaimPolicy`
+> 
+> The `reclaimPolicy` field of `StorageClass` can have two values, `Retain` and `Delete`, and the default is Delete. When a `PV` is created through a StorageClass, its `persistentVolumeReclaimPolicy` will inherit the original `reclaimpolicy` value from the StorageClass. You can also modify this value. 
+> 
+> The value of `reclaimPolicy` in the example is `Retain`, which means that, if you delete a `PVC`, the `PV` under the `PVC` will not be deleted, but will enter the `Released` state. Please note that, if you delete the `PV`, the corresponding IOMesh volume will not be deleted, instead, you need to change the value of `persistentVolumeReclaimPolicy` of the `PV` to `Delete` and then delete the `PV`. Or before creating a `PV`, you can set the value of `reclaimpolicy` of `StorageClass`  to `Delete` so that all the resources will be released in cascade.
 
 2. Run the command to apply the YAML file.
 
