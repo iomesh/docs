@@ -4,11 +4,7 @@ title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 ---
 
-IOMesh provides persistent storage for stateful applications like Cassandra, MySQL, and MongDB. The following section describes how to deploy these stateful applications using IOMesh.
-
-## IOMesh for MySQL
-
-需要一段话简述 IOMesh 和 Stateful Application 的关系。
+IOMesh provides persistent storage for stateful applications like Cassandra, MySQL, and MongDB. The following section describes how to deploy these stateful applications using IOMesh. 需要一段话简述 IOMesh 和 Stateful Application 的关系。
 
 **Prerequisite**
 

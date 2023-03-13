@@ -4,7 +4,6 @@ title: IOMesh for MongoDB
 sidebar_label: IOMesh for MongoDB
 ---
 
-## IOMesh for MongoDB
 
 **Prerequisite**
 
