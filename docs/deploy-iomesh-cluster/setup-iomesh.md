@@ -1,6 +1,6 @@
 ---
 id: setup-iomesh
-title: Setup IOMesh
+title: Setting Up IOMesh
 sidebar_label: Setting Up IOMesh
 ---
 

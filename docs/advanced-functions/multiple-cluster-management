@@ -1,0 +1,81 @@
+---
+id: manage-multiple-cluster
+title: Managing Multiple IOMesh Clusters
+sidebar_label: Managing Multiple IOMesh Clusters
+---
+
+补充多集群的使用场景
+
+### Deploying Multiple IOMesh Clusters
+
+补充多集群部署模式的介绍
+
+Note that this release of IOMesh does not support expanding an IOMesh cluster to two or more IOMesh clusters.
+
+**Prerequisites**
+- Verify that all requirements in [Prerequisites] are met.
+- The IOMesh version should be 1.0.0. 
+- A Kubernetes cluster consisting of at least six worker nodes.
+- Verify that you have set up all worker nodes.
+
+
+**Procedure**
+
+The following section assumes you have six worker nodes named `k8s-worker-{0-5}` and describes how to deploy multiple IOMesh clusters in a Kubernetes cluster. 
+
+
+1. Deploy the first IOMesh cluster on the worker nodes `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` with `namespace` as `iomesh-system`, and the second IOMesh cluster on the worker nodes `k8s-worker-3`, `k8s-worker-4`, and `k8s-worker-5` with `iomesh-cluster-1`.
+
+- Run the following command to generate `helm values` configuration file. (生成的是 helm.yaml 还是 iomesh.values,yaml)
+
+```
+helm show values iomesh/iomesh > iomesh-values.yaml
+```
+
+- Set the field `iomesh.chunk.dataCIDR` to the CIDR you configured for the IOMesh storage network.
+
+2. Deploy the second IOMesh cluster.
+
+- Create a namespace for the second IOMesh cluster assumed as `iomesh-cluster-1`.
+
+```
+kubectl create ns iomesh-cluster-1
+```
+
+- Run the following command to create the `zookeeper` cluster for the cluster `iomesh-cluster-1`. 
+
+```
+kubectl apply -f iomesh-cluster-1-zookeeper.yaml
+```
+- set node affinity and pod anti-affinity so that the `zookeeper` cluster can be scheduled to the worker nodes `k8s-woker-3`, `k8s-woker-4`, and `k8s-woker-5`. 
+
+文件文件文件文件文件文件
+
+- 
+
+3. Mount disks.
+
+
+#### Mounting Disks
+使用 kubectl edit 编辑每一个 iomesh 对象，参考 https://docs.iomesh.com/deploy/setup-iomesh#block-device-object 配置磁盘
+
+
+
+
+
+
+
+
+### Managing Multiple IOMesh Clusters
+
+Upgrade
+
+
+升级
+在多集群场景下，需要先升级管控 namespace 下的 IOMesh 集群，再升级非管控 namespace 下的 IOMesh 集群
+
+以 IOMesh 多集群部署 中的部署场景为例，升级步骤如下：
+
+参考 IOMesh 运维 中的升级章节，先升级第一套 IOMesh 集群和 IOMesh 管理组件
+第一套 IOMesh 集群升级完毕后，使用 kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1 编辑第二套 IOMesh 集群，修改所有的 *.image.tags 字段与第一套 IOMesh 集群保持一致
+若未按照上述正确的顺序进行升级，比如先升级了第二套集群，再升级第一套，则在升级第二套集群时该集群可能会暂时处于一个错误状态。当第一套被升级完成后，两个集群都会最终达到正确状态
