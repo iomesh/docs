@@ -13,121 +13,121 @@ To create a PV, you should first create a PVC. Once done, IOMesh will sense the 
 Ensure that there is already a StorageClass available for use.
 
 **Procedure**
-1. Create and configure the YAML file.
+1. Create a PVC `iomesh-example-pvc`. Configure the parameters.
 
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: iomesh-example-pvc
-spec:
-  storageClassName: iomesh-example-sc
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-```
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: iomesh-example-pvc
+    spec:
+      storageClassName: iomesh-example-sc # Specify the StorageClass.
+      accessModes:
+        - ReadWriteOnce # Specify the access mode. 问子银哪些可以配置
+      resources:
+        requests:
+          storage: 10Gi # 指定容量，这个值指定有什么要求？
+    ```
 
-For details, refer to Kubernetes documentation.
+    For details, refer to [Kubernetes Documentation]().
   
-2. Run the following command to create a PVC.
+2. Run the following command to create the PVC.
 
-```
-kubectl create -f pvc-1.yaml
-```
+    ```
+    kubectl create -f pvc-1.yaml
+    ```
 
-3. Run the following command to check for results.
+3. Run the following command to check the new PVC.
 
-```
-kubectl get pvc pvc-1.yaml
-```
+    ```
+    kubectl get pvc pvc-1.yaml
+    ```
 
 ### Expanding PV
-To expand the capacity of a PV, you should modify its corresponding PVC. Once done, the newly generated PVs will be created with the new capacity. 
+To expand the capacity of a PV, you should modify its corresponding PVC. Once done, new PVs based on this PVC  will be created with the new capacity. 
 
 **Prerequisites**
-- Volume expansion support for PVC is in Kubernetes 1.11 or above, which is already required in [Prerequisites](#prerequisites).
-- The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to "true". 
+
+The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to "true". 
 
 
 **Procedure**
 
-1. Create and configure the YAML file. The following example assumes a PVC named `example-pvc` with a capacity of `10Gi`.
+The following example assumes a PVC named `example-pvc` with a capacity of `10Gi`.
 
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: example-pvc
-spec:
-  storageClassName: iomesh-csi-driver-default
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi # The original capacity of the PVC.
-```
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: example-pvc
+    spec:
+      storageClassName: iomesh-csi-driver-default
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi # The original capacity of the PVC.
+    ```
 
-2. Run the following command to apply the YAML file. 
+1. Run the following command to get the PVC.
 
-```bash
-kubectl get pvc example-pvc
-```
+    ```bash
+    kubectl get pvc example-pvc
+    ```
 
-After running the command, you should see an example like:
+    After running the command, you should see an example like:
 
-```output
-NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
-```
+    ```output
+    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
+    ```
 
-3. Set the field `storage` to a new value.
+2. Set the field `storage` to a new value.
 
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-name: example-pvc
-spec:
-  storageClassName: iomesh-csi-driver-default
-  accessModes:
-    - ReadWriteOnce
-resources:
-  requests:
-    storage: 20Gi # Enter a new capacity value.
-```
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+    name: example-pvc
+    spec:
+      storageClassName: iomesh-csi-driver-default
+      accessModes:
+        - ReadWriteOnce
+    resources:
+      requests:
+        storage: 20Gi # Enter a new capacity value.
+    ```
 
-4. Run the following command to apply the new YAML file.
+3. Run the following command to apply the new YAML file.
 
-```bash
-kubectl apply -f example-pvc.yaml
-```
+    ```bash
+    kubectl apply -f example-pvc.yaml
+    ```
 
-5. Run the following command to check the capacity of the PVC.
+4. Run the following command to check the capacity of the PVC.
 
-```bash
-kubectl get pvc example-pvc 
-```
+    ```bash
+    kubectl get pvc example-pvc 
+    ```
 
-After running the command, you should see an example below:
+    After running the command, you should see an example below:
 
-```output
-NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
-```
+    ```output
+    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
+    ```
 
-6. Run the following command to check the PV capacity.
+6. Once the PVC modification is applied, a new PV will be created. Run the following command to check the capacity of the new PV.
    
-```bash
-kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca 
-```
+    ```bash
+    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca 
+    ```
 
-After running the command, you should see an example like this:
-```output
-NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
-pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
-```
+    After running the command, you should see an example like this:
+    ```output
+    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
+    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
+    ```
 
 ### Cloning PV
 A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
@@ -140,28 +140,28 @@ A clone is a duplicate of an existing volume in the system and data on the sourc
 **Procedure**
 1. Create and configure the YAML file.
 
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: cloned-pvc
-spec:
-  storageClassName: iomesh-csi-driver-default
-  dataSource:
-    name: existing-pvc # The source PVC in the same namespace. 
+    ```yaml
+    apiVersion: v1
     kind: PersistentVolumeClaim
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi # The capacity value must be the same or larger than that of the source volume.
-  volumeMode: Block
-```
+    metadata:
+      name: cloned-pvc
+    spec:
+      storageClassName: iomesh-csi-driver-default
+      dataSource:
+        name: existing-pvc # Specify the source PVC in the same namespace. 
+        kind: PersistentVolumeClaim
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi # The capacity value must be the same or larger than that of the source volume.
+      volumeMode: Block
+    ```
 
 2. Run the following command to apply the YAML file. Once done, a clone of `existing-pvc` will be created.
 
-```bash
-kubectl apply -f example-clone.yaml
-```
+    ```bash
+    kubectl apply -f example-clone.yaml
+    ```
    
 
