@@ -10,21 +10,21 @@ After ensuring all requirements in [Prerequisites](#../) are met, set up each wo
 
 1. On the node console, run the following command to install `open-iscsi`.
 
-    <!--DOCUSAURUS_CODE_TABS-->
+<!--DOCUSAURUS_CODE_TABS-->
 
-    <!--RHEL/CentOS-->
+<!--RHEL/CentOS-->
 
-    ```shell
-    sudo yum install iscsi-initiator-utils -y
-    ```
+```shell
+sudo yum install iscsi-initiator-utils -y
+```
 
-    <!--Ubuntu-->
+<!--Ubuntu-->
 
-    ```shell
-    sudo apt-get install open-iscsi -y
-    ```
+```shell
+sudo apt-get install open-iscsi -y
+```
 
-    <!--END_DOCUSAURUS_CODE_TABS-->
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 2. Edit `/etc/iscsi/iscsid.conf` by setting `node.startup` to `manual`.
 
