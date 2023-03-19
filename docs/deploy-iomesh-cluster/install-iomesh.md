@@ -5,7 +5,10 @@ sidebar_label: Installing IOMesh
 ---
 
 如何决定用户使用快速部署还是自定义安装还是离线部署还是 OCP Platform 部署
-快速部署、手动部署、离线部署、OCP 部署
+- 如果用户只是想快速体验下功能，选择快速安装
+- 如果用户使用 openshift 那就 OCP Platform 部署
+- 其他情况是自定义安装
+- 不能访问外网选择离线(外网比较中国化，需要换个说法)
 
 
 IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
@@ -74,7 +77,7 @@ If you want to configure parameters during installation on your own, follow the 
 
 4. Configure `iomesh.yaml`.
 
-    Mandatory: Locate the field `dataCIDR` and then fill in your network CIDR.
+    Mandatory: Fill in `dataCIDR`.
 
     ```yaml
       iomesh:
@@ -82,13 +85,13 @@ If you want to configure parameters during installation on your own, follow the 
           dataCIDR: "10.234.1.0/24" # Replace "10.234.1.0/24" with the actual dataCIDR.
     ```
 
-    Optional: Locate the field `diskDeploymentMode` and then fill in the cluster deployment mode. The system defaults to `hybridFlash`. You can also set it to `allFlash`.
+    Mandatory: Fill in `diskDeploymentMode`. The system defaults to `hybridFlash`. You can also set it to `allFlash`.
 
     ```yaml
     diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
     ```
    
-    Optional: If you want to specify specific disks on Kubernetes nodes for IOMesh, configure the values of the node label.
+    Optional: If you want to specify specific Kubernetes worker nodes to provide disks, configure the values of the node label.
       
     ```yaml
     iomesh:

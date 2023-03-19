@@ -42,6 +42,12 @@ Ensure that there is already a StorageClass available for use.
     ```
     kubectl get pvc pvc-1.yaml
     ```
+   After running the command, you should see an example like:
+    ```output
+    NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
+    iomesh-example-pvc                          Bound    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi        RWO            iomesh-csi-driver   21h   
+    ```
+
 
 ### Expanding PV
 To expand the capacity of a PV, you should modify its corresponding PVC. Once done, new PVs based on this PVC  will be created with the new capacity. 
@@ -130,15 +136,19 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
     ```
 
 ### Cloning PV
-A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
+A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should create a new PVC and specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
 
-**Prerequisites**:
+**Precautions**
 - The source PVC and the destination PVC must be in the same namespace.
 - The source PVC and the destination PVC must have the same StorageClass and VolumeMode configurations.
+- The capacity value must be the same or larger than that of the source PVC.
 
+**Prerequisite**
+
+Verify that there is already a PVC available for cloning.
 
 **Procedure**
-1. Create and configure the YAML file.
+1. Create a PVC `example-clone.yaml`. Specify the source PVC you want to clone.
 
     ```yaml
     apiVersion: v1

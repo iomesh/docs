@@ -8,7 +8,7 @@ The best practice of using PV and PVC is to have a StorageClass that describes t
 
 | Parameter| Available Value| Default Value (`iomesh-csi-driver`)| Description|
 |---|---|---|---|
-|`provisioner`| |  |
+|`provisioner`| XXX | XXXX |XXXX |
 |`reclaimPolicy`|"retain" or "delete"| "delete"|
 |`allowVolumeExpansion`|"true" or "false| "true"| Shows if volume expansion support is enabled.|
 |`csi.storage.k8s.io/fstype`|"xfs", "ext2", "ext3", "ext4"|"ext4"|The file system type.|

@@ -4,7 +4,7 @@ title: Prerequisites
 sidebar_label: Prerequisites
 ---
 
-IOMesh can be installed on the Kubernetes platform or the Redhat Openshgift Container platform. Before installing and deploying IOMesh, verify the following requirements.
+IOMesh can be installed on the Kubernetes platform or the Redhat Openshift Container platform. Before installing and deploying IOMesh, verify the following requirements.
 
 ### Cluster Requirements
 
@@ -34,6 +34,7 @@ Hardware requirements vary depending on the IOMesh version. Verify that each wor
 ### Network Requirements
 
 等待中文确认，是否分社区版和企业版
+
 
 
 

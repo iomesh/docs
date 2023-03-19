@@ -57,5 +57,5 @@ sudo apt-get install open-iscsi -y
 
 ### Creating Storage Network
 
-To avoid contention on network bandwidth, you need to create a storage network for IOMesh. 
+To avoid contention on network bandwidth, you need to create a storage network for IOMesh. 企业版是否需要独立的网络
 
