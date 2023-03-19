@@ -115,4 +115,4 @@ Verify the IOMesh cluster is already deployed.
 
 Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as filetype and replication factor as configured in the StorageClass.
 
-Once done, Once done, you can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].
+Once done, you can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].
