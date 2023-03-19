@@ -79,12 +79,16 @@ volumeMode 属性设置为 filesystem 的卷会被 Pod 挂载（Mount）到某�
 **Access Mode**
 
 访问模式（Access Modes）指的是持久卷所支持的具体访问方式。持久卷可以用资源提供者所支持的任何方式挂载到宿主系统上。资源提供者的能力不同，持久卷支持的访问模式也有所不同。访问模式有以下几种：
+
 ReadWriteOnce
 卷可以被一个节点以读写方式挂载。 ReadWriteOnce 访问模式也允许运行在同一节点上的多个 Pod 访问卷。
+
 ReadOnlyMany
 卷可以被多个节点以只读方式挂载。
+
 ReadWriteMany
 卷可以被多个节点以读写方式挂载。
+
 ReadWriteOncePod
 卷可以被单个 Pod 以读写方式挂载。 如果您需确保整个集群中只有一个 Pod 可以读取或写入该 PVC， 请使用 ReadWriteOncePod 访问模式。该模式仅支持 CSI 卷以及需要 Kubernetes 1.22 以上版本。
 IOMesh 支持 ReadWriteOnce，ReadWriteMany（仅 Block 类型的 PV），ReadOnlyMany（仅 Block 类型的 PV）的访问模式。
