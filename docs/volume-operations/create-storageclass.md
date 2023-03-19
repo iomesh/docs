@@ -14,7 +14,7 @@ The best practice of using PV and PVC is to create a StorageClass that describes
 | ----- | ----- | ---------- |
 | csi.storage.k8s.io/fstype | "ext4"  | The file system type.  |
 | replicaFactor             |"2"     | The number of replicas.                     |
-| thinProvision             | "true"  | The provisioning type, |
+| thinProvision             | "true"  | The provisioning type. |
 
 ### Creating StorageClass
 
