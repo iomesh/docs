@@ -8,7 +8,7 @@ After ensuring all requirements in [Prerequisites](#../) are met, set up each wo
 
 ### Setting Up `Open-iSCSI`
 
-1. On the node console, run the following command to install `open-iSCSI`.<!--DOCUSAURUS_CODE_TABS-->
+1. On the node console, run the following command to install `open-iscsi`.<!--DOCUSAURUS_CODE_TABS-->
 
 <!--RHEL/CentOS-->
 
