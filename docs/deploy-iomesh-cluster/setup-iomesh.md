@@ -132,7 +132,7 @@ spec:
     # ...
 ```
 
-When selecting `allflash`, configure the fields `cacheWithJournal` and `dataStore`. `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.
+When selecting `allflash`, configure the fields `dataStoreWithJournal`. `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.
 
 An DeviceMap example for all-flash mode:
 ```yaml
