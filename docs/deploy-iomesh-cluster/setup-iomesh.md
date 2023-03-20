@@ -30,7 +30,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
  
     >**Note:**
     >
-    > Ensure the field `FSTYPE` for each IOMesh block device is blank.
+    > The field `FSTYPE` should be blank for each IOMesh block device. If not, the block device will be filtered out by the device selector.
    
 2. To get details of an individual block device, run the following command. Replace `<device_name>` with the block device name.
 
@@ -71,44 +71,58 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     | `iomesh.com/bd-serial` | Shows the disk serial number.|
     | `iomesh.com/bd-vendor` | Shows the disk vendor.|
 
-### Mapping Block Devices
-Device mapping is about filtering block devices that meet your requirements which are defined by the combination of the mount type and device selector and mounting them onto the IOMesh cluster.
+### Configuring Devicemap
+
+Before configuring device map, familiarize yourself with mount type and device selector.
+
+**Mount Type**
+|Deployment Mode|Mount Type|
+|---|---|
+|`hybrid`|Provides two mount types: `cacheWithJournal` and `dataStore`.  <p>`cacheWithJournal`：used for the performance layer of storage pool and **MUST** be a partitionable block device. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</p>`dataStore`: used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.|
+|`allflash`|<p>Only provides one mount type `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.|
+
+**Device Selector**
+|Parameter|Value|Description|
+|---|---|---|
+|<code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | The label selector to list `BlockDevice` available for use.                     |
+|<code>exclude</code>  |[]string | The name list of `BlockDevice` which will be excluded from being mounted. |
+
+For more information, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
+
 
 **Procedure**
+1. Run the following command to edit the YAML file. 
 
-```yaml 哪个文件
-spec:
-  chunk:
-    deviceMap:
-      <mount-type>:
-        selector:
-          matchLabels:
-            <label-key>: <label-value>
-          matchExpressions:
-          - key: <label-key>
-            operator: In
-            Values:
-            - <label-value>
-        exclude:
-        - <block-device-name>
-```
+    ```bash
+    kubectl edit --namespace iomesh-system iomesh 
+    ```
+   
+   After running the command, locate `chunk` in the file as shown below:
+    ```yaml 
+    spec:
+      chunk:
+    ```
+2. Copy and paste `deviceMap` contents from the following sample code. Fill in `mount-type` according to the deployment mode and configure `matchLabels` or `matchExpressions` and `exclude`. 
 
-1. 哪个文件）Specify the deployment mode and configure device selector. Once done, all block devices filtered by the selector will be mounted on the IOMesh cluster according to the deployment mode you specify.
-
-    **Mount Type**
-    |Deployment Mode|Mount Type|
-    |---|---|
-    |`hybrid`|Provides two mount types: `cacheWithJournal` and `dataStore`.  <p>`cacheWithJournal`：used for the performance layer of storage pool and **MUST** be a partitionable block device. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</p>`dataStore`: used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.|
-    |`allflash`|<p>Only provides one mount type `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.|
-
-    **Device Selector**
-    |Parameter|Value|Description|
-    |---|---|---|
-    | <code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | The label selector to list `BlockDevice` available for use.                     |
-    | <code>exclude</code>  |[]string | The name list of `BlockDevice` which will be excluded from being mounted. |
-
-
-    A deviceMap example for hybrid mode:
+    For the labels, you only need to choose one of the two fields `matchLabels` or `matchExpressions` to fill in. To know the keys and values of the block device, refer to Step 2 in [Viewing Block Device Objects]. 
+    
+    ```yaml 
+    spec:
+      chunk:
+        deviceMap:
+          <mount-type>:
+            selector:
+              matchLabels:
+                <label-key>: <label-value> # Enter the key-value for the device.
+              matchExpressions:
+              - key: <label-key> 
+                operator: In
+                Values:
+                - <label-value>
+            exclude:
+            - <block-device-name> # Enter the device name to exclude it.
+    ```
+    If the deployment mode is `hybrid`, you should see an example like:
 
     ```yaml
     spec:
@@ -139,7 +153,7 @@ spec:
         # ...
     ```
 
-      A DeviceMap example for all-flash mode:
+    If the deployment mode is `allflash`, you should see an example like:
     ```yaml
     spec:
       # ...
@@ -160,11 +174,7 @@ spec:
         # ...
     ```
 
-4. Run the following command to set it to `spec.chunk.deviceMap`. 
-
-    ```bash
-    kubectl edit --namespace iomesh-system iomesh # edit 啥
-    ```
+    Once configured, block devices filtered out will be mounted on the IOMesh cluster.
 
 5. Run the following command to verify that `STATUS` of `BlockDevice` you select becomes `Claimed`.
 

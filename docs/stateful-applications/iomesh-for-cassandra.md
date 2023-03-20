@@ -9,7 +9,7 @@ sidebar_label: IOMesh for Cassandra
 Verify the IOMesh cluster is already deployed.
 
 **Procedure**
-1. Create a YAML file `iomesh-cassandra-sc.yaml` to create a StorageClass. You can also directly choose the default StorageClass.
+1. Create a StorageClass `iomesh-cassandra-sc.yaml`. You can also directly choose the default StorageClass.
 
     ```yaml
     kind: StorageClass

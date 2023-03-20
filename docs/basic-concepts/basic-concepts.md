@@ -110,5 +110,6 @@ IOMesh 支持使用 Prometheus 来监控集群内存储相关的指标并提供�
 Grafana 是一个开源软件，提供了查询、可视化、提醒和探索指标、日志和追踪的能力。Grafana 可以将时间序列数据库（TSDB）数据转换为有洞察力的可视化图形。
 IOMesh 提供了标准的 Grafana Dashboard 模板和报警规则 Json 文件，供用户导入自己的 Grafana。
 
+**kubectl**
 
 

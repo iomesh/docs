@@ -4,20 +4,21 @@ title: Creating StorageClass
 sidebar_label: Creating StorageClass
 ---
 
-The best practice of using PV and PVC is to have a StorageClass that describes the class and attributes of persistent volumes. IOMesh provides a default StorageClass `iomesh-csi-driver` that provides persistent volumes for pods through Dynamic Volume Provisioning. It is created when IOMesh is installed and cannot be modified afterward. If you want a StorageClass with custom parameters, refer to the following.
+IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for pods through dynamic volume provisioning. Its parameters adopt the default values in the table below and cannot be modified. If you want a StorageClass with custom parameters, refer to the following.
 
-| Parameter| Available Value| Default Value (`iomesh-csi-driver`)| Description|
-|---|---|---|---|
-|`provisioner`| XXX | XXXX |XXXX |
-|`reclaimPolicy`|"retain" or "delete"| "delete"|
-|`allowVolumeExpansion`|"true" or "false| "true"| Shows if volume expansion support is enabled.|
-|`csi.storage.k8s.io/fstype`|"xfs", "ext2", "ext3", "ext4"|"ext4"|The file system type.|
-|`replicaFactor` | "2", "3" | "2" | The number of replicas.      
-| `thinProvision` | "true", "false" | "true"  | The provisioning type: "true" for thin provisioning or "false" for thick provisioning. |
+| Parameter|Description|Default (`iomesh-csi-driver`)|
+|---|---|---|
+|`provisioner`| The provisioner that determines what volume plugin is used for provisioning PVs. |`com.iomesh.csi-driver`|
+|`reclaimPolicy`|<p>The reclaim policy for dynamically provisioned PVs, either `retain` or `delete`.</p> 注意事项: 子银会给一版新的内容。|`delete`|
+|`allowVolumeExpansion`|Shows if volume expansion support is enabled.| `true`|
+|`csi.storage.k8s.io/fstype`|The filesystem type, including "xfs", "ext2", "ext3", "ext4"|`ext4`|
+|`replicaFactor` | The number of replicas for PVs, including 2 or 3.|`2`|   
+| `thinProvision` | Shows the provisioning type, "true" for thin provisioning or "false" for thick provisioning. |`true`|
+
 
 **Procedure**
 
-1. Create a YAML file and configure its parameters.
+1. Create a StorageClass `sc.yaml` and configure its parameters.
 
     ```yaml
     kind: StorageClass
@@ -25,12 +26,12 @@ The best practice of using PV and PVC is to have a StorageClass that describes t
     metadata:
       name: iomesh-csi-driver-default
     provisioner: com.iomesh.csi-driver 
-    reclaimPolicy: Retain # Specify the retention policy.
-    allowVolumeExpansion: true # set it to "true" if you want to expand volume capacity.
+    reclaimPolicy: Delete # 根据子银最新内容增加指示。
+    allowVolumeExpansion: true 
     parameters:
       # Specify the file system type, including "ext4", "ext3", "ext2", and "xfs".
       csi.storage.k8s.io/fstype: "ext4"
-      # Specify the replication factor from "2" or "3".
+      # Specify the replication factor, either "2" or "3".
       replicaFactor: "2"
       # Specify the provisioning type.
       thinProvision: "true"
@@ -40,7 +41,7 @@ The best practice of using PV and PVC is to have a StorageClass that describes t
 2. Run the following command to apply the YAML file.
 
     ```
-    kubectl apply -f sc.yaml
+    kubectl apply -f sc.yaml # 文件名需要确认
     ```
 
 3. Run the following command to view the newly created StorageClass.
