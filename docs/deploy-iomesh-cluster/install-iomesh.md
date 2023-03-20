@@ -8,7 +8,6 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 - Quick Installation：One click to install IOMesh online, but all parameters take default values and cannot be modified.
 - Custom Installation: Configure parameters during installation on your own.
 - Offline Installation: Recommended when the Kubernetes cluster cannot communicate with 外网 and support for custom parameters during installation.
-- OpenShift Installation: 
 
 ### Quick Installation
 
@@ -312,30 +311,3 @@ podman load --input ./images/iomesh-offline-images.tar
 
 ### OpenShift Installation (这一章要去掉了？；LocalPV 融合部署)
 
-IOMesh can also be installed and running on the RedHat OpenShift container platform. You may install IOMesh through the IOMesh Operator on the OpenShift platform. 
-
-**Prerequisite**
-
-Verify that `oc` or `kubectl` can access the OpenShift cluster.  
-
-**Procedure**
-
-1. Run the following command to install IOMesh Operator dependencies and configure IOMesh specifications and settings for the IOMesh OpenShift cluster. 
-
-    ```shell
-    curl -sSL https://iomesh.run/iomesh-operator-pre-install-openshift.sh | sh -
-    ```
-2. Install IOMesh Operator.
-
-   - Log in to the OpenShift Container Platform and then open the OperatorHub page. 
-   - On the OperatorHub page, select **IOMesh Operator** and click **Install** to install IOMesh Operator.
-   - Select **Installed Operators** > **IOMesh Operator** > **Create instance** > **YAML view**. 
-   - Fill in IOMesh custom resources according to [`iomesh.yaml`](https://iomesh.run/iomesh.yaml). 
-   - Change `spec.*.dataCIDR` to your network CIDR.
-
-3. Run the following command to install IOMesh CSI Driver.
-
-    ```shell
-    curl -sSL https://iomesh.run/iomesh-operator-post-install-openshift.sh | sh -
-    ```
-4. 需要补充一个查看的命令？看到怎样的结果证明 IOMesh 在 OpenShift 平台成功安装了。

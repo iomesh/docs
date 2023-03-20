@@ -4,9 +4,7 @@ title: Setting Up Worker Node
 sidebar_label: Setting Up Worker Node
 ---
 
-After ensuring all requirements in [Prerequisites](#../) are met, set up each worker node on which IOMesh will be installed and running.
-
-### Setting Up `Open-iSCSI`
+After ensuring all requirements in [Prerequisites](#../) are met, you need to set up `open-iscsi` for each worker node.
 
 1. On the node console, run the following command to install `open-iscsi`.
 
@@ -55,7 +53,5 @@ sudo apt-get install open-iscsi -y
     sudo systemctl enable --now iscsid
     ```
 
-### Creating Storage Network
 
-To avoid contention on network bandwidth, you need to create a storage network for IOMesh. 企业版是否需要独立的网络 (是否提前到前面的网络要求，如果提前，这一章节名称和结构会有调整)
 

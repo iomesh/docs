@@ -11,7 +11,7 @@ To create a PV, you should first create a PVC. Once done, IOMesh will sense the 
 Ensure that there is already a StorageClass available for use.
 
 **Procedure**
-1. Create a PVC `iomesh-example-pvc`. Configure the parameters.
+1. Create a PVC `iomesh-example-pvc`. Configure accessmode and storage.
 
     ```yaml
     apiVersion: v1

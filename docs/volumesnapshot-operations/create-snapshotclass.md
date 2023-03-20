@@ -14,7 +14,7 @@ A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each
 
 **Procedure**
 
-1. Create a YAML file and specify the field `driver` and `deletionPolicy`.(明确字段设置的建议)
+1. Create a YAML file and specify the field `driver` and `deletionPolicy`.(明确字段设置的建议以及默认值，倾向性转为建议)
 
     ```yaml
     apiVersion: snapshot.storage.k8s.io/v1beta1

@@ -122,7 +122,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
             exclude:
             - <block-device-name> # Enter the device name to exclude it.
     ```
-    If the deployment mode is `hybrid`, you should see an example like:
+    If the deployment mode is `hybrid`, refer to the following example:
 
     ```yaml
     spec:
