@@ -4,19 +4,13 @@ title: Installing IOMesh
 sidebar_label: Installing IOMesh
 ---
 
-如何决定用户使用快速部署还是自定义安装还是离线部署还是 OCP Platform 部署
-- 如果用户只是想快速体验下功能，选择快速安装
-- 如果用户使用 openshift 那就 OCP Platform 部署
-- 其他情况是自定义安装
-- 不能访问外网选择离线(外网比较中国化，需要换个说法)
+Before installing IOMesh, refer to the following to choose how you install IOMesh.
+- Quick Installation：One click to install IOMesh online, but all parameters take default values and cannot be modified.
+- Custom Installation: Configure parameters during installation on your own.
+- Offline Installation: Recommended when the Kubernetes cluster cannot communicate with 外网 and support for custom parameters during installation.
+- OpenShift Installation: 
 
-|
-
-IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
-
-### Installing IOMesh on Kubernetes 
-
-#### Quick Installation
+### Quick Installation
 
 1. Run the corresponding command according to your Linux distribution to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the following command, wait for a few minutes. 
 > **Note:**
@@ -50,7 +44,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     > 
     > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
-#### Manual Installation 
+### Custom Installation 
 
 If you want to configure parameters during installation on your own, follow the steps below to manually install IOMesh.
 
@@ -183,7 +177,140 @@ If you want to configure parameters during installation on your own, follow the 
     [1]: http://iomesh.com/charts
     [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
-### Installing IOMesh on OpenShift (这一章要去掉了？；LocalPV 融合部署)
+### Offline Installation
+
+1. Download [IOMesh offline installation package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
+
+2. Run the following command to unpack the installation package.
+
+    ```shell
+    tar -xf  iomesh-offline-v0.11.1.tgz && cd iomesh-offline
+ 
+    ```
+3. Load the IOMesh image on each Kubernetes node and then execute the corresponding scripts based on your container runtime and container manager.
+
+<!--DOCUSAURUS_CODE_TABS-->
+
+<!--Docker-->
+```shell
+docker load --input ./images/iomesh-offline-images.tar
+```
+<!--Containerd-->
+```shell
+ctr --namespace k8s.io image import ./images/iomesh-offline-images.tar
+```
+
+<!--Podman-->
+```shell
+podman load --input ./images/iomesh-offline-images.tar
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
+
+4. Export the IOMesh default configuration file into `iomesh.yaml`. 
+
+    ```shell
+    ./helm show values charts/iomesh > iomesh.yaml
+    ```
+
+5. Configure `iomesh.yaml`.
+
+   Mandatory: Fill in the field `dataCIDR`.
+
+    ```yaml
+    iomesh:
+      chunk:
+        dataCIDR: "10.234.1.0/24" # Replace "10.234.1.0/24" with the actual one.
+    ```
+
+    Mandatory: Fill in `diskDeploymentMode`. The system defaults to `hybridFlash`. You can also set it to `allFlash`.(没有这个代码块)
+
+    Optional: If you want to specify specific Kubernetes worker nodes to provide disks, configure the values of the node label.
+   
+   ```yaml
+   iomesh:
+     chunk:
+       podPolicy:
+         affinity:
+           nodeAffinity:
+             requiredDuringSchedulingIgnoredDuringExecution:
+               nodeSelectorTerms:
+               - matchExpressions:
+                 - key: kubernetes.io/hostname # specific node label's key
+                   operator: In
+                   values:
+                   - iomesh-worker-0 # specific node label's value
+                   - iomesh-worker-1
+    ```
+    It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+
+6. Run the following script to deploy IOMesh cluster.
+
+    ```shell
+    ./helm install iomesh ./charts/iomesh \
+        --create-namespace \
+        --namespace iomesh-system \
+        --values iomesh.yaml \
+        --wait
+    ```
+    After running the script, you should see an example like:
+    
+    ```output
+    NAME: iomesh
+    LAST DEPLOYED: Wed Jun 30 16:00:32 2021
+    NAMESPACE: iomesh-system
+    STATUS: deployed
+    REVISION: 1
+    TEST SUITE: None
+    ```
+
+7. Run the following command to check the results.
+
+    ```bash
+    kubectl --namespace iomesh-system get pods
+    ```
+    After running the command, you should see an example like:
+
+    ```output
+    NAME                                                   READY   STATUS    RESTARTS   AGE
+    iomesh-chunk-0                                         3/3     Running   0          102s
+    iomesh-chunk-1                                         3/3     Running   0          98s
+    iomesh-chunk-2                                         3/3     Running   0          94s
+    iomesh-csi-driver-controller-plugin-5b66557959-jhshb   6/6     Running   10         3m20s
+    iomesh-csi-driver-controller-plugin-5b66557959-p4m9x   6/6     Running   10         3m20s
+    iomesh-csi-driver-controller-plugin-5b66557959-w9qbq   6/6     Running   10         3m20s
+    iomesh-csi-driver-node-plugin-6pjpn                    3/3     Running   2          3m20s
+    iomesh-csi-driver-node-plugin-dj2cd                    3/3     Running   2          3m20s
+    iomesh-csi-driver-node-plugin-stbdw                    3/3     Running   2          3m20s
+    iomesh-hostpath-provisioner-55j8t                      1/1     Running   0          3m20s
+    iomesh-hostpath-provisioner-c7jlz                      1/1     Running   0          3m20s
+    iomesh-hostpath-provisioner-jqrsd                      1/1     Running   0          3m20s
+    iomesh-iscsi-redirector-675vr                          2/2     Running   1          119s
+    iomesh-iscsi-redirector-d2j4m                          2/2     Running   1          119s
+    iomesh-iscsi-redirector-sjfjk                          2/2     Running   1          119s
+    iomesh-meta-0                                          2/2     Running   0          104s
+    iomesh-meta-1                                          2/2     Running   0          104s
+    iomesh-meta-2                                          2/2     Running   0          104s
+    iomesh-openebs-ndm-569pb                               1/1     Running   0          3m20s
+    iomesh-openebs-ndm-9fhln                               1/1     Running   0          3m20s
+    iomesh-openebs-ndm-cluster-exporter-68c757948-vkkdz    1/1     Running   0          3m20s
+    iomesh-openebs-ndm-m64j5                               1/1     Running   0          3m20s
+    iomesh-openebs-ndm-node-exporter-2brc6                 1/1     Running   0          3m20s
+    iomesh-openebs-ndm-node-exporter-g97q5                 1/1     Running   0          3m20s
+    iomesh-openebs-ndm-node-exporter-kvn88                 1/1     Running   0          3m20s
+    iomesh-openebs-ndm-operator-56cfb5d7b6-gwlg9           1/1     Running   0          3m20s
+    iomesh-zookeeper-0                                     1/1     Running   0          3m14s
+    iomesh-zookeeper-1                                     1/1     Running   0          2m59s
+    iomesh-zookeeper-2                                     1/1     Running   0          2m20s
+    iomesh-zookeeper-operator-7b5f4b98dc-fxfb6             1/1     Running   0          3m20s
+    operator-85877979-5fvvn                                1/1     Running   0          3m20s
+    operator-85877979-74rl6                                1/1     Running   0          3m20s
+    operator-85877979-cvgcz                                1/1     Running   0          3m20s
+    ```
+
+    If the status of all pods is `Running` as shown above, then IOMesh has been installed successfully.
+
+### OpenShift Installation (这一章要去掉了？；LocalPV 融合部署)
 
 IOMesh can also be installed and running on the RedHat OpenShift container platform. You may install IOMesh through the IOMesh Operator on the OpenShift platform. 
 
