@@ -41,5 +41,5 @@ Verify that there is already a PVC available for cloning.
     ```bash
     kubectl apply -f example-clone.yaml
     ```
-   
+   After running the command，要有一个 example（或者加一个查看命令）
 

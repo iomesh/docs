@@ -10,6 +10,7 @@ sidebar_label: Installing IOMesh
 - 其他情况是自定义安装
 - 不能访问外网选择离线(外网比较中国化，需要换个说法)
 
+|
 
 IOMesh can be deployed on the Kubernetes platform or Openshift container platform. If you install IOMesh in a Kubernetes cluster, you can select quick installation or manual installation. Note that quick installation will take the default settings in the file, which cannot be modified manually. 
 
@@ -182,7 +183,7 @@ If you want to configure parameters during installation on your own, follow the 
     [1]: http://iomesh.com/charts
     [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
-### Installing IOMesh on OpenShift
+### Installing IOMesh on OpenShift (这一章要去掉了？；LocalPV 融合部署)
 
 IOMesh can also be installed and running on the RedHat OpenShift container platform. You may install IOMesh through the IOMesh Operator on the OpenShift platform. 
 

@@ -7,6 +7,8 @@ sidebar_label: Restoring Volume from Snapshot
 
 Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource` field referencing to the target snapshot. 
 
+快照恢复是否有前提条件或注意事项
+
 **Procedure**
 
 1. Create a PVC `example-restore`.
@@ -33,4 +35,9 @@ Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource
 
     ```bash
     kubectl apply -f example-restore.yaml
+    ```
+3. Run the following command to view the restored PV.
+
+    ```bash
+    kubectl 加一个命令，或者 example 结果
     ```

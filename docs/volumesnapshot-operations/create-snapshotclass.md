@@ -13,7 +13,8 @@ A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each
 |[`DeletionPolicy`](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/)|Allows you to configure what happens to the VolumeSnapshotContent when the VolumeSnapshot object is to be deleted, either be `Retain` or `Delete`.|`Retain`大小写敏感吗|
 
 **Procedure**
-1. Create a YAML file and specify the field `driver`. 
+
+1. Create a YAML file and specify the field `driver` and `deletionPolicy`.(明确字段设置的建议)
 
     ```yaml
     apiVersion: snapshot.storage.k8s.io/v1beta1

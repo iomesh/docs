@@ -47,6 +47,6 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 3. Run the following command to view the newly created StorageClass.
 
     ```
-    kubectl get -f sc.yaml # 需要确认命令
+    kubectl get storageclass 你的storageclass的name
     ```
   

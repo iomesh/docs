@@ -67,7 +67,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     | --- | --- |
     | `iomesh.com/bd-devicePath` | Shows the device path on the worker node.|
     | `iomesh.com/bd-deviceType` | Shows if it is a disk or a partition.|
-    | `iomesh.com/bd-driverType` | Shows the driver type, incluing HDD, SSD, NVMe.|
+    | `iomesh.com/bd-driverType` | Shows the disk type, incluing HDD, SSD, NVMe.|
     | `iomesh.com/bd-serial` | Shows the disk serial number.|
     | `iomesh.com/bd-vendor` | Shows the disk vendor.|
 
@@ -85,7 +85,7 @@ Before configuring device map, familiarize yourself with mount type and device s
 |Parameter|Value|Description|
 |---|---|---|
 |<code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | The label selector to list `BlockDevice` available for use.                     |
-|<code>exclude</code>  |[]string | The name list of `BlockDevice` which will be excluded from being mounted. |
+|<code>exclude</code>  |[]string 确认一下 | The name list of `BlockDevice` which will be excluded from being mounted. |
 
 For more information, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 
@@ -113,7 +113,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
           <mount-type>:
             selector:
               matchLabels:
-                <label-key>: <label-value> # Enter the key-value for the device.
+                <label-key>: <label-value> # Enter the key-value for the device. 怎么填：确认填哪些 label(是否为查出来的所有 label), 是否有可选和必须
               matchExpressions:
               - key: <label-key> 
                 operator: In
@@ -176,7 +176,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
 
     Once configured, block devices filtered out will be mounted on the IOMesh cluster.
 
-5. Run the following command to verify that `STATUS` of `BlockDevice` you select becomes `Claimed`.
+5. Run the following command to verify that `CLAIMSTATE` of `BlockDevice` you select becomes `Claimed`.
 
     ```bash
     kubectl --namespace iomesh-system -o wide get blockdevice
