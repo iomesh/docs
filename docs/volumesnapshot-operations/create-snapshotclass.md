@@ -34,6 +34,6 @@ A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each
 3. Run the following command to check the snapshot class.
 
     ```
-    kubectl 增加一个查看的命令？
+    kubectl get volumesnapshotclass <snapshotclass_name>
     ```
-    加一个 example
+

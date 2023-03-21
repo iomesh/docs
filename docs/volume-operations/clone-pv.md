@@ -44,5 +44,13 @@ Verify that there is already a PVC available for cloning.
     ```
    
    
-   After running the command，要有一个 example（或者加一个查看命令）
+3. Run the following command to check the new PVC.
 
+    ```
+    kubectl get pvc cloned-pvc
+    ```
+   After running the command, you should see an example like:
+    ```output
+    NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
+    cloned-pvc                                  Bound    pvc-44230f3f-47dc-46e8-8c42-38c073c40598   5Gi        RWO            iomesh-csi-driver   21h   
+    ```
