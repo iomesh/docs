@@ -39,6 +39,11 @@ Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource
     ```
 3. Run the following command to view the restored PV.
 
-    ```bash
-    kubectl 加一个命令，或者 example 结果
+    ```
+    kubectl get pvc example-restore
+    ```
+   After running the command, you should see an example like:
+    ```output
+    NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
+    example-restore                             Bound    pvc-54230f3f-47dc-46e8-8c42-38c073c40598   6Gi        RWO            iomesh-csi-driver   21h   
     ```
