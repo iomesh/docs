@@ -8,7 +8,6 @@ To create a PV, you should first create a PVC. Once done, IOMesh will sense the 
 
 Acccess mode 说明
 
-
 **Prerequisite**
 
 Ensure that there is already a StorageClass available for use.
@@ -22,19 +21,17 @@ Ensure that there is already a StorageClass available for use.
     metadata:
       name: iomesh-example-pvc
     spec:
-      storageClassName: iomesh-example-sc # Specify the StorageClass.
+      storageClassName: # Specify the StorageClass.
       accessModes:
-        - ReadWriteOnce # Specify the access mode. 问子银哪些可以配置
+        - # Specify the access mode. 问子银哪些可以配置
       resources:
         requests:
-          storage: 10Gi # Specify the storage capacity 没有默认值，一定要做
+          storage:  # Specify the storage capacity value.
       volumeMode: Block
     ```
 
 
-因为需要在创建的时候说 accessmodes 和 volumemode 的关系
-
-    For details, refer to [Kubernetes Documentation]().
+    For details, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
   
 2. Run the following command to create the PVC.
 
@@ -42,7 +39,7 @@ Ensure that there is already a StorageClass available for use.
     kubectl apply -f pvc.yaml
     ```
 
-3. Run the following command to check the new PVC.
+3. Run the following command to see the PVC.
 
     ```
     kubectl get pvc iomesh-example-pvc

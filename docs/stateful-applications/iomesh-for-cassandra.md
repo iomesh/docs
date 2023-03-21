@@ -16,7 +16,7 @@ Verify the IOMesh cluster is already deployed.
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-cassandra-sc
-    provisioner: com.iomesh.csi-driver # The driver.name in `IOMesh.yaml` when deploying IOMesh cluster.
+    provisioner: com.iomesh.csi-driver # The driver.name in `iomesh.yaml` during installation.
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:

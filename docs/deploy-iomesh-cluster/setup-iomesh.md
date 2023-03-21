@@ -77,14 +77,14 @@ Before configuring device map, familiarize yourself with mount type and device s
 **Mount Type**
 |Deployment Mode|Mount Type|
 |---|---|
-|`hybrid`|Provides two mount types: `cacheWithJournal` and `dataStore`.  <p>`cacheWithJournal`：used for the performance layer of storage pool and **MUST** be a partitionable block device. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</p>`dataStore`: used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.|
-|`allflash`|<p>Only provides one mount type `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe` SSD is recommended.|
+|`hybrid`|Provides two mount types: `cacheWithJournal` and `dataStore`.  <p>`cacheWithJournal` is used for the performance layer of storage pool and **MUST** be a partitionable block device. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</p>`dataStore` is used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.|
+|`allflash`|<p>Only provides one mount type: `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe SSD` is recommended.|
 
 **Device Selector**
 |Parameter|Value|Description|
 |---|---|---|
 |<code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | The label selector to list `BlockDevice` available for use.                     |
-|<code>exclude</code>  |[]string 确认一下 | The name list of `BlockDevice` which will be excluded from being mounted. |
+|<code>exclude</code>|[block-device-name]| The `BlockDevice` name will be excluded from being mounted. |
 
 For more information, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 
@@ -112,7 +112,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
           <mount-type>:
             selector:
               matchLabels:
-                <label-key>: <label-value> # Enter the key-value for the device. 怎么填：确认填哪些 label(是否为查出来的所有 label), 是否有可选和必须
+                <label-key>: <label-value> # Enter key and value as needed.
               matchExpressions:
               - key: <label-key> 
                 operator: In

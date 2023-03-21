@@ -7,18 +7,19 @@ sidebar_label: Restoring Volume from Snapshot
 
 Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource` field referencing to the target snapshot. 
 
-快照恢复是否有前提条件或注意事项
-新卷的容量需和原卷保持一致
+**Precaution**
+
+The storage capacity value in the new PV should be the same as that of the source PV.
 
 **Procedure**
 
-1. Create a PVC `restore。yaml`.
+1. Create a YAML config `restore.yaml`. 
 
     ```yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: example-restore
+      name: example-restore 
     spec:
       storageClassName: iomesh-csi-driver
       dataSource:
@@ -32,12 +33,12 @@ Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource
           storage: 6Gi
     ```
 
-2. Run the following command to apply the YAML file. 
+2. Run the following command to apply the YAML config.
 
     ```bash
     kubectl apply -f restore.yaml
     ```
-3. Run the following command to view the restored PV.
+3. Run the following command to see the PVC. A PV will be created and bounded to this PVC.
 
     ```
     kubectl get pvc example-restore
