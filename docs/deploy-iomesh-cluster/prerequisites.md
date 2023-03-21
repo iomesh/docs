@@ -4,7 +4,7 @@ title: Prerequisites
 sidebar_label: Prerequisites
 ---
 
-IOMesh can be installed on the Kubernetes platform or the Redhat Openshift Container platform. Before installing and deploying IOMesh, verify the following requirements.
+Before installing and deploying IOMesh, verify the following requirements.
 
 ### Cluster Requirements
 
@@ -24,11 +24,11 @@ At least 16 GB on each worker node.
 
 **Storage Controller**
 
-SAS HBA cards or RAID cards that support pass-through mode (JBOD). 
+The storage controller should be the SAS HBA or RAID cards that support passthrough mode (JBOD). 
 
 **OS Disk**
 
-One SSD with 100GB free space in /opt directory for storing IOMesh metadata.
+Each worker node should have an SSD with 100 GB free space in `/opt` directory for storing IOMesh metadata.
 
 **Data & Cache Disk**
 
@@ -36,21 +36,24 @@ Depends on whether the storage architecture is tiered storage or non-tiered stor
 
 |Architecture|Description|
 |---|---|
-|Tiered Storage|使用高速介质做缓存，低速介质做容量。“高速”和“低速”是相对概念，例如将速度更快的 NVMe SSD 作为缓存盘，充分发挥硬件性能，而速度稍低的 SATA SSD 或者 HDD 作为数据盘。使用分层模式时，可以选择混闪配置或者全闪配置。|
-|Non-Tiered Storage|不设置缓存盘。除了含有系统分区的物理盘，剩余的所有物理盘都作为数据盘使用。存储不分层模式只能使用全闪配置。|
+|Tiered Storage| Faster storage media for cache and slower storage media for capacity. For example, use faster NVMe SSDs as cache disks and slower SATA SSDs or HDDs as data disks. IOMesh 1.0 supports only hybrid mode for tiered storage.|
+|Non-Tiered Storage|Cache disks are not required. All disks except the physical disk containing the system partition are used as data disks.|
 
-In IOMesh 1.0, tiered storage only supports hybrid mode and non-tiered storage supports all-flash mode.
-|Deployment Mode|Disk Requirements for Each Worker Node|
+In IOMesh 1.0, hybrid mode is only supported for tiered storage, and all-flash mode is supported for non-tiered storage.
+
+|Deployment Mode|Disk Requirements|
 |---|---|
-|Hybrid Mode|xxxxxxxx|
-|All-Flash Mode|XXXXXX|
+|Hybrid Mode|<p>At least 2 SATA, SAS or NVMe SSDs.</p><p>At least 4 SAS or SATA HDDs.</P><p>The total SSD disk capacity should be 10% to 20% of the total HDD disk capacity.</P>|
+|All-Flash Mode|At least 2 SSDs, each with a capacity greater than 60G.|
 
 **NIC**
 
-At least one 10/25 GbE NIC for each worker node.
+Each worker node should have at least one 10/25 GbE NIC.
 
 ### Network Requirements
-To avoid contention on network bandwidth, a storage network, either created or an existing one, is required and should be exclusively used by IOMesh. 
+To avoid contention for network bandwidth, a storage network is required for exclusive use by IOMesh, either by creating one or using an existing network.
+
+Additionally, consider the following:
 - All worker nodes must be connected to the L2 layer network.
 - The ping latency of the IOMesh storage network is below 1 ms.
 

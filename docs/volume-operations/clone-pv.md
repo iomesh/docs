@@ -16,7 +16,7 @@ A clone is a duplicate of an existing volume in the system and data on the sourc
 Verify that there is already a PVC available for cloning.
 
 **Procedure**
-1. Create a PVC `example-clone.yaml`. Specify the source PVC you want to clone.
+1. Create a YAML config `example-clone.yaml`. Specify the source PVC you want to clone.
 
     ```yaml
     apiVersion: v1
@@ -35,11 +35,14 @@ Verify that there is already a PVC available for cloning.
           storage: 5Gi # The capacity value must be the same or larger than that of the source volume.
       volumeMode: Block
     ```
+克隆的
 
 2. Run the following command to apply the YAML file. Once done, a clone of `existing-pvc` will be created.
 
     ```bash
     kubectl apply -f example-clone.yaml
     ```
+   
+   
    After running the command，要有一个 example（或者加一个查看命令）
 

@@ -13,7 +13,7 @@ Ensure that there is already a SnapshotClass.
 
 **Procedure**
 
-1. Create the YAML file. Specify the SnapshotClass and PVC.
+1. Create the YAML file `snapshot.yaml`. Specify the SnapshotClass and PVC.
 
     ```yaml
     apiVersion: snapshot.storage.k8s.io/v1beta1
@@ -21,15 +21,15 @@ Ensure that there is already a SnapshotClass.
     metadata:
       name: example-snapshot
     spec:
-      volumeSnapshotClassName: iomesh-csi-driver-default # Specify the SnapshotClass.
+      volumeSnapshotClassName: iomesh-csi-driver # Specify a SnapshotClass such as `iomesh-csi-driver`.
       source:
-        persistentVolumeClaimName: mongodb-data-pvc # Specify the PVC for which you want to take a snapshot.
+        persistentVolumeClaimName: mongodb-data-pvc # Specify the PVC for which you want to take a snapshot such as `mongodb-data-pvc`.
     ```
 
 2. Run the following command to apply the YAML file. A VolumeSnapshot will be created.
 
-    ```text
-    kubectl apply -f example-snapshot.yaml
+    ```bash
+    kubectl apply -f snapshot.yaml
     ```
 
 3. Once the VolumeSnapshot is created, the corresponding VolumeSnapshotContent will be created at the same time by IOMesh. Verify that they were both created by running the following command.

@@ -7,31 +7,20 @@ sidebar_label: Installing IOMesh
 Before installing IOMesh, refer to the following to choose how you install IOMesh.
 - Quick Installation：One click to install IOMesh online, but all parameters take default values and cannot be modified.
 - Custom Installation: Configure parameters during installation on your own.
-- Offline Installation: Recommended when the Kubernetes cluster cannot communicate with 外网 and support for custom parameters during installation.
+- Offline Installation: Recommended when the Kubernetes cluster cannot communicate with the public network and support for custom parameters during installation.
 
 ### Quick Installation
 
 1. Run the corresponding command according to your Linux distribution to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the following command, wait for a few minutes. 
-> **Note:**
-> 
-> `Helm3`, a package manager for Kubernetes, is included in the commands below. It will be installed automatically if it is not found. 
 
-<!--DOCUSAURUS_CODE_TABS-->
+    > **Note:**
+    > 
+    > `Helm3`, a package manager for Kubernetes, is included in the commands below. It will be installed automatically if it is not found. 
 
-<!--RHEL7/CentOS7-->
-
-```shell
-# The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment. 
-export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el7.sh | sh -
-```
-
-<!--RHEL8/CentOS8/CoreOS-->
-
-```shell
-# The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
-export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh_el8.sh | sh -
-```
-<!--END_DOCUSAURUS_CODE_TABS-->
+    ```shell
+    # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
+    export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
+    ```
 
 2. Run the following command to see if all pods in each worker node are running. If so, then IOMesh has been successfully installed.
 
@@ -40,12 +29,14 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     ```
 
     > **Note:**
+    >
+    > IOMesh Community Edition is selected by default in quick installation, and the license is valid for 30 days. After expiration, the IOMesh cluster will reject all write requests. If you plan to try IOMesh Community Edition for more than 30 days, apply for a permanent license for free on the IOMesh official website https://www.iomesh.com/license.
+
+    > **Note:**
     > 
     > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
 ### Custom Installation 
-
-If you want to configure parameters during installation on your own, follow the steps below to manually install IOMesh.
 
 1. Run the following commands to install `Helm`. Skip this step if `Helm` is already installed. 
 
@@ -84,8 +75,14 @@ If you want to configure parameters during installation on your own, follow the 
     ```yaml
     diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
     ```
+
+    Mandatory: Select IOMesh edition, which defaults to IOMesh Community Edition. You can set the field `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
    
-    Optional: If you want to specify specific Kubernetes worker nodes to provide disks, configure the values of the node label.
+   ```yaml
+    edition: "community" # Specify IOMesh edition.
+    ```
+
+    Optional: If you only expect IOMesh to use the disks of the specified Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
       
     ```yaml
     iomesh:
@@ -188,23 +185,23 @@ If you want to configure parameters during installation on your own, follow the 
     ```
 3. Load the IOMesh image on each Kubernetes node and then execute the corresponding scripts based on your container runtime and container manager.
 
-<!--DOCUSAURUS_CODE_TABS-->
+    <!--DOCUSAURUS_CODE_TABS-->
 
-<!--Docker-->
-```shell
-docker load --input ./images/iomesh-offline-images.tar
-```
-<!--Containerd-->
-```shell
-ctr --namespace k8s.io image import ./images/iomesh-offline-images.tar
-```
+    <!--Docker-->
+    ```shell
+    docker load --input ./images/iomesh-offline-images.tar
+    ```
+    <!--Containerd-->
+    ```shell
+    ctr --namespace k8s.io image import ./images/iomesh-offline-images.tar
+    ```
 
-<!--Podman-->
-```shell
-podman load --input ./images/iomesh-offline-images.tar
-```
+    <!--Podman-->
+    ```shell
+    podman load --input ./images/iomesh-offline-images.tar
+    ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+    <!--END_DOCUSAURUS_CODE_TABS-->
 
 4. Export the IOMesh default configuration file into `iomesh.yaml`. 
 
@@ -222,9 +219,17 @@ podman load --input ./images/iomesh-offline-images.tar
         dataCIDR: "10.234.1.0/24" # Replace "10.234.1.0/24" with the actual one.
     ```
 
-    Mandatory: Fill in `diskDeploymentMode`. The system defaults to `hybridFlash`. You can also set it to `allFlash`.(没有这个代码块)
+    Mandatory: Fill in `diskDeploymentMode`. The system defaults to `hybridFlash`. You can also set it to `allFlash`.
 
-    Optional: If you want to specify specific Kubernetes worker nodes to provide disks, configure the values of the node label.
+    ```yaml
+    diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
+    ```
+    Mandatory: Select IOMesh edition, which defaults to IOMesh Community Edition. You can set the field `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+
+    ```yaml
+    edition: "community" # Specify IOMesh edition.
+    ```
+    Optional: If you want to specify specific Kubernetes worker nodes for IOMesh, configure the values of the node label.
    
    ```yaml
    iomesh:
@@ -235,10 +240,10 @@ podman load --input ./images/iomesh-offline-images.tar
              requiredDuringSchedulingIgnoredDuringExecution:
                nodeSelectorTerms:
                - matchExpressions:
-                 - key: kubernetes.io/hostname # specific node label's key
+                 - key: kubernetes.io/hostname # Specify the key of the node label.
                    operator: In
                    values:
-                   - iomesh-worker-0 # specific node label's value
+                   - iomesh-worker-0 # Specify the values of the node label.
                    - iomesh-worker-1
     ```
     It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
@@ -309,5 +314,4 @@ podman load --input ./images/iomesh-offline-images.tar
 
     If the status of all pods is `Running` as shown above, then IOMesh has been installed successfully.
 
-### OpenShift Installation (这一章要去掉了？；LocalPV 融合部署)
 

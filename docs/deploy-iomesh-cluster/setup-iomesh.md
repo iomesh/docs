@@ -4,10 +4,10 @@ title: Setting Up IOMesh
 sidebar_label: Setting Up IOMesh
 ---
 
-After IOMesh is installed, you should mount block devices, also disks, from the Kubernetes worker nodes onto the IOMesh cluster so that IOMesh can use them to provide storage. 
+After IOMesh is installed, you should mount the block devices, which are the disks on the Kubernetes worker nodes, to the IOMesh cluster so that IOMesh can use them to provide storage.
 
 ### Viewing Block Device Objects 
-**Object** is a basic unit of Kubernetes resources, and in IOMesh, an individual block device can be viewed as a block device object. To mount block devices on IOMesh, you first need to know what block devices are available. 
+In IOMesh, an individual block device can be viewed as a block device object. To mount block devices on IOMesh, you first need to know which block device objects are available. 
 
 IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager). When deploying IOMesh, BlockDevice CR will be created in the same NameSpace as the IOMesh cluster, and you can see block devices available for use in this NameSpace.
 
@@ -32,7 +32,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     >
     > The field `FSTYPE` should be blank for each IOMesh block device. If not, the block device will be filtered out by the device selector.
    
-2. To get details of an individual block device, run the following command. Replace `<device_name>` with the block device name.
+2. Run the following command to get details of a block device object. Replace `<device_name>` with the block device name. 
 
     ```shell
     kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
@@ -60,9 +60,8 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
       name: blockdevice-3fa2e2cb7e49bc96f4ed09209644382e
     # ...
     ```
-
-    You can view details of this block device by checking labels with `iomesh.com/bd-` created by IOMesh.
-
+    Labels with `iomesh.com/bd-` are created by IOMesh and will be used for device selector.
+    
     | Label | Description |
     | --- | --- |
     | `iomesh.com/bd-devicePath` | Shows the device path on the worker node.|
@@ -71,7 +70,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     | `iomesh.com/bd-serial` | Shows the disk serial number.|
     | `iomesh.com/bd-vendor` | Shows the disk vendor.|
 
-### Configuring Devicemap
+### Configuring DeviceMap
 
 Before configuring device map, familiarize yourself with mount type and device selector.
 

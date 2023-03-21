@@ -13,7 +13,7 @@ The StorageClass must set `allowVolumeExpansion` to true. The default StorageCla
 
 **Procedure**
 
-The following example assumes a PVC named `example-pvc` with a capacity of `10Gi`.
+The following example assumes a PVC named `example-pvc` with a capacity of `10Gi`. YAML `pvc.yaml`
 
     ```yaml
     apiVersion: v1
@@ -61,16 +61,16 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
 3. Run the following command to apply the new YAML file.
 
     ```bash
-    kubectl apply -f example-pvc.yaml
+    kubectl apply -f pvc.yaml
     ```
 
-4. Run the following command to check the capacity of the PVC.
+4. Run the following command to check the capacity of the PVC. 获取对应的 PV 名字
 
     ```bash
     kubectl get pvc example-pvc 
     ```
 
-    After running the command, you should see an example below:
+    After running the command, you should see an example below: 
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
@@ -80,7 +80,7 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
 6. Once the PVC modification is applied, a new PV will be created. Run the following command to check the capacity of the new PV.
    
     ```bash
-    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # 这个名字哪来的
+    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # 上一步获取的 PV 名字
     ```
 
     After running the command, you should see an example like this:

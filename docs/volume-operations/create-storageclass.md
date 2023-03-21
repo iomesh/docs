@@ -18,13 +18,13 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 
 **Procedure**
 
-1. Create a StorageClass `sc.yaml` and configure its parameters.
+1. Create a YAML config `sc.yaml` and configure its parameters.
 
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
-      name: iomesh-csi-driver-default
+      name: storageclass_name
     provisioner: com.iomesh.csi-driver 
     reclaimPolicy: Delete # 根据子银最新内容增加指示。
     allowVolumeExpansion: true 
@@ -41,12 +41,12 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 2. Run the following command to apply the YAML file.
 
     ```
-    kubectl apply -f sc.yaml # 文件名需要确认
+    kubectl apply -f sc.yaml 
     ```
 
 3. Run the following command to view the newly created StorageClass.
 
     ```
-    kubectl get storageclass 你的storageclass的name
+    kubectl get storageclass <storageclass_name>
     ```
   
