@@ -80,7 +80,7 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
 6. Once the PVC modification is applied, a new PV will be created. Run the following command to check the capacity of the new PV.
    
     ```bash
-    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # 上一步获取的 PV 名字
+    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca 
     ```
 
     After running the command, you should see an example like this:

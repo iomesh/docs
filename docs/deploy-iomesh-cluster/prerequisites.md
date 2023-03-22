@@ -36,10 +36,10 @@ Depends on whether the storage architecture is tiered storage or non-tiered stor
 
 |Architecture|Description|
 |---|---|
-|Tiered Storage| Faster storage media for cache and slower storage media for capacity. For example, use faster NVMe SSDs as cache disks and slower SATA SSDs or HDDs as data disks. IOMesh 1.0 supports only hybrid mode for tiered storage.|
+|Tiered Storage| Faster storage media for cache and slower storage media for capacity. For example, use faster NVMe SSDs as cache disks and slower SATA SSDs or HDDs as data disks. IOMesh 1.0 only provides support for hybrid mode for tiered storage.|
 |Non-Tiered Storage|Cache disks are not required. All disks except the physical disk containing the system partition are used as data disks.|
 
-In IOMesh 1.0, hybrid mode is only supported for tiered storage, and all-flash mode is supported for non-tiered storage.
+In IOMesh 1.0, hybrid mode is only supported for tiered storage and all-flash mode for non-tiered storage.
 
 |Deployment Mode|Disk Requirements|
 |---|---|

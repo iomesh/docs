@@ -9,7 +9,7 @@ sidebar_label: IOMesh for Cassandra
 Verify the IOMesh cluster is already deployed.
 
 **Procedure**
-1. Create a StorageClass `iomesh-cassandra-sc.yaml`. You can also directly choose the default StorageClass.
+1. Create a YAML config `iomesh-cassandra-sc.yaml`. You can also directly choose the default StorageClass.
 
     ```yaml
     kind: StorageClass
@@ -51,7 +51,7 @@ Verify the IOMesh cluster is already deployed.
     ```bash
     kubectl apply -f cassandra-service.yaml
     ```
-5. Create a Statefulset for deploying Cassandra cluster.
+5. Create a Statefulset `cassandra-statefulset.yaml` for deploying Cassandra cluster.
 
     ```yaml
     apiVersion: apps/v1

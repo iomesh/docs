@@ -6,7 +6,9 @@ sidebar_label: Creating PV
 
 To create a PV, you should first create a PVC. Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them together. Then the pair of PV and PVC will be ready to use.
 
-Acccess mode 说明
+**Precaution**
+
+IOMesh supports access modes `ReadWriteOnce`, `ReadOnlyMany`, `ReadWriteMany`, and `ReadWriteOncePod`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
 
 **Prerequisite**
 
@@ -23,7 +25,7 @@ Ensure that there is already a StorageClass available for use.
     spec:
       storageClassName: # Specify the StorageClass.
       accessModes:
-        - # Specify the access mode. 问子银哪些可以配置
+        - # Specify the access mode. 
       resources:
         requests:
           storage:  # Specify the storage capacity value.

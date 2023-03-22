@@ -11,7 +11,7 @@ Verify the IOMesh cluster is already deployed.
 
 **Procedure**
 
-1. Create a StorageClass named `iomesh-mongodb-sc.yaml` with the following parameters.
+1. Create a YAML config `iomesh-mongodb-sc.yaml` with the following parameters.
 
     ```yaml
     kind: StorageClass
@@ -56,7 +56,7 @@ Verify the IOMesh cluster is already deployed.
     ```bash
     kubectl apply -f mongodb-service.yaml
     ```
-5. Create a StatefulSet for MongoDB. In the field `storageClassName`, type the StorageClass you choose in Step 1.
+5. Create a StatefulSet `mongodb-statefulset.yaml` for MongoDB. In the field `storageClassName`, type the StorageClass you choose in Step 1.
 
     ```yaml
     apiVersion: apps/v1beta1

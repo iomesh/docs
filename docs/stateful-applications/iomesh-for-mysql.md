@@ -4,14 +4,14 @@ title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 ---
 
-IOMesh provides persistent storage for stateful applications like Cassandra, MySQL, and MongDB. The following section describes how to deploy these stateful applications using IOMesh. 需要一段话简述 IOMesh 和 Stateful Application 的关系。
+IOMesh provides persistent storage for stateful applications like Cassandra, MySQL, and MongDB. The following section describes how to deploy these stateful applications using IOMesh.
 
 **Prerequisite**
 
 Verify that your IOMesh cluster is already deployed. 
 
 **Procedure**
-1. Create the StorageClass `iomesh-mysql-sc.yaml`. You can directly use the default StorageClass or create one with custom parameters. Refer to [Creating StorageClass](../volume-operations/create-storageclass.md#creating-storageclass) for detailed information.
+1. Create a YAML config `iomesh-mysql-sc.yaml`. You can directly use the default StorageClass or create one with custom parameters. Refer to [Creating StorageClass](../volume-operations/create-storageclass.md#creating-storageclass) for detailed information.
 
     ```yaml
     kind: StorageClass
@@ -90,6 +90,8 @@ Verify that your IOMesh cluster is already deployed.
             persistentVolumeClaim:
               claimName: iomesh-mysql-pvc 
     ```
+
+    For more information, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
 4. Run the following command to apply the YAML file.
 

@@ -9,7 +9,7 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 | Parameter|Description|Default (`iomesh-csi-driver`)|
 |---|---|---|
 |`provisioner`| The provisioner that determines what volume plugin is used for provisioning PVs. |`com.iomesh.csi-driver`|
-|`reclaimPolicy`|<p>The reclaim policy for dynamically provisioned PVs, either `retain` or `delete`.</p> 注意事项: 子银会给一版新的内容。|`delete`|
+|`reclaimPolicy`|<p>Determines whether PV is retained when the PVC is deleted.</p><p>`Delete`: When PVC is deleted, PV and the corresponding IOMesh volume will be deleted when the PVC is deleted. <p>`Retain`: When PVC is deleted, PV and the corresponding IOMesh volume will be retained.|`delete`|
 |`allowVolumeExpansion`|Shows if volume expansion support is enabled.| `true`|
 |`csi.storage.k8s.io/fstype`|The filesystem type, including "xfs", "ext2", "ext3", "ext4"|`ext4`|
 |`replicaFactor` | The number of replicas for PVs, including 2 or 3.|`2`|   
@@ -26,7 +26,7 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
     metadata:
       name: storageclass_name
     provisioner: com.iomesh.csi-driver 
-    reclaimPolicy: Delete # 根据子银最新内容增加指示。
+    reclaimPolicy: Delete # Specify the reclaim policy.
     allowVolumeExpansion: true 
     parameters:
       # Specify the file system type, including "ext4", "ext3", "ext2", and "xfs".
