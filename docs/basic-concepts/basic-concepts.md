@@ -4,15 +4,16 @@ title: Basic Concepts
 sidebar_label: Basic Concepts
 ---
 
-Before deploying and using IOMesh, you need to understand some concepts related to IOMesh to help you better understand and use IOMesh.  
+Before deploying and using IOMesh, familiarity with the following concepts is suggested.
 
 **Kubernetes**
 
-Kubernetes is an open source container orchestration platform that automates deployment, management and scaling of applications.
-
-Kubernetes 是一个可移植、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。 Kubernetes 拥有一个庞大且快速增长的生态，其服务、支持和工具的使用范围相当广泛。
+An open source container orchestration platform for managing containerized workloads and services, facilitating both declarative configuration and automation.
 
 **Node**
+
+
+
 
 Kubernetes 通过将容器放入在节点上运行的 Pod 中来运行工作负载。节点可以是一个虚拟机或者物理机。一个 Kubernetes 集群中包含两种不同角色的节点：Control Plane 节点和 Worker 节点。
 
@@ -24,14 +25,21 @@ Control Plane 节点上运行 Kubernetes 集群的控制平面组件（Control P
 
 Worker 节点上运行 Kubernetes 集群的节点组件和容器化的用户工作负载。IOMesh 部署、安装、运行在 Worker 节点上。
 
-**Stateful Applications**
+**kubectl**
+
+The Kubernetes command-line tool, allowing you to run commands against Kubernetes clusters. 
+
+
+**Stateful Application**
+
+
 
 有状态应用将数据保存到永久性磁盘存储空间，以供服务器、客户端和其他应用使用。供其他应用在其中保存并检索数据的数据库，或键值对存储区就是一种有状态应用的示例。
 与有状态应用不同的是，无状态应用在切换会话时，不会将客户端数据保存到服务器。
 
 **CSI**
 
-CSI（容器存储接口）定义了存储系统暴露给容器的标准接口。
+Container storage interface. A standard for exposing arbitrary block and file storage systems to containerized workloads on Container Orchestration Systems (COs) like Kubernetes.
 
 **IOMesh Block Storage**
 
@@ -47,9 +55,11 @@ SmartX 自主研发的符合 Kubernetes CSI 规范的 CSI 驱动，使用 RPC (R
 IOMesh 的自动化运维组件，通过支持 IOMesh 滚动升级、节点扩容缩容、GitOps 提供了统一的运维方体验；同时负责块设备的自动发现、分配、管理。
 
 **Namespace**
+
 名字空间（Namespace） 提供一种机制，将同一集群中的资源划分为相互隔离的组，可以在一个集群按需创建组并分开管理。
 
 **StorageClass**
+
 存储类（StorageClass）为管理员提供了描述存储“类”的方法，包含 provisioner、parameters 和 reclaimPolicy 等字段。这些字段会在 StorageClass 需要动态制备 PersistentVolume 时使用，也可以把存储类理解为 PV 动态制备的模板。这个“类”的概念在其他存储系统中有时被称为 “配置文件”。
 
 **Persistent Volume**
@@ -100,6 +110,9 @@ IOMesh 支持使用 Helm Chart 部署。
 
 **Prometheus**
 
+An open-source system monitoring and alerting toolkit. 
+
+
 Prometheus 是一个开源的系统监控和警报工具包。Prometheus以时间序列数据的形式收集和存储其指标，也就是说，指标信息与记录的时间戳，同时还有被称为标签的可选键值对会一起被存储。
 （Prometheus is an open-source systems monitoring and alerting toolkit. Prometheus collects and stores its metrics as time series data, i.e. metrics information is stored with the timestamp at which it was recorded, alongside optional key-value pairs called labels.）
 
@@ -107,6 +120,8 @@ IOMesh 支持使用 Prometheus 来监控集群内存储相关的指标并提供�
 
 **Grafana**
   
+
+
 Grafana 是一个开源软件，提供了查询、可视化、提醒和探索指标、日志和追踪的能力。Grafana 可以将时间序列数据库（TSDB）数据转换为有洞察力的可视化图形。
 IOMesh 提供了标准的 Grafana Dashboard 模板和报警规则 Json 文件，供用户导入自己的 Grafana。
 
