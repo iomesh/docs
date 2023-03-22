@@ -12,10 +12,7 @@ An open source container orchestration platform for managing containerized workl
 
 **Node**
 
-
-
-
-Kubernetes 通过将容器放入在节点上运行的 Pod 中来运行工作负载。节点可以是一个虚拟机或者物理机。一个 Kubernetes 集群中包含两种不同角色的节点：Control Plane 节点和 Worker 节点。
+Kubernetes runs workloads by placing containers into Pods running on nodes. A node can be a virtual machine or a physical machine. A Kubernetes cluster contains nodes with two different roles: a Control Plane node and a Worker node.
 
 **Control Plane Node**
 
@@ -32,8 +29,6 @@ The Kubernetes command-line tool, allowing you to run commands against Kubernete
 
 **Stateful Application**
 
-
-
 有状态应用将数据保存到永久性磁盘存储空间，以供服务器、客户端和其他应用使用。供其他应用在其中保存并检索数据的数据库，或键值对存储区就是一种有状态应用的示例。
 与有状态应用不同的是，无状态应用在切换会话时，不会将客户端数据保存到服务器。
 
@@ -43,26 +38,28 @@ Container storage interface. A standard for exposing arbitrary block and file st
 
 **IOMesh Block Storage**
 
-IOMesh 底层的高性能块存储服务，用于保障分布式系统一致性与数据一致性，管理元数据和本地磁盘，提供 I/O 重定向和高可用的能力。
+IOMesh high-performance block storage service for guaranteeing distributed system consistency and data coherence, managing metadata and local disks, and providing I/O redirection and high availability.
 
 **IOMesh CSI Driver**
 
-SmartX 自主研发的符合 Kubernetes CSI 规范的 CSI 驱动，使用 RPC (Remote Procedure Call) 的方式管理 PV，能够为运行在 Kubernetes 上的数据类应用提供持久化存储能力。
-每个 Kubernetes 持久卷对应一个 IOMesh Block Storage 存储集群中的 iSCSI LUN。
+The CSI driver that complies with the Kubernetes CSI standard, managing PVs using RPC (Remote Procedure Call) to provide persistent storage for data applications running on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in an IOMesh cluster.
 
 **IOMesh Operator**
 
-IOMesh 的自动化运维组件，通过支持 IOMesh 滚动升级、节点扩容缩容、GitOps 提供了统一的运维方体验；同时负责块设备的自动发现、分配、管理。
+The automated O&M component of IOMesh, allowing for rolling upgrades of IOMesh, scaling up or down nodes, GitOps, and also automatic discovery, allocation, and management of block devices.
 
 **Namespace**
 
-名字空间（Namespace） 提供一种机制，将同一集群中的资源划分为相互隔离的组，可以在一个集群按需创建组并分开管理。
+A mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces
 
 **StorageClass**
+
+Provides a way for administrators to describe the "classes" of storage they offer
 
 存储类（StorageClass）为管理员提供了描述存储“类”的方法，包含 provisioner、parameters 和 reclaimPolicy 等字段。这些字段会在 StorageClass 需要动态制备 PersistentVolume 时使用，也可以把存储类理解为 PV 动态制备的模板。这个“类”的概念在其他存储系统中有时被称为 “配置文件”。
 
 **Persistent Volume**
+
 持久卷（PersistentVolume，PV）是集群中的一块存储，与节点相似，都是集群层面的资源。持久卷可以由管理员事先制备，或者使用存储类（StorageClass）来动态制备。持久卷和普通的卷 一样， 也是使用卷插件来实现的，只是它们拥有独立于任何使用持久卷的 Pod 的生命周期。
 
 **Persistent Volume Claim**
@@ -88,6 +85,8 @@ volumeMode 属性设置为 filesystem 的卷会被 Pod 挂载（Mount）到某�
 
 **Access Mode**
 
+Kubernetes supports three kinds of access modes for PVs: ReadWriteOnce, ReadOnlyMany, and ReadWriteMany.
+
 访问模式（Access Modes）指的是持久卷所支持的具体访问方式。持久卷可以用资源提供者所支持的任何方式挂载到宿主系统上。资源提供者的能力不同，持久卷支持的访问模式也有所不同。访问模式有以下几种：
 
 ReadWriteOnce
@@ -105,26 +104,20 @@ IOMesh 支持 ReadWriteOnce，ReadWriteMany（仅 Block 类型的 PV），ReadOn
 
 **Helm**
 
-Helm 是 Kubernetes 的包管理器，帮助查找、分享和使用软件构建 Kubernetes。Helm Chart 可以帮助定义、安装和升级最复杂的 Kubernetes 应用程序。
-IOMesh 支持使用 Helm Chart 部署。
+Helm is a package manager for Kubernetes that helps find, share, and build Kubernetes with software. Helm Chart can help define, install, and upgrade even the most complex Kubernetes applications. IOMesh supports deployments using Helm Chart.
 
 **Prometheus**
 
-An open-source system monitoring and alerting toolkit. 
-
-
-Prometheus 是一个开源的系统监控和警报工具包。Prometheus以时间序列数据的形式收集和存储其指标，也就是说，指标信息与记录的时间戳，同时还有被称为标签的可选键值对会一起被存储。
+An open-source system monitoring and alerting toolkit. Prometheus 是一个开源的系统监控和警报工具包。Prometheus以时间序列数据的形式收集和存储其指标，也就是说，指标信息与记录的时间戳，同时还有被称为标签的可选键值对会一起被存储。
 （Prometheus is an open-source systems monitoring and alerting toolkit. Prometheus collects and stores its metrics as time series data, i.e. metrics information is stored with the timestamp at which it was recorded, alongside optional key-value pairs called labels.）
 
 IOMesh 支持使用 Prometheus 来监控集群内存储相关的指标并提供报警。
 
 **Grafana**
   
-
-
 Grafana 是一个开源软件，提供了查询、可视化、提醒和探索指标、日志和追踪的能力。Grafana 可以将时间序列数据库（TSDB）数据转换为有洞察力的可视化图形。
 IOMesh 提供了标准的 Grafana Dashboard 模板和报警规则 Json 文件，供用户导入自己的 Grafana。
 
-**kubectl**
+
 
 

@@ -3,6 +3,9 @@
     "About IOMesh": [
       "introduction/introduction"
     ],
+    "Basic Concepts":[
+      "basic-concepts/basic-concepts"
+    ]
     "Deploy IOMesh Cluster": [
       "deploy-iomesh-cluster/prerequisites",
       "deploy-iomesh-cluster/setup-worker-node",
@@ -13,6 +16,7 @@
     "Volume Operations": [
       "volume-operations/create-storageclass",
       "volume-operations/create-pv",
+      "volume-operations/create-pv-authentication",
       "volume-operations/expand-pv",
       "volume-operations/clone-pv"
     ],
@@ -25,6 +29,11 @@
       "stateful-applications/iomesh-for-mysql",
       "stateful-applications/iomesh-for-cassandra",
       "stateful-applications/iomesh-for-mongodb"
+    ],
+    "Monitoring IOMesh":[
+      "monitor-iomesh/enabling-iomesh-metrics",
+      "monitor-iomesh/iomesh-metrics",
+      "monitor-iomesh/monitoring-iomesh"
     ]
   }
 }
