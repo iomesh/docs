@@ -4,16 +4,16 @@ title: Expanding PV
 sidebar_label: Expanding PV
 ---
 
-To expand the capacity of a PV, you should modify its corresponding PVC. Once done, new PVs based on this PVC  will be created with the new capacity. 
+To expand the capacity of a PV, you only need to modify the field `storage` in the corresponding PVC.
 
 **Prerequisite**
 
-The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to "true". 
+The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to `true`. 
 
 
 **Procedure**
 
-The following example assumes a PVC named `example-pvc` with a capacity of `10Gi`. YAML `pvc.yaml`
+The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with a capacity of `10Gi`.
 
     ```yaml
     apiVersion: v1
@@ -21,7 +21,7 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
     metadata:
       name: example-pvc
     spec:
-      storageClassName: iomesh-csi-driver-default
+      storageClassName: iomesh-csi-driver
       accessModes:
         - ReadWriteOnce
       resources:
@@ -39,7 +39,7 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver-default   11m
+    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
     ```
 
 2. Set the field `storage` to a new value.
@@ -50,12 +50,12 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
     metadata:
     name: example-pvc
     spec:
-      storageClassName: iomesh-csi-driver-default
+      storageClassName: iomesh-csi-driver
       accessModes:
         - ReadWriteOnce
     resources:
       requests:
-        storage: 20Gi # Enter a new capacity value.
+        storage: 20Gi # Enter a new value greater than the original value.
     ```
 
 3. Run the following command to apply the new YAML file.
@@ -64,23 +64,23 @@ The following example assumes a PVC named `example-pvc` with a capacity of `10Gi
     kubectl apply -f pvc.yaml
     ```
 
-4. Run the following command to check the capacity of the PVC. 获取对应的 PV 名字
+4. Run the following command to check the capacity of the PVC. 
 
     ```bash
     kubectl get pvc example-pvc 
     ```
 
-    After running the command, you should see an example below: 
+    After running the command, you should see an example below and get the volume name.
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
     example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
     ```
 
-6. Once the PVC modification is applied, a new PV will be created. Run the following command to check the capacity of the new PV.
+6. Once the PVC modification is applied, the PV capacity will be expanded as well. Run the following command to check the PV capacity.
    
     ```bash
-    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca 
+    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # The PV name you get in Step 4.
     ```
 
     After running the command, you should see an example like this:
