@@ -1,26 +1,32 @@
 ---
-id: enabling-iomesh-metrics
-title: Enabling IOMesh Metrics
-sidebar_label: Enabling IOMesh Metrics
+id: installing-iomesh-dashboard
+title: Installing IOMesh Dashboard
+sidebar_label: Installing IOMesh Dashboard
 ---
 
-## Enabling Metrics for IOMesh
 
 Monitoring IOMesh storage is implemented on the monitoring capabilities of Prometheus. So make sure you have installed Prometheus and Prometheus Operator, and Prometheus is installed in the IOMesh system NameSpace.
 
 **Prerequisite**
 
-Verify that Prometheus and Prometheus Operator are installed, and Prometheus is located in the NameSpace `iomesh-system`.
+Verify that Prometheus and Prometheus Operator are already installed, and Prometheus is located in the NameSpace `iomesh-system`.
 
 **Procedure**
 
-1. Get `iomesh.yaml`. 
+### Enabling IOMesh Metrics
+1. Get `iomesh.yaml` ready. 
 
-   If you choose quick installation, run the following command to export `iomesh.yaml`. If you manually install IOMesh, you can get `iomesh.yaml` obtained at that process.
+   Quick Installation: Run the following command to export `iomesh.yaml`.
 
    ```
    helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
    ```
+   Offline Installation: Run the following command to export `iomesh.yaml`.
+
+    ```
+    ./helm -n iomesh-system get values iomesh -o yaml > values.yaml
+    ```
+    Custom Installation: You already have `iomesh.yaml` when you manually install IOMesh. 
 
 2. Edit `iomesh.yaml`, including `operator`, `iomesh`, and `blockdevice monitor`.
 
@@ -34,82 +40,88 @@ Verify that Prometheus and Prometheus Operator are installed, and Prometheus is 
       serviceMonitor: 
         create: true # Create a ServiceMonitor object.
         namespace: "" # Create a NameSpace for ServiceMonitor object, which defaults to iomesh-system.
-        labels: # Set label for ServiceMonitor object，which helps the user to filter ServiceMonitor object. 默认为空
+        labels: {} # Set the label for ServiceMonitor object to filter ServiceMonitor object, which defaults to blank.
 
-        # RelabelConfigs to apply to samples before scraping.
-        # More info: <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
-        relabelings: [] # Set Relabeling paramters for metrics according to needs, which defaults to blank.
+        # Configure Relabelings to be applied to samples before scraping. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
+        relabelings: [] # Set relabeling parameters for metrics according to needs, which defaults to blank.
       
       # Configure PrometheusRule for Prometheus Operator
       prometheusRule:
-        create: true # Create a PrometheusRule object for configuring monitoring rules.
-        namespace: "" # 创建 SerivceMonitor 对象的命名空间，默认为 iomesh-system
-        labels: # 设置 ServiceMonitor 对象的 Label，用于 Prometheus 对象的 spec.ruleSelector，默认为空
-
-      # kube-state-metrics config
+        create: true # Create a PrometheusRule object for configuring monitoring rules, which defaults to false.
+        namespace: "" # Create a NameSpace for PrometheusRule object, which defaults to iomesh-system.
+        labels: {} # Set labels for the PrometheusRule object to select PrometheusRule object, which defaults to blank.
+  
+      # Configure kube-state-metrics service 
       kubeStateMetrics:
-        create: true # 是否启用 kube-state-metrics 服务，如果集群中已经部署，这里可以设置为 false，默认为 false. 如果 k8s 集群已经安装了这个服务，这一步可以设置为 false
+        create: false # Whether you deploy kube-state-metrics service. If it is already deployed, set it to false.
         image:
           registry: registry.k8s.io
           repo: kube-state-metrics/kube-state-metrics
           tag: v2.7.0
 
-        # RelabelConfigs to apply to samples before scraping. 刮取的过程中可以替换 label(解释下面的 relabeling 这个动作)
-        # More info: <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
-        relabelings: [] # 按需设置 metrics 的 Relabling 参数，默认为空
+        # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
+        relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
     ```
 
     `iomesh` 
 
     ```yaml
     iomesh:
-      # Configure ServiceMonitor for Prometheus
+      # Configure ServiceMonitor for Prometheus.
       serviceMonitor:
-        create: true # Create a ServiceMonitor object.
-        namespace: "" # Create a NameSpace SerivceMonitor, which defaults to iomesh-system.
-        labels: # 设置 ServiceMonitor 对象的 Label，用于 Prometheus 对象的 spec.serviceMonitorSelector，默认为空
+        create: true # Set to true to create a serviceMonitor object. Default value is false.
+        namespace: "iomesh-system" # Create a NameSpace for the serviceMonitor object, which defaults to iomesh-system.
+        labels: {} # Set the label for the serviceMonitor object, which defaults to blank. 
       meta:
-        # RelabelConfigs to apply to samples before scraping.
-        # More info: <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
-        relabelings: [] # 按需设置 metrics 的 Relabling 参数，默认为空
+        # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>.
+        relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
       chunk:
-        # RelabelConfigs to apply to samples before scraping.
-        # More info: <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>    
-        relabelings: [] # 按需设置 metrics 的 Relabling 参数，默认为空
+        # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>.  
+        relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
     ```
 
     `blockdevice monitor`
 
     ```yaml
     blockdevice-monitor:
-      prometheusRule:
-        create: true # 创建 PrometheusRule 对象 
-        namespace: "monitoring" # 创建 PrometheusRule 对象的命名空间，默认为 iomesh-system
-        labels: # 设置 PrometheusRule 对象的 Label，用于 Prometheus 对象的 spec.ruleSelector，默认为空
-          app: iomesh
       podMonitor:
-        create: true # 创建 PodMonitor 对象
-        namespace: "monitoring" # 创建 PodMonitor 对象的命名空间，默认为 iomesh-system
-        labels: # 设置 PodMonitor 对象的 Label，用于 Prometheus 对象的 spec.serviceMonitorSelector，默认为空
-          app: iomesh
+        create: true # Set to true to create a PodMonitor object. Default value is false.
+        namespace: "iomesh-system" # Create a NameSpace for PodMonitor object, which defaults to iomesh-system.
+        labels: {} # Set the label for PodMonitor objects, which defaults to blank.
+      prometheusRule:
+        create: true # Set to true to create a PrometheusRule object. Default value is false.
+        namespace: "iomesh-system" # Create a NameSpace for PrometheusRule object, which defaults to iomesh-system.
+        labels: {} # Set the label for the PrometheusRule object, which defaults to blank.
       blockdevicemonitor:
-        # RelabelConfigs to apply to samples before scraping.
-        # More info: <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
-        relabelings: [] # 按需设置 metrics 的 Relabling 参数，默认为空
+        # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>. 
+        relabelings: [] # Set relabelings parameters, which defaults to blank.
       prober:
-        # RelabelConfigs to apply to samples before scraping.
-        # More info: <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
-        relabelings: [] # 按需设置 metrics 的 Relabling 参数，默认为空
+        # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>. 
+        relabelings: [] # Set relabelings parameters, which defaults to blank.
     ```
 
-3. Run the following command to apply your modifications.
+3. Run the corresponding command to apply modifications.
 
     ```bash
     helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     ```
 
+使用一键安装部署的
+ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./values.yaml
+使用离线安装部署的
+ ./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./values.yaml
 
- 
+
+
+
+### Importing Grafana Dashboard
+
+
+
+访问 {Grafana地址}/dashboard/import 或是在 Grafana 页面左上角点击 “Dashboard” -> “+ import” 即可来到 dashboard 导入界面
+
+
+
 
 
 

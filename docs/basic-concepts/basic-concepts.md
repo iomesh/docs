@@ -50,9 +50,7 @@ A mechanism for isolating groups of resources within a single cluster. Names of 
 
 **StorageClass**
 
-Provides a way for administrators to describe the "classes" of storage they offer
-
-存储类（StorageClass）为管理员提供了描述存储“类”的方法，包含 provisioner、parameters 和 reclaimPolicy 等字段。这些字段会在 StorageClass 需要动态制备 PersistentVolume 时使用，也可以把存储类理解为 PV 动态制备的模板。这个“类”的概念在其他存储系统中有时被称为 “配置文件”。
+Provides a way for administrators to describe the classes of storage they offer or a template for dynamically provisioning PVs. 
 
 **Persistent Volume**
 

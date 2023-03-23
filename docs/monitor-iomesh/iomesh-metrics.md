@@ -153,16 +153,16 @@ Before monitoring IOMesh storage, understand IOMesh metrics which can be interpr
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_volume_shared_logical_size_bytes` | Shows the size of shared logical space.|
+| `zbs_volume_shared_logical_size_bytes` | The size of shared logical space.|
 | `zbs_volume_unique_logical_size_bytes` | unique logical size 啥是 unique,独占？ |
-| `zbs_volume_logical_size_bytes` | Shows the total size of logical space.|
+| `zbs_volume_logical_size_bytes` | The total size of logical space.|
 
 **Volume IO**
 | Metrics | Description|    
 | --- | --- |
-| `zbs_volume_readwrite_latency_ns` | Shows the read/write latency for a volume. 是一个 volume 吗|
-| `zbs_volume_readwrite_speed_bps` | Shows the volume read/write speed.|
-| `zbs_volume_readwrite_size_bytes` | readwrite size of volue |
+| `zbs_volume_readwrite_latency_ns` | The volume read/write latency.|
+| `zbs_volume_readwrite_speed_bps` | The volume read/write speed.|
+| `zbs_volume_readwrite_size_bytes` | The volume readwrite size.|
 | `zbs_volume_readwrite_iops` | readwrite_iops of volume |
 | `zbs_volume_readwrite_iop30s` | readwrite_iop30s of volume |
 | `zbs_volume_read_latency_ns` | read_latency_ns of volume |

@@ -72,7 +72,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
 
 ### Configuring DeviceMap
 
-Before configuring device map, familiarize yourself with mount type and device selector.
+Before configuring device map, familiarize yourself with mount type and device selector. 
 
 **Mount Type**
 |Deployment Mode|Mount Type|

@@ -12,7 +12,7 @@ A Kubernetes cluster or an OpenShift cluster, either of which should have at lea
 
 ### Hardware Requirements 
 
-Verify that each worker node meets the following configuration requirements.
+Verify that each worker node meets the following configuration requirements. 社区版和企业版的硬件配置一样。
 
 **CPU**
 
@@ -51,9 +51,8 @@ In IOMesh 1.0, hybrid mode is only supported for tiered storage and all-flash mo
 Each worker node should have at least one 10/25 GbE NIC.
 
 ### Network Requirements
-To avoid contention for network bandwidth, a storage network is required for exclusive use by IOMesh, either by creating one or using an existing network.
-
-Additionally, consider the following:
+- Create a storage network dedicated to IOMesh. The ping latency of the IOMesh storage network should below 1 ms.
+- Plan the `dataCIDR` segment for IOMesh storage network. The IP of each worker node running IOMesh should be within that `dataCIDR` segment.
 - All worker nodes must be connected to the L2 layer network.
-- The ping latency of the IOMesh storage network is below 1 ms.
+
 

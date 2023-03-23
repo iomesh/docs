@@ -29,8 +29,7 @@
       "stateful-applications/iomesh-for-mongodb"
     ],
     "Monitoring IOMesh":[
-      "monitor-iomesh/enabling-iomesh-metrics",
-      "monitor-iomesh/iomesh-metrics",
+      "monitor-iomesh/installing-iomesh-dashboard",
       "monitor-iomesh/monitoring-iomesh"
     ]
   }
