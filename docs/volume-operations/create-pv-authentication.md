@@ -1,7 +1,7 @@
 ---
 id: create-pv-authentication
-title: Creating PV with authentication
-sidebar_label: Creating PV with authentication
+title: Creating PV with Authentication
+sidebar_label: Creating PV with Authentication
 ---
 
 You can create a PV with authentication and save the authentication information and user credentials in the Kubernetes secret. You must provide the correct credentials to access a PV with authentication.
@@ -48,12 +48,12 @@ This authentication is achieved by configuring a Secret for the StorageClass, an
     csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
     ```
     其中 parameters 中引用步骤 1 和 2 所创建的 secret 的字段如下：
-    |字段|	描述|
+    |Field|Description|
     |---|---|
-    |csi.storage.k8s.io/controller-publish-secret-name| 用于鉴权的 secret|
-    |csi.storage.k8s.io/controller-publish-secret-namespace|用于鉴权的 secret 所在的 namespace|
-    |csi.storage.k8s.io/node-stage-secret-name|登录认证时使用的 secret|
-    |csi.storage.k8s.io/node-stage-secret-namespace|登录认证时使用的 secret 所在的 namespace|
+    |`csi.storage.k8s.io/controller-publish-secret-name`| The Secret for authentication.|
+    |`csi.storage.k8s.io/controller-publish-secret-namespace`|The NameSpace where the Secret for authentication resides.|
+    |`csi.storage.k8s.io/node-stage-secret-name`|登录认证时使用的 secret|
+    |`csi.storage.k8s.io/node-stage-secret-namespace`|登录认证时使用的 secret 所在的 namespace|
 
 4. Create a PVC. Use the secret created in Step 2 for authentication in the `iomesh.com/key` field.
 

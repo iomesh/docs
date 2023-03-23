@@ -6,7 +6,7 @@ sidebar_label: IOMesh Metrics
 
 ## IOMesh Metrics
 
-Before monitoring IOMesh storage, you should understand IOMesh metrics which can be interpreted from the chunk, cluster, or volume level.
+Before monitoring IOMesh storage, understand IOMesh metrics which can be interpreted from the chunk, cluster, or volume level.
 
 ### Chunk Metrics
 
