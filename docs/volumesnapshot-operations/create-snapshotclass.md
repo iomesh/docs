@@ -36,6 +36,12 @@ A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each
     ```
     kubectl get volumesnapshotclass <snapshotclass_name>
     ```
+   After running the command, you should see an example like:
+    ```output
+    NAME                       DRIVER                  DELETIONPOLICY   AGE
+    <snapshotclass_name>       com.smartx.csi-driver   Delete           24s
+    ```
+  
 
    After running the command, you should see an example like:
     ```output
