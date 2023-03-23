@@ -28,13 +28,13 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     watch kubectl get --namespace iomesh-system pods
     ```
 
-    > **Note:**
-    >
-    > IOMesh Community Edition is selected by default in quick installation, and the license is valid for 30 days. After expiration, the IOMesh cluster will reject all write requests. If you plan to try IOMesh Community Edition for more than 30 days, apply for a permanent license for free on the IOMesh official website https://www.iomesh.com/license.
+> **Note:**
+>
+> IOMesh Community Edition is selected by default in quick installation, and the license is valid for 30 days. After expiration, the IOMesh cluster will reject all write requests. If you plan to try IOMesh Community Edition for more than 30 days, apply for a permanent license for free on the IOMesh official website https://www.iomesh.com/license.
 
-    > **Note:**
-    > 
-    > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
+> **Note:**
+> 
+> IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
 ### Custom Installation 
 
