@@ -13,7 +13,15 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 1. Run the corresponding command according to your Linux distribution to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the following command, wait for a few minutes. 
 
+> **Note:**
+> 
+> `Helm3`, a package manager for Kubernetes, is included in the commands below. It will be installed automatically if it is not found. 
 
+
+```shell
+# The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
+export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
+```
 
 2. Run the following command to see if all pods in each worker node are running. If so, then IOMesh has been successfully installed.
 
@@ -174,7 +182,6 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
     ```shell
     tar -xf  iomesh-offline-v0.11.1.tgz && cd iomesh-offline
- 
     ```
 3. Load the IOMesh image on each Kubernetes node and then execute the corresponding scripts based on your container runtime and container manager.
 
