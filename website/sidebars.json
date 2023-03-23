@@ -1,12 +1,10 @@
 {
   "docs": {
     "About IOMesh": [
-      "introduction/introduction"
-    ],
-    "Basic Concepts":[
+      "introduction/introduction",
       "basic-concepts/basic-concepts"
     ],
-    "Deploy IOMesh Cluster": [
+    "Deploying IOMesh Cluster": [
       "deploy-iomesh-cluster/prerequisites",
       "deploy-iomesh-cluster/setup-worker-node",
       "deploy-iomesh-cluster/install-iomesh",
@@ -25,7 +23,7 @@
       "volumesnapshot-operations/create-volumesnapshot",
       "volumesnapshot-operations/restore-volumesnapshot"
     ],
-    "Deploy Stateful Applications": [
+    "Deploying Stateful Applications": [
       "stateful-applications/iomesh-for-mysql",
       "stateful-applications/iomesh-for-cassandra",
       "stateful-applications/iomesh-for-mongodb"
