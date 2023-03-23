@@ -5,7 +5,7 @@
     ],
     "Basic Concepts":[
       "basic-concepts/basic-concepts"
-    ]
+    ],
     "Deploy IOMesh Cluster": [
       "deploy-iomesh-cluster/prerequisites",
       "deploy-iomesh-cluster/setup-worker-node",
