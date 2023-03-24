@@ -31,14 +31,11 @@ Shows IOMesh cluster information and resource usage. See details in the followin
 |Data Migrate & Recovery|Shows the amount of data to be migrated and migration speed, or the amount of all data to be recovered and recovery speed.|
 |Cluster IOPS|Shows the minimum, maximum and latest values of read, write and total IOPS for the IOMesh cluster in a given time period.|
 |Cluster Average Latency|Shows the minimum, maximum, and latest values of read, write, and total average latency for the IOMesh cluster in a given time period, respectively.|
-|Cluster I/O Average Block Size|Shows the minimum, maximum, and latest values of read, write, and total average latency for the IOMesh cluster in a given time period, respectively.|
-
-
-展示 IOMesh 集群在指定时间段的读、写、总平均块大小的最小值/最大值/最新时间点的值。|
-|Cluster I/O Bandwidth|展示 IOMesh 集群在指定时间段的读、写、总带宽的最小值/最大值/最新时间点的值。|
+|Cluster I/O Average Block Size|Shows the minimum, maximum, and latest values of read, write, and total average block size for the IOMesh cluster in a given time period, respectively.|
+|Cluster I/O Bandwidth|Shows the minimum, maximum, and latest values of read, write, and total bandwidth for the IOMesh cluster in a given time period, respectively.|
 
 ### Node
-Shows the basic information of all nodes in the IOMesh cluster.
+Shows the basic information of each node in the IOMesh cluster.
 
 | Field | Description | Example |
 |------|------|--------|
@@ -51,8 +48,8 @@ Shows the basic information of all nodes in the IOMesh cluster.
 | Cache Hit     | Node 的读缓存命中率 * 读操作比例+写缓存命中率 * 写操作比例。   | “70%”           |
 | Overall IOPS  | Node 的总 IOPS。                                               | “500 io/s”      |
 | Avg Latency   | Node 的读写操作的平均延时。                                    | “1 us”          |
-| Migrate       | Node 的数据迁移速度。                                          | “1000 B/s”      |
-| Recovery      | Node 的数据恢复速度。                                          | “1000 B/s”      |
+| Migrate       | The data migration speed for the node.  | "1000 B/s"|
+| Recovery      | The data recovery speed for the node.| "1000 B/s"|
 
 ### Details of Node
 展示当前 IOMesh 集群中指定节点的数据迁移与恢复、性能数据等信息。
@@ -69,11 +66,13 @@ Shows the basic information of all nodes in the IOMesh cluster.
 | NodeI/O Bandwidth           | 展示 Node 在指定时间段的读、写带宽的最小值/最大值/最新时间点的值。       |            |
 
 ### Physical Disk
+Shows disk attributes, healthy and usage status, and purpose of use. 
+
 展示当前 IOMesh 集群中物理盘的属性信息、使用状态、用途和使用情况。
 
-| Field              | Description                                                                                                                | Example        |
-|--------------------|----------------------------------------------------------------------------------------------------------------------------|----------------|
-| Device Name        | The physical disk name.                                                                                                    | "dev/sdv"      |
+| Field              | Description      | Example        |
+|--------------------|------------------|----------------|
+| Device Name        | The physical disk name. | "dev/sdv"      |
 | Health Status      | Shows the health status of the physical disk, including: - Healthy - Unhealthy - Failing - S.M.A.R.T not passed            | "Healthy"      |
 | Usage Status       | Shows if the usage status of the physical disk, including: - Unmounted - Partially mounted - Mounted - Staging - Migrating | "Mounted"      |
 | Remaining Lifetime | Shows the remaining life of the cache disk. A higher percentage (%) value indicates a longer remaining life.               | "99%"          |

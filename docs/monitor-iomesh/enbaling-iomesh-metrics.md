@@ -118,7 +118,7 @@ Verify that Prometheus and Prometheus Operator are already installed, and Promet
 
 Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
-Prerequisite
+**Prerequisite**
 
 You have `IOMesh-cluster-dashboard.json` file ready. 【提供一个链接】 
 
