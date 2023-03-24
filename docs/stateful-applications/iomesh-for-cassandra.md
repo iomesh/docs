@@ -144,7 +144,6 @@ Verify the IOMesh cluster is already deployed.
 
 6. Run the following command to apply the YAML file.
 
-
     ```bash
     kubectl apply -f cassandra-statefulset.yaml
     ```

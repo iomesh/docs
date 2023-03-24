@@ -4,7 +4,7 @@ title: Monitoring IOMesh
 sidebar_label: Monitoring IOMesh 
 ---
 
-After successfully importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to adjust the monitoring time period, refresh interval, interface color, etc.
+After successfully importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to do more configurations and adjustments.
 
 IOMesh provide 5 rows of contents for monitoring IOMesh storage: 
 
@@ -19,19 +19,22 @@ Shows IOMesh cluster information and resource usage. See details in the followin
 
 |Field|Description|
 |---|---|
-|Alert|展示当前 IOMesh 集群的所有报警，默认展示报警名称、触发状态和持续时长，可通过展开报警查看严重程度、报警原因、影响、解决方案等。用户可在 Alerting 页面中自行定义 Alert Rules 的阈值。|
-|Cluster Info|Shows the basic information of the IOMesh cluster, including IOMesh 版本, IOMesh ZBS 版本，CPU architecture, license type, 许可版本、maximum number of nodes allowed by license, license expiration time.|
+|Alert|Shows all alarms detected in the IOMesh cluster, by default presenting essential details such as alarm names, trigger status, and duration. You can further investigate into the severity, reasons, impacts, and recommended solutions for each alarm, and set the threshold for alert rules on your own on the Alert page.|
+|Cluster Info|Shows the basic information of the IOMesh cluster, including IOMesh version, IOMesh block storage version，CPU architecture, license type, license edition、maximum number of nodes, license expiration time.|
 |Node|Shows the total number of nodes in the IOMesh cluster and how many of them are in the unhealthy state.|
-|Physical Disk|Shows the number of SSDs, HDDs, 展示 IOMesh 集群中所有 SSD 数量、所有 HDD 数量、所有状态非健康的 SSD 数量、所有状态非健康的 HDD 数量。|
+|Physical Disk|Shows the number of total SSDs, total HDDs, unhealthy SSDs and unhealthy HDDs, respectively.|
 |Persistent Volume| Shows the number of all PVs in the IOMesh cluster.|
 |PV Status|Shows the number of PVs in different states in the IOMesh cluster.|
 |Total Capacity|Shows the total capacity of the IOMesh cluster.|
 |Used Capacity|Shows the used capacity of the IOMesh cluster.|
 |Total Usage|Shows the percentage of used capacity to total capacity of the IOMesh cluster.|
-|Data Migrate & Recovery|Shows the amount of data to be migrated and the migration speed, or the amount of all data to be recovered and the recovery speed.|
-|Cluster IOPS|展示 IOMesh 集群在指定时间段的读、写、总 IOPS 的最小值/最大值/最新时间点的值。|
-|Cluster Average Latency|展示 IOMesh 集群在指定时间段的读、写、总平均延迟的最小值/最大值/最新时间点的值。|
-|Cluster I/O Average Block Size|展示 IOMesh 集群在指定时间段的读、写、总平均块大小的最小值/最大值/最新时间点的值。|
+|Data Migrate & Recovery|Shows the amount of data to be migrated and migration speed, or the amount of all data to be recovered and recovery speed.|
+|Cluster IOPS|Shows the minimum, maximum and latest values of read, write and total IOPS for the IOMesh cluster in a given time period.|
+|Cluster Average Latency|Shows the minimum, maximum, and latest values of read, write, and total average latency for the IOMesh cluster in a given time period, respectively.|
+|Cluster I/O Average Block Size|Shows the minimum, maximum, and latest values of read, write, and total average latency for the IOMesh cluster in a given time period, respectively.|
+
+
+展示 IOMesh 集群在指定时间段的读、写、总平均块大小的最小值/最大值/最新时间点的值。|
 |Cluster I/O Bandwidth|展示 IOMesh 集群在指定时间段的读、写、总带宽的最小值/最大值/最新时间点的值。|
 
 ### Node
