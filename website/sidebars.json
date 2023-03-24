@@ -31,6 +31,9 @@
     "Monitoring IOMesh":[
       "monitor-iomesh/installing-iomesh-dashboard",
       "monitor-iomesh/monitoring-iomesh"
+    ],
+    "References": [
+      "references/iomesh-metrics"
     ]
   }
 }

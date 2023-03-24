@@ -24,7 +24,7 @@ Verify that Prometheus and Prometheus Operator are already installed, and Promet
    Offline Installation: Run the following command to export `iomesh.yaml`.
 
     ```
-    ./helm -n iomesh-system get values iomesh -o yaml > values.yaml
+    ./helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
     ```
     Custom Installation: You already have `iomesh.yaml` when you manually install IOMesh. 
 
@@ -100,26 +100,35 @@ Verify that Prometheus and Prometheus Operator are already installed, and Promet
         relabelings: [] # Set relabelings parameters, which defaults to blank.
     ```
 
-3. Run the corresponding command to apply modifications.
+3. Run the corresponding command to apply modifications according to your installation way.
 
-    ```bash
-    helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
-    ```
+   - Quick Installation or Custom Installation:
+      ```bash
+      helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
+      ```
+   - Offline Installation:
+      ```bash
+      ./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
+      ```
 
-使用一键安装部署的
- helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./values.yaml
-使用离线安装部署的
- ./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./values.yaml
-
-
+    加一个结果
 
 
 ### Importing Grafana Dashboard
 
+Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
+Prerequisite
 
-访问 {Grafana地址}/dashboard/import 或是在 Grafana 页面左上角点击 “Dashboard” -> “+ import” 即可来到 dashboard 导入界面
+You have `IOMesh-cluster-dashboard.json` file ready. 【提供一个链接】 
 
+**Procedure**
+
+1. Log in Grafana.
+
+2. In the upper left corner of Dashboard homepage, click **Dashboard** > **+ Import**. 
+
+3. Import `IOMesh-cluster-dashboard.json` file. Once done, you will be able to see IOMesh storage on the dashboard.
 
 
 
