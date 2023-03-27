@@ -51,14 +51,13 @@ Ensure that there is already a StorageClass available for use.
     iomesh-example-pvc                          Bound    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi        RWO            iomesh-csi-driver   21h   
     ```
 
-4. Check the PV.
+4. Run the following command to see the PV.
 
     ```
     kubectl get pv pvc-34230f3f-47dc-46e8-8c42-38c073c40598
     ```
-   After running the command, you should see an example like:
+   After running the command, you should see output like:
     ```output
     NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                        STORAGECLASS
     pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi       Delete           Bound    default/iomesh-example-pvc   iomesh-csi-driver
     ```
- 
