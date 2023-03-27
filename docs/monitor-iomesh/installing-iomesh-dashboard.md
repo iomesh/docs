@@ -5,16 +5,23 @@ sidebar_label: Installing IOMesh Dashboard
 ---
 
 
+安装 Prometheus 和 Grafana
+
+Monitoring IOMesh storage is implemented on the capabilities of Prometheus and Grafana
+
+
 Monitoring IOMesh storage is implemented on the monitoring capabilities of Prometheus. So make sure you have installed Prometheus and Prometheus Operator, and Prometheus is installed in the IOMesh system NameSpace.
 
 **Prerequisite**
 
-Verify that Prometheus and Prometheus Operator are already installed, and Prometheus is located in the NameSpace `iomesh-system`.
+Verify that Prometheus and Prometheus Operator are already installed [加一个链接], and Prometheus is located in the NameSpace `iomesh-system`.
 
 **Procedure**
 
 ### Enabling IOMesh Metrics
 1. Get `iomesh.yaml` ready. 
+
+    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`.
 
    Quick Installation: Run the following command to export `iomesh.yaml`.
 
@@ -100,7 +107,7 @@ Verify that Prometheus and Prometheus Operator are already installed, and Promet
         relabelings: [] # Set relabelings parameters, which defaults to blank.
     ```
 
-3. Run the corresponding command to apply modifications according to your installation way.
+3. Run the corresponding command to apply modifications according to your installation.
 
    - Quick Installation or Custom Installation:
       ```bash
@@ -120,7 +127,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have `IOMesh-cluster-dashboard.json` file ready. 【提供一个链接】 
+You have downloaded `IOMesh-cluster-dashboard.json` file ready. 【提供一个链接】 
 
 **Procedure**
 

@@ -24,7 +24,7 @@ Verify that there is already a PVC available for cloning.
     metadata:
       name: cloned-pvc
     spec:
-      storageClassName: iomesh-csi-driver-default
+      storageClassName: iomesh-csi-driver
       dataSource:
         name: existing-pvc # Specify the source PVC in the same namespace. 
         kind: PersistentVolumeClaim
@@ -36,14 +36,13 @@ Verify that there is already a PVC available for cloning.
       volumeMode: Block
     ```
 
-2. Run the following command to apply the YAML config. Once done, a clone of `existing-pvc` will be created.
+2. Apply the YAML config. Once done, a clone of `existing-pvc` will be created.
 
     ```bash
     kubectl apply -f clone.yaml
-    ```
+    ``` 
    
-   
-3. Run the following command to check the new PVC.
+3. Check the new PVC.
 
     ```
     kubectl get pvc cloned-pvc
@@ -53,3 +52,4 @@ Verify that there is already a PVC available for cloning.
     NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
     cloned-pvc                                  Bound    pvc-44230f3f-47dc-46e8-8c42-38c073c40598   5Gi        RWO            iomesh-csi-driver   21h   
     ```
+4. 加一个查看 PV 的命令和结果

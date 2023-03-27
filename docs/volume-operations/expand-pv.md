@@ -10,7 +10,6 @@ To expand the capacity of a PV, you only need to modify the field `storage` in t
 
 The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to `true`. 
 
-
 **Procedure**
 
 The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with a capacity of `10Gi`.
@@ -29,7 +28,7 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
           storage: 10Gi # The original capacity of the PVC.
     ```
 
-1. Run the following command to get the PVC.
+1. Get the PVC whose storage capacity you want to modify.
 
     ```bash
     kubectl get pvc example-pvc
@@ -77,7 +76,7 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
     example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
     ```
 
-6. Once the PVC modification is applied, the PV capacity will be expanded as well. Run the following command to check the PV capacity.
+6. Once the PVC modification is applied, the PV capacity will be expanded as well. Run the following command to see if the PV capacity is expanded as expected.
    
     ```bash
     kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # The PV name you get in Step 4.

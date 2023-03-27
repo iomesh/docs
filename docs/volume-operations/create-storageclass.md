@@ -18,13 +18,13 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 
 **Procedure**
 
-1. Create a YAML config `sc.yaml` and configure its parameters.
+1. Create a YAML config `sc.yaml` and configure the parameters as needed.
 
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
-      name: storageclass_name # The StorageClass name.
+      name: storageclass_name # Specify the StorageClass name.
     provisioner: com.iomesh.csi-driver 
     reclaimPolicy: Delete # Specify the reclaim policy.
     allowVolumeExpansion: true 
@@ -38,13 +38,13 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
     volumeBindingMode: Immediate
     ```
 
-2. Run the following command to apply the YAML file.
+2. Apply the YAML config to create the StorageClass.
 
     ```
     kubectl apply -f sc.yaml 
     ```
 
-3. Run the following command to view the newly created StorageClass. 
+3. View the newly created StorageClass. 
 
     ```
     kubectl get storageclass <storageclass_name> 
@@ -54,4 +54,5 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
     ```output
     NAME                  PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
     <storageclass_name>   com.iomesh.csi-driver   Delete          Immediate           true                   24h
+
     ```

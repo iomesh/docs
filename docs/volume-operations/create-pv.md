@@ -15,7 +15,7 @@ IOMesh supports access modes `ReadWriteOnce`, `ReadOnlyMany`, `ReadWriteMany`, a
 Ensure that there is already a StorageClass available for use.
 
 **Procedure**
-1. Create a YAML config `pvc.yaml`. Configure access mode and storage.
+1. Create a YAML config `pvc.yaml`. Configure fields `accessModes` and `storage`.
 
     ```yaml
     apiVersion: v1
@@ -32,16 +32,15 @@ Ensure that there is already a StorageClass available for use.
       volumeMode: Block
     ```
 
-
     For details, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
   
-2. Run the following command to create the PVC.
+2. Apply the YAML config to create the PVC. Once done, the corresponding PV will be created.
 
     ```
     kubectl apply -f pvc.yaml
     ```
 
-3. Run the following command to see the PVC.
+3. Check the PVC.
 
     ```
     kubectl get pvc iomesh-example-pvc
@@ -51,3 +50,15 @@ Ensure that there is already a StorageClass available for use.
     NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
     iomesh-example-pvc                          Bound    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi        RWO            iomesh-csi-driver   21h   
     ```
+
+4. Check the PV.
+
+    ```
+    kubectl get pv pvc-34230f3f-47dc-46e8-8c42-38c073c40598
+    ```
+   After running the command, you should see an example like:
+    ```output
+    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                        STORAGECLASS
+    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi       Delete           Bound    default/iomesh-example-pvc   iomesh-csi-driver
+    ```
+ 

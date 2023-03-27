@@ -1,7 +1,7 @@
 ---
 id: manage-multiple-cluster
-title: Managing Multiple IOMesh Clusters
-sidebar_label: Managing Multiple IOMesh Clusters
+title: Multiple Cluster Operations
+sidebar_label: Multiple Cluster Operations
 ---
 
 补充多集群的使用场景
@@ -9,6 +9,13 @@ sidebar_label: Managing Multiple IOMesh Clusters
 ### Deploying Multiple IOMesh Clusters
 
 补充多集群部署模式的介绍
+
+您可以在同一大规模 Kubernetes 集群下部署多个 IOMesh 集群以达到数据隔离的目的。
+当您拥有不止一套 IOMesh 集群，并且需要在 Kubernetes 集群中连接他们时，可以配置使用 IOMesh CSI Driver 的多集群连接功能。CSI Driver 的多集群连接功能减少了 Kubernetes 集群中的 Pod 数量，避免了多套 IOMesh 集群部署多套 CSI Driver 会造成的资源浪费。
+
+
+
+
 
 Note that this release of IOMesh does not support expanding an IOMesh cluster to two or more IOMesh clusters.
 
@@ -58,12 +65,6 @@ kubectl apply -f iomesh-cluster-1-zookeeper.yaml
 
 #### Mounting Disks
 使用 kubectl edit 编辑每一个 iomesh 对象，参考 https://docs.iomesh.com/deploy/setup-iomesh#block-device-object 配置磁盘
-
-
-
-
-
-
 
 
 ### Managing Multiple IOMesh Clusters
