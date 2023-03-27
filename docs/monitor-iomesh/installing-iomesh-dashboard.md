@@ -4,17 +4,12 @@ title: Installing IOMesh Dashboard
 sidebar_label: Installing IOMesh Dashboard
 ---
 
+Monitoring IOMesh storage is implemented on the capabilities of Prometheus and Grafana. Before installing IOMesh dashboard, make sure you have installed Prometheus and Grafana.
 
-安装 Prometheus 和 Grafana
-
-Monitoring IOMesh storage is implemented on the capabilities of Prometheus and Grafana
-
-
-Monitoring IOMesh storage is implemented on the monitoring capabilities of Prometheus. So make sure you have installed Prometheus and Prometheus Operator, and Prometheus is installed in the IOMesh system NameSpace.
 
 **Prerequisite**
 
-Verify that Prometheus and Prometheus Operator are already installed [加一个链接], and Prometheus is located in the NameSpace `iomesh-system`.
+Verify that Prometheus and Prometheus Operator are already installed [weiqi 加一个链接], and Prometheus is located in the NameSpace `iomesh-system`.
 
 **Procedure**
 
@@ -127,7 +122,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded `IOMesh-cluster-dashboard.json` file ready. 【提供一个链接】 
+You have downloaded `IOMesh-cluster-dashboard.json` file ready. 【weiqi提供一个链接】 
 
 **Procedure**
 

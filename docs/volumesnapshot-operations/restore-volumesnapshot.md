@@ -21,24 +21,24 @@ The storage capacity value in the new PV should be the same as that of the sourc
     metadata:
       name: example-restore 
     spec:
-      storageClassName: iomesh-csi-driver
+      storageClassName: iomesh-csi-driver 
       dataSource:
-        name: example-snapshot
+        name: example-snapshot # Specify the target VolumeSnapshot.
         kind: VolumeSnapshot
         apiGroup: snapshot.storage.k8s.io
       accessModes:
-        - ReadWriteOnce
+        - ReadWriteOnce # Must be same as the access mode in the VolumeSnapshot.
       resources:
         requests:
-          storage: 6Gi
+          storage: 6Gi # Must be same as the storage value in the VolumeSnapshot.
     ```
 
-2. Run the following command to apply the YAML config.
+2. Apply the YAML config to create the PVC.
 
     ```bash
     kubectl apply -f restore.yaml
     ```
-3. Run the following command to see the PVC. A PV will be created and bounded to this PVC.
+3. Check the PVC. A PV will be created and bounded to this PVC.
 
     ```
     kubectl get pvc example-restore

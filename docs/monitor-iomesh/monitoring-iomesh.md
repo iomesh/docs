@@ -4,7 +4,7 @@ title: Monitoring IOMesh
 sidebar_label: Monitoring IOMesh 
 ---
 
-After successfully importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to do more configurations and adjustments.
+After successfully importing Grafana, you will see the dashboard shown below(加一张图). Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to do more configurations and adjustments.
 
 IOMesh provide 5 rows of contents for monitoring IOMesh storage: 
 

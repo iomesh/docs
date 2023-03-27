@@ -25,23 +25,17 @@ A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each
     deletionPolicy: Delete # Specify the deletion policy.
     ```
 
-2. Run the following command to apply the YAML file.
+2. Apply the YAML config to create the VolumeSnapshotClass.
   
     ```
     kubectl apply -f sc.yaml 
     ```
 
-3. Run the following command to check the snapshot class.
+3. Get the VolumeSnapshotClass.
 
     ```
     kubectl get volumesnapshotclass <snapshotclass_name>
     ```
-   After running the command, you should see an example like:
-    ```output
-    NAME                       DRIVER                  DELETIONPOLICY   AGE
-    <snapshotclass_name>       com.smartx.csi-driver   Delete           24s
-    ```
-  
 
    After running the command, you should see an example like:
     ```output
