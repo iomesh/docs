@@ -78,13 +78,11 @@ IOMesh provides Prometheus format metrics to monitor IOMesh storage performance 
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_cluster_license_maintenance_already_expire` | Shows if maintenance already expire 这里的 maintenance 是指啥 |
-| `zbs_cluster_license_already_expire` | if license already expire 是不是 IOMesh 的 license |
-| `zbs_cluster_license_expire_day` | license expire day |
-| `zbs_cluster_license_subscription_expire_day` | subscription expire day |
-| `zbs_cluster_license_capacity_rate` | data capacity / license limit |
-| `zbs_cluster_license_subscription_already_expire` | if subscription already expire |
-| `zbs_cluster_license_maintenance_expire_day` | maintenance expire day |
+| `zbs_cluster_license_already_expire` | Shows if the license expires.|
+| `zbs_cluster_license_expire_day` | The date when the license expires. |
+| `zbs_cluster_license_subscription_expire_day` | The date when the subscription license expires. |
+| `zbs_cluster_license_subscription_already_expire` | Shows if the subscription license expires. |
+
 
 **Cluster IO**
 
@@ -173,21 +171,4 @@ readwrite_iop30s of volume |
 | `zbs_volume_write_size_bytes` | Volume write size. |
 | `zbs_volume_write_iops` | Volume write IOPS. |
 | `zbs_volume_avg_iodepth` | Volume average IO depth. |
-| `zbs_volume_ioctx_read_iops` | read_iops in io context of volume |
-| `zbs_volume_ioctx_read_speed_bps` | read_speed_bps in io context of volume |
-| `zbs_volume_ioctx_read_latency_ns` | read_latency_ns in io context of volume |
-| `zbs_volume_ioctx_write_iops` | write_iops in io context of volume |
-| `zbs_volume_ioctx_write_speed_bps` | write_speed_bps in io context of volume |
-| `zbs_volume_ioctx_write_latency_ns` | write_latency_ns in io context of volume |
-| `zbs_volume_ioctx_readwrite_iops` | readwrite_iops in io context of volume |
-| `zbs_volume_ioctx_readwrite_speed_bps` | readwrite_speed_bps in io context of volume |
-| `zbs_volume_ioctx_readwrite_latency_ns` | readwrite_latency_ns in io context of volume |
-| `zbs_volume_ioctx_local_read_iops` | local_read_iops in io context of volume |
-| `zbs_volume_ioctx_local_read_speed_bps` | local_read_speed_bps in io context of volume |
-| `zbs_volume_ioctx_local_read_latency_ns` | local_read_latency_ns in io context of volume |
-| `zbs_volume_ioctx_local_write_iops` | local_write_iops in io context of volume |
-| `zbs_volume_ioctx_local_write_speed_bps` | local_write_speed_bps in io context of volume |
-| `zbs_volume_ioctx_local_write_latency_ns` | local_write_latency_ns in io context of volume |
-| `zbs_volume_ioctx_local_readwrite_iops` | local_readwrite_iops in io context of volume |
-| `zbs_volume_ioctx_local_readwrite_speed_bps` | local_readwrite_speed_bps in io context of volume |
-| `zbs_volume_ioctx_local_readwrite_latency_ns` | local_readwrite_latency_ns in io context of volume |
+

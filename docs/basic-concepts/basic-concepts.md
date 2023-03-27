@@ -94,7 +94,7 @@ IOMesh supports access modes above, but `ReadWriteMany` and `ReadOnlyMany` are o
 
 **Helm**
 
-A package manager for Kubernetes that helps find, share, and build Kubernetes with software. Helm Chart can help define, install, and upgrade even the most complex Kubernetes applications. IOMesh supports deployments using Helm Chart.
+A package manager for Kubernetes that helps find, share, and build Kubernetes with software. You will need Helm when installing IOMesh.
 
 **Prometheus**
 
