@@ -10,7 +10,7 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 **Prerequisite**
 
-Verify that Prometheus and Prometheus Operator are already installed [weiqi 加一个链接], and Prometheus is located in the NameSpace `iomesh-system`.
+Verify that Prometheus and Prometheus Operator are already installed [加一个安装参考链接], and Prometheus is located in the NameSpace `iomesh-system`.
 
 **Procedure**
 
@@ -18,6 +18,21 @@ Verify that Prometheus and Prometheus Operator are already installed [weiqi 加�
 
     If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already already have `iomesh.yaml` when you manually install IOMesh.  
 
+<!--DOCUSAURUS_CODE_TABS-->
+
+<!--Quick-->
+
+```shell
+helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
+```
+
+<!--Offline-->
+
+```shell
+./helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 2. Edit `iomesh.yaml`, including `operator`, `iomesh`, and `blockdevice monitor`.
 
@@ -93,6 +108,21 @@ Verify that Prometheus and Prometheus Operator are already installed [weiqi 加�
 
 3. Run the corresponding command to apply modifications according to your installation.
 
+<!--DOCUSAURUS_CODE_TABS-->
+
+<!--Quick/Custom-->
+
+```shell
+helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
+```
+
+<!--Offline-->
+
+```shell
+./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 加结果
 
@@ -103,7 +133,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded `IOMesh-cluster-dashboard.json` file ready. 【weiqi提供一个链接】 
+You have downloaded `IOMesh-cluster-dashboard.json` file. 【提供一个链接】 
 
 **Procedure**
 
