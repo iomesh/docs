@@ -12,7 +12,7 @@ An open source container orchestration platform for managing containerized workl
 
 [**Node**](https://kubernetes.io/docs/concepts/architecture/nodes/)
 
-A worker machine in Kubernetes that runs containerized workloads, which can be a virtual machine or a physical machine, depending on the cluster. A Kubernetes node usually has two types of nodes: control plane nodes and worker nodes.
+A worker machine in Kubernetes that runs containerized workloads, which can be a virtual machine or a physical machine depending on the cluster. A Kubernetes node usually has two types of nodes: control plane nodes and worker nodes.
 
 **Worker Node**
 
@@ -20,7 +20,7 @@ A worker machine that runs Kubernetes node components and containerized applicat
 
 [**kubectl**](https://kubernetes.io/docs/reference/kubectl/)
 
-A command line tool to communicate with the control plane of a Kubernetes cluster through the Kubernetes API.
+A command line tool for communicating with the control plane of a Kubernetes cluster through the Kubernetes API.
 
 **Stateful Application**
 
@@ -40,7 +40,7 @@ The self-developed CSI driver that complies with the Kubernetes CSI standard, ma
 
 **IOMesh Operator**
 
-The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling up or out nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
+The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling up or down nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
 
 [**Namespace**](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
@@ -52,7 +52,7 @@ Provides a way for administrators to describe the classes of storage they offer 
 
 [**Persistent Volume**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
-A piece of storage in the cluster, which can be pre-provisioned by the administrator or dynamically provisioned using StorageClass. Persistent volumes, like other types of volumes, are implemented using volume plugins, but they have a lifecycle independent of any Pod using PV. 
+A piece of storage in the cluster, which can be pre-provisioned by the administrator or dynamically provisioned using StorageClass. Persistent volumes, like other types of volumes, are implemented using volume plugins, but they have a lifecycle independent of any pod using PV. 
 
 [**Persistent Volume Claim**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
@@ -87,9 +87,9 @@ A persistent volume can be mounted on a host in any way supported by the resourc
 
 - `ReadWriteMany`: The volume can be mounted as read-write by many nodes.
 
-- `ReadWriteOncePod`: the volume can be mounted as read-write by a single Pod. Use `ReadWriteOncePod` access mode if you want to ensure that only one pod across whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
+- `ReadWriteOncePod`: The volume can be mounted as read-write by a single pod. `ReadWriteOncePod`is suggested if you want to ensure that only one pod across the whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
 
-IOMesh supports access modes above, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
+IOMesh supports the access modes above, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
 
 [**Helm**](https://helm.sh/)
 
@@ -101,7 +101,7 @@ An open source system monitoring and alerting toolkit that can be integrated wit
 
 [**Grafana**](https://grafana.com/)
 
-An open source analytics and interactive visualization web application, providing charts, graphs, and alerts for the web when connected to supported data sources. With Grafana, you can import standard Grafana dashboard template and alerting rule file to visualize IOMesh storage.
+An open source analytics and interactive visualization web application, providing charts, graphs, and alerts for the web when connected to supported data sources. With Grafana, you can import standard Grafana dashboard template and alerting rule file to visualize IOMesh storage performance.
 
 
 

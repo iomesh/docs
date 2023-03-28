@@ -10,13 +10,11 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 **Prerequisite**
 
-Verify that Prometheus and Prometheus Operator are already installed [加一个安装参考链接], and Prometheus is located in the NameSpace `iomesh-system`.
+Verify that Prometheus and Prometheus Operator are already installed [加一个安装参考链接], and Prometheus is located in the Namespace `iomesh-system`.
 
 **Procedure**
 
 1. Get `iomesh.yaml` ready. 
-
-    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already already have `iomesh.yaml` when you manually install IOMesh.  
 
 
 <!--DOCUSAURUS_CODE_TABS-->
