@@ -97,12 +97,19 @@ Verify that Prometheus and Prometheus Operator are already installed [加一个�
 
 3. Run the corresponding command to apply modifications according to your installation.
 
-<Tabs className="unique-tabs">
-  <TabItem value="Quick/Custom">helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml</TabItem>
-  <TabItem value="Offline">./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml</TabItem>
-</Tabs>
+<!--DOCUSAURUS_CODE_TABS-->
 
-加结果
+<!--Quick/Custom-->
+```shell
+helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
+```
+<!--Offline-->
+```shell
+./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
+```
+<!--END_DOCUSAURUS_CODE_TABS-->
+
+加运行命令后输出的结果
 
 ### Importing Grafana Dashboard
 
