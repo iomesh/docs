@@ -32,6 +32,9 @@
       "monitor-iomesh/installing-iomesh-dashboard",
       "monitor-iomesh/monitoring-iomesh"
     ],
+    "Advanced Functions":[
+      "advanced-functions/manage-multiple-cluster"
+    ],
     "References": [
       "references/iomesh-metrics"
     ]

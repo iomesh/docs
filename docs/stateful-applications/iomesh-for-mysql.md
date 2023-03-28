@@ -4,7 +4,6 @@ title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 ---
 
-IOMesh provides persistent storage for stateful applications like Cassandra, MySQL, and MongDB. The following section describes how to deploy these stateful applications using IOMesh.
 
 **Prerequisite**
 
@@ -18,7 +17,7 @@ Verify that your IOMesh cluster is already deployed.
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-mysql-sc
-    provisioner: com.iomesh.csi-driver # The driver.name in `values.yaml` when deploying IOMesh cluster.
+    provisioner: com.iomesh.csi-driver # The driver.name in `iomesh.yaml` when deploying IOMesh cluster.
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:

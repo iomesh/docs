@@ -12,7 +12,7 @@ A Kubernetes cluster or an OpenShift cluster, either of which should have at lea
 
 ### Hardware Requirements 
 
-Verify that each worker node meets the following configuration requirements. 社区版和企业版的硬件配置一样。
+Verify that each worker node meets the following configuration requirements. IOMesh Community and Enterprise editions have the same hardware requirements for each worker node. 
 
 **CPU**
 

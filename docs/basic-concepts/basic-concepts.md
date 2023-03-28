@@ -72,7 +72,7 @@ A snapshot taken from a volume in the cluster that has been provisioned by an ad
 
 **Volume Mode**
 
-An optional API parameter that describes the specific mode for a specific persistent volume. Kubernetes supports `Filesystem` and `Block` as `volumeModes`. 
+An optional API parameter that describes the specific mode for a persistent volume. Kubernetes supports `Filesystem` and `Block` as `volumeModes`. 
 
 - `filesystem`: A volume with volume mode set to `filesystem` is mounted to a directory by the pod.
 - `block`: Use a volume as a raw block device which provides the pod the fastest possible way to access a volume, without any filesystem layer between the pod and the volume.
