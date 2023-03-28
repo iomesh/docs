@@ -6,6 +6,8 @@ sidebar_label: Monitoring IOMesh
 
 After successfully importing Grafana, you will see the dashboard shown below(加一张图). Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to do more configurations and adjustments.
 
+
+
 IOMesh provide 5 rows of contents for monitoring IOMesh storage: 
 
 - Overview
@@ -45,7 +47,7 @@ Shows the basic information of each node in the IOMesh cluster.
 |Capacity | The total capacity of the node.| "2 TiB" |
 | Space Usage | The space usage of the node. | "20%"    |
 | Dirty Cache   | The dirty data space of the node.| "5 GiB"|
-| Cache Hit     | Node 的读缓存命中率 * 读操作比例+写缓存命中率 * 写操作比例。   | "70%" |
+| Cache Hit     | Node read cache hit ratio * read ratio + write cache hit ratio * write ratio.   | "70%" |
 | Overall IOPS  |The total IOPS of the node.  | "500 io/s" |
 | Avg Latency   | The average read and write latency of the node. | "1 us"   |
 | Migrate       | The data migration speed for the node.  | "1000 B/s"|
@@ -62,8 +64,8 @@ Shows data migration and recovery and performance data of an specified node in t
 | Failure Data                | The amount of unavailable data space on the node.                        | "50.0 MiB" |
 | Node IOPS                   | Shows the minimum, maximum, and latest values of read/write IOPS in a given time period.  | /          |
 | Node Average Latency        | Shows the minimum, maximum, and latest values of read/write average latency in a given time period. |     /       |
-|Node I/O Average Block Size| Shows the minimum, maximum, and latest values of read/write average block size in a given time period.|
-| Node I/O Bandwidth|Shows the minimum, maximum, and latest values of read/write bandwidth in a given time period.|
+|Node I/O Average Block Size| Shows the minimum, maximum, and latest values of read/write average block size in a given time period.|/|
+| Node I/O Bandwidth|Shows the minimum, maximum, and latest values of read/write bandwidth in a given time period.|/|
 
 ### Physical Disk
 Shows disk attribute information, health and usage status, and purpose of use. 

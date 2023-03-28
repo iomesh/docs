@@ -32,15 +32,15 @@ Container storage interface. A standard for exposing arbitrary block and file st
 
 **IOMesh Block Storage**
 
-IOMesh high-performance block storage service for guaranteeing distributed system consistency and data coherence, managing metadata and local disks, and providing I/O redirection and high availability.
+IOMesh block storage service for ensuring distributed system consistency and data coherence, managing metadata and local disks, and implementing I/O redirection and high availability.
 
 **IOMesh CSI Driver**
 
-The CSI driver that complies with the Kubernetes CSI standard, managing PVs using RPC (Remote Procedure Call) to provide persistent storage for data applications running on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in an IOMesh cluster.
+The self-developed CSI driver that complies with the Kubernetes CSI standard, managing persistent volumes using PRC (Remote Procedure Call) for providing persistent storage for data applications running on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in the IOMesh cluster.
 
 **IOMesh Operator**
 
-An automated operations and maintenance component for IOMesh, allowing rolling updating IOMesh, scaling up or our nodes, and GitOps while responsible for automatic discovery, allocation, and management of block devices.
+The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling up or out nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
 
 [**Namespace**](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
@@ -48,7 +48,7 @@ Provides a mechanism for dividing resources in the same cluster into isolated gr
 
 [**StorageClass**](https://kubernetes.io/docs/concepts/storage/storage-classes/)
 
-Provides a way for administrators to describe the classes of storage they offer or a template for dynamically provisioning PVs. 
+Provides a way for administrators to describe the classes of storage they offer or a template for dynamically provisioning persistent volumes. 
 
 [**Persistent Volume**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
@@ -56,7 +56,7 @@ A piece of storage in the cluster, which can be pre-provisioned by the administr
 
 [**Persistent Volume Claim**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
-PersistentVolumeClaim (PVC) expresses a user request for storage. Conceptually similar to a pod, a pod consumes node resources, while a PVC consumes PV resources; a Pod can request a specific amount of resources like CPU and memory, and similarly a PVC can request a specific size of storage and access mode
+A request for storage by a user. Conceptually similar to a pod, a pod consumes node resources while a PVC consumes PV resources; a pod can request a specific amount of resources like CPU and memory, and similarly a PVC can request a specific size of storage and access mode.
 
 [**Volume Snapshot**](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)
 
@@ -64,19 +64,18 @@ A user request for a snapshot of a volume, which is similar to a persistent volu
 
 [**Volume Snapshot Class**](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/)
 
-Provides a way to describe the classes of storage when provisioning a volume snapshot and allows you to specify different attributes belonging to a VolumeSnapshot, which may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same StorageClass of a PersistentVolumeClaim.
+Provides a way to describe the classes of storage when provisioning a volume snapshot. It allows you to specify different attributes belonging to a VolumeSnapshot. These attributes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same StorageClass of a PersistentVolumeClaim.
 
 [**Volume Snapshot Content**]((https://kubernetes.io/docs/concepts/storage/volume-snapshots/))
 
-A snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a PersistentVolume is a cluster resource.
+A snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a persistent volume is a cluster resource.
 
 **Volume Mode**
 
-An optional API parameter that describes. Kubernetes supports two `volumeModes` of PersistentVolumes: `Filesystem` and `Block`.
+An optional API parameter that describes the specific mode for a specific persistent volume. Kubernetes supports `Filesystem` and `Block` as `volumeModes`. 
 
-- `filesystem`: a volume with the volumeMode property set to filesystem is mounted (mounted) to a directory by the Pod.
-
-- `block`: Use a volume as a raw block device which provides a Pod the fastest possible way to access a volume, without any filesystem layer between the Pod and the volume.
+- `filesystem`: A volume with volume mode set to `filesystem` is mounted to a directory by the pod.
+- `block`: Use a volume as a raw block device which provides the pod the fastest possible way to access a volume, without any filesystem layer between the pod and the volume.
 
 [**Access Mode**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)
 
@@ -88,7 +87,7 @@ A persistent volume can be mounted on a host in any way supported by the resourc
 
 - `ReadWriteMany`: The volume can be mounted as read-write by many nodes.
 
-- `ReadWriteOncePod`: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod access mode if you want to ensure that only one pod across whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
+- `ReadWriteOncePod`: the volume can be mounted as read-write by a single Pod. Use `ReadWriteOncePod` access mode if you want to ensure that only one pod across whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
 
 IOMesh supports access modes above, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
 

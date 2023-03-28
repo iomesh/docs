@@ -4,7 +4,7 @@ title: IOMesh Metrics
 sidebar_label: IOMesh Metrics
 ---
 
-IOMesh provides Prometheus format metrics to monitor IOMesh storage performance at the block, cluster or volume level.
+IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the block, cluster or volume level.
 
 ### Chunk Metrics
 
@@ -30,7 +30,7 @@ IOMesh provides Prometheus format metrics to monitor IOMesh storage performance 
 | `zbs_chunk_avg_write_latency_ns` | Chunk write latency. |
 | `zbs_chunk_readwrite_iops` | Chunk read write IOPS. |
 | `zbs_chunk_readwrite_speed_bps` | Chunk read write speed. |
-| `zbs_chunk_avg_readwrite_size_bytes` | Average size of chunk read write request.|
+| `zbs_chunk_avg_readwrite_size_bytes` | Average read write request size.|
 | `zbs_chunk_avg_readwrite_latency_ns` | Chunk read write latency. |
 
 **Chunk Cache Space**
@@ -52,15 +52,15 @@ IOMesh provides Prometheus format metrics to monitor IOMesh storage performance 
 | `zbs_chunk_used_data_space_bytes` | The amount of used data space.|
 | `zbs_chunk_data_capacity_bytes` | The total amount of data space. |
 | `zbs_chunk_provisioned_data_space_bytes` | The amount of provisioned data space.|
-| `zbs_chunk_data_space_use_rate` | Max(provisioned space, used space)/valid data space |
+| `zbs_chunk_data_space_use_rate` | Max(provisioned space, used space)/valid data space. |
 | `zbs_chunk_valid_data_space_bytes` | The amount of valid data space. |
 | `zbs_chunk_failure_data_space_bytes` | The amount of failed data space.|
 
 **Chunk Temporary Replica**
 | Metrics | Description |
 | --- | --- |
-| `zbs_chunk_temporary_replica_space_bytes` | The amount of space consumed by temporary replicas.|
-| `zbs_chunk_temporary_replica_num` | The number of temporary replicas.|
+| `zbs_chunk_temporary_replica_space_bytes` | Space used by temporary replicas.|
+| `zbs_chunk_temporary_replica_num` | The number of temporary chunk replicas.|
 
 **Chunk Migration & Recovery**
 
@@ -79,23 +79,23 @@ IOMesh provides Prometheus format metrics to monitor IOMesh storage performance 
 | Metrics | Description |
 | --- | --- |
 | `zbs_cluster_license_already_expire` | Shows if the license expires.|
-| `zbs_cluster_license_expire_day` | The date when the license expires. |
-| `zbs_cluster_license_subscription_expire_day` | The date when the subscription license expires. |
+| `zbs_cluster_license_expire_day` | Shows the date when the license expires. |
+| `zbs_cluster_license_subscription_expire_day` | Shows the date when the subscription license expires. |
 | `zbs_cluster_license_subscription_already_expire` | Shows if the subscription license expires. |
 
 **Cluster IO**
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_cluster_read_iops` | Read IOPS. |
-| `zbs_cluster_readwrite_iops` | Read write IOPS. |
-| `zbs_cluster_write_iops` | Write IOPS. |
-| `zbs_cluster_read_speed_bps` | Read speed. |
-| `zbs_cluster_write_speed_bps` | Write speed. |
-| `zbs_cluster_readwrite_speed_bps` | Read write speed. |
-| `zbs_cluster_avg_readwrite_latency_ns` | Read write latency. |
-| `zbs_cluster_avg_write_latency_ns` | Write latency. |
-| `zbs_cluster_avg_read_latency_ns` | Read latency. |
+| `zbs_cluster_read_iops` | Cluster read IOPS. |
+| `zbs_cluster_readwrite_iops` | Cluster read write IOPS. |
+| `zbs_cluster_write_iops` | C;luster write IOPS. |
+| `zbs_cluster_read_speed_bps` | Cluster read speed. |
+| `zbs_cluster_write_speed_bps` | Cluster write speed. |
+| `zbs_cluster_readwrite_speed_bps` | Cluster read write speed. |
+| `zbs_cluster_avg_readwrite_latency_ns` | Cluster read write latency. |
+| `zbs_cluster_avg_write_latency_ns` | Cluster write latency. |
+| `zbs_cluster_avg_read_latency_ns` | Cluster read latency. |
 | `zbs_cluster_avg_write_size_bytes` | Average write request size. |
 | `zbs_cluster_avg_read_size_bytes` | Average write request size. |
 | `zbs_cluster_avg_readwrite_size_bytes` | Average read write request size. |
@@ -106,7 +106,7 @@ IOMesh provides Prometheus format metrics to monitor IOMesh storage performance 
 | --- | --- |
 | `zbs_cluster_write_cache_hit_ratio` | Write cache hit ratio. |
 | `zbs_cluster_failure_cache_space_bytes` | The amount of failed cache space.|
-| `zbs_cluster_cache_capacity_bytes` | Total cache capacity. |
+| `zbs_cluster_cache_capacity_bytes` | Total cache space. |
 | `zbs_cluster_dirty_cache_space_bytes` | Dirty cache space. |
 | `zbs_cluster_readwrite_cache_hit_ratio` | Read write cache hit ratio. |
 | `zbs_cluster_used_cache_space_bytes` | Used cache space. |
@@ -118,19 +118,18 @@ IOMesh provides Prometheus format metrics to monitor IOMesh storage performance 
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_cluster_data_capacity_bytes` | Total data capacity. |
-| `zbs_cluster_data_space_use_rate` | max(provisioned space, used space) / valid data space |
-| `zbs_cluster_unique_logical_size_bytes` | unique logical size |
-| `zbs_cluster_shared_logical_size_bytes` | shared logical size |
-| `zbs_cluster_logical_size_bytes` | total logical size |
-| `zbs_cluster_valid_data_space_bytes` | the valid data space |
+| `zbs_cluster_data_capacity_bytes` | The total data capacity. |
+| `zbs_cluster_data_space_use_rate` | Max(provisioned space, used space)/valid data space. |
+| `zbs_cluster_unique_logical_size_bytes` | Logical size dedicated to a specific volume. |
+| `zbs_cluster_shared_logical_size_bytes` | Shared logical size. |
+| `zbs_cluster_logical_size_bytes` | Total logical size. |
+| `zbs_cluster_valid_data_space_bytes` | Valid data space. |
 | `zbs_cluster_used_data_space_bytes` | The size of used data space. |
-| `zbs_cluster_failure_data_space_bytes` | the failure data space |
+| `zbs_cluster_failure_data_space_bytes` | The size of failed data space. |
 | `zbs_cluster_provisioned_data_space_bytes` | The size of provisioned data space. |
-| `zbs_cluster_chunks_unsafe_failure_space` | chunks whose used space is larger than cluster unused space |
-| `zbs_cluster_zone_space_diff_proportion` | zone space diff quotient cluster total spaces |
-| `zbs_cluster_temporary_replica_space_bytes` | The space used by temporary replicas in the cluster.|
-| `zbs_cluster_temporary_replica_num` | Temporary number of replicas in the cluster.|
+| `zbs_cluster_chunks_unsafe_failure_space` | Shows if space used by chunks is larger than the unused space in the cluster. |
+| `zbs_cluster_temporary_replica_space_bytes` | Space consumed by temporary replicas in the cluster.|
+| `zbs_cluster_temporary_replica_num` | Number of temporary replicas in the cluster.|
 
 **Cluster Migration & Recovery**
 
@@ -148,9 +147,9 @@ IOMesh provides Prometheus format metrics to monitor IOMesh storage performance 
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_volume_shared_logical_size_bytes` | Shared logical space.|
-| `zbs_volume_unique_logical_size_bytes` | Logical size exclusive for a specific volume.|
-| `zbs_volume_logical_size_bytes` | Total logical space.|
+| `zbs_volume_shared_logical_size_bytes` | Shared logical size.|
+| `zbs_volume_unique_logical_size_bytes` | Logical size dedicated to a specific volume.|
+| `zbs_volume_logical_size_bytes` | Total logical size.|
 
 **Volume IO**
 | Metrics | Description|    

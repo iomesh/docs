@@ -6,6 +6,7 @@ sidebar_label: Installing IOMesh Dashboard
 
 Monitoring IOMesh storage is implemented on the capabilities of Prometheus and Grafana. Before installing IOMesh dashboard, make sure you have installed Prometheus and Grafana.
 
+### Enabling IOMesh Metrics
 
 **Prerequisite**
 
@@ -13,22 +14,25 @@ Verify that Prometheus and Prometheus Operator are already installed [weiqi 加�
 
 **Procedure**
 
-### Enabling IOMesh Metrics
 1. Get `iomesh.yaml` ready. 
 
-    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`.
+    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already already have `iomesh.yaml` when you manually install IOMesh.  
 
-   Quick Installation: Run the following command to export `iomesh.yaml`.
+<!--DOCUSAURUS_CODE_TABS-->
 
-   ```
-   helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
-   ```
-   Offline Installation: Run the following command to export `iomesh.yaml`.
+<!--Quick-->
 
-    ```
-    ./helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
-    ```
-    Custom Installation: You already have `iomesh.yaml` when you manually install IOMesh. 
+```shell
+helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
+```
+
+<!--Offline-->
+
+```shell
+./helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 2. Edit `iomesh.yaml`, including `operator`, `iomesh`, and `blockdevice monitor`.
 
@@ -104,16 +108,23 @@ Verify that Prometheus and Prometheus Operator are already installed [weiqi 加�
 
 3. Run the corresponding command to apply modifications according to your installation.
 
-   - Quick Installation or Custom Installation:
-      ```bash
-      helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
-      ```
-   - Offline Installation:
-      ```bash
-      ./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
-      ```
+<!--DOCUSAURUS_CODE_TABS-->
 
-    加一个结果
+<!--Quick/Custom-->
+
+```shell
+helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
+```
+
+<!--Offline-->
+
+```shell
+./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
+```
+
+<!--END_DOCUSAURUS_CODE_TABS-->
+
+加结果
 
 
 ### Importing Grafana Dashboard

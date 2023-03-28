@@ -16,7 +16,7 @@ IOMesh is fully built on the capabilities of Kubernetes and implements storage a
 
 **High Performance** 
 
-IOMesh enables I/O-intensive databases and applications to run efficiently in the container environment. Leveraging I/O localization and tiered storage, IOMesh achieves high IOPS while maintaining low latency, ensuring stable adoption of data applications.
+IOMesh enables I/O-intensive databases and applications to run efficiently in the container environment. Leveraging high-performance I/O link and tiered storage, IOMesh achieves high IOPS while maintaining low latency to ensure stable operation of data applications.
 
 **No Kernel Dependencies** 
    
@@ -24,11 +24,11 @@ Running separately in user space instead of kernel space, IOMesh is isolated fro
 
 **Data Protection & Security**
 
-A system with multiple levels of data protection makes sure that data is always secure and available. IOMesh does this by placing number of replicas across nodes, allowing for PV-level snapshots for easy recovery in case of trouble, while also isolating abnormal disks to reduce impact to the minimum and relieve operations burden. Authentication is also provided for specific PVs to ensure secure access. 
+A system with multiple levels of data protection makes sure that data is always secure and available. IOMesh does this by placing multiple replicas on different nodes, allowing PV-level snapshots for easy recovery in case of trouble, while also isolating abnormal disks to minimize the impact and reduce the operational burden. Authentication is also provided for specific PVs to ensure secure access.
 
 **Fully Integrated into Kubernetes Ecosystem**
 
-IOMesh provides storage for stateful applications via CSI when migrating across nodes or clusters. It also works seamlessly with the Kubernetes toolchain, easily deploying IOMesh using Helm Chart, and integrates with Prometheus and Grafana to provide standardized monitoring and alerting and data visualization.
+IOMesh provides storage for stateful applications via CSI even when they are migrated across nodes or clusters. It also works seamlessly with the Kubernetes toolchain, easily deploying IOMesh using Helm Chart and integrating with Prometheus and Grafana to provide standardized, visualized monitoring and alerting service.
 
 ## Architecture
 ![IOMesh arch](https://user-images.githubusercontent.com/78140947/122766241-e2352c00-d2d3-11eb-9630-bb5b428c3178.png)
