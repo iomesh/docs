@@ -10,13 +10,13 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 **Prerequisite**
 
-Verify that Prometheus and Prometheus Operator are already installed [加一个安装参考链接], and Prometheus is located in the Namespace `iomesh-system`.
+Verify that [Prometheus and Prometheus Operator](https://prometheus.io/docs/prometheus/latest/installation/) are already installed, and Prometheus is located in the Namespace `iomesh-system`.
 
 **Procedure**
 
 1. Get `iomesh.yaml` ready. 
 
-    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already already have `iomesh.yaml` when you manually install IOMesh.  
+    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already have `iomesh.yaml` when you manually install IOMesh.  
 
 
 <!--DOCUSAURUS_CODE_TABS-->
@@ -121,7 +121,7 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
 
 4. Run the following commands to verify whether your configurations are applied.
 
-    **ServiceMonitor**
+    `ServiceMonitor`
     ```bash
     kubectl -n iomesh-system get servicemonitor
     ```
@@ -135,7 +135,7 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     kube-state-metrics   10m
     ````
     
-    **PodMonitor**
+    `PodMonitor`
 
     ```bash
     kubectl -n iomesh-system get podmonitor
@@ -148,14 +148,14 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     blockdevice-monitor-prober   10m
     ```
     
-    **Prometheusrule**
+    `PrometheusRule`
 
-    ````bash
+    ```bash
     kubectl -n iomesh-system get prometheusrule
     ```
 
     After running the command, you should see an example like:
-
+    
     ```output
     NAME                 AGE
     blockdevicemonitor   10m
@@ -164,7 +164,7 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
 
     If `kube-state-metrics` service is enabled，verify that if it is already installed.
 
-    ```shell
+    ```bash
     kubectl -n iomesh-system get pods -l app.kubernetes.io/name=kube-state-metrics
     ```
 
@@ -180,7 +180,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded `IOMesh-cluster-dashboard.json` file. [dasboard](./assets/iomesh-cluster-dashboard.json) 
+You have downloaded [`IOMesh-cluster-dashboard.json` file](./assets/iomesh-cluster-dashboard.json) .
 
 **Procedure**
 

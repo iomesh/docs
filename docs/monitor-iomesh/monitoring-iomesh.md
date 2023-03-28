@@ -96,6 +96,6 @@ Shows PV attribute information, status, and usage in the IOMesh cluster.
 | Shared Capacity | The physical capacity shared by this PV and other objects. | "10 GiB"|
 | VolumeMode| Shows PV VolumeMode, including `Block` and `Filesystem`.| "Block"               |
 | PV Provisioning    | Shows the PV provisioning type, including `Thin provisioning` and `Thick provisioning`. | "Thin provisioning"   |
-| Replicas | The number of replicas for this PV.| “2/3”|
+| Replicas | The number of replicas for this PV, including `2` or `3`|"2"|
 | Created Time | The time when this PV was created. | "2022-12-08 14:45:00"|
                                                                                                                                                                                                                                                                                                                                                                                      
