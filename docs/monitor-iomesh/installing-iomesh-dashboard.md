@@ -106,6 +106,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
 3. Run the corresponding command to apply modifications according to your installation.
 
+
 <!--DOCUSAURUS_CODE_TABS-->
 
 <!--Quick/Custom-->
@@ -117,6 +118,8 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
 ./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
+
+
 
 加运行命令后输出的结果
 
