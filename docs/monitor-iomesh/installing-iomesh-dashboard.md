@@ -109,7 +109,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
 <!--DOCUSAURUS_CODE_TABS-->
 
-<!--Custom-->
+<!--Quick/Custom-->
 ```shell
 helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
 ```

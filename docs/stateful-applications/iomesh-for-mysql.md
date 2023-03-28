@@ -90,7 +90,7 @@ Verify that your IOMesh cluster is already deployed.
               claimName: iomesh-mysql-pvc 
     ```
 
-    For more information, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+    For more information, refer to [Kubernetes Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) and [Service](https://kubernetes.io/docs/concepts/services-networking/service/).
 
 4. Run the following command to apply the YAML file.
 
