@@ -120,8 +120,43 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 
+<!--运行结果-->
+```shell
+# kubectl -n iomesh-system get servicemonitor
+```
+```output
+NAME                 AGE
+iomesh               10m
+iomesh-operator      10m
+kube-state-metrics   10m
+````
 
-加运行命令后输出的结果
+```shell
+# kubectl -n iomesh-system get podmonitor
+```
+```output
+NAME                         AGE
+blockdevice-monitor          10m
+blockdevice-monitor-prober   10m
+```
+
+````shell
+# kubectl -n iomesh-system get prometheusrule
+```
+```output
+NAME                 AGE
+blockdevicemonitor   10m
+iomesh               10m
+```
+
+如果开启了安装 kube-state-metrics ，需要检查 kube-state-metrics 是否已安装
+```shell
+# kubectl -n iomesh-system get pods -l app.kubernetes.io/name=kube-state-metrics
+```
+```output
+NAME                                  READY   STATUS    RESTARTS   AGE
+kube-state-metrics-7bb75797f9-h9r97   1/1     Running   0          10m
+```
 
 ### Importing Grafana Dashboard
 
@@ -129,7 +164,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded `IOMesh-cluster-dashboard.json` file. (提供一个链接) 
+You have downloaded `IOMesh-cluster-dashboard.json` file. [dasboard](./assets/iomesh-cluster-dashboard.json) 
 
 **Procedure**
 
