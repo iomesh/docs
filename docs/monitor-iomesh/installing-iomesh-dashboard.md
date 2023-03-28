@@ -104,7 +104,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
         relabelings: [] # Set relabelings parameters, which defaults to blank.
     ```
 
-3. Run the corresponding command to apply modifications according to your installation.
+3. Run the corresponding command to apply configurations according to your installation.
 
 
 <!--DOCUSAURUS_CODE_TABS-->
@@ -119,44 +119,60 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
+4. Run the following commands to verify whether your configurations are applied.
 
-<!--运行结果-->
-```shell
-# kubectl -n iomesh-system get servicemonitor
-```
-```output
-NAME                 AGE
-iomesh               10m
-iomesh-operator      10m
-kube-state-metrics   10m
-````
+    **ServiceMonitor**
+    ```bash
+    kubectl -n iomesh-system get servicemonitor
+    ```
 
-```shell
-# kubectl -n iomesh-system get podmonitor
-```
-```output
-NAME                         AGE
-blockdevice-monitor          10m
-blockdevice-monitor-prober   10m
-```
+    After running the command, you should see an example like:
 
-````shell
-# kubectl -n iomesh-system get prometheusrule
-```
-```output
-NAME                 AGE
-blockdevicemonitor   10m
-iomesh               10m
-```
+    ```output
+    NAME                 AGE
+    iomesh               10m
+    iomesh-operator      10m
+    kube-state-metrics   10m
+    ````
+    
+    **PodMonitor**
 
-如果开启了安装 kube-state-metrics ，需要检查 kube-state-metrics 是否已安装
-```shell
-# kubectl -n iomesh-system get pods -l app.kubernetes.io/name=kube-state-metrics
-```
-```output
-NAME                                  READY   STATUS    RESTARTS   AGE
-kube-state-metrics-7bb75797f9-h9r97   1/1     Running   0          10m
-```
+    ```bash
+    kubectl -n iomesh-system get podmonitor
+    ```
+    After running the command, you should see an example like:
+
+    ```output
+    NAME                         AGE
+    blockdevice-monitor          10m
+    blockdevice-monitor-prober   10m
+    ```
+    
+    **Prometheusrule**
+
+    ````bash
+    kubectl -n iomesh-system get prometheusrule
+    ```
+
+    After running the command, you should see an example like:
+
+    ```output
+    NAME                 AGE
+    blockdevicemonitor   10m
+    iomesh               10m
+    ```
+
+    If `kube-state-metrics` service is enabled，verify that if it is already installed.
+
+    ```shell
+    kubectl -n iomesh-system get pods -l app.kubernetes.io/name=kube-state-metrics
+    ```
+
+    After running the command, you should see an example like:
+    ```output
+    NAME                                  READY   STATUS    RESTARTS   AGE
+    kube-state-metrics-7bb75797f9-h9r97   1/1     Running   0          10m
+    ```
 
 ### Importing Grafana Dashboard
 
