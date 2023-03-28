@@ -16,6 +16,8 @@ Verify that Prometheus and Prometheus Operator are already installed [加一个�
 
 1. Get `iomesh.yaml` ready. 
 
+    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already already have `iomesh.yaml` when you manually install IOMesh.  
+
 
 <!--DOCUSAURUS_CODE_TABS-->
 
@@ -40,20 +42,20 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
       # Configure ServiceMonitor for Prometheus Operator.
       serviceMonitor: 
-        create: true # Create a ServiceMonitor object.
-        namespace: "" # Create a NameSpace for ServiceMonitor object, which defaults to iomesh-system.
-        labels: {} # Set the label for ServiceMonitor object to filter ServiceMonitor object, which defaults to blank.
+        create: true # Set it to true to create a ServiceMonitor object, which defaults to false.
+        namespace: "iomesh-system" # Create a Namespace for ServiceMonitor object, which defaults to iomesh-system.
+        labels: {} # Set the label for ServiceMonitor object, which defaults to blank.
 
-        # Configure Relabelings to be applied to samples before scraping. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
-        relabelings: [] # Set relabeling parameters for metrics according to needs, which defaults to blank.
+        # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
+        relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
       
-      # Configure PrometheusRule for Prometheus Operator
+      # Configure PrometheusRule for Prometheus Operator.
       prometheusRule:
-        create: true # Create a PrometheusRule object for configuring monitoring rules, which defaults to false.
-        namespace: "" # Create a NameSpace for PrometheusRule object, which defaults to iomesh-system.
-        labels: {} # Set labels for the PrometheusRule object to select PrometheusRule object, which defaults to blank.
+        create: true # Set it to true to create a PrometheusRule object, which defaults to false.
+        namespace: "iomesh-system" # Create a Namespace for PrometheusRule object, which defaults to iomesh-system.
+        labels: {} # Set the label for PrometheusRule object, which defaults to blank.
   
-      # Configure kube-state-metrics service 
+      # Configure kube-state-metrics service.
       kubeStateMetrics:
         create: false # Whether you deploy kube-state-metrics service. If it is already deployed, set it to false.
         image:
@@ -71,9 +73,9 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
     iomesh:
       # Configure ServiceMonitor for Prometheus.
       serviceMonitor:
-        create: true # Set to true to create a serviceMonitor object. Default value is false.
-        namespace: "iomesh-system" # Create a NameSpace for the serviceMonitor object, which defaults to iomesh-system.
-        labels: {} # Set the label for the serviceMonitor object, which defaults to blank. 
+        create: true # Set it to true to create a serviceMonitor object, which defaults to false.
+        namespace: "iomesh-system" # Create a Namespace for serviceMonitor object, which defaults to iomesh-system.
+        labels: {} # Set the label for serviceMonitor object, which defaults to blank. 
       meta:
         # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>.
         relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
@@ -87,13 +89,13 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
     ```yaml
     blockdevice-monitor:
       podMonitor:
-        create: true # Set to true to create a PodMonitor object. Default value is false.
-        namespace: "iomesh-system" # Create a NameSpace for PodMonitor object, which defaults to iomesh-system.
-        labels: {} # Set the label for PodMonitor objects, which defaults to blank.
+        create: true # Set it to true to create a PodMonitor object, which defaults to false.
+        namespace: "iomesh-system" # Create a Namespace for PodMonitor object, which defaults to iomesh-system.
+        labels: {} # Set the label for PodMonitor object, which defaults to blank.
       prometheusRule:
-        create: true # Set to true to create a PrometheusRule object. Default value is false.
-        namespace: "iomesh-system" # Create a NameSpace for PrometheusRule object, which defaults to iomesh-system.
-        labels: {} # Set the label for the PrometheusRule object, which defaults to blank.
+        create: true # Set it to true to create a PrometheusRule object, which defaults to false.
+        namespace: "iomesh-system" # Create a Namespace for PrometheusRule object, which defaults to iomesh-system.
+        labels: {} # Set the label for PrometheusRule object, which defaults to blank.
       blockdevicemonitor:
         # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>. 
         relabelings: [] # Set relabelings parameters, which defaults to blank.
@@ -127,11 +129,11 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded `IOMesh-cluster-dashboard.json` file. 【提供一个链接】 
+You have downloaded `IOMesh-cluster-dashboard.json` file. (提供一个链接) 
 
 **Procedure**
 
-1. Log in Grafana.
+1. Log in [Grafana](https://grafana.com/auth/sign-in/?plcmt=top-nav&cta=myaccount).
 
 2. In the upper left corner of Dashboard homepage, click **Dashboard** > **+ Import**. 
 
