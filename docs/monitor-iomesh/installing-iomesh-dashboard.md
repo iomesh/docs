@@ -18,21 +18,10 @@ Verify that Prometheus and Prometheus Operator are already installed [加一个�
 
     If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already already have `iomesh.yaml` when you manually install IOMesh.  
 
-<!--DOCUSAURUS_CODE_TABS-->
-
-<!--Quick-->
-
-```shell
-helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
-```
-
-<!--Offline-->
-
-```shell
-./helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
-```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
+<Tabs className="unique-tabs">
+  <TabItem value="Quick">helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml</TabItem>
+  <TabItem value="Offline">./helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml</TabItem>
+</Tabs>
 
 2. Edit `iomesh.yaml`, including `operator`, `iomesh`, and `blockdevice monitor`.
 
@@ -108,24 +97,12 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
 3. Run the corresponding command to apply modifications according to your installation.
 
-<!--DOCUSAURUS_CODE_TABS-->
-
-<!--Quick/Custom-->
-
-```shell
-helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
-```
-
-<!--Offline-->
-
-```shell
-./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
-```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
+<Tabs className="unique-tabs">
+  <TabItem value="Quick/Custom">helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml</TabItem>
+  <TabItem value="Offline">./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml</TabItem>
+</Tabs>
 
 加结果
-
 
 ### Importing Grafana Dashboard
 
