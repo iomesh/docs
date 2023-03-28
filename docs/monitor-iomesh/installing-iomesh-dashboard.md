@@ -18,21 +18,6 @@ Verify that Prometheus and Prometheus Operator are already installed [weiqi 加�
 
     If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already already have `iomesh.yaml` when you manually install IOMesh.  
 
-<!--DOCUSAURUS_CODE_TABS-->
-
-<!--Quick-->
-
-```shell
-helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
-```
-
-<!--Offline-->
-
-```shell
-./helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
-```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
 
 2. Edit `iomesh.yaml`, including `operator`, `iomesh`, and `blockdevice monitor`.
 
@@ -108,21 +93,6 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
 3. Run the corresponding command to apply modifications according to your installation.
 
-<!--DOCUSAURUS_CODE_TABS-->
-
-<!--Quick/Custom-->
-
-```shell
-helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
-```
-
-<!--Offline-->
-
-```shell
-./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
-```
-
-<!--END_DOCUSAURUS_CODE_TABS-->
 
 加结果
 
