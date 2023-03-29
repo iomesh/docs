@@ -1,7 +1,7 @@
 ---
 id: manage-multiple-cluster
-title: Multiple Cluster Operations
-sidebar_label: Multiple Cluster Operations
+title: Multiple Cluster Management
+sidebar_label: Multiple Cluster Management
 ---
 
 In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation, and each IOMesh cluster is an independent storage pool. In this case, the IOMesh CSI driver enables different IOMesh clusters to communicate, reducing the number of CSI drivers that may consume node resources.
@@ -25,14 +25,14 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
 
 1. Set up [`open-iscsi`] on each worker node.
 
-2. Generate `helm values` configuration file. (生成的是 helm.yaml 还是 iomesh.values,yaml)
+2. Create a YAML config `iomesh.yaml`.
 
     ```
     helm show values iomesh/iomesh > iomesh-values.yaml
     ```
-3. Configure `iomesh.values.yaml`.
+3. Configure `iomesh.yaml`.
 
-    - Set the field `iomesh.chunk.dataCIDR` to the CIDR you configured for the IOMesh storage network.
+    - Set the field [`iomesh.chunk.dataCIDR`]((../docs/deploy-iomesh-cluster/prerequisites.md#network-requirments)) to the CIDR you configured for the IOMesh storage network.
 
         ```yaml
         # Source: iomesh-values.yaml
@@ -189,11 +189,9 @@ kubectl edit iomesh-cluster-1 -n iomesh-cluster-1
 加输出结果
 
 
+#### Creating Multiple-Cluster Connection
 
-#### Mounting Disks
-使用 kubectl edit 编辑每一个 iomesh 对象，参考 https://docs.iomesh.com/deploy/setup-iomesh#block-device-object 配置磁盘
-
-#### 创建多集群连接配置
+The IOMesh CSI driver can connect multiple IOMesh clusters, 
 
 一套 IOMesh CSI 可以连接多套 IOMesh 集群。需要创建不同的 ConfigMap 来标识不同的 IOMesh 集群
 
@@ -228,16 +226,17 @@ kubectl apply -f iomesh-cluster-1-csi-configmap.yaml
 
 ConfigMap 字段释义
 
-| 字段名 | 字段释义 |
-| ------------------ | ------------------------------------------------------------ |
-| data.clusterId | K8s 集群 ID，用户可自定义，一个 K8s 集群只能有一个，由于两个 iomesh 集群部署在同一 K8s 集群，这个值必须相同 |
-| data.iscsiPortal   | iscsi 接入点，固定为 127.0.0.1:3260                          |
-| data.metaAddr      | iomesh meta service 地址，格式为 <iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100 |
+| Field | Description |
+| ------------- | ----- |
+| `data.clusterId` | K8s 集群 ID，用户可自定义，一个 K8s 集群只能有一个，由于两个 iomesh 集群部署在同一 K8s 集群，这个值必须相同 |
+| `data.iscsiPortal`   | iscsi 接入点，固定为 127.0.0.1:3260                          |
+| `data.metaAddr`      | iomesh meta service 地址，格式为 <iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100 |
 
-#### 为每个 IOMesh 集群创建分别对应的 StorageClass
+#### Creating StorageClass for Each Cluster
 
-> _Note:_
-> 在多集群部署场景下，请不要使用部署 IOMesh 时自动创建的默认 StorageClass，必须为每个集群单独创建 StorageClass
+When deploying more than one IOMesh cluster, do not use the default StorageClass `iomesh-csi-driver`; you must create a separate StorageClass for each cluster
+
+
 ```yaml
 ---
 # Source: iomesh-sc.yaml
@@ -284,8 +283,9 @@ StorageClass 的字段释义如下:
 
 #### Verifying Deployment 
 
-使用两个 IOMesh 集群的 storageClass 分别创建 PVC
+To verify if the IOMesh clusters are deployed, create a PVC using the StorageClass you created respectively. 
 
+1. Create YAML configs iomesh-pvc.yaml
 ```yaml
 # Source: iomesh-pvc.yaml
 kind: PersistentVolumeClaim

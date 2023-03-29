@@ -148,6 +148,6 @@ Verify the IOMesh cluster is already deployed.
     kubectl apply -f cassandra-statefulset.yaml
     ```
 
-    Persistent volumes will be created by IOMesh for each cassandra pod, and each persistent volume will have configurations such as the filesystem type and replication factor as configured in the StorageClass.
+    Persistent volumes will be created by IOMesh for each Cassandra pod, and each persistent volume will have configurations such as the filesystem type and replication factor as configured in the StorageClass.
 
-    Once done, you can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].
+    Once done, you can expand, snapshot, or clone persistent volumes where Cassandra data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].
