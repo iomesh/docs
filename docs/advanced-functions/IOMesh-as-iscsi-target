@@ -1,0 +1,9 @@
+---
+id: install-iomesh
+title: Installing IOMesh
+sidebar_label: Install IOMesh
+---
+
+IOMesh provides iSCSI access service, which allows you to create an iSCSI LUN by creating a PVC. An iSCSI LUN can use any iSCSI server such as open-iscsi outside the Kubernetes cluster to access iSCSI LUN.
+
+

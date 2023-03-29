@@ -1,38 +1,39 @@
 {
   "docs": {
     "About IOMesh": [
-      "about-iomesh/introduction"
+      "introduction/introduction",
+      "basic-concepts/basic-concepts"
     ],
-    "Deploy": [
-      "deploy/prerequisites",
-      "deploy/install-iomesh",
-      "deploy/setup-iomesh",
-      "deploy/setup-storageclass",
-      "deploy/setup-snapshotclass"
+    "Deploying IOMesh Cluster": [
+      "deploy-iomesh-cluster/prerequisites",
+      "deploy-iomesh-cluster/setup-worker-node",
+      "deploy-iomesh-cluster/install-iomesh",
+      "deploy-iomesh-cluster/setup-iomesh",
+      "deploy-iomesh-cluster/activate-license"
     ],
     "Volume Operations": [
-        "volume-operations/create-volume",
-        "volume-operations/expand-volume",
-        "volume-operations/snapshot-restore-and-clone"
+      "volume-operations/create-storageclass",
+      "volume-operations/create-pv",
+      "volume-operations/create-pv-authentication",
+      "volume-operations/expand-pv",
+      "volume-operations/clone-pv"
     ],
-    "IOMesh Operations":[
-        "iomesh-operations/monitoring",
-        "iomesh-operations/cluster-operations"
+    "VolumeSnapshot Operations": [
+      "volumesnapshot-operations/create-snapshotclass",
+      "volumesnapshot-operations/create-volumesnapshot",
+      "volumesnapshot-operations/restore-volumesnapshot"
     ],
-    "Stateful Applications":[
-        "stateful-applications/iomesh-for-mysql",
-        "stateful-applications/iomesh-for-cassandra",
-        "stateful-applications/iomesh-for-mongodb"
+    "Deploying Stateful Applications": [
+      "stateful-applications/iomesh-for-mysql",
+      "stateful-applications/iomesh-for-cassandra",
+      "stateful-applications/iomesh-for-mongodb"
     ],
-    "Advanced Usage":[
-        "advanced-usage/external-iscsi"
-    ],
-    "Additional Info":[
-        "additional-info/performance-testing",
-        "additional-info/release-notes"
+    "Monitoring IOMesh":[
+      "monitor-iomesh/installing-iomesh-dashboard",
+      "monitor-iomesh/monitoring-iomesh"
     ],
     "References": [
-        "references/metrics"
+      "references/iomesh-metrics"
     ]
   }
 }

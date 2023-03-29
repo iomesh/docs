@@ -4,16 +4,21 @@ title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 ---
 
-## Setup k8s Cluster Storage
+IOMesh provides persistent storage for stateful applications like Cassandra, MySQL, and MongDB. The following section describes how to deploy these stateful applications using IOMesh.
 
-1. Create a file named `iomesh-mysql-sc.yaml` with the following contentS:
+**Prerequisite**
+
+Verify that your IOMesh cluster is already deployed. 
+
+**Procedure**
+1. Create a YAML config `iomesh-mysql-sc.yaml`. You can directly use the default StorageClass or create one with custom parameters. Refer to [Creating StorageClass](../volume-operations/create-storageclass.md#creating-storageclass) for detailed information.
 
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-mysql-sc
-    provisioner: com.iomesh.csi-driver # driver.name in values.yaml when install IOMesh cluster
+    provisioner: com.iomesh.csi-driver # The driver.name in `values.yaml` when deploying IOMesh cluster.
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
@@ -22,21 +27,17 @@ sidebar_label: IOMesh for MySQL
       thinProvision: "true"
     ```
 
-2. Apply the yaml config:
+2. Run the following command to apply the YAML file.
 
     ```bash
     kubectl apply -f iomesh-mysql-sc.yaml
     ```
-
-## Deploy MySQL
-
-1. Create a file named `mysql-deployment.yaml`. It describes a Deployment that runs MySQL and creates a PVC that consumes the IOMesh storage.
-
+3. Create a YAML file named `mysql-deployment.yaml` that contains `PersistentVolumeClaim`, `Service`, and `Deployment`.
     ```yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: iomesh-mysql-pvc
+      name: iomesh-mysql-pvc 
     spec:
       storageClassName: iomesh-mysql-sc
       accessModes:
@@ -75,7 +76,7 @@ sidebar_label: IOMesh for MySQL
           - image: mysql:5.6
             name: mysql
             env:
-              # Use secret in real usage
+              # Enter a password to allow access to the database.
             - name: MYSQL_ROOT_PASSWORD
               value: password
             ports:
@@ -87,15 +88,17 @@ sidebar_label: IOMesh for MySQL
           volumes:
           - name: mysql-persistent-storage
             persistentVolumeClaim:
-              claimName: iomesh-mysql-pvc # pvc from iomesh created above
+              claimName: iomesh-mysql-pvc 
     ```
 
-2. Apply the yaml config:
+    For more information, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+
+4. Run the following command to apply the YAML file.
 
     ```bash
     kubectl apply -f mysql-deployment.yaml
     ```
 
-## Operate MySQL Data
+    Once done, persistent volumes will be created by IOMesh for each MySQL pod, and each persistent volume will have configurations such as filesystem type and replication factor as configured in the StorageClass.
 
-Users can use the features provided by IOMesh storage to perform such operations as expansion/snapshot/rollback/clone of the Persistent Volumes where MySQL data are located, see the reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+    You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].
