@@ -27,13 +27,13 @@ Verify the IOMesh cluster is already deployed.
       thinProvision: "true"
     ```
 
-2. Run the following command to apply the YAML file.
+2. Apply the YAML file.
 
     ```bash
     kubectl apply -f iomesh-mongodb-sc.yaml
     ```
 
-3. Create a headless service which is used for DNS lookups between MongoDB Pods and the clients within your cluster.
+3. Create a YAML config `mongodb-service.yaml`, the headless service used for DNS lookups between MongoDB Pods and the clients within your cluster.
 
     ```yaml
     apiVersion: v1
@@ -51,7 +51,7 @@ Verify the IOMesh cluster is already deployed.
         role: mongo
     ```
 
-4. Running the command to apply the YAML file.
+4. Run the command to apply the YAML file.
 
     ```bash
     kubectl apply -f mongodb-service.yaml

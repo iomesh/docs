@@ -80,7 +80,7 @@ Shows disk attribute information, health and usage status, and purpose of use.
 | Type               | Shows the disk type, including `SSD` and `HDD`.       | "HDD"          |
 | Model              | Shows disk attribute information, which may contain brand information.                                                     | "DL2400MM0159" |
 | Serial Number      | The serial number of the physical disk.                                                                                    | "WBM3C4TE"     |
-| Use                | Shows the purpose of the physical disk, including `Datastore`, `Cache with journal`, and `Datastore with journal`. | "Cache"        |
+| Use                | Shows the purpose of the physical disk, including `Datastore`, `Cache with journal`, and `Datastore with journal`. | "Datastore"        |
 | Capacity | The total capacity of the physical disk. | "500 GiB"      |
 | Hostname| The name of the node where the disk is located. | "node-1"       |
 ### Persistent Volume
@@ -90,7 +90,7 @@ Shows PV attribute information, status, and usage in the IOMesh cluster.
 |---|------|-----|
 | Name | The PV name. | "Volume-1"            |
 | StorageClass       | The StorageClass name corresponding to this PV. | "StorageClass1"       |
-| Status | Shows the PV status, including: <p>Available: This PV is available for use but is not bound to any PVC. </p> <p>Bound: This PV is already bound to a PVC.</p><p>Released: All bound PVCs have been deleted but resources have been not recycled by the cluster.</p> <p>Failed: Failed to automatically recycle this PV.<p> Pending: This PV is already created but but needs to wait for CSI to create the entity storage resource. |"Available"|
+| Status | Shows the PV status, including: <p>Available: This PV is available for use but is not bound to any PVC. </p> <p>Bound: This PV is already bound to a PVC.</p><p>Released: The PVC bound to this PV has been deleted, but the resource has not been reclaimed by the cluster.</p> <p>Failed: Failed to automatically reclaim this PV.<p> Pending: This PV is already created but but needs to wait for CSI to create the entity storage resource. |"Available"|
 | Allocated Capacity | The logical capacity allocated to this PV.| "50 GiB"|
 | Exclusive Capacity | The logical capacity exclusive for this PV.| "25 GiB" |
 | Shared Capacity | The physical capacity shared by this PV and other objects. | "10 GiB"|

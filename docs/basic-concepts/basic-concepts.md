@@ -8,7 +8,7 @@ Before deploying and using IOMesh, familiarity with the following concepts is su
 
 [**Kubernetes**](https://kubernetes.io/)
 
-An open source container orchestration platform for managing containerized workloads and services, facilitating both declarative configuration and automation.
+A portable, extensible open source container orchestration platform for managing containerized workloads and services, facilitating both declarative configuration and automation.
 
 [**Node**](https://kubernetes.io/docs/concepts/architecture/nodes/)
 
@@ -36,7 +36,7 @@ IOMesh block storage service for ensuring distributed system consistency and dat
 
 **IOMesh CSI Driver**
 
-The self-developed CSI driver that complies with the Kubernetes CSI standard, managing persistent volumes using PRC (Remote Procedure Call) for providing persistent storage for data applications running on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in the IOMesh cluster.
+The self-developed CSI driver that complies with the Kubernetes CSI standard, managing persistent volumes using RPC (Remote Procedure Call) for providing persistent storage for data applications running on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in the IOMesh cluster.
 
 **IOMesh Operator**
 
@@ -89,7 +89,7 @@ A persistent volume can be mounted on a host in any way supported by the resourc
 
 - `ReadWriteOncePod`: The volume can be mounted as read-write by a single pod. `ReadWriteOncePod`is suggested if you want to ensure that only one pod across the whole cluster can read that PVC or write to it. This is only supported for CSI volumes and Kubernetes version 1.22+.
 
-IOMesh supports the access modes above, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
+IOMesh supports `ReadWriteOnce`，`ReadWriteMany`，and `ReadOnlyMany`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
 
 [**Helm**](https://helm.sh/)
 
@@ -101,7 +101,7 @@ An open source system monitoring and alerting toolkit that can be integrated wit
 
 [**Grafana**](https://grafana.com/)
 
-An open source analytics and interactive visualization web application, providing charts, graphs, and alerts for the web when connected to supported data sources. With Grafana, you can import standard Grafana dashboard template and alerting rule file to visualize IOMesh storage performance.
+An open source analytics and interactive visualization web application, providing charts, graphs, and alerts for the web when connected to supported data sources. With Grafana, you can Grafana dashboard template and alerting rules provided by IOMesh to visualize IOMesh storage performance.
 
 
 

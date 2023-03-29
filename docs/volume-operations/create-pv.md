@@ -8,7 +8,7 @@ To create a PV, you should first create a PVC. Once done, IOMesh will sense the 
 
 **Precaution**
 
-IOMesh supports access modes `ReadWriteOnce`, `ReadOnlyMany`, `ReadWriteMany`, and `ReadWriteOncePod`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
+IOMesh supports access modes `ReadWriteOnce`，`ReadWriteMany`，and `ReadOnlyMany`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
 
 **Prerequisite**
 
