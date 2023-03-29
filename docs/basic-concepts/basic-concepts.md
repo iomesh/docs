@@ -101,7 +101,7 @@ An open source system monitoring and alerting toolkit that can be integrated wit
 
 [**Grafana**](https://grafana.com/)
 
-An open source analytics and interactive visualization web application, providing charts, graphs, and alerts for the web when connected to supported data sources. With Grafana, you can import standard Grafana dashboard template and alerting rule file to visualize IOMesh storage performance.
+An open source analytics and interactive visualization web application, providing charts, graphs, and alerts for the web when connected to supported data sources. With Grafana, you can import standard Grafana dashboard template and alerting rule file provided by IOMesh to visualize storage performance.
 
 
 
