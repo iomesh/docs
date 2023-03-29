@@ -1,0 +1,11 @@
+---
+id: uninstall-cluster
+title: Uninstalling IOMesh Cluster
+sidebar_label: Uninstalling IOMesh Cluster
+---
+
+>**Attention: 卸载 IOMesh 存储集群后，所有数据都将丢失，包括使用 IOMesh StorageClass 创建的 PVC.
+
+To uninstall the IOMesh cluster, run the following command:
+
+helm uninstall --namespace iomesh-system iomesh

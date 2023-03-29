@@ -12,6 +12,9 @@ In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for
 
 Note that this release of IOMesh does not support expanding an IOMesh cluster to two or more IOMesh clusters.
 
+多个 iomesh 集群，第一个集群属于管控集群，管理所有 iomesh 补充！！！
+稍微详细解释管控集群和其它集群的角色和作用
+
 **Prerequisites**
 - Verify that all requirements in [Prerequisites] are met.
 - The IOMesh version should be 1.0.0. 
@@ -19,39 +22,38 @@ Note that this release of IOMesh does not support expanding an IOMesh cluster to
 
 **Procedure**
 
-The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, deploying the first IOMesh cluster on worker nodes `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` with `namespace` as `iomesh-system` and the second IOMesh cluster on the worker nodes `k8s-worker-3`, `k8s-worker-4`, and `k8s-worker-5` with `iomesh-cluster-1`.
+The following section assumes you have 6 worker nodes, deploying the first IOMesh cluster `iomesh-cluster` on worker nodes `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` and the second cluster `iomesh-cluster-1` on worker nodes `k8s-worker-3`, `k8s-worker-4`, and `k8s-worker-5`. 
 
 #### Deploying First IOMesh Cluster
 
-1. Set up [`open-iscsi`] on each worker node.
+1. Set up [`open-iscsi`](../docs/deploy-iomesh-cluster/setup-worker-node.md) on each worker node.
 
-2. Create a YAML config `iomesh.yaml`.
+2. Export the YAML config `iomesh.yaml`. 
 
     ```
-    helm show values iomesh/iomesh > iomesh-values.yaml
+    helm show values iomesh/iomesh > iomesh.yaml
     ```
 3. Configure `iomesh.yaml`.
 
     - Set the field [`iomesh.chunk.dataCIDR`]((../docs/deploy-iomesh-cluster/prerequisites.md#network-requirments)) to the CIDR you configured for the IOMesh storage network.
 
         ```yaml
-        # Source: iomesh-values.yaml
         iomesh:
             chunk:
             dataCIDR: <your-data-cidr-here>
         ```
 
-    - Configure node affinity for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` so that they can be scheduled to {0~2} ，对应的字段分别为：
+    - Configure node affinity for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` so that they can be scheduled to `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2`.
+
 
         `iomesh.meta.podPolicy`
 
-        补充 yaml 文件
+        补充 yaml 文件 和 key/value 如何配置
 
 
         `iomesh.chunk.podPolicy`
 
         ```yaml
-        # Source: iomesh-values.yaml
         ...
         iomesh:
         ...
@@ -69,16 +71,30 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
                         - k8s-woker-1
                         - k8s-woker-2
         ```
+      补充 key/value 如何配置
 
         `iomesh.redirector.podPolicy`
 
-        补充 yaml 文件
+        补充 yaml 文件 和 key/value 如何配置
 
 
-    - Configure node affinity for `zookeeper` so that it can be scheduled to `k8s-woker-{0~2}`并增加 pod 反亲和性，在 `iomesh.zookeeper.podPolicy` 中如下配置
+    - Configure `nodeAffinity` to schedule `zookeeper` to `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` and `podAntiAffinity` to ensure each `zookeeper` pod resides on a node, avoiding a single point of failure.  
+    
+      - Locate `nodeAffinity` and `podAntiAffinity`, you will see the content below:
+      ```yaml
+      ...
+        iomesh:
+        ...
+            zookeeper:
+            podPolicy:
+                affinity:
+                nodeAffinity:
+                podAntiAffinity:
+      ```
+    
+      - Copy and paste the following sample code and configure `key` and `values`.
 
         ```yaml
-        # Source: iomesh-values.yaml
         ...
         iomesh:
         ...
@@ -89,7 +105,7 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
                     requiredDuringSchedulingIgnoredDuringExecution:
                     nodeSelectorTerms:
                     - matchExpressions:
-                        - key: kubernetes.io/hostname
+                        - key: kubernetes.io/hostname # 配置 key/values
                         operator: In
                         values:
                         - k8s-woker-0
@@ -103,24 +119,24 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
                         - key: app
                             operator: In
                             values:
-                            - iomesh-zookeeper
+                            - iomesh-zookeeper 
                         topologyKey: kubernetes.io/hostname
-                    weight: 20
+                    weight: 20 
         ```
 
 4. Perform deployment.
 
    ```shell
-   helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh-values.yaml
+   helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
    ```
 
    加一个输出结果
 
-#### Deploying Second IOMesh Cluster
-1. Create a namespace for the second IOMesh cluster assumed as `iomesh-cluster-1`.
+#### Deploying Second IOMesh Cluster (只需要 Zk 和 ZBS)
+1. Create a namespace for the second IOMesh cluster `iomesh-cluster-1`.
 
     ```
-    kubectl create ns iomesh-cluster-1
+    kubectl create namespace iomesh-cluster-1
     ```
 
 2. Create the `zookeeper` cluster for the cluster `iomesh-cluster-1`. 
@@ -129,7 +145,8 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
     kubectl apply -f iomesh-cluster-1-zookeeper.yaml
     ```
 
-3. Set node affinity and pod anti-affinity so that the `zookeeper` cluster can be scheduled to the worker nodes `k8s-woker-3`, `k8s-woker-4`, and `k8s-woker-5`. 
+3. Create a YAML config iomesh-cluster-1-zookeeper.yaml and configure node affinity and pod anti-affinity so that the `zookeeper` cluster can be scheduled to the worker nodes `k8s-woker-3`, `k8s-woker-4`, and `k8s-woker-5`. 
+
 
     ```yaml
     # Source: iomesh-cluster-1-zookeeper.yaml
@@ -139,7 +156,7 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
         namespace: iomesh-cluster-1
         name: iomesh-cluster-1-zookeeper
     spec:
-        replicas: 3
+        replicas: 3 
         image:
         repository: iomesh/zookeeper
         tag: 3.5.9
@@ -150,7 +167,7 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
             requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                 - matchExpressions:
-                - key: kubernetes.io/hostname
+                - key: kubernetes.io/hostname # 补充如何配置 key.values
                     operator: In
                     values:
                     - k8s-woker-3
@@ -180,18 +197,22 @@ The following section assumes you have 6 worker nodes named `k8s-worker-{0-5}`, 
 
 #### Mounting Disks
 
-使用 kubectl edit 编辑每一个 iomesh 对象，参考  https://docs.iomesh.com/deploy/setup-iomesh#block-device-object 配置磁盘
+1. 查看设备是在 iomesh-system namespace 
+kubectl --namespace iomesh-system -o wide get blockdevice
+
+
+https://docs.iomesh.com/deploy/setup-iomesh#block-device-object 
+
+2. 使用 kubectl edit 编辑每一个 iomesh 对象，参考  https://docs.iomesh.com/deploy/setup-iomesh#block-device-object 配置磁盘
 
 ```shell
 kubectl edit iomesh -n iomesh-system
 kubectl edit iomesh-cluster-1 -n iomesh-cluster-1
 ```
-加输出结果
 
+#### Configuring Multiple-Cluster Connection
 
-#### Creating Multiple-Cluster Connection
-
-The IOMesh CSI driver can connect multiple IOMesh clusters, 
+The IOMesh CSI driver can connect multiple IOMesh clusters, configmap 包含了连接信息
 
 一套 IOMesh CSI 可以连接多套 IOMesh 集群。需要创建不同的 ConfigMap 来标识不同的 IOMesh 集群
 
@@ -207,6 +228,9 @@ data:
   iscsiPortal: 127.0.0.1:3260
   metaAddr: iomesh-meta-client.iomesh-system.svc.cluster.local:10100
 ---
+
+
+
 # Source: iomesh-cluster-1-csi-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -224,19 +248,28 @@ kubectl apply -f iomesh-csi-configmap.yaml
 kubectl apply -f iomesh-cluster-1-csi-configmap.yaml
 ```
 
-ConfigMap 字段释义
+ConfigMap
 
 | Field | Description |
-| ------------- | ----- |
-| `data.clusterId` | K8s 集群 ID，用户可自定义，一个 K8s 集群只能有一个，由于两个 iomesh 集群部署在同一 K8s 集群，这个值必须相同 |
-| `data.iscsiPortal`   | iscsi 接入点，固定为 127.0.0.1:3260                          |
-| `data.metaAddr`      | iomesh meta service 地址，格式为 <iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100 |
+| ----- | ----- |
+| `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same K8s cluster must have the same field ID filled in.|
+| `data.iscsiPortal`| iscsi access point, fixed to 127.0.0.1:3260.|
+| `data.metaAddr`      | iomesh meta service address, which follows the format: <iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100. |
+
+如果没有报错，就 apply 成功。
 
 #### Creating StorageClass for Each Cluster
 
-When deploying more than one IOMesh cluster, do not use the default StorageClass `iomesh-csi-driver`; you must create a separate StorageClass for each cluster
+When deploying more than one IOMesh cluster, do not use the default StorageClass `iomesh-csi-driver`; you must [create a separate StorageClass](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh) for each cluster.
 
+|Field| Description|
+|---|---|
+| `parameters.clusterConnection` | 在 "创建 CSI 多集群连接配置" 步骤配置的 configmap 的 namespace/name |
+| `parameters.iomeshCluster`| The namespace where the IOMesh cluster is located/the IOMesh cluster name.                              |
 
+**Procedure**
+
+1. Create 
 ```yaml
 ---
 # Source: iomesh-sc.yaml
@@ -245,8 +278,8 @@ kind: StorageClass
 metadata:
   name: iomesh
 parameters:
-  csi.storage.k8s.io/fstype: ext4
-  replicaFactor: "2"
+  csi.storage.k8s.io/fstype: "ex4" 
+  replicaFactor: "2" # 
   thinProvision: "true"
   reclaimPolicy: Delete
   clusterConnection: "iomesh-system/iomesh-csi-configmap"  # 此处为上一步创建的主集群 configmap
@@ -255,6 +288,7 @@ volumeBindingMode: Immediate
 provisioner: com.iomesh.csi-driver
 allowVolumeExpansion: true
 ---
+
 # Source: iomesh-cluster-1-sc.yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -265,92 +299,100 @@ parameters:
   replicaFactor: "2"
   thinProvision: "true"
   reclaimPolicy: Delete
-  clusterConnection: "iomesh-cluster-1/iomesh-cluster-1-csi-configmap"  # 此处为上一步创建的边缘集群 configmap
+  clusterConnection: "iomesh-cluster-1/iomesh-cluster-1-csi-configmap"  # 此处为上一步创建的边缘集群 configmap (什么是边缘集群)
   iomeshCluster: "iomesh-cluster-1/iomesh-cluster-1"
 volumeBindingMode: Immediate
 provisioner: com.iomesh.csi-driver
 allowVolumeExpansion: true
 ```
 
-StorageClass 的字段释义如下:
-
-| 字段名 | 字段释义 |
-| ---------------------------- | ------------------------------------------------------------ |
-| parameters.clusterConnection | 在 "创建 CSI 多集群连接配置" 步骤配置的 configmap 的 namespace/name |
-| parameters.iomeshCluster     | iomesh 对象的 namespace/name                                 |
-
-其他 StorageClass 字段释义参考 [setup-storageclass](https://docs.iomesh.com/deploy/setup-storageclass)
-
 #### Verifying Deployment 
 
 To verify if the IOMesh clusters are deployed, create a PVC using the StorageClass you created respectively. 
 
-1. Create YAML configs iomesh-pvc.yaml
-```yaml
-# Source: iomesh-pvc.yaml
-kind: PersistentVolumeClaim
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: iomesh-pvc
-spec:
-  storageClassName: iomesh
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-# Source: iomesh-cluster1-pvc.yaml
-kind: PersistentVolumeClaim
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: iomesh-cluster1-pvc
-spec:
-  storageClassName: iomesh-cluster-1
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-```
+1. Create the YAML config `iomesh-pvc.yaml`. Apply the YAML config to create the PVC for the first IOMesh cluster.
 
-```shell
-kubectl apply -f iomesh-pvc.yaml
-kubectl apply -f iomesh-cluster1-pvc.yaml
-```
+    ```yaml
+    kind: PersistentVolumeClaim
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: iomesh-pvc
+    spec:
+      storageClassName: iomesh
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+    ```
 
-IOMesh 默认会开启拓扑感知功能，当 Pod 使用这些 PVC 时，Pod 会自动调度到对应 IOMesh 集群所在的  K8s Worker 上
+    ```shell
+    kubectl apply -f iomesh-pvc.yaml
+    ```
+    链到前面的结果
 
-### Managing Multiple IOMesh Clusters
+2. Create the second YAML config `iomesh-cluster1-pvc.yaml`. Then apply the YAML config to create the PVC for the second IOMesh cluster.
 
-#### Upgrade 
-在多集群场景下，需要先升级管控 namespace 下的 IOMesh 集群，再升级非管控 namespace 下的 IOMesh 集群
+    ```yaml
+    kind: PersistentVolumeClaim
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: iomesh-cluster1-pvc
+    spec:
+      storageClassName: iomesh-cluster-1
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+    ```
 
-以 [IOMesh 多集群部署](multi-cluster-deploy.md) 中的部署场景为例，升级步骤如下：
-1. 参考 [IOMesh 运维](iomesh-operations/cluster-operations.md) 中的升级章节，先升级第一套 IOMesh 集群和 IOMesh 管理组件
-2. 第一套 IOMesh 集群升级完毕后，使用 `kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1` 编辑第二套 IOMesh 集群，修改所有的 `*.image.tags`  字段与第一套 IOMesh 集群保持一致
+    ```shell
+    kubectl apply -f iomesh-cluster1-pvc.yaml
+    ```
 
-若未按照上述正确的顺序进行升级，比如先升级了第二套集群，再升级第一套，则在升级第二套集群时该集群可能会暂时处于一个错误状态。当第一套被升级完成后，两个集群都会最终达到正确状态
+    链到前面的 example
 
-#### Scaling
-IOMesh 实例扩容方式与 [IOMesh 运维](iomesh-operations/cluster-operations.md) 中扩容章节保持一致
+    IOMesh 默认会开启拓扑感知功能，当 Pod 使用这些 PVC 时，Pod 会自动调度到对应 IOMesh 集群所在的  K8s Worker 上.（这句话读不通）
 
-#### Uninstalling 
+### Multiple Cluster Operations
 
-在多集群场景下，需要先卸载非管控 namespace 下的 IOMesh 集群，再卸载管控 namespace 下的 IOMesh 集群 IOMesh 集群
+#### Upgrading Multiple Clusters
+
+When upgrading multiple IOMesh clusters, it is recommended to first upgrade the management cluster and then other clusters. If you choose a cluster not the management cluster, the cluster will be temporarily unavailable when upgrading the second cluster; however all clusters will be back to normal finally.
+
+**Procedure**
+
+1. Upgrade the first IOMesh cluster, which is the management cluster by referring to [Upgrading Cluster](iomesh-operations/cluster-operations.md).
+
+2. 第一套 IOMesh 集群升级完毕后，使用 `kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1` 编辑第二套 IOMesh 集群，修改所有的 `*.image.tags`  字段与第一套 IOMesh 集群保持一致。（这一段 image.tags 是啥，都要补充）
+
+#### Scaling Multiple Clusters
+IOMesh 实例（什么是实例）扩容方式与 [IOMesh 运维](iomesh-operations/cluster-operations.md) 中扩容章节保持一致. 一个一个来
+
+#### Uninstalling Multiple Clusters
+
+When uninstalling more than one IOMesh cluster, uninstall the other clusters first and then the management cluster last.
 
 以 [IOMesh 多集群部署](multi-cluster-deploy.md) 中的场景为例，卸载步骤如下：
-1. 卸载第二套 IOMesh 集群, 同时删除集群中的 iomesh 和 zookeeper
 
-```shell
-kubectl delete -f iomesh-cluster-1-zookeeper.yaml && kubectl delete -f iomesh-cluster-1.yaml
-```
+**Procedure**
+
+1. Uninstall the second IOMesh cluster and delete `iomesh
+
+
+卸载第二套 IOMesh 集群, 同时删除集群中的 iomesh 和 zookeeper
+
+    ```shell
+    kubectl delete -f iomesh-cluster-1-zookeeper.yaml && kubectl delete -f iomesh-cluster-1.yaml
+    ```
 
 2. 参考 [IOMesh 运维](iomesh-operations/cluster-operations.md) 中的卸载章节，卸载第一套 IOMesh 集群和 IOMesh 管理组件
 
-若未按照上述正确的顺序进行卸载，比如先卸载了第一套集群，再卸载第二套，可能会造成部分资源在该 namespace 下残留需要手动处理，如果不清理可能影响下一次在这个 namespace 下部署
+若未按照上述正确的顺序进行卸载，比如先卸载了第一套集群，再卸载第二套，可能会造成部分资源在该 namespace 下残留需要手动处理(怎么处理），如果不清理可能影响下一次在这个 namespace 下部署
 
 #### License Management
-多个 IOMesh 集群间的 license 相互独立，每个 IOMesh 集群拥有一个独立的集群序列号，当需要激活 license 时请参考 https://www.iomesh.com/license，每个 IOMesh 集群需要被单独激活
+
+Each IOMesh cluster has a license with a unique serial number. You need to [activate the license](https://www.iomesh.com/license) for each IOMesh cluster respectively.

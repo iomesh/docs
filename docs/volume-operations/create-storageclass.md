@@ -6,7 +6,7 @@ sidebar_label: Creating StorageClass
 
 IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for pods through dynamic volume provisioning. Its parameters adopt the default values in the table below and cannot be modified. If you want a StorageClass with custom parameters, refer to the following.
 
-| Parameter|Description|Default (`iomesh-csi-driver`)|
+| Field |Description|Default (`iomesh-csi-driver`)|
 |---|---|---|
 |`provisioner`| The provisioner that determines what volume plugin is used for provisioning PVs. |`com.iomesh.csi-driver`|
 |`reclaimPolicy`|<p>Determines whether PV is retained when the PVC is deleted.</p><p>`Delete`: When PVC is deleted, PV and the corresponding IOMesh volume will be deleted when the PVC is deleted. <p>`Retain`: When PVC is deleted, PV and the corresponding IOMesh volume will be retained.|`delete`|

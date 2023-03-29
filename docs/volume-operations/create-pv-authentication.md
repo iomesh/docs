@@ -1,7 +1,7 @@
 ---
 id: create-pv-authentication
-title: Creating PV with Authentication
-sidebar_label: Creating PV with Authentication
+title: Creating Authenticated PV
+sidebar_label: Creating Authenticated PV
 ---
 
 You can create a PV with authentication and save the authentication information and user credentials in the Kubernetes secret. Every time to access a PV with authentication, you must provide the correct credentials.
