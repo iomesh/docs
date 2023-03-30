@@ -28,6 +28,12 @@
       "stateful-applications/iomesh-for-cassandra",
       "stateful-applications/iomesh-for-mongodb"
     ],
+    "Cluster Operations":[
+      "cluster-operations/scaling-cluster",
+      "cluster-operations/upgrading-cluster",
+      "cluster-operations/uninstall-cluster",
+      "cluster-operations/manage-license"
+    ],
     "Monitoring IOMesh":[
       "monitor-iomesh/installing-iomesh-dashboard",
       "monitor-iomesh/monitoring-iomesh"
