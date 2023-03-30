@@ -4,3 +4,36 @@ title: Upgrading IOMesh Cluster
 sidebar_label: Upgrading IOMesh Cluster
 ---
 
+> Note: You cannot upgrade the IOMesh cluster if it only has one meta Pod and one chunk Pod.
+
+> Note: Due to the limitations of the K8s CRD upgrade mechanism, upgrades are not supported if the Kubernetes cluster version is 1.25 or above.
+
+**Procedure**
+
+1. Delete the default StorageClass. 
+
+    Compared to the default StorageClass of an earlier version, the default StorageClass for IOMesh 1.0 has parameters updated. So you need to delete the default storage class of an earlier version. Any PVC bound to the earlier default StorageClass will not be affected.
+
+    ```shell
+    kubectl delete sc iomesh-csi-driver
+    ```
+2. Temporarily delete IOMesh Webhook. 
+
+    The IOMesh Webhook may cause the upgrade to fail. You should temporarily delete it; once the upgrade is successful, it will be automatically installed.
+
+    ```shell
+    kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
+    ```
+3. 安装新 crd
+    由于 Helm 在升级时不会自动安装新版本加入的 crd(新版本加入的是啥意思），因此需要先安装新 crd
+    ```shell
+    kubectl apply -f https://iomesh.run/config/crd/iomesh.com_blockdevicemonitors.yaml
+    ```
+4. Upgrade the IOMesh cluster.
+    ```bash
+    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0
+    ```
+5. 等待所有 pod 进入 ready 状态
+    ```bash
+    watch kubectl get pod --namespace iomesh-system
+    ```

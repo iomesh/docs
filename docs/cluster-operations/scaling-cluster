@@ -4,3 +4,65 @@ title: Scaling IOMesh Cluster
 sidebar_label: Scaling IOMesh Cluster
 ---
 
+**Prerequisites**
+-
+-
+
+### Scaling Chunk Server
+
+Scale the chunk server When there is insufficient storage or storage usage is unexpectedly high exceeding 80%.
+
+1. In `iomesh.yaml`, locate `chunk` and then edit `replicas`. 数量要求
+
+    ```yaml
+    chunk:
+    replicas: 5 # Increase the number of replicas to scale chunk server.
+    ```
+2. Apply your modifications.
+    
+    ```bash
+    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh.yaml
+    ```
+3. Verify if modifications are successful.
+    
+    ```shell
+    kubectl get pod -n iomesh-system | grep chunk
+    ```   
+   
+   If modifications are successful, you should see an example like:
+    ```output
+    iomesh-chunk-0                                         2/2     Running   0          5h5m
+    iomesh-chunk-1                                         2/2     Running   0          5h5m
+    iomesh-chunk-2                                         2/2     Running   0          5h5m
+    iomesh-chunk-3                                         2/2     Running   0          5h5m
+    iomesh-chunk-4                                         2/2     Running   0          5h5m
+    ```
+
+### Scaling Meta Server
+
+Scale up the meta server when the Meta cluster is overloaded.
+
+1. In `iomesh.yaml`, locate `meta` and then edit `replicas`. 数量要求
+
+    ```yaml
+    meta:
+    replicas: 5 # Increase the number of replicas to scale meta server.
+    ```
+2. Apply your modifications.
+    ```shell
+    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
+    ```
+3. Verify if modifications are successful.
+
+    ```shell
+    kubectl get pod -n iomesh-system | grep meta
+    ```
+
+    If scaling is successful, you should see an example like:
+    ```output
+    iomesh-meta-0                                         2/2     Running   0          5h5m
+    iomesh-meta-1                                         2/2     Running   0          5h5m
+    iomesh-meta-2                                         2/2     Running   0          5h5m
+    iomesh-meta-3                                         2/2     Running   0          5h5m
+    iomesh-meta-4                                         2/2     Running   0          5h5m
+    ```

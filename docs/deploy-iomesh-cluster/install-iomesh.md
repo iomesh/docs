@@ -181,23 +181,23 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     ```
 3. Load the IOMesh image on each Kubernetes node and then execute the corresponding scripts based on your container runtime and container manager.
 
-    <!--DOCUSAURUS_CODE_TABS-->
+  <!--DOCUSAURUS_CODE_TABS-->
 
-    <!--Docker-->
-    ```shell
-    docker load --input ./images/iomesh-offline-images.tar
-    ```
-    <!--Containerd-->
-    ```shell
-    ctr --namespace k8s.io image import ./images/iomesh-offline-images.tar
-    ```
+  <!--Docker-->
+  ```shell
+  docker load --input ./images/iomesh-offline-images.tar
+  ```
+  <!--Containerd-->
+  ```shell
+  ctr --namespace k8s.io image import ./images/iomesh-offline-images.tar
+  ```
 
-    <!--Podman-->
-    ```shell
-    podman load --input ./images/iomesh-offline-images.tar
-    ```
+  <!--Podman-->
+  ```shell
+  podman load --input ./images/iomesh-offline-images.tar
+  ```
 
-    <!--END_DOCUSAURUS_CODE_TABS-->
+  <!--END_DOCUSAURUS_CODE_TABS-->
 
 4. Export the IOMesh default configuration file into `iomesh.yaml`. 
 
