@@ -20,7 +20,7 @@ IOMesh provide 5 rows of contents for monitoring IOMesh storage:
 ### Overview 
 Shows IOMesh cluster information and resource usage. 
 
-|Field|Description|
+|Panel|Description|
 |---|---|
 |Alert|Shows all alarms detected in the IOMesh cluster, by default presenting essential details such as alarm names, trigger status, and duration. You can further investigate into the severity, reasons, impacts, and recommended solutions for each alarm, and set the threshold for alert rules on your own on the Alert page.|
 |Cluster Info|Shows the basic information of the IOMesh cluster, including IOMesh version, IOMesh block storage version, CPU architecture, license type, license edition, maximum number of nodes, and license expiration time.|
@@ -90,7 +90,7 @@ Shows PV attribute information, status, and usage in the IOMesh cluster.
 |---|------|-----|
 | Name | The PV name. | "Volume-1"            |
 | StorageClass       | The StorageClass name corresponding to this PV. | "StorageClass1"       |
-| Status | Shows the PV status, including: <p><ul><li>Available: This PV is available for use but is not bound to any PVC.</li><li>Bound: This PV is already bound to a PVC.</li><li>Released: The PVC bound to this PV has been deleted, but the resource has not been reclaimed by the cluster.</li><li>Failed: Failed to automatically reclaim this PV.</li><li> Pending: This PV is already created but but needs to wait for CSI to create the entity storage resource.</li></ul> |"Available"|
+| Status | Shows the PV status, including: <p><ul><li>Available: This PV is available for use but is not bound to any PVC.</li><li>Bound: This PV is already bound to a PVC.</li><li>Released: The PVC bound to this PV has been deleted, but the resource has not been reclaimed by the cluster.</li><li>Failed: Failed to automatically reclaim this PV.</li><li> Pending: This PV is already created but needs to wait for CSI to create the entity storage resource.</li></ul> |"Available"|
 | Allocated Capacity | The logical capacity allocated to this PV.| "50 GiB"|
 | Exclusive Capacity | The logical capacity exclusive for this PV.| "25 GiB" |
 | Shared Capacity | The physical capacity shared by this PV and other objects. | "10 GiB"|

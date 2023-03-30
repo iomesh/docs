@@ -107,17 +107,17 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 3. Run the corresponding command to apply configurations according to your installation.
 
 
-<!--DOCUSAURUS_CODE_TABS-->
+    <!--DOCUSAURUS_CODE_TABS-->
 
-<!--Quick/Custom-->
-```shell
-helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
-```
-<!--Offline-->
-```shell
-./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
-```
-<!--END_DOCUSAURUS_CODE_TABS-->
+    <!--Quick/Custom-->
+    ```shell
+    helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
+    ```
+    <!--Offline-->
+    ```shell
+    ./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml
+    ```
+    <!--END_DOCUSAURUS_CODE_TABS-->
 
 4. Run the following commands to verify whether your configurations are applied.
 
