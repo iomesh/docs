@@ -4,23 +4,23 @@ title: Scaling IOMesh Cluster
 sidebar_label: Scaling IOMesh Cluster
 ---
 
-**Prerequisites**
--
--
+> **Note:**
+> 
+>  Before configuring the number of Chunk or Meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only host one Meta or Chunk pod, so determine the number of worker nodes based on the number of Chunk or Meta pods you want to add.
 
 ### Scaling Chunk Server
 
-Scale the chunk server When there is insufficient storage or storage usage is unexpectedly high exceeding 80%.
+Add the number of chunk pods when storage is insufficient or storage usage exceeds 80%. The number of chunk pods is 1, you can increase to 3 for IOMesh Community Edition and to 255 to the maximum for IOMesh Enterprise Edition.
 
-1. In `iomesh.yaml`, locate `chunk` and then edit `replicas`. 数量要求
+1. In `iomesh.yaml`, locate `chunk` and then edit `replicas`. 
 
     ```yaml
     chunk:
-    replicas: 5 # Increase the number of replicas to scale chunk server.
+    replicas: 5 # Enter the value after scaling. Up to 3 for IOMesh Community and 255 for IOMesh Enterprise.
     ```
-2. Apply your modifications.
+2. Apply modifications.
     
-    ```bash
+    ```shell
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh.yaml
     ```
 3. Verify if modifications are successful.
@@ -40,15 +40,15 @@ Scale the chunk server When there is insufficient storage or storage usage is un
 
 ### Scaling Meta Server
 
-Scale up the meta server when the Meta cluster is overloaded.
+Add meta pods when the meta server is overloaded. The minimum number of meta pods is 3, you can only increase to 5 for IOMesh Enterprise.
 
-1. In `iomesh.yaml`, locate `meta` and then edit `replicas`. 数量要求
+1. In `iomesh.yaml`, locate `meta` and then edit `replicas`. 
 
     ```yaml
     meta:
-    replicas: 5 # Increase the number of replicas to scale meta server.
+    replicas: 5 # Enter the value after scaling. Up to 5 for IOMesh Community.
     ```
-2. Apply your modifications.
+2. Apply modifications.
     ```shell
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
     ```

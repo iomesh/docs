@@ -8,21 +8,21 @@ In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for
 
 ![image](https://user-images.githubusercontent.com/102718816/228175494-9d69fac5-de12-4519-a85f-2520c2070f4c.png)
 
-### Deploying Multiple IOMesh Clusters
+### Multiple Cluster Deployment
 
-Note that this release of IOMesh does not support expanding an IOMesh cluster to two or more IOMesh clusters.
+To reduce the number of Pods required in a multi-cluster deployment of IOMesh, the management components shared by all IOMesh clusters, including the IOMesh Operator, IOMesh CSI driver, and Node Disk Manager, will be installed on the first IOMesh cluster, which is referred to as the management cluster.
 
-多个 iomesh 集群，第一个集群属于管控集群，管理所有 iomesh 补充！！！
-稍微详细解释管控集群和其它集群的角色和作用
+> _Note:_
+> Expanding an IOMesh cluster to two or more clusters is not supported. You should 
 
 **Prerequisites**
-- Verify that all requirements in [Prerequisites] are met.
+- Verify that all requirements in [Prerequisites](https://docs.iomesh.com/deploy-iomesh-cluster/prerequsites.md) are met.
 - The IOMesh version should be 1.0.0. 
 - A Kubernetes cluster consisting of at least six worker nodes.
 
 **Procedure**
 
-The following section assumes you have 6 worker nodes, deploying the first IOMesh cluster `iomesh-cluster` on worker nodes `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` and the second cluster `iomesh-cluster-1` on worker nodes `k8s-worker-3`, `k8s-worker-4`, and `k8s-worker-5`. 
+The following section assumes you have 6 worker nodes, deploying the first cluster `iomesh-cluster` on worker nodes `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` and the second cluster `iomesh-cluster-1` on worker nodes `k8s-worker-3`, `k8s-worker-4`, and `k8s-worker-5`. 
 
 #### Deploying First IOMesh Cluster
 
@@ -128,9 +128,46 @@ The following section assumes you have 6 worker nodes, deploying the first IOMes
 
    ```shell
    helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
+   
    ```
-
-   加一个输出结果
+  If deployment is successful, you should see an output like:
+   ```output
+   NAME                                                  READY   STATUS    RESTARTS   AGE
+   iomesh-blockdevice-monitor-766655959f-7bwvv           1/1     Running   0          5h37m
+   iomesh-blockdevice-monitor-prober-pgbcp               1/1     Running   0          5h36m
+   iomesh-blockdevice-monitor-prober-v848k               1/1     Running   0          5h37m
+   iomesh-blockdevice-monitor-prober-w6vrw               1/1     Running   0          5h36m
+   iomesh-chunk-0                                        3/3     Running   0          5h34m
+   iomesh-chunk-1                                        3/3     Running   0          5h33m
+   iomesh-chunk-2                                        3/3     Running   0          5h33m
+   iomesh-csi-driver-controller-plugin-ccf6ccfd9-kf296   6/6     Running   3          30h
+   iomesh-csi-driver-node-plugin-c8mrj                   3/3     Running   1          30h
+   iomesh-csi-driver-node-plugin-jncfr                   3/3     Running   1          30h
+   iomesh-csi-driver-node-plugin-qrvc6                   3/3     Running   1          30h
+   iomesh-hostpath-provisioner-vdmrz                     1/1     Running   0          31h
+   iomesh-hostpath-provisioner-wtbfh                     1/1     Running   0          31h
+   iomesh-hostpath-provisioner-xlkvb                     1/1     Running   0          31h
+   iomesh-iscsi-redirector-9c455                         2/2     Running   1          5h36m
+   iomesh-iscsi-redirector-k7jbx                         2/2     Running   3          5h35m
+   iomesh-iscsi-redirector-l9w7l                         2/2     Running   1          5h34m
+   iomesh-localpv-manager-82564                          4/4     Running   2          29h
+   iomesh-localpv-manager-pkcbd                          4/4     Running   0          12h
+   iomesh-localpv-manager-px4cl                          4/4     Running   0          29h
+   iomesh-meta-0                                         2/2     Running   0          5h34m
+   iomesh-meta-1                                         2/2     Running   0          5h35m
+   iomesh-meta-2                                         2/2     Running   0          5h34m
+   iomesh-openebs-ndm-cluster-exporter-68c757948-qmtt4   1/1     Running   0          31h
+   iomesh-openebs-ndm-gnkzt                              1/1     Running   0          31h
+   iomesh-openebs-ndm-lrww8                              1/1     Running   0          31h
+   iomesh-openebs-ndm-node-exporter-rp4qr                1/1     Running   0          31h
+   iomesh-openebs-ndm-node-exporter-sgzpp                1/1     Running   0          31h
+   iomesh-openebs-ndm-node-exporter-txbn5                1/1     Running   0          31h
+   iomesh-openebs-ndm-operator-584fdbcb94-2tjsp          1/1     Running   0          31h
+   iomesh-openebs-ndm-zdngg                              1/1     Running   0          31h
+   iomesh-zookeeper-0                                    1/1     Running   0          31h
+   iomesh-zookeeper-operator-64957fcc4f-zpdjp            1/1     Running   0          30h
+   operator-f5644b7f9-2vvw7                              1/1     Running   0          5h37m
+   ```
 
 #### Deploying Second IOMesh Cluster (只需要 Zk 和 ZBS)
 1. Create a namespace for the second IOMesh cluster `iomesh-cluster-1`.
