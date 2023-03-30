@@ -4,7 +4,7 @@
       "introduction/introduction",
       "basic-concepts/basic-concepts"
     ],
-    "Deploying IOMesh Cluster": [
+    "Deploy IOMesh Cluster": [
       "deploy-iomesh-cluster/prerequisites",
       "deploy-iomesh-cluster/setup-worker-node",
       "deploy-iomesh-cluster/install-iomesh",
@@ -23,22 +23,22 @@
       "volumesnapshot-operations/create-volumesnapshot",
       "volumesnapshot-operations/restore-volumesnapshot"
     ],
-    "Deploying Stateful Applications": [
+    "Deploy Stateful Applications": [
       "stateful-applications/iomesh-for-mysql",
       "stateful-applications/iomesh-for-cassandra",
       "stateful-applications/iomesh-for-mongodb"
     ],
-    "Cluster Operations":[
-      "cluster-operations/scaling-cluster",
-      "cluster-operations/upgrading-cluster",
+    "Cluster Operations": [
+      "cluster-operations/scale-cluster",
+      "cluster-operations/upgrade-cluster",
       "cluster-operations/uninstall-cluster",
       "cluster-operations/manage-license"
     ],
-    "Monitoring IOMesh":[
-      "monitor-iomesh/installing-iomesh-dashboard",
+    "Monitor IOMesh":[
+      "monitor-iomesh/install-iomesh-dashboard",
       "monitor-iomesh/monitoring-iomesh"
     ],
-    "Advanced Functions":[
+    "Advanced Functions": [
       "advanced-functions/manage-multiple-cluster"
     ],
     "References": [

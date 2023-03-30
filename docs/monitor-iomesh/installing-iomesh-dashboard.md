@@ -1,5 +1,5 @@
 ---
-id: installing-iomesh-dashboard
+id: install-iomesh-dashboard
 title: Installing IOMesh Dashboard
 sidebar_label: Installing IOMesh Dashboard
 ---
