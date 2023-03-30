@@ -4,8 +4,6 @@ title: Activating License
 sidebar_label: Activating License
 ---
 
-## Activating License
-
 IOMesh is installed and deployed with a trial license. You should update the trial license to a subscription or perpetual license, which depends on your IOMesh edition and how long you want to use it.
 
 IOMesh currently provides Community and Enterprise editions, which are slightly different in the maximum number of worker nodes and bussiness support. See [the IOMesh official website](https://www.iomesh.com/spec) for details.  

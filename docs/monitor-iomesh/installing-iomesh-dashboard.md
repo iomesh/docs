@@ -10,7 +10,7 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 **Prerequisite**
 
-Verify that [Prometheus and Prometheus Operator](https://prometheus.io/docs/prometheus/latest/installation/) are already installed, and Prometheus is located in the Namespace `iomesh-system`.
+Verify that [Prometheus and Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed, and Prometheus is located in the Namespace `iomesh-system`.
 
 **Procedure**
 
