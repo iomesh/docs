@@ -10,7 +10,7 @@ sidebar_label: Scale IOMesh Cluster
 
 ## Scale Chunk Server
 
-If storage capacity is insufficient or storage usage exceeds 80%, you should add the number of chunk pods. The minimum number of chunk pods i
+If storage capacity is insufficient or storage usage exceeds 80%, you should add the number of chunk pods. 
 
 **Precaution**
 

@@ -27,12 +27,12 @@ sidebar_label: Upgrade IOMesh Cluster
     ```shell
     kubectl apply -f https://iomesh.run/config/crd/iomesh.com_blockdevicemonitors.yaml
     ```
-4. Upgrade the IOMesh cluster. Then wait for a few minutes till all pods are ready.
+4. Upgrade the IOMesh cluster. Then wait for a few minutes till all pods are running.
 
     ```bash
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0
     ```
-5. Verify that all pods are ready. If all pods are shown in the `Running` state, then IOMesh has been successfully upgraded.
+5. Verify that all pods are ready. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
     ```bash
     watch kubectl get pod --namespace iomesh-system
     ```

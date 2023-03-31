@@ -75,8 +75,8 @@ The following section assumes you have 6 worker nodes, deploying the first clust
                         - k8s-woker-0
                         - k8s-woker-1
                         - k8s-woker-2
-      ...  
-      redirector:
+        ...  
+        redirector:
             podPolicy:
               affinity:
                 nodeAffinity:
@@ -89,8 +89,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
                         - k8s-woker-0
                         - k8s-woker-1
                         - k8s-woker-2
-      ```       
-
+        ```       
 
     - Configure `nodeAffinity` to schedule `zookeeper` to `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` and `podAntiAffinity` to ensure each `zookeeper` pod resides on a node, avoiding a single point of failure.  
     
@@ -144,7 +143,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
    helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
    ```
   
-    If deployment is successful, you should see an output like:
+    If successful, you should see an output like:
    ```output
    NAME                                                  READY   STATUS    RESTARTS   AGE
    iomesh-blockdevice-monitor-766655959f-7bwvv           1/1     Running   0          5h37m
@@ -343,7 +342,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-2. Refer to [Configuring DeviceMap](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh) to mount disks.
+2. [Configure DeviceMap](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh) to mount disks.
 
     ```shell
     kubectl edit iomesh -n iomesh-system # The first cluster.
@@ -358,14 +357,14 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
 | Field | Description |
 | ----- | ----- |
 | `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.|
-| `data.iscsiPortal`| iscsi access point, fixed to 127.0.0.1:3260.|
-| `data.metaAddr`      | iomesh meta service address, which follows the format: `<iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100.` |
+| `data.iscsiPortal`| iSCSI access point, fixed to 127.0.0.1:3260.|
+| `data.metaAddr`      | IOMesh meta service address, which follows the format: `<iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100.` |
 
 **Procedure**
 
 1. Create `ConfigMap` for the first IOMesh cluster.
 
-    - Create a YAML config `iomesh-csi-configmap.yaml` with the following content. 
+    Create a YAML config `iomesh-csi-configmap.yaml` with the following content. Then apply the YAML config to generate `ConfigMap`. 
 
       ```yaml
       apiVersion: v1
@@ -377,16 +376,14 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
         clusterId: k8s-cluster
         iscsiPortal: 127.0.0.1:3260
         metaAddr: iomesh-meta-client.iomesh-system.svc.cluster.local:10100
-      ```
-    - Apply the YAML config to generate `ConfigMap`. 
-
+      ``` 
       ```shell
       kubectl apply -f iomesh-csi-configmap.yaml
 
       ```
 2. Create `ConfigMap` for the second IOMesh cluster.
 
-    - Create a YAML config `iomesh-cluster-1-csi-configmap.yaml` with the following content.
+    Create a YAML config `iomesh-cluster-1-csi-configmap.yaml` with the following content. Then apply the YAML config to generate `ConfigMap`.
 
       ```
       apiVersion: v1
@@ -399,8 +396,6 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
         iscsiPortal: 127.0.0.1:3260
         metaAddr: iomesh-cluster-1-meta-client.iomesh-cluster-1.svc.cluster.local:10100
       ```
-    - Apply the YAML config to generate `ConfigMap`.
-
       ```shell
       kubectl apply -f iomesh-cluster-1-csi-configmap.yaml
       ```
@@ -535,7 +530,7 @@ All procedures below are listed based on the example in [Multiple Cluster Deploy
 
 ### Scale Multiple Clusters
 
-There is no difference between scaling up one cluster and scaling up multiple cluster operations. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scaling IOMesh Cluster](https://docs.iomesh.com/cluster-operations/scaling-cluster.md).
+There is no difference between scaling up one cluster and scaling up multiple cluster. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scaling IOMesh Cluster](https://docs.iomesh.com/cluster-operations/scaling-cluster.md).
 
 ### Uninstall Multiple Clusters
 
@@ -550,11 +545,11 @@ When uninstalling more than one IOMesh cluster, uninstall the other clusters fir
     kubectl delete -f iomesh-cluster-1-zookeeper.yaml && kubectl delete -f iomesh-cluster-1.yaml
     ```
 
-2. Refer to [Uninstalling IOMesh Cluster](https://docs.iomesh.com/cluster-operations/uninstall-cluster.md) to uninstall the first cluster.
+2. [Uninstall the first IOMesh Cluster](https://docs.iomesh.com/cluster-operations/uninstall-cluster.md).
     ```shell
     helm uninstall --namespace iomesh-system iomesh
     ```
 
 ### License Management
 
-Each IOMesh cluster has a license with a unique serial number. You need to [activate the license](https://www.iomesh.com/license) for each IOMesh cluster respectively. For other operations, refer to [Update License](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh#block-device-object).
+Each IOMesh cluster has a license with a unique serial number. You need to [activate the license](https://www.iomesh.com/license) for each IOMesh cluster respectively. For other operations, refer to [Manage License](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh#block-device-object).
