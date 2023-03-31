@@ -1,7 +1,7 @@
 ---
 id: create-storageclass
-title: Creating StorageClass
-sidebar_label: Creating StorageClass
+title: Create StorageClass
+sidebar_label: Create StorageClass
 ---
 
 IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for pods through dynamic volume provisioning. Its parameters adopt the default values in the table below and cannot be modified. If you want a StorageClass with custom parameters, refer to the following.

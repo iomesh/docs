@@ -1,7 +1,7 @@
 ---
 id: expand-pv
-title: Expanding PV
-sidebar_label: Expanding PV
+title: Expand PV
+sidebar_label: Expand PV
 ---
 
 To expand the capacity of a PV, you only need to modify the field `storage` in the corresponding PVC.

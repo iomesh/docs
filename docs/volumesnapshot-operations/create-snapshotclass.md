@@ -1,7 +1,7 @@
 ---
 id: create-snapshotclass
-title: Creating VolumeSnapshotClass
-sidebar_label: Creating VolumeSnapshotClass
+title: Create VolumeSnapshotClass
+sidebar_label: Create VolumeSnapshotClass
 ---
 
 A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each VolumeSnapshot is bound to a SnapshotClass that describes the class of snapshots when provisioning a VolumeSnapshot. Just like `iomesh-csi-driver` as a default StorageClass, a default SnapshotClass will be created at the same time when IOMesh is installed and cannot be modified. You can also create new SnapshotClasses with customized parameters.

@@ -1,7 +1,7 @@
 ---
 id: create-volumesnapshot
-title: Creating VolumeSnapshot
-sidebar_label: Creating VolumeSnapshot
+title: Create VolumeSnapshot
+sidebar_label: Create VolumeSnapshot
 ---
 
 A VolumeSnapshot is a request for snapshot of a volume and similar to a PVC, while a VolumeSnapshotContent is the snapshot taken from a volume provisioned in the cluster. 

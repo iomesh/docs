@@ -1,12 +1,12 @@
 ---
 id: install-iomesh-dashboard
-title: Installing IOMesh Dashboard
-sidebar_label: Installing IOMesh Dashboard
+title: Install IOMesh Dashboard
+sidebar_label: Install IOMesh Dashboard
 ---
 
 Monitoring IOMesh storage is implemented on the capabilities of Prometheus and Grafana. Before installing IOMesh dashboard, make sure you have installed Prometheus and Grafana.
 
-### Enabling IOMesh Metrics
+## Enable IOMesh Metrics
 
 **Prerequisite**
 
@@ -174,7 +174,7 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     kube-state-metrics-7bb75797f9-h9r97   1/1     Running   0          10m
     ```
 
-### Importing Grafana Dashboard
+## Import Grafana Dashboard
 
 Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 

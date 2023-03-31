@@ -6,7 +6,7 @@ sidebar_label: Setting Up IOMesh
 
 After IOMesh is installed, you should mount the block devices, which are the disks on the Kubernetes worker nodes, to the IOMesh cluster so that IOMesh can use them to provide storage.
 
-### Viewing Block Device Objects 
+## View Block Device Objects 
 In IOMesh, an individual block device can be viewed as a block device object. To mount block devices on IOMesh, you first need to know which block device objects are available. 
 
 IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager). When deploying IOMesh, BlockDevice CR will be created in the same NameSpace as the IOMesh cluster, and you can see block devices available for use in this NameSpace.
@@ -70,7 +70,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     | `iomesh.com/bd-serial` | Shows the disk serial number.|
     | `iomesh.com/bd-vendor` | Shows the disk vendor.|
 
-### Configuring DeviceMap
+## Configure DeviceMap
 
 Before configuring device map, familiarize yourself with mount type and device selector. 
 

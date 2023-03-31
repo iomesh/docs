@@ -8,7 +8,7 @@ In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for
 
 ![image](https://user-images.githubusercontent.com/102718816/228175494-9d69fac5-de12-4519-a85f-2520c2070f4c.png)
 
-### Multiple Cluster Deployment
+## Multiple Cluster Deployment
 
 To reduce the number of Pods required in a multi-cluster deployment of IOMesh, the management components shared by all IOMesh clusters, including the IOMesh Operator, IOMesh CSI driver, and Node Disk Manager, will be installed on the first IOMesh cluster, which is referred to as the management cluster.
 
@@ -24,7 +24,7 @@ To reduce the number of Pods required in a multi-cluster deployment of IOMesh, t
 
 The following section assumes you have 6 worker nodes, deploying the first cluster `iomesh-cluster` on worker nodes `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2` and the second cluster `iomesh-cluster-1` on worker nodes `k8s-worker-3`, `k8s-worker-4`, and `k8s-worker-5`. 
 
-#### Deploying First IOMesh Cluster
+### Deploy First IOMesh Cluster
 
 1. Set up [`open-iscsi`](../docs/deploy-iomesh-cluster/setup-worker-node.md) on each worker node.
 
@@ -193,7 +193,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
    operator-f5644b7f9-2vvw7                              1/1     Running   0          5h37m
    ```
 
-#### Deploying Second IOMesh Cluster
+### Deploy Second IOMesh Cluster
 1. Create a namespace for the second IOMesh cluster `iomesh-cluster-1`.
 
     ```
@@ -346,7 +346,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
           pullPolicy: IfNotPresent
 
    ```
-#### Mounting Disks
+### Mount Disks
 
 1. [View block devices available for use](https://docs.iomesh.com/deploy/setup-iomesh#block-device-object). Note that all block devices resides in the namespace `iomesh-system`.
 
@@ -361,7 +361,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
     kubectl edit iomesh-cluster-1 -n iomesh-cluster-1 # The second IOMesh cluster.
     ```
 
-#### Configuring Multiple-Cluster Connection
+### Configure Multiple-Cluster Connection
 
 To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to configure a `ConfigMap` containing connection information for each IOMesh cluster. Before configuration, familarity with `ConfigMap` is suggested.
 
@@ -420,7 +420,7 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
 
 
 
-#### Creating StorageClass for Each Cluster
+### Create StorageClass for Each Cluster
 
 When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. For details, refer to the following and [Creating Custom StorageClass](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh). 
 
@@ -475,7 +475,7 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
       kubectl apply -f <yaml.filename> 
       ```
 
-#### Verifying Deployment 
+### Verify Deployment 
 
 To verify if the IOMesh clusters are deployed, create a PVC using the StorageClass you created respectively. 
 
@@ -524,11 +524,11 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
 
 IOMesh enables typology awareness function by default to ensure pods are properly scheduled. If you create a PVC in the first IOMesh cluster, the pod using this PVC will be scheduled to the worker node where the first IOMesh cluster is located, ensuring I/O localization of this pod.
 
-### Multiple Cluster Operations
+## Multiple Cluster Operations
 
 All procedures below are listed based on the example in [Multiple Cluster Deployment](https://docs.iomesh.com/advanced-functions/multiple-cluster-management.md).
 
-#### Upgrading Multiple Clusters
+### Upgrade Multiple Clusters
 
 When upgrading multiple IOMesh clusters, it is recommended to first upgrade the management cluster and then other clusters. If you choose a cluster not the management cluster, the cluster will be temporarily unavailable when upgrading the second cluster; however all clusters will be back to normal finally.
 
@@ -540,11 +540,11 @@ When upgrading multiple IOMesh clusters, it is recommended to first upgrade the 
 
     第一套 IOMesh 集群升级完毕后，使用 `kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1` 编辑第二套 IOMesh 集群，修改所有的 yaml 配置中的 `spec.*.image.tags`  字段与第一套 IOMesh 集群保持一致(第一套 IOMesh 集群的配置通过 `kubectl get iomesh iomesh -n iomesh-system -o yaml` 命令查看)
 
-#### Scaling Multiple Clusters
+### Scale Multiple Clusters
 
 There is no difference between scaling up one cluster and scaling up multiple cluster operations. Plan the number of worker nodes and increase the number of meta or chunk pods one cluster by one cluster. For more information, see [Scaling IOMesh Cluster](https://docs.iomesh.com/cluster-operations/scaling-cluster.md).
 
-#### Uninstalling Multiple Clusters
+### Uninstall Multiple Clusters
 
 When uninstalling more than one IOMesh cluster, uninstall the other clusters first and then the management cluster last. If you do not follow the order, there may be resources resided in the namespace `iomesh-system`, which may affect next deployment in this namespace.
 
@@ -562,6 +562,6 @@ When uninstalling more than one IOMesh cluster, uninstall the other clusters fir
     helm uninstall --namespace iomesh-system iomesh
     ```
 
-#### License Management
+### License Management
 
 Each IOMesh cluster has a license with a unique serial number. You need to [activate the license](https://www.iomesh.com/license) for each IOMesh cluster respectively. For other operations, refer to [Updating ]

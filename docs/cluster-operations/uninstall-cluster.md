@@ -1,7 +1,7 @@
 ---
 id: uninstall-cluster
-title: Uninstalling IOMesh Cluster
-sidebar_label: Uninstalling IOMesh Cluster
+title: Uninstall IOMesh Cluster
+sidebar_label: Uninstall IOMesh Cluster
 ---
 
 >**Attention**: After uninstalling the IOMesh cluster, all data will be lost, including all PVCs in the IOMesh cluster.

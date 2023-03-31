@@ -1,7 +1,7 @@
 ---
 id: clone-pv
-title: Cloning PV
-sidebar_label: Cloning PV
+title: Clone PV
+sidebar_label: Clone PV
 ---
 
 A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should create a new PVC and specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.

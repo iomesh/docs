@@ -1,7 +1,7 @@
 ---
 id: upgrade-cluster
-title: Upgrading IOMesh Cluster
-sidebar_label: Upgrading IOMesh Cluster
+title: Upgrade IOMesh Cluster
+sidebar_label: Upgrade IOMesh Cluster
 ---
 
 > Note: You cannot upgrade the IOMesh cluster if it only has one meta Pod and one chunk Pod.

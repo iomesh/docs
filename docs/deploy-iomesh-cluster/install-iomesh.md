@@ -9,7 +9,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 - Custom Installation: Configure parameters during installation on your own.
 - Offline Installation: Recommended when the Kubernetes cluster cannot communicate with the public network and support for custom parameters during installation.
 
-### Quick Installation
+## Quick Installation
 
 1. Run the corresponding command to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the following command, wait for a few minutes. 
 
@@ -33,7 +33,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     > 
     > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
-### Custom Installation 
+## Custom Installation 
 
 1. Run the following commands to install `Helm`. Skip this step if `Helm` is already installed. 
 
@@ -170,7 +170,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     [1]: http://iomesh.com/charts
     [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
-### Offline Installation
+## Offline Installation
 
 1. Download [IOMesh offline installation package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
 
