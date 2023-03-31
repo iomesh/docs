@@ -6,30 +6,38 @@ sidebar_label: Scale IOMesh Cluster
 
 > **Note:**
 > 
->  Before configuring the number of Chunk or Meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only host one Meta or Chunk pod, so determine the number of worker nodes based on the number of Chunk or Meta pods you want to add.
+>  Before increasing the number of chunk or meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only host one meta or chunk pod, so determine the number of worker nodes based on the number of chunk or meta pods you want to add.
 
 ## Scale Chunk Server
 
-Add the number of chunk pods when storage is insufficient or storage usage exceeds 80%. The number of chunk pods is 1, you can increase to 3 for IOMesh Community Edition and to 255 to the maximum for IOMesh Enterprise Edition.
+If storage capacity is insufficient or storage usage exceeds 80%, you should add the number of chunk pods. The minimum number of chunk pods i
+
+**Precaution**
+
+The number of chunk pods depends on the IOMesh edition.
+- **Community**：At least 1 chunk pod and up to 3.
+- **Enterprise**: At least 1 chunk pod and up to 255.
+
+**Procedure**
 
 1. In `iomesh.yaml`, locate `chunk` and then edit `replicas`. 
 
     ```yaml
     chunk:
-    replicas: 5 # Enter the value after scaling. Up to 3 for IOMesh Community and 255 for IOMesh Enterprise.
+    replicas: "" # Enter the number of chunk pods. 
     ```
-2. Apply modifications.
+2. Apply the modification.
     
     ```shell
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh.yaml
     ```
-3. Verify if modifications are successful.
+3. Verify that the modification was successful.
     
     ```shell
     kubectl get pod -n iomesh-system | grep chunk
     ```   
    
-   If modifications are successful, you should see an example like:
+   If successful, you should see an example like:
     ```output
     iomesh-chunk-0                                         2/2     Running   0          5h5m
     iomesh-chunk-1                                         2/2     Running   0          5h5m
@@ -40,25 +48,29 @@ Add the number of chunk pods when storage is insufficient or storage usage excee
 
 ## Scale Meta Server
 
-Add meta pods when the meta server is overloaded. The minimum number of meta pods is 3, you can only increase to 5 for IOMesh Enterprise.
+Add meta pods when the meta server is overloaded. 
+
+**Precaution**
+
+Increasing the number of meta pods is not supported for IOMesh Community Edition. For the Enterprise Edition, the minimum number of meta pods is 3 and the maximum number is 5.
 
 1. In `iomesh.yaml`, locate `meta` and then edit `replicas`. 
 
     ```yaml
     meta:
-    replicas: 5 # Enter the value after scaling. Up to 5 for IOMesh Community.
+    replicas: "" # Enter an integer greater than 3 but less than 6. 
     ```
-2. Apply modifications.
+2. Apply the modification.
     ```shell
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
     ```
-3. Verify if modifications are successful.
+3. Verify that the modification was successful.
 
     ```shell
     kubectl get pod -n iomesh-system | grep meta
     ```
 
-    If scaling is successful, you should see an example like:
+    If successful, you should see an example like:
     ```output
     iomesh-meta-0                                         2/2     Running   0          5h5m
     iomesh-meta-1                                         2/2     Running   0          5h5m

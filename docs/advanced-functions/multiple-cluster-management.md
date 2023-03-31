@@ -45,8 +45,6 @@ The following section assumes you have 6 worker nodes, deploying the first clust
 
     - Configure node affinity for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` so that they can be scheduled to `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2`.
 
-
-        `iomesh.meta.podPolicy`
         ```yaml
         meta:
               podPolicy:
@@ -61,11 +59,6 @@ The following section assumes you have 6 worker nodes, deploying the first clust
                           - k8s-woker-0
                           - k8s-woker-1
                           - k8s-woker-2        
-        ```
-
-        `iomesh.chunk.podPolicy`
-
-        ```yaml
         ...
         iomesh:
         ...
@@ -82,10 +75,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
                         - k8s-woker-0
                         - k8s-woker-1
                         - k8s-woker-2
-        ```
-
-        `iomesh.redirector.podPolicy`
-      ```yaml
+      ...  
       redirector:
             podPolicy:
               affinity:
@@ -256,9 +246,9 @@ The following section assumes you have 6 worker nodes, deploying the first clust
 
 3. Create `iomesh-cluster-1.yaml` and configure `meta.nodeAffinity`, `chunk.dataCIDR`, `chunk.blockDeviceNamespace`, `chunk.nodeAffinity`, `redirector.dataCIDR`, and `redirector.nodeAffinity`.
 
-    - Mandatory: Fill in `dataCIDR`for `chunk` and `redirector` with the IOMesh storage network segment.
-    - Mandatory: Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components are installed in the namespace `iomesh` and all block devices are also in this namespace.
-    - Optional. `iomesh-cluster-1.yaml` installs IOMesh Community by default. To set it to Enterprise Edition, set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector` respectively.
+    - Mandatory: Fill in `dataCIDR` for `chunk` and `redirector` with the IOMesh dataCIDR.
+    - Mandatory: Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components are installed in the namespace `iomesh-system` and all block devices are also in this namespace.
+    - Optional. `iomesh-cluster-1.yaml` installs IOMesh Community Edition by default. To set it to Enterprise Edition, set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector` respectively.
 
       ```yaml
         apiVersion: iomesh.com/v1alpha1
@@ -316,7 +306,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
                         - k8s-woker-4
                         - k8s-woker-5    
           redirector:
-            dataCIDR: <your-data-cidr-here>  # # Fill in IOMesh dataCIDR.
+            dataCIDR: <your-data-cidr-here>  # Fill in IOMesh dataCIDR.
             image:
               repository: iomesh/zbs-iscsi-redirectord
               tag: v5.3.0-rc13
@@ -327,9 +317,9 @@ The following section assumes you have 6 worker nodes, deploying the first clust
                   requiredDuringSchedulingIgnoredDuringExecution:
                     nodeSelectorTerms:
                     - matchExpressions:
-                - key: kubernetes.io/hostname  # any kubernete node label key
+                - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
                   operator: In
-                  values:  # kubernete node label key's value
+                  values:  # The values of the Kubernetes node label.
                         - k8s-woker-3
                         - k8s-woker-4
                         - k8s-woker-5
@@ -353,7 +343,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-2. Refer to [Configuring DeviceMap](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh).
+2. Refer to [Configuring DeviceMap](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh) to mount disks.
 
     ```shell
     kubectl edit iomesh -n iomesh-system # The first cluster.
@@ -367,7 +357,7 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
 `ConfigMap`
 | Field | Description |
 | ----- | ----- |
-| `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same K8s cluster must have the same field ID filled in.|
+| `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.|
 | `data.iscsiPortal`| iscsi access point, fixed to 127.0.0.1:3260.|
 | `data.metaAddr`      | iomesh meta service address, which follows the format: `<iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100.` |
 
@@ -415,16 +405,13 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
       kubectl apply -f iomesh-cluster-1-csi-configmap.yaml
       ```
 
-
-
-
 ### Create StorageClass for Each Cluster
 
-When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. For details, refer to the following and [CreatE Custom StorageClass](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh). 
+When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. For details, refer to the following and [Create Custom StorageClass](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh). 
 
 |Field| Description|
 |---|---|
-| `parameters.clusterConnection` |The namespace you specify in `configMap` and the `configMap` name.|
+| `parameters.clusterConnection` |The namespace you specify in `configMap`/the `configMap` name.|
 | `parameters.iomeshCluster`| The namespace where the IOMesh cluster is located/the IOMesh cluster name.                              |
 
 **Procedure**
@@ -519,8 +506,7 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
       kubectl apply -f <yaml.filename>
       ```
 
-
-IOMesh enables typology awareness function by default to ensure pods are properly scheduled. If you create a PVC in the first IOMesh cluster, the pod using this PVC will be scheduled to the worker node where the first IOMesh cluster is located, ensuring I/O localization of this pod.
+IOMesh automatically enables typology awareness to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
 
 ## Multiple Cluster Operations
 
@@ -528,19 +514,28 @@ All procedures below are listed based on the example in [Multiple Cluster Deploy
 
 ### Upgrade Multiple Clusters
 
-When upgrading multiple IOMesh clusters, it is recommended to first upgrade the management cluster and then other clusters. If you choose a cluster not the management cluster, the cluster will be temporarily unavailable when upgrading the second cluster; however all clusters will be back to normal finally.
+> **Note:**
+> When upgrading multiple IOMesh clusters, upgrade the management cluster first and then the other clusters. If not, the non-management cluster will be temporarily unavailable during the second upgrade, but all clusters will return to normal afterwards.
 
 **Procedure**
 
-1. Refer to [Upgrading Cluster](iomesh-operations/cluster-operations.md) to upgrade the first IOMesh cluster, which is the management cluster.
+1. [Upgrade the management cluster](iomesh-operations/cluster-operations.md), which is the first IOMesh cluster.
 
-2. After the first upgrade is complete, run the following command to edit the second IOMesh cluster, 
+2. After the first upgrade is complete, edit the second IOMesh cluster.
 
-    第一套 IOMesh 集群升级完毕后，使用 `kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1` 编辑第二套 IOMesh 集群，修改所有的 yaml 配置中的 `spec.*.image.tags`  字段与第一套 IOMesh 集群保持一致(第一套 IOMesh 集群的配置通过 `kubectl get iomesh iomesh -n iomesh-system -o yaml` 命令查看)
+    - View YAML config for the first IOMesh cluster.
+      ```bash
+      kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1
+      ```
+
+    - Edit the second IOMesh cluster, ensuring all values of `spec.*.image.tags` are consistent with the values of the first cluster.
+      ```
+      kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1
+      ```
 
 ### Scale Multiple Clusters
 
-There is no difference between scaling up one cluster and scaling up multiple cluster operations. Plan the number of worker nodes and increase the number of meta or chunk pods one cluster by one cluster. For more information, see [Scaling IOMesh Cluster](https://docs.iomesh.com/cluster-operations/scaling-cluster.md).
+There is no difference between scaling up one cluster and scaling up multiple cluster operations. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scaling IOMesh Cluster](https://docs.iomesh.com/cluster-operations/scaling-cluster.md).
 
 ### Uninstall Multiple Clusters
 
@@ -549,7 +544,7 @@ When uninstalling more than one IOMesh cluster, uninstall the other clusters fir
 **Procedure**
 1. Uninstall the second IOMesh cluster, which will also delete `iomesh` and `zookeeper` components. 
 
-   If you have two more clusters, repeat the step to 再多几个集群咋删了,
+    To uninstall another cluster, replace `iomesh-cluster-1-zookeeper.yaml` with the zookeeper YAML filename and `iomesh-cluster-1.yaml` with the YAML config name.
 
     ```shell
     kubectl delete -f iomesh-cluster-1-zookeeper.yaml && kubectl delete -f iomesh-cluster-1.yaml
@@ -562,4 +557,4 @@ When uninstalling more than one IOMesh cluster, uninstall the other clusters fir
 
 ### License Management
 
-Each IOMesh cluster has a license with a unique serial number. You need to [activate the license](https://www.iomesh.com/license) for each IOMesh cluster respectively. For other operations, refer to [Update License]()
+Each IOMesh cluster has a license with a unique serial number. You need to [activate the license](https://www.iomesh.com/license) for each IOMesh cluster respectively. For other operations, refer to [Update License](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh#block-device-object).

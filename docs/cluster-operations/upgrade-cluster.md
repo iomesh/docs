@@ -4,24 +4,20 @@ title: Upgrade IOMesh Cluster
 sidebar_label: Upgrade IOMesh Cluster
 ---
 
-> Note: You cannot upgrade the IOMesh cluster if it only has one meta Pod and one chunk Pod.
+> Note: You cannot upgrade the IOMesh cluster if it only has one meta Pod and chunk Pod.
 
-> Note: 由于 K8s CRD 升级机制的限制，从 v0.11.1 版本升级到 v1.0.0 版本的 IOMesh 集群不支持运行在 K8s v1.25 及以上版本的 K8s 集群中.
-
+> Note: Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to this version from version 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
 
 **Procedure**
 
 1. Delete the default StorageClass. 
 
-    The default StorageClass for IOMesh 1.0, compared to the default StorageClass of an earlier version, has parameters updated. You need to delete the earlier one, and any PVC based on it will not be affected.
-
+    The new version of IOMesh 1.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.
 
     ```shell
     kubectl delete sc iomesh-csi-driver
     ```
-2. Temporarily disable IOMesh Webhook. 
-
-   IOMesh Webhook may cause the upgrade to fail. Run the following command to disable it temporarily, and it will be installed back automatically once the upgrade is successful.
+2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be reinstalled automatically.
 
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
@@ -36,7 +32,7 @@ sidebar_label: Upgrade IOMesh Cluster
     ```bash
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0
     ```
-5. Verify that all pods are ready. If all pods are shown in the `Ready` state, then IOMesh has been successfully upgraded.
+5. Verify that all pods are ready. If all pods are shown in the `Running` state, then IOMesh has been successfully upgraded.
     ```bash
     watch kubectl get pod --namespace iomesh-system
     ```

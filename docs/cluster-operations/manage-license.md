@@ -14,7 +14,7 @@ IOMesh currently provides **Community** and **Enterprise** editions, which are s
 |License Type|<p>Trial: A license type is automatically generated after deploying IOMesh and is valid for 30 days by default.</p><p>Subscription: Set your own subscription period, with a minimum of 1 year.</p><p>Perpetual: Permanently valid.|
 |Max Chunk Num|The maximum number of worker nodes to deploy IOMesh.|
 |Max Physical Data Capacity| The maximum capacity of the IOMesh cluster, and 0 means no limit.|
-|Max Physical Data Capacity Per Node|The maximum capacity of each node in the IOMesh cluster, and 0 means no limit.
+|Max Physical Data Capacity Per Node|The maximum capacity of each node in the IOMesh cluster, and 0 means no limit.| 
 |Serial|The serial number of the IOMesh cluster.|
 |Sign Date|The date the license is issued.|
 |Software Edition|Community or Enterprise Edition.|
@@ -36,7 +36,7 @@ Update the license in the following scenarios:
 
 **Procedure**
 
-1. 
+
 
 
 

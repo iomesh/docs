@@ -54,10 +54,3 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
     NAME                  PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
     <storageclass_name>   com.iomesh.csi-driver   Delete          Immediate           true                   24h
     ```
-  
-   After running the command, you should see an example like:
-    ```output
-    NAME                  PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
-    <storageclass_name>   com.iomesh.csi-driver   Delete          Immediate           true                   24h
-
-    ```
