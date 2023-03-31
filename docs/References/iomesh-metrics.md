@@ -4,73 +4,7 @@ title: IOMesh Metrics
 sidebar_label: IOMesh Metrics
 ---
 
-IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the block, cluster or volume level.
-
-### Chunk Metrics
-
-**Chunk Status**
-
-| Metrics | Description |
-| --- | --- |
-| `zbs_chunk_use_state` |  Chunk use state.|
-| `zbs_chunk_connect_status` | Chunk server status. |
-| `zbs_chunk_maintenance_mode` | Shows if chunk is in maintenance mode. |
-
-**Chunk IO**
-
-| Metrics | Description |
-| --- | --- |
-| `zbs_chunk_read_iops` | Chunk read IOPS. |
-| `zbs_chunk_read_speed_bps` | Chunk read speed. |
-| `zbs_chunk_avg_read_size_bytes` | Average read request size.|
-| `zbs_chunk_avg_read_latency_ns` | Chunk read latency. |
-| `zbs_chunk_write_iops` | Chunk write IOPS. |
-| `zbs_chunk_write_speed_bps` | Chunk write speed.|
-| `zbs_chunk_avg_write_size_bytes` |Average write request size.|
-| `zbs_chunk_avg_write_latency_ns` | Chunk write latency. |
-| `zbs_chunk_readwrite_iops` | Chunk read write IOPS. |
-| `zbs_chunk_readwrite_speed_bps` | Chunk read write speed. |
-| `zbs_chunk_avg_readwrite_size_bytes` | Average read write request size.|
-| `zbs_chunk_avg_readwrite_latency_ns` | Chunk read write latency. |
-
-**Chunk Cache Space**
-| Metrics | Description |
-| --- | --- |
-| `zbs_chunk_used_cache_space_bytes` | The amount of used cache space. |
-| `zbs_chunk_cache_capacity_bytes` | The total amount of cache space. |
-| `zbs_chunk_read_cache_hit_ratio` | Read cache hit ratio. |
-| `zbs_chunk_write_cache_hit_ratio` | Write cache hit ratio. |
-| `zbs_chunk_readwrite_cache_hit_ratio` | Read write cache hit ratio. |
-| `zbs_chunk_dirty_cache_ratio` | Dirty cache ratio.|
-| `zbs_chunk_dirty_cache_space_bytes` | The amount of dirty cache space.|
-| `zbs_chunk_valid_cache_space_bytes` | The amount of valid cache space.|
-| `zbs_chunk_failure_cache_space_bytes` | The amount of failed cache space. |
-
-**Chunk Data Space**
-| Metrics | Description |
-| --- | --- |
-| `zbs_chunk_used_data_space_bytes` | The amount of used data space.|
-| `zbs_chunk_data_capacity_bytes` | The total amount of data space. |
-| `zbs_chunk_provisioned_data_space_bytes` | The amount of provisioned data space.|
-| `zbs_chunk_data_space_use_rate` | Max(provisioned space, used space)/valid data space. |
-| `zbs_chunk_valid_data_space_bytes` | The amount of valid data space. |
-| `zbs_chunk_failure_data_space_bytes` | The amount of failed data space.|
-
-**Chunk Temporary Replica**
-| Metrics | Description |
-| --- | --- |
-| `zbs_chunk_temporary_replica_space_bytes` | Space used by temporary replicas.|
-| `zbs_chunk_temporary_replica_num` | The number of temporary chunk replicas.|
-
-**Chunk Migration & Recovery**
-
-| Metrics | Description |
-| --- | --- |
-| `zbs_chunk_pending_migrate_bytes` | The total amount of data to be migrated.|
-| `zbs_chunk_pending_recover_bytes` | The total amount of data to be recovered. |
-| `zbs_chunk_recover_speed_bps` | Recovery speed |
-| `zbs_chunk_migrate_speed_bps` | Migration speed. |
-| `zbs_chunk_recover_migrate_speed_bps` | Recovery & migration speed. |
+IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the cluster, chunk or volume level.
 
 ### Cluster Metrics
 
@@ -140,6 +74,72 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the b
 | `zbs_cluster_migrate_speed_bps` | Migration speed. |
 | `zbs_cluster_recover_speed_bps` | Recovery speed. |
 | `zbs_cluster_recover_migrate_speed_bps` | Recovery & migration speed. |
+
+### Chunk Metrics
+
+**Chunk Status**
+
+| Metrics | Description |
+| --- | --- |
+| `zbs_chunk_use_state` |  Chunk use state.|
+| `zbs_chunk_connect_status` | Chunk server status. |
+| `zbs_chunk_maintenance_mode` | Shows if chunk is in maintenance mode. |
+
+**Chunk IO**
+
+| Metrics | Description |
+| --- | --- |
+| `zbs_chunk_read_iops` | Chunk read IOPS. |
+| `zbs_chunk_read_speed_bps` | Chunk read speed. |
+| `zbs_chunk_avg_read_size_bytes` | Average read request size.|
+| `zbs_chunk_avg_read_latency_ns` | Chunk read latency. |
+| `zbs_chunk_write_iops` | Chunk write IOPS. |
+| `zbs_chunk_write_speed_bps` | Chunk write speed.|
+| `zbs_chunk_avg_write_size_bytes` |Average write request size.|
+| `zbs_chunk_avg_write_latency_ns` | Chunk write latency. |
+| `zbs_chunk_readwrite_iops` | Chunk read write IOPS. |
+| `zbs_chunk_readwrite_speed_bps` | Chunk read write speed. |
+| `zbs_chunk_avg_readwrite_size_bytes` | Average read write request size.|
+| `zbs_chunk_avg_readwrite_latency_ns` | Chunk read write latency. |
+
+**Chunk Cache Space**
+| Metrics | Description |
+| --- | --- |
+| `zbs_chunk_used_cache_space_bytes` | The amount of used cache space. |
+| `zbs_chunk_cache_capacity_bytes` | The total amount of cache space. |
+| `zbs_chunk_read_cache_hit_ratio` | Read cache hit ratio. |
+| `zbs_chunk_write_cache_hit_ratio` | Write cache hit ratio. |
+| `zbs_chunk_readwrite_cache_hit_ratio` | Read write cache hit ratio. |
+| `zbs_chunk_dirty_cache_ratio` | Dirty cache ratio.|
+| `zbs_chunk_dirty_cache_space_bytes` | The amount of dirty cache space.|
+| `zbs_chunk_valid_cache_space_bytes` | The amount of valid cache space.|
+| `zbs_chunk_failure_cache_space_bytes` | The amount of failed cache space. |
+
+**Chunk Data Space**
+| Metrics | Description |
+| --- | --- |
+| `zbs_chunk_used_data_space_bytes` | The amount of used data space.|
+| `zbs_chunk_data_capacity_bytes` | The total amount of data space. |
+| `zbs_chunk_provisioned_data_space_bytes` | The amount of provisioned data space.|
+| `zbs_chunk_data_space_use_rate` | Max(provisioned space, used space)/valid data space. |
+| `zbs_chunk_valid_data_space_bytes` | The amount of valid data space. |
+| `zbs_chunk_failure_data_space_bytes` | The amount of failed data space.|
+
+**Chunk Temporary Replica**
+| Metrics | Description |
+| --- | --- |
+| `zbs_chunk_temporary_replica_space_bytes` | Space used by temporary replicas.|
+| `zbs_chunk_temporary_replica_num` | The number of temporary chunk replicas.|
+
+**Chunk Migration & Recovery**
+
+| Metrics | Description |
+| --- | --- |
+| `zbs_chunk_pending_migrate_bytes` | The total amount of data to be migrated.|
+| `zbs_chunk_pending_recover_bytes` | The total amount of data to be recovered. |
+| `zbs_chunk_recover_speed_bps` | Recovery speed |
+| `zbs_chunk_migrate_speed_bps` | Migration speed. |
+| `zbs_chunk_recover_migrate_speed_bps` | Recovery & migration speed. |
 
 ### Volume Metrics
 
