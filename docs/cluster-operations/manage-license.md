@@ -8,6 +8,12 @@ IOMesh currently provides **Community** and **Enterprise** editions, which are s
 
 ## View License Information
 
+To view license information, run the following command:
+```shell
+kubectl get iomesh -n iomesh-system -o=jsonpath='{.items[0].status.license}'
+```
+
+See details in the following table:
 |License Information|Description|
 |---|---|
 |`Expiration Date`|The date when the license expires.|
