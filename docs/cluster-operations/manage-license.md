@@ -36,6 +36,58 @@ Update the license in the following scenarios:
 
 **Procedure**
 
+1. Clean up old license following two steps
+
+  a. Delete old license Kubernetes Secret
+
+    ```bash
+    kubectl delete secret iomesh-authorization-code -n iomesh-system
+    ```
+
+  b. delete `spec.licenseSecretName` field in iomesh object.
+
+    ```bash
+    kubectl edit iomesh -n iomesh-system
+    ```
+    ```output
+    spec:
+      licenseSecretName: iomesh-authorization-code # delete this whole line
+    ```
+
+2. Save the new license code in a file `license.code.txt`.
+
+3. Create a Kubernetes Secret.
+
+    ```bash
+    kubectl create secret generic iomesh-authorization-code -n iomesh-system --from-file=authorizationCode=./license-code.txt
+    ```
+
+3. Add the field `spec.licenseSecretName` . Fill in the value `iomesh-authorization-code`, which is the Kubernetes Secret name created above.
+
+    ```bash
+    kubectl edit iomesh -n iomesh-system
+    ```
+
+    ```output
+    spec:
+      licenseSecretName: iomesh-authorization-code
+    ```
+
+4. Confirm the update, and whether the update is successful will be shown in the output. 
+
+    ```bash
+    kubectl describe iomesh -n iomesh-system # Whether the update is successful will be displayed in the events.
+    ```
+    If the update fails, verify if you have entered the correct license code. If it still does not work, reset the field `spec.licenseSecretName`.
+
+5. Verify that the license expiration date and other details are as expected.
+
+    ```bash
+    kubectl get iomesh -n iomesh-system -o=jsonpath='{.items[0].status.license}'
+    ```
+
+
+
 
 
 
