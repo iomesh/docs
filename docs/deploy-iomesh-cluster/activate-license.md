@@ -1,7 +1,7 @@
 ---
 id: activate-license
-title: Activating License
-sidebar_label: Activating License
+title: Activate License
+sidebar_label: Activate License
 ---
 
 IOMesh is installed and deployed with a trial license. You should update the trial license to a subscription or perpetual license, which depends on your IOMesh edition and how long you want to use it.

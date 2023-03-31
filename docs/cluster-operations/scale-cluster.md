@@ -8,7 +8,7 @@ sidebar_label: Scale IOMesh Cluster
 > 
 >  Before configuring the number of Chunk or Meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only host one Meta or Chunk pod, so determine the number of worker nodes based on the number of Chunk or Meta pods you want to add.
 
-### Scaling Chunk Server
+## Scale Chunk Server
 
 Add the number of chunk pods when storage is insufficient or storage usage exceeds 80%. The number of chunk pods is 1, you can increase to 3 for IOMesh Community Edition and to 255 to the maximum for IOMesh Enterprise Edition.
 
@@ -38,7 +38,7 @@ Add the number of chunk pods when storage is insufficient or storage usage excee
     iomesh-chunk-4                                         2/2     Running   0          5h5m
     ```
 
-### Scaling Meta Server
+## Scale Meta Server
 
 Add meta pods when the meta server is overloaded. The minimum number of meta pods is 3, you can only increase to 5 for IOMesh Enterprise.
 

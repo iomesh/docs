@@ -1,7 +1,7 @@
 ---
 id: setup-worker-node
-title: Setting Up Worker Node
-sidebar_label: Setting Up Worker Node
+title: Set Up Worker Node
+sidebar_label: Set Up Worker Node
 ---
 
 After ensuring all requirements in [Prerequisites](#../) are met, you need to set up `open-iscsi` for each worker node.

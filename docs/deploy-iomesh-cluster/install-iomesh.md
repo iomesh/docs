@@ -1,7 +1,7 @@
 ---
 id: install-iomesh
-title: Installing IOMesh
-sidebar_label: Installing IOMesh
+title: Install IOMesh
+sidebar_label: Install IOMesh
 ---
 
 Before installing IOMesh, refer to the following to choose how you install IOMesh.

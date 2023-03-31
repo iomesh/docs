@@ -8,7 +8,6 @@ sidebar_label: Upgrade IOMesh Cluster
 
 > Note: 由于 K8s CRD 升级机制的限制，从 v0.11.1 版本升级到 v1.0.0 版本的 IOMesh 集群不支持运行在 K8s v1.25 及以上版本的 K8s 集群中.
 
-Due to the limitations of the K8s CRD upgrade mechanism, upgrades are not supported if the Kubernetes cluster version is 1.25 or above.
 
 **Procedure**
 
