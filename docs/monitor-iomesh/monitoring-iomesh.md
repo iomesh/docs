@@ -1,7 +1,7 @@
 ---
 id: monitoring-iomesh
-title: Monitoring IOMesh 
-sidebar_label: Monitoring IOMesh 
+title: Monitor IOMesh 
+sidebar_label: Monitor IOMesh 
 ---
 
 After successfully importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to do more configurations and adjustments.

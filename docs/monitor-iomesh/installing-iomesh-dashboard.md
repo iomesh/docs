@@ -71,7 +71,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
     ```yaml
     iomesh:
-      # Configure ServiceMonitor for Prometheus.
+      # Configure ServiceMonitor for Prometheus Operator.
       serviceMonitor:
         create: true # Set it to true to create a serviceMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for serviceMonitor object, which defaults to iomesh-system.
@@ -88,6 +88,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
     ```yaml
     blockdevice-monitor:
+      # Configure PodMonitor for Prometheus Operator.
       podMonitor:
         create: true # Set it to true to create a PodMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PodMonitor object, which defaults to iomesh-system.
