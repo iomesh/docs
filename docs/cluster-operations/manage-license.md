@@ -37,7 +37,7 @@ Update the license in the following scenarios:
 
 **Prerequisites**
 
-- Community Edition: Apply for the new license code at [the IOMesh official website](https://www.iomesh.com/license).
+- Community Edition: Apply for the new license code at https://www.iomesh.com/license.
 - Enterprise Edition: Contact SmartX sales for the new license code. 
 
 **Procedure**

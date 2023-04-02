@@ -13,7 +13,7 @@ IOMesh comes with a trial license when it is installed and deployed. However, it
 
 **Procedure**
 
-1. Get the license code and save it in a file `license-code.txt`.
+1. Create a file `license-code.txt` and save the license code in it.
 
 2. Create a Kubernetes Secret.
 

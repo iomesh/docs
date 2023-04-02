@@ -12,9 +12,6 @@ In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for
 
 To reduce the number of Pods required in a multi-cluster deployment of IOMesh, the management components shared by all IOMesh clusters, including the IOMesh Operator, IOMesh CSI driver, and Node Disk Manager, will be installed on the first IOMesh cluster, which is referred to as the management cluster.
 
-> _Note:_
-> Expanding an IOMesh cluster to two or more clusters is not supported. 
-
 **Prerequisites**
 - Verify that all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) are met.
 - The IOMesh version should be 1.0.0. 
@@ -342,12 +339,11 @@ The following section assumes you have 6 worker nodes, deploying the first clust
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh.md#configure-devicemap) to mount disks.
+2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh.md#configure-devicemap).
 
     ```shell
-    kubectl edit iomesh -n iomesh-system # The first cluster.
-    kubectl edit iomesh-cluster-1 -n iomesh-cluster-1 # The second IOMesh cluster.
-    ```
+    kubectl edit iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
+    kubectl edit iomesh-cluster-1 -n iomesh-cluster-1 # Configure deviceMap for the second IOMesh cluster.
 
 ### Configure Multiple-Cluster Connection
 
@@ -505,7 +501,7 @@ IOMesh automatically enables typology awareness to ensure correct pod scheduling
 
 ## Operations & Management 
 
-All procedures below are listed based on the example in [Multiple Cluster Deployment](../advanced-functions/multiple-cluster-management.md#deployment)
+All procedures below are listed based on the example in [Multiple Cluster Deployment](../advanced-functions/multiple-cluster-management.md#deployment).
 
 ### Upgrade Multiple Clusters
 
@@ -552,4 +548,4 @@ When uninstalling more than one IOMesh cluster, uninstall the other clusters fir
 
 ### License Management
 
-Each IOMesh cluster has a license with a unique serial number, and you should update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively.For other operations, refer to [Manage License](../cluster-operations/manage-license.md).
+Each IOMesh cluster has a license with a unique serial number, and update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively.For other operations, refer to [Manage License](../cluster-operations/manage-license.md).
