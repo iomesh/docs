@@ -26,7 +26,7 @@ Verify that there is already a PVC available for cloning.
     spec:
       storageClassName: iomesh-csi-driver
       dataSource:
-        name: existing-pvc # Specify the source PVC in the same namespace. 
+        name: existing-pvc # Specify the source PVC that should be from the same namespace as the destination PVC. 
         kind: PersistentVolumeClaim
       accessModes:
         - ReadWriteOnce
@@ -52,4 +52,13 @@ Verify that there is already a PVC available for cloning.
     NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
     cloned-pvc                                  Bound    pvc-44230f3f-47dc-46e8-8c42-38c073c40598   5Gi        RWO            iomesh-csi-driver   21h   
     ```
-4. 加一个查看 PV 的命令和结果
+4. Get the cloned PV.
+    ```shell
+    kubectl get pv pvc-44230f3f-47dc-46e8-8c42-38c073c40598 # The PV name you get in Step 3.
+    ```
+
+    After running the command, you should see an example like:
+    ```output
+    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM         STORAGECLASS
+    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   5Gi        Retain           Bound    cloned-pvc    iomesh-csi-driver
+    ```

@@ -4,9 +4,13 @@ title: Upgrade IOMesh Cluster
 sidebar_label: Upgrade IOMesh Cluster
 ---
 
-> Note: You cannot upgrade the IOMesh cluster if it only has one meta Pod and chunk Pod.
+> **Note:**
+>
+> You cannot upgrade the IOMesh cluster if it only has one meta Pod and chunk Pod.
 
-> Note: Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to this version from version 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
+> **Note**:
+> 
+> Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to this version from version 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
 
 **Procedure**
 

@@ -4,17 +4,16 @@ title: Activate License
 sidebar_label: Activate License
 ---
 
-IOMesh is installed and deployed with a trial license. You should update the trial license to a subscription or perpetual license, which depends on your IOMesh edition and how long you want to use it.
+IOMesh currently offers two editions: Community and Enterprise. They differ in the maximum number of worker nodes and level of business support provided. You can find more information on IOMesh official website at https://www.iomesh.com/spec.
 
-IOMesh currently provides Community and Enterprise editions, which are slightly different in the maximum number of worker nodes and bussiness support. See [the IOMesh official website](https://www.iomesh.com/spec) for details.  
+IOMesh comes with a trial license when it is installed and deployed. However, it is recommended that you update the trial license to a subscription or perpetual license based on your edition of IOMesh and how long you plan to use it.
 
-If you choose Community Edition, you should update the trial license to perpetual license which can be applied for free at [the IOMesh official website](https://www.iomesh.com/license).
-
-If you choose Enterprise Edition, get the license code either for subscription or perpetual from SmartX sales and update the license as instructed below.
+- **Community**: Update the license from `Trial` to `Perpetual`. Apply for the perpetual license code at https://www.iomesh.com/license.
+- **Enterprise**: Get the license code either of a subscription or perpetual license from SmartX sales and update the license as instructed below.
 
 **Procedure**
 
-1. Save the license code in a file `license.code.txt`.
+1. Get the license code and save it in a file `license-code.txt`.
 
 2. Create a Kubernetes Secret.
 

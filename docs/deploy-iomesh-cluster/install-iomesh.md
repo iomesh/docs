@@ -6,7 +6,7 @@ sidebar_label: Install IOMesh
 
 Before installing IOMesh, refer to the following to choose how you install IOMesh.
 - Quick Installation：One click to install IOMesh online, but all parameters take default values and cannot be modified.
-- Custom Installation: Configure parameters during installation on your own.
+- Custom Installation: Configure parameters during installation on your own, but during installation, you must ensure that the Kubernetes cluster network is connected to the public network.
 - Offline Installation: Recommended when the Kubernetes cluster cannot communicate with the public network and support for custom parameters during installation.
 
 ## Quick Installation
@@ -23,7 +23,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
 ```
 
-2. Run the following command to see if all pods in each worker node are running. If so, then IOMesh has been successfully installed.
+2. Verify that all pods in each worker node are running. If so, then IOMesh has been successfully installed.
 
     ```shell
     watch kubectl get --namespace iomesh-system pods
@@ -35,7 +35,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
 
 ## Custom Installation 
 
-1. Run the following commands to install `Helm`. Skip this step if `Helm` is already installed. 
+1. Install `Helm`. Skip this step if `Helm` is already installed. 
 
     ```shell
     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -45,13 +45,13 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
 
    For more details, refer to **[Installing Helm](https://helm.sh/docs/intro/install/)**.
 
-2. Run the following command to add the IOMesh Helm repository.
+2. Add the IOMesh Helm repository.
 
     ```shell
     helm repo add iomesh http://iomesh.com/charts
     ```
 
-3. Export the IOMesh default configuration file into `iomesh.yaml`. 
+3. Export the IOMesh default configuration file `iomesh.yaml`. 
 
     ```shell
     helm show values iomesh/iomesh > iomesh.yaml
@@ -72,14 +72,13 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     ```yaml
     diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
     ```
-
-    Mandatory: Specify the IOMesh edition, which defaults to IOMesh Community Edition. You can set the field `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+    Mandatory: Specify the IOMesh edition, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
    
    ```yaml
     edition: "community" # Specify IOMesh edition.
     ```
 
-    Optional: If you only expect IOMesh to use the disks of the specified Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
+    Optional: If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
       
     ```yaml
     iomesh:
@@ -99,7 +98,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
 
     It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-5. Run the following commands to deploy the IOMesh cluster.
+5. Deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -120,13 +119,13 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     TEST SUITE: None
     ```
 
-6. Run the following command to check the results.
+6. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
 
     ```bash
     kubectl --namespace iomesh-system get pods
     ```
 
-    After running the command, you should see an example like:
+    If successful, you should see an example like:
 
     ```output
     NAME                                                  READY   STATUS    RESTARTS   AGE
@@ -165,7 +164,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     operator-85877979-xqtml                               1/1     Running   0          2m8s
     ```
 
-    If the status of all pods is `Running` as shown above, then IOMesh has been installed successfully.
+  
 
     [1]: http://iomesh.com/charts
     [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
@@ -174,7 +173,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
 
 1. Download [IOMesh offline installation package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
 
-2. Run the following command to unpack the installation package.
+2. Unpack the installation package.
 
     ```shell
     tar -xf  iomesh-offline-v0.11.1.tgz && cd iomesh-offline
@@ -199,7 +198,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
 
   <!--END_DOCUSAURUS_CODE_TABS-->
 
-4. Export the IOMesh default configuration file into `iomesh.yaml`. 
+4. Export the IOMesh default configuration file `iomesh.yaml`. 
 
     ```shell
     ./helm show values charts/iomesh > iomesh.yaml
@@ -220,12 +219,12 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     ```yaml
     diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
     ```
-    Mandatory: Select IOMesh edition, which defaults to IOMesh Community Edition. You can set the field `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+    Mandatory: Specify the IOMesh edition, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
 
     ```yaml
     edition: "community" # Specify IOMesh edition.
     ```
-    Optional: If you want to specify specific Kubernetes worker nodes for IOMesh, configure the values of the node label.
+    Optional: If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
    
    ```yaml
    iomesh:
@@ -244,7 +243,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     ```
     It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-6. Run the following script to deploy IOMesh cluster.
+6. Deploy IOMesh cluster.
 
     ```shell
     ./helm install iomesh ./charts/iomesh \
@@ -264,7 +263,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     TEST SUITE: None
     ```
 
-7. Run the following command to check the results.
+7. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
 
     ```bash
     kubectl --namespace iomesh-system get pods
@@ -308,6 +307,6 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     operator-85877979-cvgcz                                1/1     Running   0          3m20s
     ```
 
-    If the status of all pods is `Running` as shown above, then IOMesh has been installed successfully.
+   
 
 

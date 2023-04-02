@@ -93,6 +93,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
         create: true # Set it to true to create a PodMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PodMonitor object, which defaults to iomesh-system.
         labels: {} # Set the label for PodMonitor object, which defaults to blank.
+      # Configure PrometheusRule for Prometheus Operator.
       prometheusRule:
         create: true # Set it to true to create a PrometheusRule object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PrometheusRule object, which defaults to iomesh-system.

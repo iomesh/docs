@@ -13,7 +13,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
 
 **Procedure**
 
-1. Run the following command to get block devices.
+1. Get block devices.
 
     ```bash
     kubectl --namespace iomesh-system -o wide get blockdevice
@@ -32,7 +32,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     >
     > The field `FSTYPE` should be blank for each IOMesh block device. If not, the block device will be filtered out by the device selector.
    
-2. Run the following command to get details of a block device object. Replace `<device_name>` with the block device name. 
+2. View details of a block device object. Replace `<device_name>` with the block device name. 
 
     ```shell
     kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
@@ -90,7 +90,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
 
 
 **Procedure**
-1. Run the following command to edit the YAML file. 
+1. Edit the YAML file. 
 
     ```bash
     kubectl edit --namespace iomesh-system iomesh 
@@ -175,7 +175,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
 
     Once configured, block devices filtered out will be mounted on the IOMesh cluster.
 
-5. Run the following command to verify that `CLAIMSTATE` of `BlockDevice` you select becomes `Claimed`.
+5. Verify that `CLAIMSTATE` of `BlockDevice` you select becomes `Claimed`.
 
     ```bash
     kubectl --namespace iomesh-system -o wide get blockdevice

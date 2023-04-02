@@ -6,7 +6,7 @@ sidebar_label: IOMesh Metrics
 
 IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the cluster, chunk or volume level.
 
-### Cluster Metrics
+## Cluster Metrics
 
 **Cluster License**
 
@@ -75,7 +75,7 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | `zbs_cluster_recover_speed_bps` | Recovery speed. |
 | `zbs_cluster_recover_migrate_speed_bps` | Recovery & migration speed. |
 
-### Chunk Metrics
+## Chunk Metrics
 
 **Chunk Status**
 
@@ -141,7 +141,7 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | `zbs_chunk_migrate_speed_bps` | Migration speed. |
 | `zbs_chunk_recover_migrate_speed_bps` | Recovery & migration speed. |
 
-### Volume Metrics
+## Volume Metrics
 
 **Volume Space**
 
