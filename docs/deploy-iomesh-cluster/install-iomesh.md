@@ -13,8 +13,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 1. Run the corresponding command to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the following command, wait for a few minutes. 
 
-> **Note:**
-> 
+> _Note:_
 > `Helm3`, a package manager for Kubernetes, is included in the commands below. It will be installed automatically if it is not found. 
 
 
@@ -29,8 +28,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     watch kubectl get --namespace iomesh-system pods
     ```
 
-    > **Note:**
-    > 
+    > _Note:_
     > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
 ## Custom Installation 

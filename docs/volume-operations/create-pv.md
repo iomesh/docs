@@ -8,8 +8,7 @@ sidebar_label: Create PV
 
 To create a PV, you should first create a PVC. Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them together. Then the pair of PV and PVC will be ready to use.
 
-> **Note:**
->
+> _Note:_
 > IOMesh supports access modes `ReadWriteOnce`，`ReadWriteMany`，and `ReadOnlyMany`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
 
 **Prerequisite**

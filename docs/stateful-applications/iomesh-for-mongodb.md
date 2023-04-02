@@ -11,14 +11,14 @@ Verify the IOMesh cluster is already deployed.
 
 **Procedure**
 
-1. Create a YAML config `iomesh-mongodb-sc.yaml` with the following parameters.
+1. Create a YAML config `iomesh-mongodb-sc.yaml` with the following content.  You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass.md).
 
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-mongodb-sc
-    provisioner: com.iomesh.csi-driver 
+    provisioner: com.iomesh.csi-driver # The driver name in `iomesh.yaml`.
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
@@ -27,13 +27,13 @@ Verify the IOMesh cluster is already deployed.
       thinProvision: "true"
     ```
 
-2. Apply the YAML file.
+2. Apply the YAML config to create the StorageClass. 
 
     ```bash
     kubectl apply -f iomesh-mongodb-sc.yaml
     ```
 
-3. Create a YAML config `mongodb-service.yaml`, the headless service used for DNS lookups between MongoDB Pods and the clients within your cluster.
+3. Create a YAML config `mongodb-service.yaml` with the following content. This file defines the headless service, which is used for DNS lookups between MongoDB pods and clients within your cluster
 
     ```yaml
     apiVersion: v1
@@ -51,12 +51,13 @@ Verify the IOMesh cluster is already deployed.
         role: mongo
     ```
 
-4. Run the command to apply the YAML file.
+4. Apply the YAML config to create the headless service.
 
     ```bash
     kubectl apply -f mongodb-service.yaml
     ```
-5. Create a StatefulSet `mongodb-statefulset.yaml` for MongoDB. In the field `storageClassName`, type the StorageClass you choose in Step 1.
+
+5. Create a StatefulSet `mongodb-statefulset.yaml` with the following content. In the field `storageClassName`, type the StorageClass you specify in Step 1.
 
     ```yaml
     apiVersion: apps/v1beta1
@@ -101,18 +102,18 @@ Verify the IOMesh cluster is already deployed.
           name: mongodb-data
         spec:
           accessModes: [ "ReadWriteOnce" ]
-          storageClassName: iomesh-mongodb-sc # The StorageClass in Step 1.
+          storageClassName: iomesh-mongodb-sc # Specify the StorageClass in Step 1.
           resources:
             requests:
               storage: 10Gi
     ```
 
-6. Run the following command to apply the YAML file.
+6. Apply the YAML config to deploy MongoDB.
 
     ```bash
     kubectl apply -f mongodb-statefulset.yaml
     ```
 
-    Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as the filesystem type and replication factor as configured in the StorageClass.
+    Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as the filesystem type and replication factor as specified in the StorageClass.
 
-    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations] and [VolumeSnapshot Operations].
+    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/create-pv.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-snapshotclass.md).

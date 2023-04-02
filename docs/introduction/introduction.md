@@ -16,7 +16,7 @@ IOMesh is fully built on the capabilities of Kubernetes and implements storage a
 
 **High Performance** 
 
-IOMesh enables I/O-intensive databases and applications to run efficiently in the container environment. Leveraging high-performance I/O link and tiered storage, IOMesh achieves high IOPS while maintaining low latency to ensure stable operation of data applications.
+IOMesh enables I/O-intensive databases and applications to run efficiently in the container environment. Leveraging high-performance I/O link, IOMesh achieves high IOPS while maintaining low latency to ensure stable operation of data applications.
 
 **No Kernel Dependencies** 
    
@@ -28,7 +28,7 @@ A system with multiple levels of data protection makes sure that data is always 
 
 **Fully Integrated into Kubernetes Ecosystem**
 
-IOMesh provides storage for stateful applications via CSI even when they are migrated across nodes or clusters. It also works seamlessly with the Kubernetes toolchain, easily deploying IOMesh using Helm Chart and integrating with Prometheus and Grafana to provide standardized, visualized monitoring and alerting service.
+IOMesh flexibly provides storage for stateful applications via CSI even when they are migrated across nodes or clusters. It also works seamlessly with the Kubernetes toolchain, easily deploying IOMesh using Helm Chart and integrating with Prometheus and Grafana to provide standardized, visualized monitoring and alerting service.
 
 ## Architecture
 ![IOMesh arch](https://user-images.githubusercontent.com/78140947/122766241-e2352c00-d2d3-11eb-9630-bb5b428c3178.png)

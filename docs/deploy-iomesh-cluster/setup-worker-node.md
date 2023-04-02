@@ -29,8 +29,7 @@ sudo apt-get install open-iscsi -y
     ```shell
     sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
     ```
-    > **Note:**
-    >
+    > _Note:_
     > The value of `MaxRecvDataSegmentLength` in `/etc/iscsi/iscsi.conf` is set at 32,768 by default, and the maximum number of PVs is limited to 80,000 in IOMesh. To create PVs more than 80,000 in IOMesh, it is recommended to set the value of `MaxRecvDataSegmentLength` to 163,840 or above.
     
 3. Disable SELinux.

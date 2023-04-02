@@ -28,8 +28,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
     ```
  
-    >**Note:**
-    >
+    > _Note:_
     > The field `FSTYPE` should be blank for each IOMesh block device. If not, the block device will be filtered out by the device selector.
    
 2. View details of a block device object. Replace `<device_name>` with the block device name. 
