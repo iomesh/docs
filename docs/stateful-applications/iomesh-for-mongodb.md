@@ -102,7 +102,7 @@ Verify the IOMesh cluster is already deployed.
           name: mongodb-data
         spec:
           accessModes: [ "ReadWriteOnce" ]
-          storageClassName: iomesh-mongodb-sc # Specify the StorageClass in Step 1.
+          storageClassName: iomesh-mongodb-sc # The StorageClass in Step 1.
           resources:
             requests:
               storage: 10Gi
@@ -116,4 +116,4 @@ Verify the IOMesh cluster is already deployed.
 
     Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as the filesystem type and replication factor as specified in the StorageClass.
 
-    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/create-pv.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-snapshotclass.md).
+    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot.md).

@@ -4,11 +4,11 @@ title: Multiple Cluster Management
 sidebar_label: Multiple Cluster Management
 ---
 
-In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation, and each IOMesh cluster is an independent storage pool. In this case, the IOMesh CSI driver enables different IOMesh clusters to communicate, reducing the number of CSI drivers that may consume node resources.
+In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation, and each IOMesh cluster is an independent storage pool. In this case, the IOMesh CSI driver enables different IOMesh clusters to communicate, reducing the number of CSI drivers that may consume unnecessary node resources.
 
 ![image](https://user-images.githubusercontent.com/102718816/228175494-9d69fac5-de12-4519-a85f-2520c2070f4c.png)
 
-## Multiple Cluster Deployment
+## Deployment
 
 To reduce the number of Pods required in a multi-cluster deployment of IOMesh, the management components shared by all IOMesh clusters, including the IOMesh Operator, IOMesh CSI driver, and Node Disk Manager, will be installed on the first IOMesh cluster, which is referred to as the management cluster.
 
@@ -16,7 +16,7 @@ To reduce the number of Pods required in a multi-cluster deployment of IOMesh, t
 > Expanding an IOMesh cluster to two or more clusters is not supported. 
 
 **Prerequisites**
-- Verify that all requirements in [Prerequisites](https://docs.iomesh.com/deploy-iomesh-cluster/prerequsites.md) are met.
+- Verify that all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) are met.
 - The IOMesh version should be 1.0.0. 
 - A Kubernetes cluster consisting of at least 6 worker nodes.
 
@@ -26,7 +26,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
 
 ### Deploy First IOMesh Cluster
 
-1. Set up [`open-iscsi`](../docs/deploy-iomesh-cluster/setup-worker-node.md) on each worker node.
+1. Set up [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node.md) on each worker node.
 
 2. Export the YAML config `iomesh.yaml`. 
 
@@ -35,7 +35,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
     ```
 3. Configure `iomesh.yaml`.
 
-    - Set the field [`iomesh.chunk.dataCIDR`]((../docs/deploy-iomesh-cluster/prerequisites.md#network-requirments)) to the CIDR you configured for the IOMesh storage network.
+    - Set the field [`iomesh.chunk.dataCIDR`](../deploy-iomesh-cluster/prerequisites.md#network-requirements) to the CIDR you configured for the IOMesh storage network.
 
         ```yaml
         iomesh:
@@ -336,13 +336,13 @@ The following section assumes you have 6 worker nodes, deploying the first clust
       ```
 ### Mount Disks
 
-1. [View block devices available for use](https://docs.iomesh.com/deploy/setup-iomesh#block-device-object). Note that all block devices resides in the namespace `iomesh-system`.
+1. [View block devices available for use](../deploy-iomesh-cluster/setup-iomesh.md#view-block-device-objects). Note that all block devices resides in the namespace `iomesh-system`.
 
     ```shell
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-2. [Configure DeviceMap](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh) to mount disks.
+2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh.md#configure-devicemap) to mount disks.
 
     ```shell
     kubectl edit iomesh -n iomesh-system # The first cluster.
@@ -402,7 +402,7 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
 
 ### Create StorageClass for Each Cluster
 
-When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. For details, refer to the following and [Create Custom StorageClass](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh). 
+When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. For details, refer to the following and [Create StorageClass](../volume-operations/create-storageclass.md). 
 
 |Field| Description|
 |---|---|
@@ -503,18 +503,18 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
 
 IOMesh automatically enables typology awareness to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
 
-## Multiple Cluster Operations
+## Operations & Management 
 
-All procedures below are listed based on the example in [Multiple Cluster Deployment](https://docs.iomesh.com/advanced-functions/multiple-cluster-management.md).
+All procedures below are listed based on the example in [Multiple Cluster Deployment](../advanced-functions/multiple-cluster-management.md#deployment)
 
 ### Upgrade Multiple Clusters
 
-> **Note:**
+> _Note:_
 > When upgrading multiple IOMesh clusters, upgrade the management cluster first and then the other clusters. If not, the non-management cluster will be temporarily unavailable during the second upgrade, but all clusters will return to normal afterwards.
 
 **Procedure**
 
-1. [Upgrade the management cluster](iomesh-operations/cluster-operations.md), which is the first IOMesh cluster.
+1. [Upgrade the management cluster](../cluster-operations/upgrade-cluster.md), which is the first IOMesh cluster.
 
 2. After the first upgrade is complete, edit the second IOMesh cluster.
 
@@ -530,7 +530,7 @@ All procedures below are listed based on the example in [Multiple Cluster Deploy
 
 ### Scale Multiple Clusters
 
-There is no difference between scaling up one cluster and scaling up multiple cluster. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scaling IOMesh Cluster](https://docs.iomesh.com/cluster-operations/scaling-cluster.md).
+There is no difference between scaling up one cluster and scaling up multiple cluster. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale IOMesh Cluster](../cluster-operations/scale-cluster.md).
 
 ### Uninstall Multiple Clusters
 
@@ -545,11 +545,11 @@ When uninstalling more than one IOMesh cluster, uninstall the other clusters fir
     kubectl delete -f iomesh-cluster-1-zookeeper.yaml && kubectl delete -f iomesh-cluster-1.yaml
     ```
 
-2. [Uninstall the first IOMesh Cluster](https://docs.iomesh.com/cluster-operations/uninstall-cluster.md).
+2. [Uninstall the first IOMesh Cluster](../cluster-operations/uninstall-cluster.md).
     ```shell
     helm uninstall --namespace iomesh-system iomesh
     ```
 
 ### License Management
 
-Each IOMesh cluster has a license with a unique serial number. You need to [activate the license](https://www.iomesh.com/license) for each IOMesh cluster respectively. For other operations, refer to [Manage License](https://docs.iomesh.com/deploy-iomesh-cluster/setup-iomesh#block-device-object).
+Each IOMesh cluster has a license with a unique serial number, and you should update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively.For other operations, refer to [Manage License](../cluster-operations/manage-license.md).

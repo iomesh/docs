@@ -4,13 +4,9 @@ title: Upgrade IOMesh Cluster
 sidebar_label: Upgrade IOMesh Cluster
 ---
 
-> **Note:**
->
-> You cannot upgrade the IOMesh cluster if it only has one meta Pod and chunk Pod.
-
-> **Note**:
-> 
-> Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to this version from version 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
+> _Note:_
+>- You cannot upgrade the IOMesh cluster if it only has one meta Pod and chunk Pod.
+>- Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to this version from version 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
 
 **Procedure**
 
@@ -36,7 +32,7 @@ sidebar_label: Upgrade IOMesh Cluster
     ```bash
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0
     ```
-5. Verify that all pods are ready. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
+5. Verify that all pods are running. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
     ```bash
     watch kubectl get pod --namespace iomesh-system
     ```

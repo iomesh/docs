@@ -4,8 +4,7 @@ title: Scale IOMesh Cluster
 sidebar_label: Scale IOMesh Cluster
 ---
 
-> **Note:**
-> 
+> _Note:_
 >  Before increasing the number of chunk or meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only host one meta or chunk pod, so determine the number of worker nodes based on the number of chunk or meta pods you want to add.
 
 ## Scale Chunk Server
@@ -37,7 +36,7 @@ The number of chunk pods depends on the IOMesh edition.
     kubectl get pod -n iomesh-system | grep chunk
     ```   
    
-   If successful, you should see an example like:
+   If successful, you should see output like:
     ```output
     iomesh-chunk-0                                         2/2     Running   0          5h5m
     iomesh-chunk-1                                         2/2     Running   0          5h5m
@@ -70,7 +69,7 @@ Increasing the number of meta pods is not supported for IOMesh Community Edition
     kubectl get pod -n iomesh-system | grep meta
     ```
 
-    If successful, you should see an example like:
+    If successful, you should see output like:
     ```output
     iomesh-meta-0                                         2/2     Running   0          5h5m
     iomesh-meta-1                                         2/2     Running   0          5h5m
