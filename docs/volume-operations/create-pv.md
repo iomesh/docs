@@ -8,9 +8,9 @@ sidebar_label: Create PV
 
 To create a PV, you should first create a PVC. Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them together. Then the pair of PV and PVC will be ready to use.
 
-**Precaution**
-
-IOMesh supports access modes `ReadWriteOnce`，`ReadWriteMany`，and `ReadOnlyMany`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
+> **Note:**
+>
+> IOMesh supports access modes `ReadWriteOnce`，`ReadWriteMany`，and `ReadOnlyMany`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as Block.
 
 **Prerequisite**
 
@@ -64,9 +64,9 @@ Ensure that there is already a StorageClass available for use.
     pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi       Delete           Bound    default/iomesh-example-pvc   iomesh-csi-driver
     ```
 
-## Create Authenticated PV 
+## Create PV with Secret 
 
-You can create a PV with authentication and save the authentication information and user credentials in the Kubernetes secret. Every time to access a PV with authentication, you must provide the correct credentials.
+To ensure secure access, you may create a PV with a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) that stores authentication details and user login information. Whenever you want to access this PV, you need to enter the accurate login details.
 
 This authentication is achieved by configuring a Secret for the StorageClass, and each StorageClass has a separate authentication information. Whenever a user wants to use the StorageClass, the Secret of the StorageClass needs to be configured in the PVC, and the PVC can only be used by the Pod if the data of the two Secrets match exactly.
 
@@ -86,7 +86,7 @@ This authentication is achieved by configuring a Secret for the StorageClass, an
     ```bash
     kubectl create secret generic user-secret -n user-namespace --from-literal=username=iomesh --from-literal=password=abcdefghijklmn
     ```
-3. Create a StorageClass and refer to the following to configure its parameters.
+3. Create a StorageClass and configure fields as instructed below.
 
     ```yaml
     kind: StorageClass
