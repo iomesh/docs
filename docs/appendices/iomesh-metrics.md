@@ -1,7 +1,7 @@
 ---
 id: iomesh-metrics
-title: IOMesh Metrics
-sidebar_label: IOMesh Metrics
+title: MMonitoring Metrics
+sidebar_label: Monitoring Metrics
 ---
 
 IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the cluster, chunk or volume level.

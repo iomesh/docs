@@ -66,7 +66,7 @@ Provides a way to describe the classes of storage when provisioning a volume sna
 
 A snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a persistent volume is a cluster resource.
 
-**Volume Mode**
+[**Volume Mode**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#volume-mode)
 
 An optional API parameter that describes the specific mode for a persistent volume. Kubernetes supports `Filesystem` and `Block` as `volumeModes`. 
 

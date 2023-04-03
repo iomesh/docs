@@ -11,11 +11,11 @@ Before installing and deploying IOMesh, verify the following requirements.
 
 ## Cluster Requirements
 
-A Kubernetes cluster or an OpenShift cluster, either of which should have at least 3 worker nodes. The Kubernetes version should be between 1.17 and 1.25, or the OpenShift version between 4.0 and 4.11.
+A Kubernetes or OpenShift cluster with minimum 3 worker nodes, and the Kubernetes version should be 1.17-1.25 or OpenShift version should be 4.0-4.11.
 
 ## Hardware Requirements 
 
-Verify that each worker node meets the following configuration requirements. IOMesh Community and Enterprise editions have the same hardware requirements for each worker node. 
+Ensure that each worker node has the following hardware configurations, and note that IOMesh Community and Enterprise editions have the same hardware requirements.
 
 **CPU**
 
@@ -27,7 +27,7 @@ At least 16 GB on each worker node.
 
 **Storage Controller**
 
-The storage controller should be the SAS HBA or RAID cards that support passthrough mode (JBOD). 
+SAS HBA or RAID cards that support passthrough mode (JBOD). 
 
 **OS Disk**
 
