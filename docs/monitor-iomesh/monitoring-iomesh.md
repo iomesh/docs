@@ -6,7 +6,7 @@ sidebar_label: Monitor IOMesh
 
 After successfully importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to do more configurations and adjustments.
 
-![image](https://user-images.githubusercontent.com/102718816/228129444-c656ab7f-9a1c-4c58-ba6d-9dcfa7846b7a.png)
+![image](https://user-images.githubusercontent.com/102718816/229400816-fb5a630e-f589-4a73-be09-e281676f111d.png)
 
 
 IOMesh provide 5 rows of contents for monitoring IOMesh storage: 
@@ -61,8 +61,8 @@ Shows data migration, recovery, and performance data of a specific node in the I
 |---|------|------------|
 | Pending Migrate             | The amount of data to be migrated on the node.                           | "50.0 MiB" |
 | Pending Recover             | The amount of data to be recovered on the node.                          | "50.0 MiB" |
-| Failure Cache               | The amount of unavailable cache space on the node.                       | "50.0 MiB" |
-| Failure Data                | The amount of unavailable data space on the node.                        | "50.0 MiB" |
+| Invalid Cache Capacity   | The amount of unavailable cache space on the node.                       | "50.0 MiB" |
+| Invalid Storage Capacity                | The amount of unavailable data space on the node.                        | "50.0 MiB" |
 | Node IOPS                   | Shows the minimum, maximum, and latest values of read write IOPS in a given time period.  | /          |
 | Node Average Latency        | Shows the minimum, maximum, and latest values of read write average latency in a given time period. |     /       |
 |Node I/O Average Block Size| Shows the minimum, maximum, and latest values of read write average block size in a given time period.|/|
@@ -75,14 +75,14 @@ Shows disk attribute information, health and usage status, and purpose of use.
 |--------------------|------------------|----------------|
 | Device Name        | The physical disk name. | "dev/sdv"      |
 | Health Status      | Shows the health status of the physical disk, including ` Healthy`, `Unhealthy`, `Failing`, and `S.M.A.R.T not passed`.    | "Healthy"      |
-| Usage Status       | Shows if the usage status of the physical disk, including `Unmounted`, `Partially mounted`, `Mounted`, `Staging`, and `Migrating`. | "Mounted"      |
+| Usage Status       | Shows if the usage status of the physical disk, including `Unmounted`, `Partially mounted`, `Mounted`, and `Unmounting`. | "Mounted"      |
 | Remaining Lifetime | Shows the remaining life of the cache disk. A higher percentage (%) value indicates a longer remaining life.               | "99%"          |
 | Type               | Shows the disk type, including `SSD` and `HDD`.       | "HDD"          |
 | Model              | Shows disk attribute information, which may contain brand information.                                                     | "DL2400MM0159" |
 | Serial Number      | The serial number of the physical disk.                                                                                    | "WBM3C4TE"     |
 | Use                | Shows the purpose of the physical disk, including `Datastore`, `Cache with journal`, and `Datastore with journal`. | "Datastore"        |
 | Capacity | The total capacity of the physical disk. | "500 GiB"      |
-| Hostname| The name of the node where the disk is located. | "node-1"       |
+| Node| The name of the node where the disk is located. | "node-1"       |
 ## Persistent Volume
 Shows PV attribute information, status, and usage in the IOMesh cluster.
 
@@ -90,7 +90,7 @@ Shows PV attribute information, status, and usage in the IOMesh cluster.
 |---|------|-----|
 | Name | The PV name. | "Volume-1"            |
 | StorageClass       | The StorageClass name corresponding to this PV. | "StorageClass1"       |
-| Status | Shows the PV status, including: <p><ul><li>Available: This PV is available for use but is not bound to any PVC.</li><li>Bound: This PV is already bound to a PVC.</li><li>Released: The PVC bound to this PV has been deleted, but the resource has not been reclaimed by the cluster.</li><li>Failed: Failed to automatically reclaim this PV.</li><li> Pending: This PV is already created but needs to wait for CSI to create the entity storage resource.</li></ul> |"Available"|
+| Status | Shows the PV status, including: <p><ul><li>`Available`: This PV is available for use but is not bound to any PVC.</li><li>`Bound`: This PV is already bound to a PVC.</li><li>`Released`: The PVC bound to this PV has been deleted, but the resource has not been reclaimed by the cluster.</li><li>`Failed`: Failed to automatically reclaim this PV.</li><li> `Pending`: This PV is already created but needs to wait for CSI to create the entity storage resource.</li></ul> |"Available"|
 | Allocated Capacity | The logical capacity allocated to this PV.| "50 GiB"|
 | Exclusive Capacity | The logical capacity exclusive for this PV.| "25 GiB" |
 | Shared Capacity | The physical capacity shared by this PV and other objects. | "10 GiB"|

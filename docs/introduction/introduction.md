@@ -22,6 +22,10 @@ IOMesh enables I/O-intensive databases and applications to run efficiently in th
    
 Running separately in user space instead of kernel space, IOMesh is isolated from other applications on the same node, which means that when IOMesh fails, other applications can deliver services as usual without causing the entire system to fail. Since IOMesh is kernel independent, you do not need to install any kernel modules or worry about kernel version compatibility issues.
 
+**Tiered Storage**
+
+IOMesh facilitates cost-effective, hybrid deployment of SSDs & HDDs, maximizing storage performance and capacity for different media while reducing storage costs from the outset.
+
 **Data Protection & Security**
 
 A system with multiple levels of data protection makes sure that data is always secure and available. IOMesh does this by placing multiple replicas on different nodes, allowing PV-level snapshots for easy recovery in case of trouble, while also isolating abnormal disks to minimize the impact and reduce the operational burden. Authentication is also provided for specific PVs to ensure secure access.

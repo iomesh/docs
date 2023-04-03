@@ -24,7 +24,11 @@ Applications can be stateful or stateless. Stateful applications store data on p
 
 **IOMesh Block Storage**
 
-IOMesh block storage service for ensuring distributed system consistency and data coherence, managing metadata and local disks, and implementing I/O redirection and high availability.
+The IOMesh block storage service for ensuring distributed system consistency and data coherence, managing metadata and local disks, and implementing I/O redirection and high availability.
+
+**Chunk**
+
+A module in IOMesh Block Storage that manages local disks, translates access protocols, and ensures data consistency. Only one chunk pod runs on each worker node.
 
 **IOMesh CSI Driver**
 
@@ -34,17 +38,13 @@ The self-developed [CSI](https://github.com/kubernetes-csi) driver that adheres 
 
 The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling up or down nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
 
-**Chunk**
-
-chunk 是每个存储节点内提供存储服务的模块.
-
 [**Namespace**](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
 Provides a mechanism for dividing resources in the same cluster into isolated groups that can be created on demand and managed separately within a cluster.
 
 [**StorageClass**](https://kubernetes.io/docs/concepts/storage/storage-classes/)
 
-Provides a way for administrators to describe the classes of storage they offer or a template for dynamically provisioning persistent volumes and allows administrators to specify different attributes belonging to a storageclass.
+Provides a way to describe the classes of storage or a template for dynamically provisioning persistent volumes and allows administrators to specify different attributes belonging to a StorageClass.
 
 [**Persistent Volume**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 
