@@ -12,13 +12,11 @@ IOMesh LocalPV Manager is a CSI driver for managing local storage on Kubernetes 
 
 IOMesh LocalPV has the following advantages compared to [Kubernetes HostPath Volume](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) and [Kubernetes native local PV](https://kubernetes.io/docs/concepts/storage/volumes/#local):
 
-- Dynamically provisions PVs to allow flexible node storage access through StorageClass, PVC, and PV without the need for administrators to pre-provision static PVs. 
+- Dynamically provision PVs to allow flexible node storage access through StorageClass and PVC without the need for administrators to pre-provision static PVs. 
 
-- Create persistent volumes using directories or block devices, offering more flexibility compared to Kubernetes local PVs that are limited to the directory.
+- Create PVs using a directory or block device, offering more flexibility compared to Kubernetes local PVs that are limited to the directory.
 
-- 当使用节点上的目录作为后端存储时，IOMesh LocalPV 支持 PV 级别的容量限额
-
-- A scheduler that works independently is created to ensure successful scheduling of pods in situations where there is not enough local storage and to balance capacity across the entire cluster.
+- Enable capacity limit for local PV to implement capacity isolation.
 
 ### Architecture
 
@@ -26,16 +24,14 @@ IOMesh LocalPV has the following advantages compared to [Kubernetes HostPath Vol
 
 IOMesh LocalPV Manager is comprised of components: Controller Driver, Node Driver, and Node Disk Manager.
 
-**Controller Driver** 我们自己的，还是 k8s 的
+**Controller Driver** 
 
-标准的 CSI Controller Server 实现，与 kube-apiserver 交互。负责 LocalPV 的创建和删除，以及 PV 与本地目录或设备的关系映射，每个 K8s Worker 节点都会有一个 Controller Driver 实例.
+标准的 CSI Controller Server 实现，与 kube-apiserver 交互。负责 LocalPV 的创建和删除，以及 PV 与本地目录或设备的关系映射，每个 K8s Worker 节点都会有一个 Controller Driver 实例. 三个实例组成一个组件
 
 
-每一个 CSI driver 都会有 1 个 controller component?
+**Node Driver** 
 
-**Node Driver** 我们自己的，还是 k8s 的
-
-标准的 CSI Node Server 实现，与 kubelet 交互。负责 LocalPV 的挂载与格式化，每个 K8s Worker 节点都会有一个 Node Driver 实例
+Comprised of the node driver instance on each worker nodes, implemented on the standard CSI Node Server and interacts with `kubelet` to mount and format local PV.
 
 **Node Disk Manager**
 
@@ -61,7 +57,7 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
     kind: StorageClass
     metadata:
     name: iomesh-localpv-manager-hostpath
-    parameters:
+      parameters:
     volumeType: hostpath
     basePath: /var/iomesh/local
     enableQuota: "false"
@@ -73,10 +69,10 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
     | -------- | ---------------- |
     | `parameters.volumeType`  | Localpv type, including `hostpath` and `device`.                    |
     | `parameters.basePath`    | localpv 将被创建在节点上 parameters.basePath 声明的目录中，如果 parameters.basePath 不存在会被自动创建。**parameters.basePath 的格式必须是绝对路径** |
-    | parameters.enableQuota | 是否开启目录限额，默认关闭                                       |
+    | parameters.enableQuota | Shows whether capacity limit is enabled,                                    |
     | volumeBindingMode      | pvc 绑定模式，仅支持 `WaitForFirstConsumer`              |
 
-2. Create a PVC with the following content. 
+2. Create a PVC. 
 
     - Create a YMAL config `iomesh-localpv-hostpath-pvc.yaml` with the following content.
         ```yaml
@@ -153,7 +149,7 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
         iomesh-localpv-hostpath-pvc   Bound    pvc-ab61547e-1d81-4086-b4e4-632a08c6537b   2G         RWO           
         ```
 
-    - Get the YAML config to see configurations of this PV. Note that the PV name is obtained in the previous step. (这一步的目的是啥)
+    - Get the YAML config to see configurations of this PV. Note that the PV name is obtained in the previous step. 
         ```shell
         kubeclt get pv pvc-ab61547e-1d81-4086-b4e4-632a08c6537b -o yaml
         ```
@@ -199,16 +195,16 @@ In the above example, an IOMesh local PV is created with a capacity of 2 G, corr
 
 **Prerequisite**
 
-IOMesh LocalPV Manager 的容量限额功能基于 xfs 文件系统的 xfs_quota 特性实现，当限额功能开启后， localpv 在被创建时会同时配置 xfs quota，以确保 PVC 中声明的容量大小是真实生效的.
+Capacity limit is implemented on the xfs file system `xfs_quota`. Once enabled, a local PV will be created with `xfs quota` configured to ensure that the capacity size declared in the PVC is true.
 
 **Procedure**
 
-1. 假设 basePath 为 /var/iomesh/localpv-quota (跟上面的例子不一样), 创建对应目录
+1. Create a directory, assuming `basePath` is `/var/iomesh/localpv-quota` (跟上面的例子不一样).
 
     ```shell
     mkdir -p /var/iomesh/localpv-quota
     ```
-2. 将待挂载的磁盘（假设为 /dev/sdx）格式化为 xfs 文件系统
+2. Assuming the disk that will be mounted is `/dev/sdx`, format its file system to `xfs`.
 
     ```shell
     sudo mkfs.xfs /dev/sdx
@@ -222,7 +218,7 @@ IOMesh LocalPV Manager 的容量限额功能基于 xfs 文件系统的 xfs_quota
 载选项不支持在已有挂载点上直接 remount）
 > _NOTE_: 为了防止节点重启后挂载信息丢失，需要将挂载信息持久化到 /etc/fstab 配置文件中
 
-4. 使用该挂载点作为  basePath 创建 StorageClass，并将 `parameters.enableQuota` 字段设为 "true"
+4. Create a StorageClass using this mount point as `basePath`. Set the field `parameters.enableQuota` to `true`.
 
     ```yaml
     apiVersion: storage.k8s.io/v1
@@ -237,6 +233,17 @@ IOMesh LocalPV Manager 的容量限额功能基于 xfs 文件系统的 xfs_quota
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
     ```
-4. 接着就可以使用该 StorageClass 创建 PVC，步骤与上一章节描述相同
+5. Create a PVC using the StorageClass created in the previous step.
 
 > _NOTE_: 当前版本的 IOMesh LocalPV Manager 尚未支持调度器扩展（见[调度器扩展](scheduler)章节）, Pod 有可能被调度到容量限额不足的节点上，此时需要手动修改 Pod 的节点亲和性使其重新调度到容量限额满足需求的节点上。
+
+##  IOMesh Device LocalPV
+
+IOMesh Hostpath LocalPV 支持基于节点上的一个块设备创建 Kubernetes PV 提供给 Pod 使用
+
+### Create IOMesh Device LocalPV
+
+
+**Procedure**
+
+1. Create a StorageClass.
