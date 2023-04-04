@@ -4,10 +4,13 @@ title: Install IOMesh
 sidebar_label: Install IOMesh
 ---
 
+
 Before installing IOMesh, refer to the following to choose how you install IOMesh.
 - Quick Installation：One click to install IOMesh online, but all parameters take default values and cannot be modified.
 - Custom Installation: Configure parameters during installation on your own, but during installation, you must ensure that the Kubernetes cluster network is connected to the public network.
 - Offline Installation: Recommended when the Kubernetes cluster cannot communicate with the public network and support for custom parameters during installation.
+
+快速安装只支持社区版和混闪
 
 ## Quick Installation
 

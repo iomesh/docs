@@ -39,7 +39,8 @@
       "monitor-iomesh/monitoring-iomesh"
     ],
     "Advanced Functions": [
-      "advanced-functions/manage-multiple-cluster"
+      "advanced-functions/manage-multiple-cluster",
+      "advanced-functions/localpv-manager"
     ],
     "Appendices": [
       "appendices/iomesh-metrics",
