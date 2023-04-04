@@ -53,13 +53,18 @@ iomesh-localpv-manager-w4j8m                                   4/4     Running  
 
 ## IOMesh Hostpath LocalPV
 
+Hostpath 和 Device Local PV 的定义、使用场景
+
 When selecting local PV type for your applications or databases, consider whether they require exclusive use of a disk or the ability to mount a raw block device. If so, select the IOMesh Device local PV. However, if this is not a requirement, choose the IOMesh Hostpath local PV instead. 
 
 IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory on a node to be made available to Pods, and supports PV-level capacity limits.
 
 ### Create IOMesh Hostpath Local PV
 
-1. Create a StorageClass with the following content and configure `basePath` and `enableQuota` if needed. You may also use the default StorageClass created when IOMesh LocalPV Manager is deployed. 
+1. A default StorageClass will the 
+
+
+Create a StorageClass with the following content and configure `basePath` and `enableQuota` if needed. You may also use the default StorageClass created when IOMesh LocalPV Manager is deployed. 
 
     ```yaml
     apiVersion: storage.k8s.io/v1
