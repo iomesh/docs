@@ -37,7 +37,7 @@ The following section assumes you have 6 worker nodes, deploying the first clust
         ```yaml
         iomesh:
             chunk:
-            dataCIDR: <your-data-cidr-here>
+              dataCIDR: <your-data-cidr-here>
         ```
 
     - Configure node affinity for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` so that they can be scheduled to `k8s-worker-0`, `k8s-worker-1`, and `k8s-worker-2`.
@@ -497,7 +497,7 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
       kubectl apply -f <yaml.filename>
       ```
 
-IOMesh automatically enables typology awareness to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
+IOMesh automatically enables topology awareness to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
 
 ## Operations & Management 
 
@@ -516,7 +516,7 @@ All procedures below are listed based on the example in [Multiple Cluster Deploy
 
     - View YAML config for the first IOMesh cluster.
       ```bash
-      kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1
+      kubectl edit iomesh iomesh-cluster -n iomesh 确认一下
       ```
 
     - Edit the second IOMesh cluster, ensuring all values of `spec.*.image.tags` are consistent with the values of the first cluster.

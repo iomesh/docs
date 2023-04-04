@@ -1,6 +1,6 @@
 ---
 id: iomesh-metrics
-title: MMonitoring Metrics
+title: Monitoring Metrics
 sidebar_label: Monitoring Metrics
 ---
 

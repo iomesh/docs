@@ -250,7 +250,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
         --values iomesh.yaml \
         --wait
     ```
-    After running the script, you should see an example like:
+    If successful, you should see output below:
     
     ```output
     NAME: iomesh

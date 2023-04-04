@@ -16,7 +16,8 @@ IOMesh LocalPV has the following advantages compared to [Kubernetes HostPath Vol
 
 - Create PVs using a directory or block device, offering more flexibility compared to Kubernetes local PVs that are limited to the directory.
 
-- Enable capacity limit for local PV to implement capacity isolation.
+- Enable capacity limit for Hostpath Local PV to implement isolation.
+
 
 ### Architecture
 
@@ -26,31 +27,39 @@ IOMesh LocalPV Manager is comprised of components: Controller Driver, Node Drive
 
 **Controller Driver** 
 
-标准的 CSI Controller Server 实现，与 kube-apiserver 交互。负责 LocalPV 的创建和删除，以及 PV 与本地目录或设备的关系映射，每个 K8s Worker 节点都会有一个 Controller Driver 实例. 三个实例组成一个组件
-
+The controller driver consists of multiple instances on all worker nodes and is implemented on the standard CSI controller server. Its responsibility is to create or remove local PVs and map them to local directories or block devices.
 
 **Node Driver** 
 
-Comprised of the node driver instance on each worker nodes, implemented on the standard CSI Node Server and interacts with `kubelet` to mount and format local PV.
+The node driver comprises multiple instances on all worker nodes and it is implemented using the standard CSI Node Server. Its main task is to interact with kubelet to mount and format local PVs.
 
 **Node Disk Manager**
 
 `Node Disk Manager` is responsible for discovering node block devices and abstract block devices into BlockDevice objects, providing a BlockDeviceClaim mechanism to ensure that a block device is exclusive to a particular Pod.
 
-## Deployment & Operations
+## Deployment
 
+IOMesh LocalPV Manager will be automatically installed when installing IOMesh. To see the status of the IOMesh LocalPV Manager pod, run the following command:
+
+```shell
+kubectl get pod -n iomesh-system | grep localpv-manager
+```
+```output
+NAME                                                           READY   STATUS             RESTARTS   AGE
+iomesh-localpv-manager-rjg8j                                   4/4     Running            0          10s
+iomesh-localpv-manager-vphz9                                   4/4     Running            0          10s
+iomesh-localpv-manager-w4j8m                                   4/4     Running            0          10s
+```
 
 ## IOMesh Hostpath LocalPV
 
-如果用户的应用需要独占盘或者直接挂裸块设备，就是 IOMesh Device LocalPV。其他的是 IOMesh Hostpath LocalPV
+When selecting local PV type for your applications or databases, consider whether they require exclusive use of a disk or the ability to mount a raw block device. If so, select the IOMesh Device local PV. However, if this is not a requirement, choose the IOMesh Hostpath local PV instead. 
 
 IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory on a node to be made available to Pods, and supports PV-level capacity limits.
 
-### Create IOMesh Hostpath LocalPV
+### Create IOMesh Hostpath Local PV
 
-1. Create a StorageClass. 
-
-    After IOMesh LocalPV Manager is installed, a storage class with volumeType of hostpath type will be created by default, you can create a custom storage class according to your needs, such as changing the basePath path or enabling the capacity limit.
+1. Create a StorageClass with the following content and configure `basePath` and `enableQuota` if needed. You may also use the default StorageClass created when IOMesh LocalPV Manager is deployed. 
 
     ```yaml
     apiVersion: storage.k8s.io/v1
@@ -65,18 +74,17 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
     ```
-    | Field | Description      |
-    | -------- | ---------------- |
-    | `parameters.volumeType`  | Localpv type, including `hostpath` and `device`.                    |
-    | `parameters.basePath`    | localpv 将被创建在节点上 parameters.basePath 声明的目录中，如果 parameters.basePath 不存在会被自动创建。**parameters.basePath 的格式必须是绝对路径** |
-    | parameters.enableQuota | Shows whether capacity limit is enabled,                                    |
-    | volumeBindingMode      | pvc 绑定模式，仅支持 `WaitForFirstConsumer`              |
+    | Field | Description  |
+    | ------- | ---- |
+    | `parameters.volumeType`  | Local PV type, either `hostpath` or `device`.                    |
+    | `parameters.basePath`    | The directory specified in `parameters.basePath`, on which local PV will created. If `parameters.basePath` is not specified, the system will create a directory by default. Note that the value for `parameters.basePath` must be a fullpath. |
+    | `parameters.enableQuota` | Shows whether capacity limit is enabled for this local PV.                                    |
+    | [`volumeBindingMode`](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode)    | Volume binding mode, which only supports `WaitForFirstConsumer`.| 
 
 2. Create a PVC. 
 
     - Create a YMAL config `iomesh-localpv-hostpath-pvc.yaml` with the following content.
         ```yaml
-        # iomesh-localpv-hostpath-pvc.yaml
         kind: PersistentVolumeClaim
         apiVersion: v1
         metadata:
@@ -98,7 +106,7 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
         ```shell
         kubectl get pvc iomesh-localpv-hostpath-pvc
         ```
-      You will see the PVC in a `Pending` state as the `volumeBindingMode` of StorageClass is configured as `WaitForFirstConsumer`, and only when the Pod is bound to this PVC, the corresponding PV will be created on the node to which the pod is scheduled, and the status of this PVC will become `Bound`.
+      You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. When this PVC is bound to a pod, the corresponding PV will be created on the node where the pod resides, and at this time, the PVC will be in the `Bound` state.
 
         ```shell
         NAME                          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS               AGE
@@ -106,9 +114,8 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
         ```
 3. Create a pod and bind it to the PVC created in the previous step.
 
-    - Create a YAML config `iomesh-localpv-hostpath-pod.yaml` with the following content. 准备 Pod 配置，将 PVC 挂载到 Pod 内的 `/mnt/iomesh/localpv` 目录 
+    - Create a YAML config `iomesh-localpv-hostpath-pod.yaml` with the following content. 
         ```yaml
-        # iomesh-localpv-hostpath-pod.yaml
         apiVersion: v1
         kind: Pod
         metadata:
@@ -126,7 +133,7 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
             - -c
             - 'while true; do sleep 30; done;'
             volumeMounts:
-            - mountPath: /mnt/iomesh/localpv
+            - mountPath: /mnt/iomesh/localpv 
             name: iomesh-localpv-hostpath
         ```
     - Apply the YAML config to create the pod.
@@ -149,7 +156,7 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
         iomesh-localpv-hostpath-pvc   Bound    pvc-ab61547e-1d81-4086-b4e4-632a08c6537b   2G         RWO           
         ```
 
-    - Get the YAML config to see configurations of this PV. Note that the PV name is obtained in the previous step. 
+    - Get the YAML config to see the PV configurations. Note that the PV name is obtained in the previous step. 
         ```shell
         kubeclt get pv pvc-ab61547e-1d81-4086-b4e4-632a08c6537b -o yaml
         ```
@@ -186,37 +193,37 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
 
         | Field | Description  |
         | -------- | ------ |
-        | `spec.csi.volumeAttributes.basePath` | `basePath` created by IOMesh local PV. localpv 创建的 basePath，该 PV 对应的目录被创建在 `iomesh-k8s-0` 这个节点的 `/var/iomesh/local/pvc-ab61547e-1d81-4086-b4e4-632a08c6537b` 路径 |
-        | `spec.nodeAffinity`| Node affinity for the PV. Once created, this PV will be bound to the specified node and will not move to another node.|      
+        | `spec.csi.volumeAttributes.basePath` | `basePath` created by IOMesh local PV. The directory for this PV is created under `/var/iomesh/local/pvc-ab61547e-1d81-4086-b4e4-632a08c6537b` on the node `iomesh-k8s-0`. |
+        | `spec.nodeAffinity`| PV node affinity. Once created, this PV will be bound to the specified node and will not move to another node.|      
 
-### Enabling Capacity Limit
+### Enable Capacity Limit
 
 In the above example, an IOMesh local PV is created with a capacity of 2 G, corresponding to a directory on the node, and by default does not limit the amount of data written into this directory, allowing for more than written data of over 2 G. However, if you have requirement for capacity isolation, you may enable capacity limit for this IOMesh local PV.
 
 **Prerequisite**
 
-Capacity limit is implemented on the xfs file system `xfs_quota`. Once enabled, a local PV will be created with `xfs quota` configured to ensure that the capacity size declared in the PVC is true.
+Capacity limit is implemented on the XFS file system `xfs_quota`. Once enabled, a local PV will be created with `xfs quota` configured to ensure that the capacity size declared in the PVC is true.
 
 **Procedure**
 
-1. Create a directory, assuming `basePath` is `/var/iomesh/localpv-quota` (跟上面的例子不一样).
+1. Create a directory `/var/iomesh/localpv-quota` as `basePath`.
 
     ```shell
     mkdir -p /var/iomesh/localpv-quota
     ```
-2. Assuming the disk that will be mounted is `/dev/sdx`, format its file system to `xfs`.
+2. Format the file system of the disk to be mounted as `xfs`. This example assumes the disk is `/dev/sdx`.
 
     ```shell
     sudo mkfs.xfs /dev/sdx
     ```
-3. 挂载磁盘到 basePath（假设 basePath 为 /var/iomesh/localpv-quota），通过挂载选项开启 xfs 的  prjquota 特性
+3. Mount the disk to the basePath `/var/iomesh/localpv-quota` and enable XFS `prjquota` via the mountoption.(mountoption)
 
     ```shell
     mount -o prjquota /dev/sdx /var/iomesh/localpv-quota
     ```
-> _NOTE_: 如果希望使用一个已存在的 xfs 挂载点作为 basePath，则需要先 umount 该挂载点，然后重新用 `prjquota` 挂载选项再次挂载。（xfs的 `prjquota` 挂
-载选项不支持在已有挂载点上直接 remount）
-> _NOTE_: 为了防止节点重启后挂载信息丢失，需要将挂载信息持久化到 /etc/fstab 配置文件中
+    > _NOTE_: XFS `prjquota` (等子银补充)
+
+    > _NOTE_: To prevent the loss of mount information after reboot the node, you need to write the mount information to the `/etc/fstab` configuration file. 
 
 4. Create a StorageClass using this mount point as `basePath`. Set the field `parameters.enableQuota` to `true`.
 
@@ -235,15 +242,171 @@ Capacity limit is implemented on the xfs file system `xfs_quota`. Once enabled, 
     ```
 5. Create a PVC using the StorageClass created in the previous step.
 
-> _NOTE_: 当前版本的 IOMesh LocalPV Manager 尚未支持调度器扩展（见[调度器扩展](scheduler)章节）, Pod 有可能被调度到容量限额不足的节点上，此时需要手动修改 Pod 的节点亲和性使其重新调度到容量限额满足需求的节点上。
+    > _NOTE_: Scheduler is currently not supported in this release. The pod may be scheduled to a node with insufficient capacity. You should manually modify node affinity for this pod so that it can be rescheduled to a node.
 
 ##  IOMesh Device LocalPV
 
-IOMesh Hostpath LocalPV 支持基于节点上的一个块设备创建 Kubernetes PV 提供给 Pod 使用
+IOMesh Device LocalPV supports creating local PVs based on a block device on the node for pod use.
 
 ### Create IOMesh Device LocalPV
 
-
 **Procedure**
 
-1. Create a StorageClass.
+1. A default StorageClass will be created when IOMesh LOcalPV Manager is deployed as shown below, with its volume type as `device`. 
+
+    ```yaml
+    apiVersion: storage.k8s.io/v1
+    kind: StorageClass
+    metadata:
+    name: iomesh-localpv-manager-device
+    parameters:
+    volumeType: device
+    csi.storage.k8s.io/fstype: "ext4"
+    deviceSelector: {}
+    provisioner: com.iomesh.iomesh-localpv-manager
+    reclaimPolicy: Delete
+    volumeBindingMode: WaitForFirstConsumer
+    ```
+    | Field  | Description   |
+    | -------- | ----------- |
+    | `parameters.volumeType`     | Local PV volume type, either `hostpath` or `device`.              |
+    | `parameters.deviceSelector` | Device selector that filters block devices by label.|
+    | `parameters.csi.storage.k8s.io/fstype ` | The file system type when the `volumeMode` is `Filesystem`, which defaults to `ext4`. |
+    | `volumeBindingMode` | The volume binding mode, which only supports `WaitForFirstConsumer`. |
+
+2. Configure `deviceSelector`.
+
+
+3. Create a PVC.
+
+    > _NOTE_: To ensure that the PVC is created successfully, make sure that each K8s worker has at least one free bare block device larger than 10G that is not assigned any file system. 
+
+    - Create a YAML config `iomesh-localpv-device-pvc.yaml` with the following content. Note that the default StorageClass is specified in it.
+
+        - `Filesystem`: Volumes can be mounted by multiple Pods and need to be formatted for the file system in a format specified in  before they can be used
+        - `Block`: Volumes can only be mounted by a Pod, it does not require file system formatting and can be used directly by the application. Therefore, the decision on which volume type to choose should be based on the needs of the application.
+
+        ```yaml
+        kind: PersistentVolumeClaim
+        apiVersion: v1
+        metadata:
+        name: iomesh-localpv-device-pvc
+        spec:
+        storageClassName: iomesh-localpv-manager-device
+        accessModes:
+            - ReadWriteOnce
+        resources:
+            requests:
+            storage: 10G
+        volumeMode: "" # Specify the volume mode.
+        ```
+
+    - Apply the YAML config to create the PVC.
+        ```shell
+        kubectl apply -f iomesh-localpv-device-pvc.yaml
+        ```
+
+    - View the PVC status.
+        ```shell
+        kubectl get pvc iomesh-localpv-device-pvc
+        ```
+        You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. When this PVC is bound to a pod, the corresponding PV will be created on the node where the pod resides, and at this time, the PVC will be in the `Bound` state.
+
+        ```output
+        NAME                          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS               AGE
+        iomesh-localpv-device-pvc     Pending                                      localpv-manager-device     1m12s
+        ```
+
+4. Create a pod and bind it to the PVC created in Step 3.
+
+    - Create a YAML config `iomesh-localpv-device-pod.yaml` with the following content. 
+        ```yaml
+        apiVersion: v1
+        kind: Pod
+        metadata:
+        name: iomesh-localpv-device-pod
+        spec:
+        volumes:
+        - name: iomesh-localpv-device
+            persistentVolumeClaim:
+            claimName: iomesh-localpv-device-pvc
+        containers:
+        - name: busybox
+            image: busybox
+            command:
+            - sh
+            - -c
+            - 'while true; do sleep 30; done;'
+            volumeMounts:
+            - mountPath: /mnt/iomesh/localpv # The path to mount the PV.
+            name: iomesh-localpv-device
+        ```
+   - Apply the YAML config to create the pod.
+        ```shell
+        kubectl apply -f iomesh-localpv-device-pod.yaml
+        ```
+
+   - Verify that the pod is in `Running` state.
+
+        ```shell
+        kubectl get pod iomesh-localpv-device-pod
+        ```
+        > _NOTE_: Scheduler currently is not supported in this release. The pod may be scheduled to a node that does not have available block devices. You should manually edit node affinity for this pod to reschedule it to a proper node. (需要补充手动修改步骤)
+
+   - Verify that the PVC is in `Bound` state.
+        ```shell
+        kubectl get pvc iomesh-localpv-device-pvc
+        ```
+     If successful, you should see the PVC is in `Bound` state, and the PV was created.
+        ```shell
+        NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES     
+        iomesh-localpv-device-pvc     Bound    pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4   10G         RWO           
+        ```
+5.  Check the block device status.
+
+    ```shell
+    kubectl  get blockdevice --namespace iomesh-system -o wide
+    ```
+    You should see the block device is in `bound` state.  
+    可以看到对应的块设备已进入 bound 状态。IOMesh LocalPV Manager 会选择大于且最接近与 PVC 大小的块设备进行绑定，比如在这个例子是，PVC 声明的大小是 10GB，假设存在三个空闲块设备 BlockDevice-A(9GB)，BlockDevice-B(15GB)，BlockDevice-C(20GB)，BlockDevice-A 由于不满足容量需求被淘汰，BlockDevice-B 比 BlockDevice-C 的大小更接近 10GB，最终 BlockDevice-B 被绑定.
+
+6. View the configurations of this PV. The PV name is obtained in Step 4.
+
+    ```shell
+    kubeclt get pv pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4 -o yaml
+    ```
+
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+    ...
+    spec:
+    ...
+    csi:
+        driver: com.iomesh.iomesh-localpv-manager
+        volumeAttributes:
+        csi.storage.k8s.io/pv/name: pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4
+        csi.storage.k8s.io/pvc/name: iomesh-localpv-device-pvc
+        csi.storage.k8s.io/pvc/namespace: default
+        nodeID: ziyin-k8s-2
+        quotaProjectID: "0"
+        storage.kubernetes.io/csiProvisionerIdentity: 1675327673777-8081-com.iomesh.localpv-manager
+        volumeType: device
+        volumeHandle: pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4
+    nodeAffinity:
+        required:
+        nodeSelectorTerms:
+        - matchExpressions:
+            - key: topology.iomesh-localpv-manager.csi/node
+            operator: In
+            values:
+            - ziyin-k8s-2
+    ...
+    ```
+
+    | Field  | Description    |
+    | ----- | ------- |
+    | `spec.csi.volumeAttributes.volumeHandle` | The unique identifier of the BlockDeviceClaim.|
+    | `spec.nodeAffinity` | PV node affinity. Once created, this PV will be bound to the specified node and will not move to another node. |
+
