@@ -26,7 +26,7 @@ IOMesh LocalPV Manager is comprised of components: Controller Driver, Node Drive
 
 **Controller Driver** 
 
-Implemented as a standard CSI controller server. With one instance on each worker node, it interacts with `kube-apiserver` for the creation and deletion of LocalPVs and the mapping of PVs to local directories or block devices.
+Implemented as a standard CSI controller server. With one instance on each worker node, it interacts with `kube-apiserver` for the creation and deletion of local PVs and the mapping of PVs to local directories or block devices.
 
 **Node Driver** 
 
@@ -34,7 +34,7 @@ Implemented as a standard CSI node server. With one instance on each worker node
 
 **Node Disk Manager**
 
-A component for discovering block devices and transforming them to block device objects, and providing a BlockDeviceClaim to ensure that a block device is exclusive to a particular Pod.
+A component for discovering block devices and transforming them to block device objects, and providing a BlockDeviceClaim to ensure that a block device is exclusive to a particular pod.
 
 ## Deployment
 
@@ -52,7 +52,7 @@ iomesh-localpv-manager-w4j8m                                   4/4     Running  
 
 ## IOMesh Hostpath LocalPV
 
-IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOMesh HostPath Local PV supports creating PV from a directory on a node and enabling the capacity limit for a PV, while IOMesh Device Local PV allows for PV creation using a block device for pod use. When selecting the volume type for your applications and databases, consider whether they require exclusive use of a disk or mounting a raw block device. If so, select the IOMesh Device Local PV. If this is not a requirement, choose the IOMesh Hostpath local PV instead. 
+IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. With `HostPat`h, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or require mounting a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
 
 ### Create HostPath Local PV
 
@@ -78,7 +78,7 @@ IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOM
     | `parameters.volumeType`  | Local PV type, either `hostpath` or `device`. Set the field to `hostpath` for the IOMesh HostPath local PV.|
     | `parameters.basePath`    | The directory on which local PV will created. If `parameters.basePath` is not specified, the system will create a directory by default. Note that <strong> the value for `parameters.basePath` must be a fullpath.</strong> |
     | `parameters.enableQuota` | Shows whether capacity limit is enabled for this local PV, which defaults to `false`. |
-    | [`volumeBindingMode`](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode)    | Volume binding mode, which only supports `WaitForFirstConsumer`.| 
+    | [`volumeBindingMode`](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode)    | Controls when volume binding and dynamic provisioning should occur. IOMesh only supports `WaitForFirstConsumer`.| 
 
     You may also create a StorageClass with the above content and configure `basePath` and `enableQuota` as needed.
 
@@ -107,7 +107,9 @@ IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOM
         ```shell
         kubectl get pvc iomesh-localpv-hostpath-pvc
         ```
-      You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. When this PVC is bound to a pod, the corresponding PV will be created on the node where the pod resides, and at this time, the PVC will be in the `Bound` state.
+      
+      You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. The PVC will transition to the `Bound` state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.
+      
 
         ```shell
         NAME                          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS               AGE
@@ -275,7 +277,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     | `parameters.volumeType`     | Local PV type, either `hostpath` or `device`. Set the field to `device` for the IOMesh Device local PV.
     | `parameters.deviceSelector` | Device selector that filters block devices by label. If this field is not specified, then all labels will be filtered by default.|
     | `parameters.csi.storage.k8s.io/fstype ` | The filesystem type when the `volumeMode` is set to `Filesystem`, which defaults to `ext4`. |
-    | `volumeBindingMode` | Volume binding mode, which only supports `WaitForFirstConsumer`. |
+    | `volumeBindingMode` | Controls when volume binding and dynamic provisioning should occur. IOMesh only supports `WaitForFirstConsumer`. |
 
 2. Configure `deviceSelector`. The way to configure `deviceSelector` is much like what has been introduced in [`labelSelector`](../deploy-iomesh-cluster/setup-iomesh.md). You can also refer to [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 
@@ -330,7 +332,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         ```shell
         kubectl get pvc iomesh-localpv-device-pvc
         ```
-        You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. When this PVC is bound to a pod, the corresponding PV will be created on the node where the pod resides, and at this time, the PVC will be in the `Bound` state.
+      You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. The PVC will transition to the `Bound` state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.
 
         ```output
         NAME                          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS               AGE
