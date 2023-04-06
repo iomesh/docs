@@ -8,9 +8,9 @@ sidebar_label: IOMesh LocalPV Manager
 
 ### What is IOMesh LocalPV Manager
 
-IOMesh LocalPV Manager is a CSI driver for managing local storage on the Kubernetes worker nodes. Stateful applications themselves such as [Minio](https://min.io/) and [TiDB](https://github.com/pingcap/tidb) achieves data high availability at the application layer. However, IOMesh PV adds an additional replication layer in the data path due to its own multi-replication policy setting, which may cause some degree of performance degradation and space waste. To avoid this issue, IOMesh local PV offers an advantage since it allows for creating PVs using local storage like a directory or block device for pod use.
+IOMesh LocalPV Manager is a CSI driver used to manage local storage on Kubernetes worker nodes. Stateful applications themselves such as [Minio](https://min.io/) and [TiDB](https://github.com/pingcap/tidb) achieve data high availability at their application layer. IOMesh PV however also adds additional replicas in the data path due to its multi-replica policy, which may cause a degree of performance degradation and space waste. To avoid this issue, IOMesh LocalPV Manager offers an advantage since it allows for creating PVs using local storage like a directory or block device for pod use.
 
-IOMesh LocalPV Manager has the following advantages compared to [Kubernetes HostPath Volume](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) and [Kubernetes native local PV](https://kubernetes.io/docs/concepts/storage/volumes/#local):
+IOMesh LocalPV Manager, compared to [Kubernetes HostPath Volume](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) and [Kubernetes native local PV](https://kubernetes.io/docs/concepts/storage/volumes/#local), has the following advantages:
 
 - Dynamically provision PVs by using StorageClass and PVC to allow flexible storage access, without requiring administrators to pre-provision static PVs.
 
@@ -68,7 +68,7 @@ IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOM
       parameters:
     volumeType: hostpath
     basePath: /var/iomesh/local
-    enableQuota: "false" # To enable PV capacity limit, set it to `true`.
+    enableQuota: "false" # To enable PV capacity limit, set it to "true".
     provisioner: com.iomesh.iomesh-localpv-manager
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
@@ -238,7 +238,7 @@ The following example assumes IOMesh local PV is created on the `/var/iomesh/loc
     parameters:
     volumeType: hostpath
     basePath: /var/iomesh/localpv-quota
-    enableQuota: "false" # Set it to true.
+    enableQuota: "false" # Set it to "true".
     provisioner: com.iomesh.iomesh-localpv-manager
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
