@@ -38,7 +38,7 @@ A component for discovering block devices and transforming them to block device 
 
 ## Deployment
 
-IOMesh LocalPV Manager will be automatically installed when installing IOMesh. To see the status of the IOMesh LocalPV Manager pod, run the following command:
+IOMesh LocalPV Manager will be automatically installed during IOMesh installation. To see the status of the IOMesh LocalPV Manager pod, run the following command:
 
 ```shell
 kubectl get pod -n iomesh-system | grep localpv-manager
@@ -52,9 +52,11 @@ iomesh-localpv-manager-w4j8m                                   4/4     Running  
 
 ## IOMesh Hostpath LocalPV
 
-IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOMesh HostPath LocalPV supports creating PV from a directory on a node and enabling the capacity limit for a PV, while IOMesh Device LocalPV allows for PV creation using a block device for pod use. When selecting the volume type for your applications and databases, consider whether they require exclusive use of a disk or mounting a raw block device. If so, select the IOMesh device local PV. If this is not a requirement, choose the IOMesh Hostpath local PV instead. 
+IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOMesh HostPath Local PV supports creating PV from a directory on a node and enabling the capacity limit for a PV, while IOMesh Device Local PV allows for PV creation using a block device for pod use. When selecting the volume type for your applications and databases, consider whether they require exclusive use of a disk or mounting a raw block device. If so, select the IOMesh Device Local PV. If this is not a requirement, choose the IOMesh Hostpath local PV instead. 
 
 ### Create HostPath Local PV
+
+**Procedure**
 
 1. When IOMesh LocalPV Manager is deployed, a default StorageClass will be created as shown below with `volumeType` set to `hostPath`. 
 
@@ -74,7 +76,7 @@ IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOM
     | Field | Description  |
     | ------- | ---- |
     | `parameters.volumeType`  | Local PV type, either `hostpath` or `device`. Set the field to `hostpath` for the IOMesh HostPath local PV.|
-    | `parameters.basePath`    | The directory on which local PV will created. If `parameters.basePath` is not specified, the system will create a directory by default. Note that the value for `parameters.basePath` must be a fullpath. |
+    | `parameters.basePath`    | The directory on which local PV will created. If `parameters.basePath` is not specified, the system will create a directory by default. Note that <strong> the value for `parameters.basePath` must be a fullpath.</strong> |
     | `parameters.enableQuota` | Shows whether capacity limit is enabled for this local PV, which defaults to `false`. |
     | [`volumeBindingMode`](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode)    | Volume binding mode, which only supports `WaitForFirstConsumer`.| 
 
@@ -197,34 +199,34 @@ IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. IOM
 
 ### Enable Capacity Limit
 
-In the above example, an IOMesh local PV is created with a capacity of 2 G, corresponding to a directory on the node, and by default does not limit the amount of data written into this directory, allowing for more than written data of over 2 G. However, if you have requirement for capacity isolation, you may enable capacity limit for this IOMesh local PV.
+In the above example, an IOMesh local PV with a capacity of 2G is created, corresponding to a directory on the node. By default, there is no limit on the amount of data written to this directory, allowing more than 2G to be written. However, if you have capacity isolation requirements, you can enable the capacity limit for this IOMesh local PV.
 
 **Prerequisite**
 
-Capacity limit is implemented on the XFS file system `xfs_quota`. Once enabled, a local PV will be created with `xfs quota` configured to ensure that the capacity size declared in the PVC is true.
+The capacity limit feature is implemented on the `xfs_quota` tool. Once enabled, a local PV will be created with `xfs quota` configured to ensure that the capacity size declared in the PVC is true.
 
 **Procedure**
 
-The following example assumes IOMesh local PV is created on the `/var/iomesh/localpv-quota` directory, the disk path is `/dev/sdx`, 
+The following example assumes IOMesh local PV is created on the `/var/iomesh/localpv-quota` directory, and the disk path is `/dev/sdx`. 
 
 1. Create a directory `/var/iomesh/localpv-quota` as `basePath`.
 
     ```shell
     mkdir -p /var/iomesh/localpv-quota
     ```
-2. Format the file system of the disk as `xfs`. The disk path is `/dev/sdx`.
+2. Format the filesystem of the disk as `xfs`. The disk path is `/dev/sdx`.
 
     ```shell
-    sudo mkfs.xfs /dev/sdx
+    sudo mkfs.xfs /dev/sdx 
     ```
-3. Mount the disk to the `/var/iomesh/localpv-quota` directory and enable XFS `prjquota` via the mount option.(mountoption)
+3. Mount the disk to the `/var/iomesh/localpv-quota` directory and enable XFS `prjquota` via the mount option.
 
     ```shell
     mount -o prjquota /dev/sdx /var/iomesh/localpv-quota
     ```
     > _NOTE_: If you want to use an existing XFS mount point as the basePath, run the command `umount /dev/sdx` first to unmount the mount point. Then remount it via the `prjquota` mount option.
 
-    > _NOTE_: To prevent the loss of mount information after reboot the node, you need to write the mount information to the `/etc/fstab` configuration file. 
+    > _NOTE_: To prevent the loss of mount information after rebooting the node, you need to write the mount information to the `/etc/fstab` configuration file. 
 
 4. Create a StorageClass using this mount point as `basePath`. Set the field `parameters.enableQuota` to `true`.
 
@@ -236,14 +238,14 @@ The following example assumes IOMesh local PV is created on the `/var/iomesh/loc
     parameters:
     volumeType: hostpath
     basePath: /var/iomesh/localpv-quota
-    enableQuota: "true"
+    enableQuota: "false" # Set it to true.
     provisioner: com.iomesh.iomesh-localpv-manager
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
     ```
 5. Create a PVC using the StorageClass created in Step 4.
 
-    > _NOTE_: Scheduler is currently not supported in this release. The pod may be scheduled to a node with insufficient capacity. You should manually modify node affinity for this pod so that it can be rescheduled to a node. For modification, refer to [Kubernetes Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+    > _NOTE_: Scheduler is currently not supported in this release. The pod may be scheduled to a node with insufficient capacity. You should manually modify node affinity for this pod so that it can be rescheduled to a proper node. For modification procedure, refer to [Kubernetes Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
 
 ##  IOMesh Device Local PV
 
@@ -271,13 +273,13 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     | Field  | Description   |
     | -------- | ----------- |
     | `parameters.volumeType`     | Local PV type, either `hostpath` or `device`. Set the field to `device` for the IOMesh Device local PV.
-    | `parameters.deviceSelector` | Device selector that filters block devices by label. If this field is not specified, then all labels 啥意思|
-    | `parameters.csi.storage.k8s.io/fstype ` | The file system type when the `volumeMode` is `Filesystem`, which defaults to `ext4`. |
+    | `parameters.deviceSelector` | Device selector that filters block devices by label. If this field is not specified, then all labels will be filtered by default.|
+    | `parameters.csi.storage.k8s.io/fstype ` | The filesystem type when the `volumeMode` is set to `Filesystem`, which defaults to `ext4`. |
     | `volumeBindingMode` | Volume binding mode, which only supports `WaitForFirstConsumer`. |
 
 2. Configure `deviceSelector`. The way to configure `deviceSelector` is much like what has been introduced in [`labelSelector`](../deploy-iomesh-cluster/setup-iomesh.md). You can also refer to [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 
-    For example, `iomesh.com/bd-driveType: SSD` means the StorageClass will only filter SSD for creating device local PVs.
+    For example, `iomesh.com/bd-driveType: SSD` means the StorageClass will only filter SSD for creating local PVs.
 
     ```yaml
     apiVersion: storage.k8s.io/v1
@@ -297,11 +299,11 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
 
 3. Create a PVC using the default StorageClass.
 
-    > _NOTE_: To ensure successful creation, make sure that each Kubernetes worker node has at least 1 raw block device with available capacity larger than 10 G and has no filesystem specified.
+    > _NOTE_: To ensure successful creation, make sure that each Kubernetes worker node has at least 1 available raw block device with a capacity larger than 10 G and has no filesystem specified.
 
-    - Create a YAML config `iomesh-localpv-device-pvc.yaml` with the following content. Configure `volumeMode`, whether setting this field to `filesystem` or `block` depends on the need for formatting the filesystem.
+    - Create a YAML config `iomesh-localpv-device-pvc.yaml` with the following content. Configure `volumeMode`, and setting this field to `filesystem` or `block` depends on the need of formatting the filesystem.
 
-        - `Filesystem`: The block device will be formatted as the filesystem specified in the `parameters.fsType` of the StorageClass and mounted to the pod after the pod is bound to this PVC.
+        - `Filesystem`: The block device will be formatted as the filesystem specified in the `parameters.fsType` field of the StorageClass and mounted to the pod after the pod is bound to this PVC.
         - `Block`: The block device can only be mounted by a pod. It does not require formatting the filesystem and can be used directly by applications. 
 
             ```yaml
@@ -369,7 +371,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         ```shell
         kubectl get pod iomesh-localpv-device-pod
         ```
-        > _NOTE_: Scheduler currently is not supported in this release. The pod may be scheduled to a node that does not have available block devices. You should manually edit node affinity for this pod to reschedule it to a proper node. For modification, refer to [Kubernetes Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
+        > _NOTE_: Scheduler currently is not supported in this release. The pod may be scheduled to a node that does not have available block devices. You should manually edit node affinity for this pod to reschedule it to a proper node. For modification procedure, refer to [Kubernetes Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
 
    - Verify that the PVC is in `Bound` state.
         ```shell
@@ -380,12 +382,12 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES     
         iomesh-localpv-device-pvc     Bound    pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4   10G         RWO           
         ```
-5.  Check the status of the block device.
+5.  Check the status of the block device that should be in `Bound` state.
 
     ```shell
     kubectl  get blockdevice --namespace iomesh-system -o wide
     ```
-    You should see the block device is in `bound` state. IOMesh LocalPV Manager selects a block device based on 2 requirements: 1. Its capacity must exceed that of the PVC; 2. Its capacity must be closest to that of the PVC among all available block devices. For instance, if a 10-GB PVC is declared and there are 3 available block devices, including `BlockDevice-A` with 9 GB, `BlockDevice-B` with 15 GB, and `BlockDevice-C` with 20GB. BlockDevice-A is discarded due to its limited capacity, and BlockDevice-B, which has a capacity closer to 10 GB than BlockDevice-C, is then selected for binding.
+    IOMesh LocalPV Manager selects a block device based on 2 requirements: 1. Its capacity must exceed that of the PVC; 2. Its capacity must be closest to that of the PVC among all available block devices. For instance, if a 10-GB PVC is declared and there are 3 block devices `BlockDevice-A` with 9 GB, `BlockDevice-B` with 15 GB, and `BlockDevice-C` with 20GB. `BlockDevice-A` will be discarded due to its limited capacity, and `BlockDevice-B`, which has a capacity closer to 10 GB than `BlockDevice-C`, is finally selected for binding.
 
 6. View the configurations of this PV. Replace `pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4` with the PV name obtained in Step 4.
 
@@ -425,5 +427,5 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     | Field  | Description    |
     | ----- | ------- |
     | `spec.csi.volumeAttributes.volumeHandle` | The unique identifier of the BlockDeviceClaim.|
-    | `spec.nodeAffinity` | PV node affinity. Once created, this PV will be bound to the specified node and will not move to another node. |
+    | `spec.nodeAffinity` | PV node affinity. The PV will be bound to the specified node once created and will not move to another node. |
 
