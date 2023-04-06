@@ -52,7 +52,7 @@ iomesh-localpv-manager-w4j8m                                   4/4     Running  
 
 ## IOMesh Hostpath LocalPV
 
-IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. With `HostPat`h, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or require mounting a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
+IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. With `HostPath`, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or require mounting a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
 
 ### Create HostPath Local PV
 
@@ -108,7 +108,7 @@ IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. Wit
         kubectl get pvc iomesh-localpv-hostpath-pvc
         ```
       
-      You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. The PVC will transition to the `Bound` state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.
+        You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. The PVC will transition to the `Bound` state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.
       
 
         ```shell
@@ -332,7 +332,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         ```shell
         kubectl get pvc iomesh-localpv-device-pvc
         ```
-      You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. The PVC will transition to the `Bound` state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.
+       You will see the PVC in the `Pending` state because `volumeBindingMode` in its StorageClass has been configured as `WaitForFirstConsumer`. The PVC will transition to the `Bound` state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.
 
         ```output
         NAME                          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS               AGE
