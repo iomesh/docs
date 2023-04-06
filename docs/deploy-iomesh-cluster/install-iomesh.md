@@ -212,14 +212,14 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
     - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements). The system defaults to `hybridFlash`. 
 
-    ```yaml
-    diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
-    ```
+      ```yaml
+      diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
+      ```
     - Specify IOMesh `edition`, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
 
-    ```yaml
-    edition: "community" # Specify the IOMesh edition.
-    ```
+      ```yaml
+      edition: "community" # Specify the IOMesh edition.
+      ```
     - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
    
       ```yaml
