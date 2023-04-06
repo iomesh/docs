@@ -76,7 +76,15 @@ The quick installation option is limited to deploying IOMesh on three worker nod
     edition: "community" # Specify the IOMesh edition.
     ```
 
-    - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
+   - An optional step: The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods
+
+   ```yaml
+    iomesh:
+      chunk:
+        replicaCount: 5 # Specify IOMesh chunk pods number.
+    ```
+
+   - An optional step: If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
       
       ```yaml
       iomesh:
@@ -220,7 +228,15 @@ The quick installation option is limited to deploying IOMesh on three worker nod
       ```yaml
       edition: "community" # Specify the IOMesh edition.
       ```
-    - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
+   - An optional step: The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods.
+
+      ```yaml
+        iomesh:
+          chunk:
+            replicaCount: "" # Specify the number of chunk pods.
+      ```
+
+   - An optional step : If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
    
       ```yaml
       iomesh:
