@@ -14,7 +14,6 @@
     "Volume Operations": [
       "volume-operations/create-storageclass",
       "volume-operations/create-pv",
-      "volume-operations/create-pv-authentication",
       "volume-operations/expand-pv",
       "volume-operations/clone-pv"
     ],

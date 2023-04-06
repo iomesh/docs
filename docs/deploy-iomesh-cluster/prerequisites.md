@@ -11,7 +11,8 @@ Before installing and deploying IOMesh, verify the following requirements.
 
 ## Cluster Requirements
 
-A Kubernetes or OpenShift cluster with minimum 3 worker nodes, and the Kubernetes version should be 1.17-1.25 or OpenShift version should be 4.0-4.11.
+- A Kubernetes or OpenShift cluster with minimum 3 worker nodes.
+- The Kubernetes version should be 1.17-1.25 or OpenShift version should be 4.0-4.11.
 
 ## Hardware Requirements 
 
@@ -19,7 +20,8 @@ Ensure that each worker node has the following hardware configurations, and note
 
 **CPU**
 
-The CPU architecture should be Intel x86_64, Hygon x86_64, or Kunpeng AArch64, and each worker node should have at least 8 cores.
+- The CPU architecture should be Intel x86_64, Hygon x86_64, or Kunpeng AArch64.
+- At least 8 cores for each worker node.
 
 **Memory**
 
@@ -31,7 +33,7 @@ SAS HBA or RAID cards that support passthrough mode (JBOD).
 
 **OS Disk**
 
-Each worker node should have an SSD with 100 GB free space in `/opt` directory for storing IOMesh metadata.
+An SSD with at least 100 GB of free space in the /opt directory for storing IOMesh metadata.
 
 **Data & Cache Disk**
 
@@ -46,7 +48,7 @@ In IOMesh 1.0, hybrid mode is only supported for tiered storage and all-flash mo
 
 |Deployment Mode|Disk Requirements|
 |---|---|
-|Hybrid Mode|<p>At least 2 SATA, SAS or NVMe SSDs.</p><p>At least 4 SAS or SATA HDDs.</P><p>The total SSD disk capacity should be 10% to 20% of the total HDD disk capacity.</P>|
+|Hybrid Mode|<ul><li>Cache Disk: At least 1 SATA SSD, SAS SSD or NVMe SSD, and the capacity must be greater than 60 GB.</li><li>Data Disk: At least 1 SATA HDD or SAS HDD.</li><li>The total SSD disk capacity should be 10% to 20% of total HDD disk capacity.</li></ul>|
 |All-Flash Mode|At least 2 SSDs, each with a capacity greater than 60G.|
 
 **NIC**
@@ -54,8 +56,11 @@ In IOMesh 1.0, hybrid mode is only supported for tiered storage and all-flash mo
 Each worker node should have at least one 10/25 GbE NIC.
 
 ## Network Requirements
-- Create a storage network dedicated to IOMesh. The ping latency of the IOMesh storage network should below 1 ms.
-- Plan the `dataCIDR` segment for IOMesh storage network. The IP of each worker node running IOMesh should be within that `dataCIDR` segment.
+
+To prevent network bandwidth contention, create a dedicated storage network for IOMesh or leverage an existing network. 
+
+- Plan `dataCIDR` segment for IOMesh storage network. The IP of each worker node running IOMesh should be within that `dataCIDR` segment.
+- The ping latency of the IOMesh storage network should below 1 ms.
 - All worker nodes must be connected to the L2 layer network.
 
 

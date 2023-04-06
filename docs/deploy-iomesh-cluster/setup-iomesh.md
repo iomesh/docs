@@ -7,13 +7,13 @@ sidebar_label: Set Up IOMesh
 After IOMesh is installed, you should mount the block devices, which are the disks on the Kubernetes worker nodes, to the IOMesh cluster so that IOMesh can use them to provide storage.
 
 ## View Block Device Objects 
-In IOMesh, an individual block device can be viewed as a block device object. To mount block devices on IOMesh, you first need to know which block device objects are available. 
+In IOMesh, an individual block device can be viewed as a block device object. To mount block devices on IOMesh, you first need to know which block device objects are available for use. 
 
 IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(NDM)](https://github.com/openebs/node-disk-manager). When deploying IOMesh, BlockDevice CR will be created in the same NameSpace as the IOMesh cluster, and you can see block devices available for use in this NameSpace.
 
 **Procedure**
 
-1. Get block devices.
+1. Get block devices in the namespace `iomesh-system`.
 
     ```bash
     kubectl --namespace iomesh-system -o wide get blockdevice
@@ -29,7 +29,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     ```
  
     > _Note:_
-    > The field `FSTYPE` should be blank for each IOMesh block device. If not, the block device will be filtered out by the device selector.
+    > The field `FSTYPE` of each IOMesh block device should be blank. If not, the block device will be filtered out by the device selector.
    
 2. View details of a block device object. Replace `<device_name>` with the block device name. 
 
@@ -59,7 +59,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
       name: blockdevice-3fa2e2cb7e49bc96f4ed09209644382e
     # ...
     ```
-    Labels with `iomesh.com/bd-` are created by IOMesh and will be used for device selector.
+    Labels with `iomesh.com/bd-` are created by IOMesh and will be used for the device selector.
     
     | Label | Description |
     | --- | --- |
@@ -76,13 +76,13 @@ Before configuring device map, familiarize yourself with mount type and device s
 **Mount Type**
 |Deployment Mode|Mount Type|
 |---|---|
-|`hybrid`|Provides two mount types: `cacheWithJournal` and `dataStore`.  <p>`cacheWithJournal` is used for the performance layer of storage pool and **MUST** be a partitionable block device. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</p>`dataStore` is used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.|
-|`allflash`|<p>Only provides one mount type: `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe SSD` is recommended.|
+|`hybrid`|Provides two mount types: `cacheWithJournal` and `dataStore`.  <ur><li>`cacheWithJournal` serves the performance layer of storage pool and **MUST** be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</li><li>`dataStore` is used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.</li></ur>|
+|`allflash`|<p>Only provides one mount type: `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe SSD` is recommended.|
 
 **Device Selector**
 |Parameter|Value|Description|
 |---|---|---|
-|<code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | The label selector to list `BlockDevice` available for use.                     |
+|<code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | The label selector to filter block devices.              |
 |<code>exclude</code>|[block-device-name]| The `BlockDevice` name will be excluded from being mounted. |
 
 For more information, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).

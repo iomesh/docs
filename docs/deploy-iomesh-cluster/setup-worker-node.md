@@ -4,7 +4,7 @@ title: Set Up Worker Node
 sidebar_label: Set Up Worker Node
 ---
 
-After ensuring all requirements in [Prerequisites](#../) are met, you need to set up `open-iscsi` for each worker node.
+After ensuring all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) are met, set up `open-iscsi` for each worker node on which IOMesh will be installed and running.
 
 1. On the node console, run the following command to install `open-iscsi`.
 
@@ -24,7 +24,7 @@ sudo apt-get install open-iscsi -y
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-2. Edit `/etc/iscsi/iscsid.conf` by setting `node.startup` to `manual`.
+2. Edit the file `/etc/iscsi/iscsid.conf` by setting `node.startup` to `manual`.
 
     ```shell
     sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
@@ -39,7 +39,7 @@ sudo apt-get install open-iscsi -y
     sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
     ```
 
-4. Ensure `iscsi_tcp` kernel module is loaded.
+4. Load `iscsi_tcp` kernel module.
 
     ```shell
     sudo modprobe iscsi_tcp

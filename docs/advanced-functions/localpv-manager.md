@@ -12,12 +12,11 @@ IOMesh LocalPV Manager is a CSI driver for managing local storage on Kubernetes 
 
 IOMesh LocalPV has the following advantages compared to [Kubernetes HostPath Volume](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) and [Kubernetes native local PV](https://kubernetes.io/docs/concepts/storage/volumes/#local):
 
-- Dynamically provision PVs to allow flexible node storage access through StorageClass and PVC without the need for administrators to pre-provision static PVs. 
+- Dynamically provision PVs to allow flexible node storage access without the need for administrators to pre-provision static PVs. 
 
 - Create PVs using a directory or block device, offering more flexibility compared to Kubernetes local PVs that are limited to the directory.
 
-- Enable capacity limit for Hostpath Local PV to implement isolation.
-
+- Allow for Hostpath local PV capacity limit for isolation.
 
 ### Architecture
 
@@ -61,10 +60,9 @@ IOMesh Hostpath LocalPV allows Kubernetes PVs to be created based on a directory
 
 ### Create IOMesh Hostpath Local PV
 
-1. A default StorageClass will the 
+1. A default StorageClass will be created when IOMesh LocalPV Manager is deployed as shown below, with its `volumeType` set to `hostPath`. 
 
-
-Create a StorageClass with the following content and configure `basePath` and `enableQuota` if needed. You may also use the default StorageClass created when IOMesh LocalPV Manager is deployed. 
+    You may also create a StorageClass and configure `basePath` and `enableQuota` as needed. 
 
     ```yaml
     apiVersion: storage.k8s.io/v1
@@ -257,7 +255,7 @@ IOMesh Device LocalPV supports creating local PVs based on a block device on the
 
 **Procedure**
 
-1. A default StorageClass will be created when IOMesh LOcalPV Manager is deployed as shown below, with its volume type as `device`. 
+1. A default StorageClass will be created when IOMesh LOcalPV Manager is deployed as shown below, with its `volumeType` configured as `device`. 
 
     ```yaml
     apiVersion: storage.k8s.io/v1

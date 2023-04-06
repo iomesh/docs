@@ -10,22 +10,18 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 - Custom Installation: Configure parameters during installation on your own, but during installation, you must ensure that the Kubernetes cluster network is connected to the public network.
 - Offline Installation: Recommended when the Kubernetes cluster cannot communicate with the public network and support for custom parameters during installation.
 
-快速安装只支持社区版和混闪
-
 ## Quick Installation
 
-1. Run the corresponding command to install IOMesh. Replace `10.234.1.0/24` with the actual network segment. After executing the following command, wait for a few minutes. 
+The quick installation option is limited to deploying IOMesh on three worker nodes only, and it only supports hybrid disk configurations.
 
-> _Note:_
-> `Helm3`, a package manager for Kubernetes, is included in the commands below. It will be installed automatically if it is not found. 
+1. Replace `10.234.1.0/24` with the actual network segment and run the command to install IOMesh. After executing the following command, wait for a few minutes. Note that `Helm3` is included in the commands below. It will be installed automatically if it is not found. 
 
+    ```shell
+    # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
+    export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
+    ```
 
-```shell
-# The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
-export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
-```
-
-2. Verify that all pods in each worker node are running. If so, then IOMesh has been successfully installed.
+2. Verify that all pods are in `Running` state. If so, then IOMesh has been successfully installed.
 
     ```shell
     watch kubectl get --namespace iomesh-system pods
@@ -60,44 +56,45 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
 
 4. Configure `iomesh.yaml`.
 
-    Mandatory: Fill in the field `dataCIDR`.
+    - Fill in [`dataCIDR`](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
 
-    ```yaml
-      iomesh:
-        chunk:
-          dataCIDR: "10.234.1.0/24" # Replace "10.234.1.0/24" with the actual dataCIDR.
-    ```
+      ```yaml
+        iomesh:
+          chunk:
+            dataCIDR: "" # Fill in the dataCIDR you configured previously in Prerequisites.
+      ```
 
-    Mandatory: Set `diskDeploymentMode` according to your disk configurations. The system defaults to `hybridFlash`. 
+    - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements). The system defaults to `hybridFlash`. 
 
-    ```yaml
-    diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
-    ```
-    Mandatory: Specify the IOMesh edition, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+      ```yaml
+      diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
+      ```
+    
+    - Specify IOMesh `edition`, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
    
    ```yaml
-    edition: "community" # Specify IOMesh edition.
+    edition: "community" # Specify the IOMesh edition.
     ```
 
-    Optional: If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
+    - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
       
-    ```yaml
-    iomesh:
-      chunk:
-        podPolicy:
-          affinity:
-            nodeAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                nodeSelectorTerms:
-                - matchExpressions:
-                  - key: kubernetes.io/hostname 
-                    operator: In
-                    values:
-                    - iomesh-worker-0 # Specify the values of the node label.
-                    - iomesh-worker-1
-    ```
+      ```yaml
+      iomesh:
+        chunk:
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: kubernetes.io/hostname 
+                      operator: In
+                      values:
+                      - iomesh-worker-0 # Specify the values of the node label.
+                      - iomesh-worker-1
+      ```
 
-    It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+      It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
 5. Deploy the IOMesh cluster.
 
@@ -109,7 +106,7 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
             --wait
     ```
 
-    After running the commands above, you should see an example like:
+    If successful, you should see output like:
 
     ```output
     NAME: iomesh
@@ -165,14 +162,12 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
     operator-85877979-xqtml                               1/1     Running   0          2m8s
     ```
 
-  
-
     [1]: http://iomesh.com/charts
     [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
 ## Offline Installation
 
-1. Download [IOMesh offline installation package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
+1. Download [IOMesh Offline Installation Package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
 
 2. Unpack the installation package.
 
@@ -207,44 +202,44 @@ export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iome
 
 5. Configure `iomesh.yaml`.
 
-   Mandatory: Fill in the field `dataCIDR`.
+   - Fill in [`dataCIDR`](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
 
-    ```yaml
-    iomesh:
-      chunk:
-        dataCIDR: "10.234.1.0/24" # Replace "10.234.1.0/24" with the actual one.
-    ```
+      ```yaml
+      iomesh:
+        chunk:
+          dataCIDR: "" # Fill in the dataCIDR you configured previously in Prerequisites.
+      ```
 
-    Mandatory: Set `diskDeploymentMode` according to your disk configurations. The system defaults to `hybridFlash`. 
+    - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements). The system defaults to `hybridFlash`. 
 
     ```yaml
     diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
     ```
-    Mandatory: Specify the IOMesh edition, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+    - Specify IOMesh `edition`, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
 
     ```yaml
-    edition: "community" # Specify IOMesh edition.
+    edition: "community" # Specify the IOMesh edition.
     ```
-    Optional: If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
+    - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
    
-   ```yaml
-   iomesh:
-     chunk:
-       podPolicy:
-         affinity:
-           nodeAffinity:
-             requiredDuringSchedulingIgnoredDuringExecution:
-               nodeSelectorTerms:
-               - matchExpressions:
-                 - key: kubernetes.io/hostname # Specify the key of the node label.
-                   operator: In
-                   values:
-                   - iomesh-worker-0 # Specify the values of the node label.
-                   - iomesh-worker-1
-    ```
-    It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+      ```yaml
+      iomesh:
+        chunk:
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: kubernetes.io/hostname # Specify the key of the node label.
+                      operator: In
+                      values:
+                      - iomesh-worker-0 # Specify the values of the node label.
+                      - iomesh-worker-1
+        ```
+        It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-6. Deploy IOMesh cluster.
+6. Deploy the IOMesh cluster.
 
     ```shell
     ./helm install iomesh ./charts/iomesh \
