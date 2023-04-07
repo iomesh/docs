@@ -310,7 +310,6 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         - `Filesystem`: Access storage as a file system. Once `Filesystem` is set, the block device will be formatted as the filesystem type specified in the `parameters.fsType` field of the StorageClass and mounted to the pod after the pod is bound to this PVC.
         - `Block`: Access storage as a raw block device. It does not require formatting the filesystem and can be used directly for high-performance applications that require low latency and high bandwidth, such as databases or other storage-intensive workloads.
 
-
           ```yaml
           kind: PersistentVolumeClaim
           apiVersion: v1
@@ -325,12 +324,10 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
                 storage: 10Gi
             volumeMode: Filesystem
           ```
-
     - Apply the YAML config to create the PVC.
         ```shell
         kubectl apply -f iomesh-localpv-device-pvc.yaml
         ```
-
     - View the PVC status.
         ```shell
         kubectl get pvc iomesh-localpv-device-pvc
