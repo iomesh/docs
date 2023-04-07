@@ -30,7 +30,7 @@ Ensure that there is already a StorageClass available for use.
       resources:
         requests:
           storage:  # Specify the storage value.
-      volumeMode: Block
+      volumeMode: Filesystem
     ```
 
     For details, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
