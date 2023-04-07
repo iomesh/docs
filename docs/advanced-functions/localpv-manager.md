@@ -397,13 +397,13 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     iomesh-system   blockdevice-072560a15c89a324aadf7eb4c9b233f2   iomesh-node-17-18   1920383410176    Claimed      Active   160m
     iomesh-system   blockdevice-1189c24046a6c43da37ddf0e40b5c1de   iomesh-node-17-19   1920383410176    Claimed      Active   160m
     ```
+
     IOMesh LocalPV Manager selects a block device that fulfills two requirements: its capacity must exceed or equal that of PVC, and it must have the closest capacity to that of PVC among all available block devices. For example, if a 10-GB PVC is declared and there are 3 block devices:
     - `BlockDevice-A` with 9GB
     - `BlockDevice-B` with 15GB
     - `BlockDevice-C` with 20GB  
       
     `BlockDevice-B` is selected for binding because it has a capacity closer to 10GB than `BlockDevice-C`, and `BlockDevice-A` is excluded due to its limited capacity.
-
 
 6. View the configurations of this PV. Replace `pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4` with the PV name obtained in Step 4.
 
