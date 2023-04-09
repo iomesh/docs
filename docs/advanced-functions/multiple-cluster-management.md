@@ -92,7 +92,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                         - k8s-woker-2
         ```       
 
-    - Configure `nodeAffinity` and `podAntiAffinity`. The former schedules `zookeeper` to nodes `k8s-woker-{0~2}`, while the latter ensures that each node has a `zookeeper` pod to avoid a single point of failure.
+    - Configure `nodeAffinity` and `podAntiAffinity` for `iomesh.zookeeper`. The former will schedule `zookeeper` to the nodes `k8s-woker-{0~2}`, while the latter ensures that each node has a `zookeeper` pod to avoid a single point of failure.
     
       - Locate `nodeAffinity` and `podAntiAffinity`, you should see the content below:
         ```yaml
@@ -138,7 +138,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                     weight: 20 
         ```
 
-4. Perform deployment.
+4. Perform deployment. If all pods are shown Running, then IOMesh has been installed successfully.
 
    ```shell
    helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
@@ -350,7 +350,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
     kubectl edit iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
     kubectl edit iomesh-cluster-1 -n iomesh-cluster-1 # Configure deviceMap for the second IOMesh cluster.
 
-### Configure Multiple-Cluster Connection
+### Configure Multi-Cluster Connection
 
 To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to configure a `ConfigMap` containing connection information for each IOMesh cluster. Before configuration, familarity with `ConfigMap` is suggested.
 
@@ -423,8 +423,8 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
         replicaFactor: "2"  
         thinProvision: "true"
         reclaimPolicy: Delete
-        clusterConnection: "iomesh-system/iomesh-csi-configmap"  # Specify the namespace and configMap of the first IOMesh cluster.
-        iomeshCluster: "iomesh-system/iomesh"
+        clusterConnection: "iomesh-system/iomesh-csi-configmap"  # Specify the namespace and configMap of the management cluster.
+        iomeshCluster: "iomesh-system/iomesh" # Specify the namespace where this cluster resides and cluster name.
       volumeBindingMode: Immediate
       provisioner: com.iomesh.csi-driver
       allowVolumeExpansion: true
@@ -445,8 +445,8 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
       replicaFactor: "2"
       thinProvision: "true"
       reclaimPolicy: Delete
-      clusterConnection: "iomesh-cluster-1/iomesh-cluster-1-csi-configmap"  # Specify the namespace and configMap for the second IOMesh cluster.
-      iomeshCluster: "iomesh-cluster-1/iomesh-cluster-1" # Specify the namespace where this IOMesh cluster resides and cluster name.
+      clusterConnection: "iomesh-cluster-1/iomesh-cluster-1-csi-configmap"  # Specify the namespace and configMap for the non-management cluster.
+      iomeshCluster: "iomesh-cluster-1/iomesh-cluster-1" # Specify the namespace where this cluster resides and cluster name.
     volumeBindingMode: Immediate
     provisioner: com.iomesh.csi-driver
     allowVolumeExpansion: true
