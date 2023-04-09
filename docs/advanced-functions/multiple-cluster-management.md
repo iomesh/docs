@@ -4,7 +4,9 @@ title: Multiple Cluster Management
 sidebar_label: Multiple Cluster Management
 ---
 
-In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters to isolate data. In this scenario, there is typically one management cluster that holds components such as the IOMesh Operator, IOMesh CSI Driver, and Node Disk Manager, while other clusters function as independent storage pools without any management responsibilities. The IOMesh CSI driver is shared by all IOMesh clusters to facilitate connection, which helps reduce the number of CSI drivers that might otherwise consume unnecessary node resources.
+In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation. In this case, there is typically one management cluster that holds components such as the IOMesh Operator, IOMesh CSI Driver, and Node Disk Manager, while other clusters function as independent storage pools without any management responsibilities. 
+
+The IOMesh CSI driver is shared by all IOMesh clusters to facilitate connection, which helps reduce the number of CSI drivers that might otherwise consume unnecessary node resources.
 
 ![image](https://user-images.githubusercontent.com/102718816/228175494-9d69fac5-de12-4519-a85f-2520c2070f4c.png)
 
@@ -18,11 +20,9 @@ In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters to 
 
 **Procedure**
 
-The following example assumes you have 6 worker nodes: `k8s-worker-0`, `k8s-worker-1`, `k8s-worker-2`, `k8s-worker-3`, `k8s-worker-4`, and `k8s-worker-5`. 
+The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iomesh` is the management cluster while `iomesh-cluster-1` is the non-management cluster.
 
-The first cluster `iomesh` is the management cluster while the second cluster ``iomesh-cluster-1` is a non-management cluster that works independently as a storage pool.
-
-|Cluster Name|Role|Node Members|Namespace|
+|Cluster Name|Role|Worker Nodes|Namespace|
 |---|---|---|---|
 |`iomesh`|Management cluster| k8s-woker-{0~2} |`iomesh-system`|
 |`iomesh-cluster-1`| Independent storage pool|k8s-woker-{3~5}|` iomesh-cluster-1`| 
@@ -36,7 +36,7 @@ The first cluster `iomesh` is the management cluster while the second cluster ``
     ```
 2. Configure `iomesh.yaml`.
 
-    - Set the field [`iomesh.chunk.dataCIDR`](../deploy-iomesh-cluster/prerequisites.md#network-requirements) to the data CIDR you previously configured.
+    - Set `iomesh.chunk.dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
 
         ```yaml
         iomesh:
@@ -185,17 +185,15 @@ The first cluster `iomesh` is the management cluster while the second cluster ``
 
 ### Deploy Non-Management Cluster
 
-As previously mentioned, non-management IOMesh clusters do not have management responsibilities and function independently as storage pools. To deploy a non-management IOMesh cluster, follow these steps using `iomesh-cluster-1` as an example.
-
-1. Create a namespace for the second IOMesh cluster `iomesh-cluster-1`, 
+1. Create a namespace for the cluster `iomesh-cluster-1`, 
 
     ```
     kubectl create namespace iomesh-cluster-1
     ```
 
-2. Create the `zookeeper` cluster for the cluster `iomesh-cluster-1`. 
+2. Create a `zookeeper` cluster for the cluster `iomesh-cluster-1`. 
 
-    - Create a YAML config `iomesh-cluster-1-zookeeper.yaml` and configure `nodeAffinity` and `podAntiAffinity` to schedule the `zookeeper` cluster to nodes `k8s-woker-{3~5}`. 
+    - Create a YAML config `iomesh-cluster-1-zookeeper.yaml` with the following content. Then configure `nodeAffinity` and `podAntiAffinity` so that the `zookeeper` cluster will be scheduled to nodes `k8s-woker-{3~5}`. 
 
       ```yaml
       apiVersion: zookeeper.pravega.io/v1beta1
@@ -249,7 +247,7 @@ As previously mentioned, non-management IOMesh clusters do not have management r
 
 3. Create the YAML config `iomesh-cluster-1.yaml` and configure fields `meta.nodeAffinity`, `chunk.dataCIDR`, `chunk.blockDeviceNamespace`, `chunk.nodeAffinity`, `redirector.dataCIDR`, and `redirector.nodeAffinity`.
 
-    - Fill in `dataCIDR` for `chunk` and `redirector` respectively with the dataCIDR you previously configured.
+    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements) for `chunk` and `redirector` respectively.
     - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` because management components and all block devices reside in the namespace `iomesh-system`.
     - Specify the IOMesh edition. `iomesh-cluster-1.yaml` installs IOMesh Community Edition by default. To set it to Enterprise Edition, set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector` respectively.
 
@@ -284,7 +282,7 @@ As previously mentioned, non-management IOMesh clusters do not have management r
                         - k8s-woker-4
                         - k8s-woker-5
           chunk:
-            dataCIDR: <your-data-cidr-here>  # Fill in IOMesh dataCIDR.
+            dataCIDR: <your-data-cidr-here>  # Fill in the IOMesh dataCIDR.
             replicas: 3
             image:
               repository: iomesh/zbs-chunkd
@@ -295,7 +293,7 @@ As previously mentioned, non-management IOMesh clusters do not have management r
                 repository: iomesh/operator-devicemanager
                 tag: v1.0.0
                 pullPolicy: IfNotPresent
-              blockDeviceNamespace: iomesh-system  # filled first iomesh cluster namespace here XXXXXXXXXXXXXXXXXX 默认的
+              blockDeviceNamespace: iomesh-system  # Fill in the namespace of the management cluster.
             podPolicy:
               affinity:
                 nodeAffinity:
@@ -356,7 +354,7 @@ As previously mentioned, non-management IOMesh clusters do not have management r
 
 To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to configure a `ConfigMap` containing connection information for each IOMesh cluster. Before configuration, familarity with `ConfigMap` is suggested.
 
-`ConfigMap`
+**ConfigMap**
 | Field | Description |
 | ----- | ----- |
 | `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.|
@@ -422,7 +420,7 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
         name: iomesh
       parameters:
         csi.storage.k8s.io/fstype: "ex4" 
-        replicaFactor: "2" # 
+        replicaFactor: "2"  
         thinProvision: "true"
         reclaimPolicy: Delete
         clusterConnection: "iomesh-system/iomesh-csi-configmap"  # Specify the namespace and configMap of the first IOMesh cluster.
@@ -505,7 +503,7 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
 
 IOMesh automatically enables topology awareness to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
 
-## Operations & Management 
+## Management 
 
 All procedures below are based on the example in [Deployment](../advanced-functions/multiple-cluster-management.md#deployment).
 
@@ -515,16 +513,16 @@ When upgrading multiple IOMesh clusters, upgrade the management cluster first an
 
 **Procedure**
 
-1. [Upgrade the first IOMesh cluster](../cluster-operations/upgrade-cluster.md), which is the management cluster.
+1. [Upgrade the management cluster](../cluster-operations/upgrade-cluster.md).
 
-2. After the first upgrade is complete, edit the second IOMesh cluster.
+2. After the first upgrade is complete, edit the non-management cluster.
 
-    - View the YAML config of the first IOMesh cluster.
+    - View the YAML config of the management cluster.
       ```bash
       kubectl get iomesh iomesh -n iomesh-system -o yaml
       ```
 
-    - Edit the second IOMesh cluster, ensuring all values of `spec.*.image.tags` are consistent with the values of the first cluster.
+    - Edit the non-management cluster, ensuring all values of `spec.*.image.tags` are consistent with the values of the first cluster.
       ```
       kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1
       ```
