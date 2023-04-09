@@ -541,7 +541,7 @@ When uninstalling more than one IOMesh cluster, uninstall the non-management clu
     kubectl delete -f iomesh-cluster-1-zookeeper.yaml && kubectl delete -f iomesh-cluster-1.yaml
     ```
 
-2. [Uninstall the first IOMesh Cluster](../cluster-operations/uninstall-cluster.md).
+2. [Uninstall the management IOMesh Cluster](../cluster-operations/uninstall-cluster.md).
     ```shell
     helm uninstall --namespace iomesh-system iomesh
     ```
