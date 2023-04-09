@@ -4,11 +4,10 @@ title: Scale IOMesh Cluster
 sidebar_label: Scale IOMesh Cluster
 ---
 
-> _Note:_
->  Scaling is only supported for IOMesh Enterprise Edition. The number of meta or chunk pods in IOMesh Community Edition is limited to 3.
+Before scaling the IOMesh cluster, consider the following:
 
-> _Note:_
->  Before increasing the number of chunk or meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only host one meta or chunk pod, so determine the number of worker nodes based on the number of chunk or meta pods you want to add.
+- Scaling is only supported for IOMesh Enterprise Edition. The number of meta or chunk pods in IOMesh Community Edition is limited to 3.
+- Before increasing the number of chunk or meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only have one meta pod and one chunk pod, so determine the number of worker nodes based on the number of chunk or meta pods you want to add.
 
 ## Scale Chunk Server
 
@@ -20,11 +19,11 @@ The minimum number of chunk pods is 3 and the maximum is 255.
 
 **Procedure**
 
-1. In `iomesh.yaml`, locate `chunk` and then edit `replicas`. 
+1. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
 
     ```yaml
     chunk:
-    replicas: "" # Enter the number of chunk pods. 
+    replicaCount: "" # Enter the number of chunk pods. 
     ```
 2. Apply the modification.
     
@@ -37,7 +36,7 @@ The minimum number of chunk pods is 3 and the maximum is 255.
     kubectl get pod -n iomesh-system | grep chunk
     ```   
    
-   If successful, you should see output like:
+   If successful, you should see output below:
     ```output
     iomesh-chunk-0                                         2/2     Running   0          5h5m
     iomesh-chunk-1                                         2/2     Running   0          5h5m
@@ -64,7 +63,7 @@ The minimum number of meta pods is 3 and the maximum is 5.
     ```
 2. Apply the modification.
     ```shell
-    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh-values.yaml
+    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh.yaml
     ```
 3. Verify that the modification was successful.
 
@@ -72,7 +71,7 @@ The minimum number of meta pods is 3 and the maximum is 5.
     kubectl get pod -n iomesh-system | grep meta
     ```
 
-    If successful, you should see output like:
+    If successful, you should see output below:
     ```output
     iomesh-meta-0                                         2/2     Running   0          5h5m
     iomesh-meta-1                                         2/2     Running   0          5h5m
