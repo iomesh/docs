@@ -548,4 +548,4 @@ When uninstalling more than one IOMesh cluster, uninstall the non-management clu
 
 ### License Management
 
-Each IOMesh cluster has a license with a unique serial number, and update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively.For other operations, refer to [Manage License](../cluster-operations/manage-license.md).
+Each IOMesh cluster has a license with a unique serial number, and you need to update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively. For other operations, refer to [Manage License](../cluster-operations/manage-license.md).
