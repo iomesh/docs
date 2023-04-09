@@ -420,7 +420,7 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
         thinProvision: "true"
         reclaimPolicy: Delete
         clusterConnection: "iomesh-system/iomesh-csi-configmap"  # Specify the namespace and configMap of the first IOMesh cluster.
-        iomeshCluster: "iomesh-system/iomesh"
+        iomeshCluster: "iomesh-system/iomesh-cluster"
       volumeBindingMode: Immediate
       provisioner: com.iomesh.csi-driver
       allowVolumeExpansion: true
