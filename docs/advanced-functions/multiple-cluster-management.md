@@ -530,7 +530,7 @@ There is no difference between scaling up one cluster and scaling up multiple cl
 
 ### Uninstall Multiple Clusters
 
-When uninstalling more than one IOMesh cluster, uninstall the other clusters first and then the management cluster last. If you do not follow the order, there may be resources resided in the namespace `iomesh-system`, which may affect next deployment in this namespace.
+When uninstalling more than one IOMesh cluster, uninstall the non-management clusters first and then the management cluster last. If you do not follow the order, there may be resources resided in the namespace `iomesh-system`, which may affect the next deployment in this namespace.
 
 **Procedure**
 1. Uninstall the second IOMesh cluster, which will also delete `iomesh` and `zookeeper` components. 
