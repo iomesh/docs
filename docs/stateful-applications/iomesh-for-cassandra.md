@@ -4,16 +4,19 @@ title: IOMesh for Cassandra
 sidebar_label: IOMesh for Cassandra
 ---
 
-## Setup k8s Cluster Storage
+**Prerequisite**
 
-1. Create a file named `iomesh-cassandra-sc.yaml` with the following contents:
+Verify the IOMesh cluster is already deployed.
+
+**Procedure**
+1. Create a YAML config `iomesh-cassandra-sc.yaml` with the following content.  You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass.md).
 
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
       name: iomesh-cassandra-sc
-    provisioner: com.iomesh.csi-driver # driver.name in values.yaml when install IOMesh cluster
+    provisioner: com.iomesh.csi-driver # The driver name in `iomesh.yaml`.
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
@@ -22,18 +25,12 @@ sidebar_label: IOMesh for Cassandra
       thinProvision: "true"
     ```
 
-2. Apply the yaml config:
+2. Apply the YAML config to create the StorageClass.
 
     ```bash
     kubectl apply -f iomesh-cassandra-sc.yaml
     ```
-
-## Deploy Cassandra
-
-### Create a headless Service for Cassandra
-
-1. Create a Service used for DNS lookup between Cassandra Pods and the clients within your cluster
-
+3. Create a headless service `cassandra-service.yaml`with the following content for DNS lookups between Cassandra Pods and clients within your cluster.
     ```yaml
     apiVersion: v1
     kind: Service
@@ -49,15 +46,12 @@ sidebar_label: IOMesh for Cassandra
         app: cassandra
     ```
 
-2. Apply the yaml config:
+4. Apply the YAML config to create the headless service.
 
     ```bash
     kubectl apply -f cassandra-service.yaml
     ```
-
-### Create Cassandra cluster using pv provided for IOMesh Storage
-
-1. Use StatefulSet to create a Cassandra cluster
+5. Create a Statefulset `cassandra-statefulset.yaml` with the following content for deploying Cassandra cluster.
 
     ```yaml
     apiVersion: apps/v1
@@ -141,21 +135,19 @@ sidebar_label: IOMesh for Cassandra
       - metadata:
           name: cassandra-data
         spec:
-          accessModes: [ "ReadWriteOnce" ]
-          storageClassName: iomesh-cassandra-sc # storageClass created above
+          accessModes: "ReadWriteOnce"
+          storageClassName: iomesh-cassandra-sc # The StorageClass in Step 1.
           resources:
             requests:
               storage: 10Gi
     ```
 
-2. Apply the yaml config:
+6. Apply the YAML config to deploy Cassandra.
 
     ```bash
     kubectl apply -f cassandra-statefulset.yaml
     ```
 
-IOMesh Storage will create Persistent Volumes for each Cassandra pod. These volumes use ext4 file system with a replica factor of 2 and thin provision.
+    Persistent volumes will be created by IOMesh for each Cassandra pod, and each persistent volume will have configurations such as the filesystem type and replication factor as configured in the StorageClass.
 
-## Operate Cassandra Data
-
-Users can use the features provided by IOMesh storage to perform such operations as expansion/snapshot/rollback/clone of the Persistent Volumes where Cassandra data are located, see the reference for details [application-operations](https://docs.iomesh.com/volume-operations/snapshot-restore-and-clone)
+    Once done, you can expand, snapshot, or clone persistent volumes where Cassandra data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot.md).
