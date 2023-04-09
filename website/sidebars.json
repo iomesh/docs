@@ -4,20 +4,18 @@
       "introduction/introduction",
       "basic-concepts/basic-concepts"
     ],
-    "Deploy IOMesh Cluster": [
+    "Deploy IOMesh": [
       "deploy-iomesh-cluster/prerequisites",
       "deploy-iomesh-cluster/setup-worker-node",
       "deploy-iomesh-cluster/install-iomesh",
       "deploy-iomesh-cluster/setup-iomesh",
       "deploy-iomesh-cluster/activate-license"
     ],
-    "Volume Operations": [
+    "Volume & VolumeSnapshot": [
       "volume-operations/create-storageclass",
       "volume-operations/create-pv",
       "volume-operations/expand-pv",
-      "volume-operations/clone-pv"
-    ],
-    "VolumeSnapshot Operations": [
+      "volume-operations/clone-pv",
       "volumesnapshot-operations/create-snapshotclass",
       "volumesnapshot-operations/create-volumesnapshot",
       "volumesnapshot-operations/restore-volumesnapshot"

@@ -20,7 +20,7 @@ IOMesh LocalPV Manager, compared to [Kubernetes HostPath Volume](https://kuberne
 
 ### Architecture
 
-![IOMesh LocalPV Manager](https://user-images.githubusercontent.com/12667277/217775597-7261e106-1407-4adf-92df-a1c99e447273.svg)
+![IOMesh LocalPV Manager](https://user-images.githubusercontent.com/12667277/230593329-0ed3b0e9-4f27-4f0f-9759-54aff0912d49.svg)
 
 IOMesh LocalPV Manager is comprised of 3 components: Controller Driver, Node Driver, and Node Disk Manager.
 
@@ -52,7 +52,9 @@ iomesh-localpv-manager-w4j8m                                   4/4     Running  
 
 ## IOMesh Hostpath Local PV
 
-IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. With `HostPath`, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or whether they require a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
+IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. With `HostPath`, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. 
+
+When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or whether they require a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
 
 ### Create HostPath Local PV
 
@@ -385,26 +387,30 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES     
         iomesh-localpv-device-pvc     Bound    pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4   10G         RWO           
         ```
-5.  Check the status of the block device that should be in `Bound` state.
+5.  Check the status of the block device that should be in `Claimed` state.
 
     ```shell
     kubectl  get blockdevice --namespace iomesh-system -o wide
     ```
-    IOMesh LocalPV Manager selects a block device based on 2 requirements: 1. Its capacity must be equal to or exceed that of the PVC; 2. Its capacity must be closest to that of the PVC among all available block devices. 
-    
-    For instance, if a 10-GB PVC is declared and there are 3 block devices:
-    - `BlockDevice-A` with 9 GB
-    - `BlockDevice-B` with 15 GB
-    - `BlockDevice-C` with 20GB 
-    
-    `BlockDevice-A` will be discarded due to its limited capacity, and `BlockDevice-B`, which has a capacity closer to 10 GB than `BlockDevice-C`, is finally selected for binding.
+    ```output
+    NAMESPACE       NAME                                           NODENAME            SIZE             CLAIMSTATE   STATUS   AGE
+    iomesh-system   blockdevice-072560a15c89a324aadf7eb4c9b233f2   iomesh-node-17-18   1920383410176    Claimed      Active   160m
+    iomesh-system   blockdevice-1189c24046a6c43da37ddf0e40b5c1de   iomesh-node-17-19   1920383410176    Claimed      Active   160m
+    ```
+    IOMesh LocalPV Manager selects a block device that fulfills two requirements: its capacity must exceed or equal that of PVC, and it must have the closest capacity to that of PVC among all available block devices. For example, if a 10-GB PVC is declared and there are 3 block devices:
+    - `BlockDevice-A` with 9GB
+    - `BlockDevice-B` with 15GB
+    - `BlockDevice-C` with 20GB  
+      
+    `BlockDevice-B` is selected for binding because it has a capacity closer to 10GB than `BlockDevice-C`, and `BlockDevice-A` is excluded due to its limited capacity.
+
 
 6. View the configurations of this PV. Replace `pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4` with the PV name obtained in Step 4.
 
     ```shell
     kubeclt get pv pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4 -o yaml
     ```
-    You should see output below:
+    You should see output like this:
 
     ```yaml
     apiVersion: v1

@@ -1,7 +1,7 @@
 ---
 id: upgrade-cluster
-title: Upgrade IOMesh Cluster
-sidebar_label: Upgrade IOMesh Cluster
+title: Upgrade Cluster  
+sidebar_label: Upgrade Cluster
 ---
 
 Before upgrading the IOMesh cluster, consider the following:

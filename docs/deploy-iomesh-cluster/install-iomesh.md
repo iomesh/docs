@@ -81,7 +81,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
    ```yaml
     iomesh:
       chunk:
-        replicaCount: 5 # Specify IOMesh chunk pods number.
+        replicaCount: 5 # Specify the number of chunk pods.
     ```
 
    - An optional step: If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.

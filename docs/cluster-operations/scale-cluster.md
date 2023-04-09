@@ -1,7 +1,7 @@
 ---
 id: scale-cluster
-title: Scale IOMesh Cluster
-sidebar_label: Scale IOMesh Cluster
+title: Scale Cluster
+sidebar_label: Scale Cluster
 ---
 
 Before scaling the IOMesh cluster, consider the following:

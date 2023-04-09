@@ -1,7 +1,7 @@
 ---
 id: manage-license
-title: Manage License
-sidebar_label: Manage License
+title: Update License
+sidebar_label: Update License
 ---
 
 IOMesh currently offers two editions: Community and Enterprise. They differ in the maximum number of worker nodes and level of business support provided. You can find more information on IOMesh official website at https://www.iomesh.com/spec.

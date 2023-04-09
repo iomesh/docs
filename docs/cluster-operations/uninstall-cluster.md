@@ -1,7 +1,7 @@
 ---
 id: uninstall-cluster
-title: Uninstall IOMesh Cluster
-sidebar_label: Uninstall IOMesh Cluster
+title: Uninstall Cluster
+sidebar_label: Uninstall Cluster
 ---
 
 >_Attention_: 
