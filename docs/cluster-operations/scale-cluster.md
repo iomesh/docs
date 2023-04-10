@@ -19,11 +19,10 @@ The minimum number of chunk pods is 3, and the maximum number you can add depend
 
 **Procedure**
 
-1. In `iomesh.yaml`, locate `chunk` and then edit `replicas`. 
-
+1. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
     ```yaml
     chunk:
-    replicas: "3" # Enter the number of chunk pods. 
+      replicaCount: 3 # Enter the number of chunk pods.
     ```
 2. Apply the modification.
     
@@ -47,11 +46,7 @@ The minimum number of chunk pods is 3, and the maximum number you can add depend
 
 ## Scale Meta Server
 
-Add meta pods when the meta server is overloaded. 
-
-There is no need to scale the meta server if your Kubernetes cluster has no more than 4 worker nodes, as 
-
-集群规模不超过四个节点时，无需 scale meta server，此时可以容忍集群中任意一个 meta server 故障；当集群规模大于或等于五个节点时，需将 meta server 从 3 个扩容到 5 个，此时可以容忍集群中任意两个 meta server 宕机。
+If the Kubernetes cluster has 4 or fewer nodes, there is no need to scale the meta server since the cluster can tolerate one failed meta server. However, for a cluster with 5 or more nodes, it is recommended to increase the number of meta pods from 3 to 5 to ensure that the cluster can tolerate up to 2 failed meta servers.
 
 **Precaution**
 
@@ -63,7 +58,7 @@ The minimum number of meta pods is 3 and the maximum is 5.
 
     ```yaml
     meta:
-    replicas: "3" # Enter the number of meta pods greater than 3 but less than 6. 
+      replicaCount: 5 # Change the value from 3 to 5.
     ```
 2. Apply the modification.
     ```shell

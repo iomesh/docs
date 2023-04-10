@@ -19,7 +19,7 @@ Before upgrading the IOMesh cluster, consider the following:
     ```shell
     kubectl delete sc iomesh-csi-driver
     ```
-2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be reenabled automatically.
+2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be enabled automatically again.
 
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration

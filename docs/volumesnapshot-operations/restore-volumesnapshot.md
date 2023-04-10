@@ -1,7 +1,7 @@
 ---
 id: restore-volumesnapshot
-title: Restore Volume from VolumeSnapshot
-sidebar_label: Restore Volume from VolumeSnapshot
+title: Restore VolumeSnapshot
+sidebar_label: Restore VolumeSnapshot
 ---
 
 

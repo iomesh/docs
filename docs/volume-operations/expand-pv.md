@@ -42,19 +42,18 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
     ```
 
 2. Set the field `storage` to a new value.
-
     ```yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-    name: example-pvc 
+      name: example-pvc
     spec:
-      storageClassName: iomesh-csi-driver
+      storageClassName: iomesh-csi-driver-default
       accessModes:
         - ReadWriteOnce
-    resources:
-      requests:
-        storage: 20Gi # Enter a new value greater than the original value.
+      resources:
+        requests:
+          storage: 20Gi # Enter a new value greater than the original value.
     ```
 
 3. Apply the modification.

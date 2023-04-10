@@ -24,12 +24,12 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
-      name: storageclass_name # Specify the StorageClass name.
+      name: iomesh-example-sc 
     provisioner: com.iomesh.csi-driver 
     reclaimPolicy: Delete # Specify the reclaim policy.
     allowVolumeExpansion: true 
     parameters:
-      # Specify the file system type, including "ext4", "ext3", "ext2", and "xfs".
+      # Specify the filesystem type, including "ext4", "ext3", "ext2", and "xfs".
       csi.storage.k8s.io/fstype: "ext4"
       # Specify the replication factor, either "2" or "3".
       replicaFactor: "2"
@@ -47,7 +47,7 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 3. View the newly created StorageClass. 
 
     ```
-    kubectl get storageclass <storageclass_name> 
+    kubectl get storageclass iomesh-example-sc
     ```
    After running the command, you should see an example like:
     ```output

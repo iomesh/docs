@@ -18,7 +18,7 @@ To create a PV, you should first create a PVC. Once done, IOMesh will sense the 
 Ensure that there is already a StorageClass available for use.
 
 **Procedure**
-1. Create a YAML config `pvc.yaml`. Configure the fields `accessModes` and `storage`.
+1. Create a YAML config `pvc.yaml`. Configure the fields `accessModes`, `storage`, and `volumeMode`.
 
     ```yaml
     apiVersion: v1
@@ -26,13 +26,13 @@ Ensure that there is already a StorageClass available for use.
     metadata:
       name: iomesh-example-pvc
     spec:
-      storageClassName: # Specify the StorageClass.
+      storageClassName: iomesh-example-sc
       accessModes:
-        - # Specify the access mode. 
+        - ReadWriteOnce # Specify the access mode. 
       resources:
         requests:
-          storage:  # Specify the storage value.
-      volumeMode: Filesystem
+          storage: 10Gi # Specify the storage value.
+      volumeMode: Filesystem # Specify the volume mode.
     ```
 
     For details, refer to [Kubernetes Documentation](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
@@ -151,7 +151,7 @@ A clone is a duplicate of an existing volume in the system and data on the sourc
 Verify that there is already a PVC available for cloning.
 
 **Procedure**
-1. Create a YAML config `clone.yaml`. Specify the source PVC in the field `name`.
+1. Create a YAML config `clone.yaml`. Specify the source PVC in `spec.dataSource.name`.
 
     ```yaml
     apiVersion: v1

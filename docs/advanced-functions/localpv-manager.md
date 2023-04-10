@@ -88,14 +88,16 @@ When choosing between these volume types, consider whether your applications or 
 
 2. Create a PVC using the StorageClass.
 
-    - Create a YAML config `iomesh-localpv-hostpath-pvc.yaml` with the following content.
+    - Create a YAML config `iomesh-localpv-hostpath-pvc.yaml` with the following content. 
+
+
       ```yaml
       kind: PersistentVolumeClaim
       apiVersion: v1
       metadata:
         name: iomesh-localpv-hostpath-pvc
       spec:
-        storageClassName: iomesh-localpv-manager-hostpath
+        storageClassName: iomesh-localpv-manager-hostpath # If you use a StorageClass with custom parameters, specify its name.
         accessModes:
           - ReadWriteOnce
         resources:
@@ -163,7 +165,7 @@ When choosing between these volume types, consider whether your applications or 
         iomesh-localpv-hostpath-pvc   Bound    pvc-ab61547e-1d81-4086-b4e4-632a08c6537b   2G         RWO           
         ```
 
-    - Get the YAML config to view the PV configurations. Replace `pvc-ab61547e-1d81-4086-b4e4-632a08c6537b` with the PV name obtained in the previous step. 
+    - View the PV configurations. Replace `pvc-ab61547e-1d81-4086-b4e4-632a08c6537b` with the PV name obtained above. 
         ```shell
         kubeclt get pv pvc-ab61547e-1d81-4086-b4e4-632a08c6537b -o yaml
         ```
@@ -207,9 +209,7 @@ When choosing between these volume types, consider whether your applications or 
 
 In the above example, an IOMesh local PV with a capacity of 2G is created, corresponding to a directory on the node. By default, there is no limit on the amount of data written to this directory, allowing more than 2G to be written. However, if you have capacity isolation requirements, you can enable the capacity limit for the IOMesh local PV.
 
-**Prerequisite**
-
-To use the capacity limit function with the `xfs_quota` tool, ensure the `parameters.basePath` in StorageClass is an XFS format mount point and has the XFS `prjquota` feature enabled via the mount option. Once enabled, a local PV with `xfs quota` configured will be created to verify the declared capacity in the PVC.
+ To use the capacity limit function with the `xfs_quota `tool, `parameters.basePath` in StorageClass should be an XFS format mount point and has the XFS `prjquota` feature enabled via the mount option. Once enabled, a local PV with `xfs quota` configured will be created to verify the declared capacity in the PVC.
 
 **Procedure**
 
@@ -230,7 +230,7 @@ The following example assumes that the local PV is created on the `/var/iomesh/l
     ```shell
     mount -o prjquota /dev/sdx /var/iomesh/localpv-quota
     ```
-    > _NOTE_: If you want to use an existing XFS mount point as the basePath, run the command `umount /dev/sdx` first to unmount the mount point. Then remount it via the `prjquota` mount option.
+    > _NOTE_: If you want to use an existing XFS mount point as the basePath, run the command `umount /dev/sdx` to unmount the mount point first. Then remount it via the `prjquota` mount option.
 
     > _NOTE_: To prevent the loss of mount information after rebooting the node, you need to write the mount information to the `/etc/fstab` configuration file. 
 
@@ -244,7 +244,7 @@ The following example assumes that the local PV is created on the `/var/iomesh/l
     parameters:
       volumeType: hostpath
       basePath: /var/iomesh/localpv-quota
-      enableQuota: "true"
+      enableQuota: "true" # To enable capacity limit, set it to "true". Default value is "false".
     provisioner: com.iomesh.iomesh-localpv-manager
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
@@ -280,7 +280,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     You may also create a StorageClass with custom parameters. See details in the following table and [Create StorageClass](../volume-operations/create-storageclass.md).
     | Field  | Description   |
     | -------- | ----------- |
-    | `parameters.volumeType`     | Local PV type, either `hostpath` or `device`. Set the field to `device` for the IOMesh Device local PV.
+    | `parameters.volumeType`     | Local PV type, either `hostpath` or `device`. Set the field to `device` for the IOMesh device local PV.
     | `parameters.deviceSelector` | Device selector that filters block devices by label. If this field is not specified, then all labels will be filtered by default.|
     | `parameters.csi.storage.k8s.io/fstype ` | The filesystem type when the `volumeMode` is set to `Filesystem`, which defaults to `ext4`. |
     | `volumeBindingMode` | Controls when volume binding and dynamic provisioning should occur. IOMesh only supports `WaitForFirstConsumer`. |

@@ -182,7 +182,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded [IOMesh Cluster Dashboard File](./assets/iomesh-cluster-dashboard.json) .
+You have downloaded [IOMesh Cluster Dashboard File](./assets/iomesh-cluster-dashboard.json) .（发布前更新链接）
 
 **Procedure**
 
