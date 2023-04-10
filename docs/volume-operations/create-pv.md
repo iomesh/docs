@@ -137,7 +137,7 @@ This authentication is achieved by configuring a Secret for the StorageClass, an
         requests:
         storage: 2Gi
     ```
-### Clone PV
+## Clone PV
 
 A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should create a new PVC and specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
 
@@ -198,7 +198,7 @@ Verify that there is already a PVC available for cloning.
     pvc-34230f3f-47dc-46e8-8c42-38c073c40598   5Gi        Retain           Bound    cloned-pvc    iomesh-csi-driver
     ```
 
-### Expand PV
+## Expand PV
 To expand the capacity of a PV, you only need to modify the field `storage` in the corresponding PVC.
 
 **Prerequisite**
