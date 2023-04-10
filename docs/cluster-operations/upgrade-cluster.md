@@ -19,7 +19,7 @@ Before upgrading the IOMesh cluster, consider the following:
     ```shell
     kubectl delete sc iomesh-csi-driver
     ```
-2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be reinstalled automatically.
+2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be reenabled automatically.
 
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
@@ -62,7 +62,7 @@ Before upgrading the IOMesh cluster, consider the following:
     ```shell
     kubectl apply -f https://iomesh.run/config/crd/iomesh.com_blockdevicemonitors.yaml
     ```
-4. Download [IOMesh Offline Installation Package](../deploy-iomesh-cluster/install-iomesh.md#offline-installation).
+4. Download [IOMesh Offline Installation Package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
 
 5. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
 

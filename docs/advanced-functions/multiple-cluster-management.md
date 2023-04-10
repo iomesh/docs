@@ -6,7 +6,7 @@ sidebar_label: Multiple Cluster Management
 
 In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation. In this case, there is typically one management cluster that holds components such as the IOMesh Operator, IOMesh CSI Driver, and Node Disk Manager, while other clusters function as independent storage pools without any management responsibilities. 
 
-The IOMesh CSI driver is shared by all IOMesh clusters to facilitate connection, which helps reduce the number of CSI drivers that might otherwise consume unnecessary node resources.
+The IOMesh CSI driver is shared by all IOMesh clusters to facilitate connection, which reduces the number of Controller Plugin pods for the CSI driver.
 
 ![image](https://user-images.githubusercontent.com/102718816/228175494-9d69fac5-de12-4519-a85f-2520c2070f4c.png)
 
@@ -20,12 +20,15 @@ The IOMesh CSI driver is shared by all IOMesh clusters to facilitate connection,
 
 **Procedure**
 
-The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iomesh` is the management cluster while `iomesh-cluster-1` is the non-management cluster.
+The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iomesh` is the management cluster and `iomesh-cluster-1` is the non-management cluster.
 
 |Cluster Name|Role|Worker Nodes|Namespace|
 |---|---|---|---|
 |`iomesh`|Management cluster| k8s-woker-{0~2} |`iomesh-system`|
 |`iomesh-cluster-1`| Independent storage pool|k8s-woker-{3~5}|` iomesh-cluster-1`| 
+
+>_Note_: 
+> For multiple cluster deployment, both custom and offline installation are suitable. For [online custom installation](../deploy-iomesh-cluster/install-iomesh.md#custom-installation), [install Helm and add the IOMesh Helm repository]. For [offline installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation), download the installation package and load the IOMesh image.
 
 ### Deploy Management Cluster
 
@@ -36,13 +39,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
     ```
 2. Configure `iomesh.yaml`.
 
-    - Set `iomesh.chunk.dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
-
-        ```yaml
-        iomesh:
-            chunk:
-              dataCIDR: <your-data-cidr-here>
-        ```
+    - Set `iomesh.chunk.dataCIDR`, `diskDeploymentMode`, and `edition`. See configuration details in [Install IOMesh](../deploy-iomesh-cluster/install-iomesh.md).
 
     - Configure `nodeAffinity` for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` respectively so that they can be scheduled to nodes `k8s-woker-{0~2}`.
 
@@ -245,11 +242,12 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
       kubectl apply -f iomesh-cluster-1-zookeeper.yaml
       ```
 
-3. Create the YAML config `iomesh-cluster-1.yaml` and configure fields `meta.nodeAffinity`, `chunk.dataCIDR`, `chunk.blockDeviceNamespace`, `chunk.nodeAffinity`, `redirector.dataCIDR`, and `redirector.nodeAffinity`.
+3. Create the YAML config `iomesh-cluster-1.yaml` with the following content. Configure fields `nodeAffinity` for `meta`, `dataCIDR`, `blockDeviceNamespace`, and  
 
-    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements) for `chunk` and `redirector` respectively.
-    - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` because management components and all block devices reside in the namespace `iomesh-system`.
-    - Specify the IOMesh edition. `iomesh-cluster-1.yaml` installs IOMesh Community Edition by default. To set it to Enterprise Edition, set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector` respectively.
+    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisite](../deploy-iomesh-cluster/prerequisites.md#network-requirements) for `meta`, `chunk`, and `redirector`, respectively.
+    - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components are installed in the namespace `iomesh-system` and all block devices are also in this namespace.
+    - Set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector`, respectively for an Enterprise edition. If not, a community edition will be automatically installed.
+    - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements) according to your disk configurations.
 
       ```yaml
         apiVersion: iomesh.com/v1alpha1
@@ -267,7 +265,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
             replicas: 3
             image:
               repository: iomesh/zbs-metad
-              tag: v5.3.0-rc13 # To change to Enterprise Edition, set the value to "v5.3.0-rc13-enterprise". 
+              tag: v5.3.0-rc13 # For an enterprise Edition, set it to "v5.3.0-rc13-enterprise". 
               pullPolicy: IfNotPresent
             podPolicy:
               affinity:
@@ -282,7 +280,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                         - k8s-woker-4
                         - k8s-woker-5
           chunk:
-            dataCIDR: <your-data-cidr-here>  # Fill in the IOMesh dataCIDR.
+            dataCIDR: <your-data-cidr-here>  # Fill in the IOMesh data CIDR.
             replicas: 3
             image:
               repository: iomesh/zbs-chunkd
@@ -307,7 +305,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                         - k8s-woker-4
                         - k8s-woker-5    
           redirector:
-            dataCIDR: <your-data-cidr-here>  # Fill in IOMesh dataCIDR.
+            dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
             image:
               repository: iomesh/zbs-iscsi-redirectord
               tag: v5.3.0-rc13
@@ -352,11 +350,11 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 ### Configure Multi-Cluster Connection
 
-To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to configure a `ConfigMap` containing connection information for each IOMesh cluster. 
+To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to create a `ConfigMap` containing connection information for each IOMesh cluster. 
 
 **Procedure**
 
-1. Create `ConfigMap` for the first IOMesh cluster.
+1. Create a `ConfigMap` for the first IOMesh cluster.
 
     Create a YAML config `iomesh-csi-configmap.yaml` with the following content. Then apply the YAML config to generate `ConfigMap`. 
 
@@ -380,7 +378,7 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
       ```shell
       kubectl apply -f iomesh-csi-configmap.yaml
       ```
-2. Create `ConfigMap` for the second IOMesh cluster.
+2. Create a `ConfigMap` for the second IOMesh cluster.
 
     Create a YAML config `iomesh-cluster-1-csi-configmap.yaml` with the following content. Then apply the YAML config to generate `ConfigMap`.
 

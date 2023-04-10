@@ -65,7 +65,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     | --- | --- |
     | `iomesh.com/bd-devicePath` | Shows the device path on the worker node.|
     | `iomesh.com/bd-deviceType` | Shows if it is a disk or a partition.|
-    | `iomesh.com/bd-driverType` | Shows the disk type, incluing HDD, SSD, NVMe.|
+    | `iomesh.com/bd-driverType` | Shows the disk type, incluing SSD and HDD.|
     | `iomesh.com/bd-serial` | Shows the disk serial number.|
     | `iomesh.com/bd-vendor` | Shows the disk vendor.|
 

@@ -24,8 +24,8 @@ See details in the following table:
 |`Serial`|The serial number of the IOMesh cluster.|
 |`Sign Date`|The date when the license is issued.|
 |`Software Edition`|IOMesh edition, including Community and Enterprise.|
-|`Subscription Expiration Date`|The date when the trial or subscription license expires.|
-|`Subscription Start Date`|The date when the trial or subscription license becomes effective.|
+|`Subscription Expiration Date`|The date when the subscription license expires.|
+|`Subscription Start Date`|The date when the subscription license becomes effective.|
 
 ## Update License
 

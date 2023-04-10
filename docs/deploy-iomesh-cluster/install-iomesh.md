@@ -56,7 +56,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
 4. Configure `iomesh.yaml`.
 
-    - Fill in [`dataCIDR`](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
+    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
 
       ```yaml
         iomesh:
@@ -212,7 +212,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
 5. Configure `iomesh.yaml`.
 
-   - Fill in [`dataCIDR`](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
+   - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
 
       ```yaml
       iomesh:

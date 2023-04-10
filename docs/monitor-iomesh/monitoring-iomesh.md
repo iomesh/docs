@@ -4,8 +4,9 @@ title: Monitor IOMesh
 sidebar_label: Monitor IOMesh 
 ---
 
-After successfully importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) to do more configurations and adjustments.
+After importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) for more configurations and adjustments.
 
+图片需要在发布前更新一次
 <img width="1920" alt="image" src="https://user-images.githubusercontent.com/7987906/229396752-5a443b9d-6c53-4fd3-a4b5-4fe96d0b23e0.png">
 
 
@@ -28,9 +29,9 @@ Shows IOMesh cluster information and resource usage.
 |Physical Disk|Shows the number of total SSDs, total HDDs, unhealthy SSDs and HDDs, respectively.|
 |Persistent Volume| Shows the total number of all persistent volumes in the IOMesh cluster.|
 |PV Status|Shows the number of persistent volumes in different states in the IOMesh cluster.|
-|Total Capacity|Shows the total capacity of the IOMesh cluster.|
-|Used Capacity|Shows the used capacity of the IOMesh cluster.|
-|Total Usage|Shows the percentage of used capacity to total capacity of the IOMesh cluster.|
+|Total Storage Capacity|Shows the total capacity of the IOMesh cluster.|
+|Used Storage Capacity|Shows the used capacity of the IOMesh cluster.|
+|Total Storage Capacity Usage|Shows the percentage of used capacity to total capacity of the IOMesh cluster.|
 |Data Migrate & Recovery|Shows the amount of data to be migrated and migration speed, or the amount of all data to be recovered and recovery speed.|
 |Cluster IOPS|Shows the minimum, maximum and latest values of read, write and total IOPS for the IOMesh cluster in a given time period, respectively.|
 |Cluster Average Latency|Shows the minimum, maximum, and latest values of read, write, and total average latency for the IOMesh cluster in a given time period, respectively.|
@@ -44,9 +45,9 @@ Shows the basic information of each node in the IOMesh cluster.
 |------|------|--------|
 | Name          | The node name. | "node-1" |
 | Namespace     | The namespace where the node is located. | "iomesh-system" |
-| Health Status | Shows the node health status, including `Initializing`, `Healthy`, `Error`, and `Disconnected`.</p> | "Healthy"|
-|Capacity | The total capacity of the node.| "2 TiB" |
-| Space Usage | The space usage of the node. | "20%"    |
+| Health Status | Shows node health status, including `Initializing`, `Healthy`, `Error`, and `Disconnected`.</p> | "Healthy"|
+|Storage Capacity| The total capacity of the node.| "2 TiB" |
+|  Storage Capacity Usage | The space usage of the node. | "20%"    |
 | Dirty Cache   | The dirty data space of the node.| "5 GiB"|
 | Cache Hit     | Node read cache hit ratio * read ratio + write cache hit ratio * write ratio.   | "70%" |
 | Overall IOPS  |The total IOPS of the node.  | "500 io/s" |
@@ -82,20 +83,20 @@ Shows disk attribute information, health and usage status, and purpose of use.
 | Serial Number      | The serial number of the physical disk.                                                                                    | "WBM3C4TE"     |
 | Use                | Shows the purpose of the physical disk, including `Datastore`, `Cache with journal`, and `Datastore with journal`. | "Datastore"        |
 | Capacity | The total capacity of the physical disk. | "500 GiB"      |
-| Node| The name of the node where the disk is located. | "node-1"       |
+| Node| The node where the disk is located. | "node-1"       |
 ## Persistent Volume
-Shows PV attribute information, status, and usage in the IOMesh cluster.
+Shows the attribute information, status, and usage of a PV in the IOMesh cluster.
 
 | Field|Description| Example|
 |---|------|-----|
 | Name | The PV name. | "Volume-1"            |
-| StorageClass       | The StorageClass name corresponding to this PV. | "StorageClass1"       |
-| Status | Shows the PV status, including: <p><ul><li>`Available`: This PV is available for use but is not bound to any PVC.</li><li>`Bound`: This PV is already bound to a PVC.</li><li>`Released`: The PVC bound to this PV has been deleted, but the resource has not been reclaimed by the cluster.</li><li>`Failed`: Failed to automatically reclaim this PV.</li><li> `Pending`: This PV is already created but needs to wait for CSI to create the entity storage resource.</li></ul> |"Available"|
+| StorageClass       | The StorageClass of this PV. | "StorageClass1"       |
+| Status | Shows the PV status, including: <p><ul><li>`Available`: The PV is available for use but is not bound to any PVC.</li><li>`Bound`: The PV is already bound to a PVC.</li><li>`Released`: The PVC bound to the PV has been deleted, but the resource has not been reclaimed by the cluster.</li><li>`Failed`: Failed to automatically reclaim the PV.</li><li> `Pending`: The PV is already created but needs to wait for CSI to create the entity storage resource.</li></ul> |"Available"|
 | Allocated Capacity | The logical capacity allocated to this PV.| "50 GiB"|
 | Exclusive Capacity | The logical capacity exclusive for this PV.| "25 GiB" |
 | Shared Capacity | The physical capacity shared by this PV and other objects. | "10 GiB"|
-| VolumeMode| Shows PV VolumeMode, including `Block` and `Filesystem`.| "Block"               |
+| VolumeMode| Shows the volume mode set for this PV, either `Block` or `Filesystem`.| "Block"               |
 | PV Provisioning    | Shows the PV provisioning type, including `Thin provisioning` and `Thick provisioning`. | "Thin provisioning"   |
-| Replicas | The number of replicas for this PV, including `2` or `3`|"2"|
+| Replicas | The number of replicas for this PV, either `2` or `3`.|"2"|
 | Created Time | The time when this PV was created. | "2022-12-08 14:45:00"|
                                                                                                                                                                                                                                                                                                                                                                                      

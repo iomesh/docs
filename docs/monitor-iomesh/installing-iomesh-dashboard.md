@@ -10,13 +10,13 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 **Prerequisite**
 
-Verify that [Prometheus and Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed, and Prometheus is located in the Namespace `iomesh-system`.
+Verify that [Prometheus and Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed, and Prometheus is located in the namespace `iomesh-system`.
 
 **Procedure**
 
-1. Get `iomesh.yaml` ready. 
+1. Get `iomesh.yaml`. 
 
-    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already have `iomesh.yaml` when you manually install IOMesh.  
+    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already have `iomesh.yaml` during IOMesh installation. 
 
 
 <!--DOCUSAURUS_CODE_TABS-->
@@ -32,7 +32,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 
-2. Edit `iomesh.yaml`, including `operator`, `iomesh`, and `blockdevice monitor`.
+2. In `iomesh.yaml`, configure `operator`, `iomesh`, and `blockdevice monitor`.
 
     `operator`
 
@@ -42,7 +42,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
       # Configure ServiceMonitor for Prometheus Operator.
       serviceMonitor: 
-        create: true # Set it to true to create a ServiceMonitor object, which defaults to false.
+        create: false # Set it to "true" to create a ServiceMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for ServiceMonitor object, which defaults to iomesh-system.
         labels: {} # Set the label for ServiceMonitor object, which defaults to blank.
 
@@ -51,7 +51,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
       
       # Configure PrometheusRule for Prometheus Operator.
       prometheusRule:
-        create: true # Set it to true to create a PrometheusRule object, which defaults to false.
+        create: false # Set it to "true" to create a PrometheusRule object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PrometheusRule object, which defaults to iomesh-system.
         labels: {} # Set the label for PrometheusRule object, which defaults to blank.
   
@@ -73,7 +73,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
     iomesh:
       # Configure ServiceMonitor for Prometheus Operator.
       serviceMonitor:
-        create: true # Set it to true to create a serviceMonitor object, which defaults to false.
+        create: false # Set it to true to create a serviceMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for serviceMonitor object, which defaults to iomesh-system.
         labels: {} # Set the label for serviceMonitor object, which defaults to blank. 
       meta:
@@ -90,12 +90,12 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
     blockdevice-monitor:
       # Configure PodMonitor for Prometheus Operator.
       podMonitor:
-        create: true # Set it to true to create a PodMonitor object, which defaults to false.
+        create: false # Set it to true to create a PodMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PodMonitor object, which defaults to iomesh-system.
         labels: {} # Set the label for PodMonitor object, which defaults to blank.
       # Configure PrometheusRule for Prometheus Operator.
       prometheusRule:
-        create: true # Set it to true to create a PrometheusRule object, which defaults to false.
+        create: false # Set it to true to create a PrometheusRule object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PrometheusRule object, which defaults to iomesh-system.
         labels: {} # Set the label for PrometheusRule object, which defaults to blank.
       blockdevicemonitor:
@@ -121,14 +121,14 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-4. Run the following commands to verify whether your configurations are applied.
+4. Verify that your configurations were applied.
 
     `ServiceMonitor`
     ```bash
     kubectl -n iomesh-system get servicemonitor
     ```
 
-    After running the command, you should see an example like:
+    If successful, you should see output like this:
 
     ```output
     NAME                 AGE
@@ -142,7 +142,7 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     ```bash
     kubectl -n iomesh-system get podmonitor
     ```
-    After running the command, you should see an example like:
+    If successful, you should see output like this:
 
     ```output
     NAME                         AGE
@@ -156,7 +156,7 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     kubectl -n iomesh-system get prometheusrule
     ```
 
-    After running the command, you should see an example like:
+    If successful, you should see output like this:
     
     ```output
     NAME                 AGE
@@ -164,13 +164,13 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     iomesh               10m
     ```
 
-    If `kube-state-metrics` service is enabled，verify that if it is already installed.
+    If `kube-state-metrics` service is enabled, verify that it has been installed.
 
     ```bash
     kubectl -n iomesh-system get pods -l app.kubernetes.io/name=kube-state-metrics
     ```
 
-    After running the command, you should see an example like:
+    If successful, you should see output like this:
     ```output
     NAME                                  READY   STATUS    RESTARTS   AGE
     kube-state-metrics-7bb75797f9-h9r97   1/1     Running   0          10m
