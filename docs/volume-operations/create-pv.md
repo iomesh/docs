@@ -1,7 +1,7 @@
 ---
 id: create-pv
-title: PV Operations
-sidebar_label: PV Operations
+title: Create PV
+sidebar_label: Create PV
 ---
 
 ## Create PV

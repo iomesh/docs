@@ -1,7 +1,7 @@
 ---
 id: create-volumesnapshot
-title: VolumeSnapshot Operations
-sidebar_label: VolumeSnapshot Operations
+title: Create VolumeSnapshot
+sidebar_label: Create VolumeSnapshot
 ---
 
 ## Create VolumeSnapshot
