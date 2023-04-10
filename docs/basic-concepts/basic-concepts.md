@@ -71,11 +71,11 @@ A snapshot taken from a volume in the cluster that has been provisioned by an ad
 An optional API parameter that describes the specific mode for a persistent volume. Kubernetes supports `Filesystem` and `Block` as `volumeModes`. 
 
 - `filesystem`: A volume with volume mode set to `filesystem` is mounted to a directory by the pod.
-- `block`: Use a volume as a raw block device which provides the pod the fastest possible way to access a volume, without any filesystem layer between the pod and the volume.
+- `block`: A volume is used as a raw block device which provides the pod the fastest possible way to access a volume, without any filesystem layer between the pod and the volume.
 
 [**Access Mode**](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes)
 
-A persistent volume can be mounted on a host in any way supported by the resource provider. Access modes supported vary by resource provider, and IOMesh supports `ReadWriteOnce`，`ReadWriteMany`，and `ReadOnlyMany`, but `ReadWriteMany` and `ReadOnlyMany` are only for PVs with `volumemode` as `block`.
+A PV can be mounted on a host using any supported access mode. IOMesh supports `ReadWriteOnce`, `ReadWriteMany`, and `ReadOnlyMany` access modes; however, `ReadWriteMany` and `ReadOnlyMany` are only available for PVs that use `block` as the volume mode.
 
 - `ReadWriteOnce`: The volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
 

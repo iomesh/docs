@@ -70,21 +70,23 @@ The quick installation option is limited to deploying IOMesh on three worker nod
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
     
-    - Specify IOMesh `edition`, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+    - Specify IOMesh edition. The field is blank by default, and if left unspecified, the system installs the community edition automatically. 
+    
+      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
    
-   ```yaml
-    edition: "community" # Specify the IOMesh edition.
-    ```
+      ```yaml
+      edition: "" # If left blank, Community Edition will be installed. 
+      ```
 
-   - An optional step: The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods
+   - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods
 
-   ```yaml
-    iomesh:
-      chunk:
-        replicaCount: 5 # Specify the number of chunk pods.
-    ```
+      ```yaml
+      iomesh:
+        chunk:
+          replicaCount: 5 # Enter the number of chunk pods.
+      ```
 
-   - An optional step: If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
+   - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
       
       ```yaml
       iomesh:
@@ -223,10 +225,12 @@ The quick installation option is limited to deploying IOMesh on three worker nod
       ```yaml
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
-    - Specify IOMesh `edition`, which defaults to `community`. In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+    - Specify IOMesh `edition`. The field is blank by default, and if left unspecified, the system installs the community edition automatically. 
+    
+      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
 
       ```yaml
-      edition: "community" # Specify the IOMesh edition.
+      edition: "" # If left blank, Community Edition will be installed. 
       ```
    - An optional step: The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods.
 

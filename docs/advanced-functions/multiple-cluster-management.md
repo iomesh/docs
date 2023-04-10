@@ -352,14 +352,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 ### Configure Multi-Cluster Connection
 
-To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to configure a `ConfigMap` containing connection information for each IOMesh cluster. Before configuration, familarity with `ConfigMap` is suggested.
-
-**ConfigMap**
-| Field | Description |
-| ----- | ----- |
-| `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.|
-| `data.iscsiPortal`| iSCSI access point, fixed to 127.0.0.1:3260.|
-| `data.metaAddr`      | IOMesh meta service address, which follows the format: `<iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100.` |
+To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to configure a `ConfigMap` containing connection information for each IOMesh cluster. 
 
 **Procedure**
 
@@ -378,6 +371,12 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
         iscsiPortal: 127.0.0.1:3260
         metaAddr: iomesh-meta-client.iomesh-system.svc.cluster.local:10100
       ``` 
+      | Field | Description |
+      | ----- | ----- |
+      | `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.|
+      | `data.iscsiPortal`| iSCSI access point, fixed to 127.0.0.1:3260.|
+      | `data.metaAddr`      | IOMesh meta service address, which follows the format: `<iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100.` |
+
       ```shell
       kubectl apply -f iomesh-csi-configmap.yaml
       ```

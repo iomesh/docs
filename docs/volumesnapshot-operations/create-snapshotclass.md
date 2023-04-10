@@ -7,7 +7,7 @@ sidebar_label: Create VolumeSnapshotClass
 A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each VolumeSnapshot is bound to a SnapshotClass that describes the class of snapshots when provisioning a VolumeSnapshot. Just like `iomesh-csi-driver` as a default StorageClass, a default SnapshotClass will be created at the same time when IOMesh is installed and cannot be modified. You can also create new SnapshotClasses with customized parameters.
 
 
-|Parameter|Description|Default (`iomesh-csi-driver`)|
+|Field|Description|Default (`iomesh-csi-driver`)|
 |---|---|---|
 |`driver`| The driver that determines what CSI volume plugin is used for provisioning VolumeSnapshots. |`com.iomesh.csi-driver`|
 |[`deletionPolicy`](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/)|Allows you to configure what happens to the VolumeSnapshotContent when the VolumeSnapshot object is to be deleted, either be `Retain` or `Delete`.|`Delete`|

@@ -13,12 +13,7 @@
     ],
     "Volume & VolumeSnapshot": [
       "volume-operations/create-storageclass",
-      "volume-operations/create-pv",
-      "volume-operations/expand-pv",
-      "volume-operations/clone-pv",
-      "volumesnapshot-operations/create-snapshotclass",
-      "volumesnapshot-operations/create-volumesnapshot",
-      "volumesnapshot-operations/restore-volumesnapshot"
+      "volume-operations/create-pv"
     ],
     "Deploy Stateful Applications": [
       "stateful-applications/iomesh-for-mysql",

@@ -23,7 +23,7 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | --- | --- |
 | `zbs_cluster_read_iops` | Cluster read IOPS. |
 | `zbs_cluster_readwrite_iops` | Cluster read write IOPS. |
-| `zbs_cluster_write_iops` | C;luster write IOPS. |
+| `zbs_cluster_write_iops` | Cluster write IOPS. |
 | `zbs_cluster_read_speed_bps` | Cluster read speed. |
 | `zbs_cluster_write_speed_bps` | Cluster write speed. |
 | `zbs_cluster_readwrite_speed_bps` | Cluster read write speed. |

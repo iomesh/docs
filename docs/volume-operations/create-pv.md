@@ -1,10 +1,12 @@
 ---
 id: create-pv
-title: Create PV
-sidebar_label: Create PV
+title: PV Operations
+sidebar_label: PV Operations
 ---
 
 ## Create PV
+
+### Create PV
 
 To create a PV, you should first create a PVC. Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them together. Then the pair of PV and PVC will be ready to use.
 
@@ -63,7 +65,7 @@ Ensure that there is already a StorageClass available for use.
     pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi       Delete           Bound    default/iomesh-example-pvc   iomesh-csi-driver
     ```
 
-## Create PV with Secret 
+### Create PV with Secret 
 
 To ensure secure access, you may create a PV with a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) that stores authentication details and user login information. Whenever you want to access this PV, you need to enter the accurate login details.
 
@@ -134,4 +136,149 @@ This authentication is achieved by configuring a Secret for the StorageClass, an
     resources:
         requests:
         storage: 2Gi
+    ```
+### Clone PV
+
+A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should create a new PVC and specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
+
+**Precautions**
+- The source PVC and the destination PVC must be in the same namespace.
+- The source PVC and the destination PVC must have the same StorageClass and VolumeMode configurations.
+- The capacity value must be the same or larger than that of the source PVC.
+
+**Prerequisite**
+
+Verify that there is already a PVC available for cloning.
+
+**Procedure**
+1. Create a YAML config `clone.yaml`. Specify the source PVC in the field `name`.
+
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: cloned-pvc
+    spec:
+      storageClassName: iomesh-csi-driver
+      dataSource:
+        name: existing-pvc # Specify the source PVC that should be from the same namespace as the destination PVC. 
+        kind: PersistentVolumeClaim
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi # The capacity value must be the same or larger than that of the source volume.
+      volumeMode: Block
+    ```
+
+2. Apply the YAML config. Once done, a clone of `existing-pvc` will be created.
+
+    ```bash
+    kubectl apply -f clone.yaml
+    ``` 
+   
+3. Check the new PVC.
+
+    ```
+    kubectl get pvc cloned-pvc
+    ```
+   After running the command, you should see an example like:
+    ```output
+    NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
+    cloned-pvc                                  Bound    pvc-44230f3f-47dc-46e8-8c42-38c073c40598   5Gi        RWO            iomesh-csi-driver   21h   
+    ```
+4. Get the cloned PV.
+    ```shell
+    kubectl get pv pvc-44230f3f-47dc-46e8-8c42-38c073c40598 # The PV name you get in Step 3.
+    ```
+
+    After running the command, you should see an example like:
+    ```output
+    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM         STORAGECLASS
+    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   5Gi        Retain           Bound    cloned-pvc    iomesh-csi-driver
+    ```
+
+### Expand PV
+To expand the capacity of a PV, you only need to modify the field `storage` in the corresponding PVC.
+
+**Prerequisite**
+
+The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to `true`. 
+
+**Procedure**
+
+The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with a capacity of `10Gi`.
+
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: example-pvc
+    spec:
+      storageClassName: iomesh-csi-driver
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi # The original capacity of the PVC.
+    ```
+
+1. Get the PVC that you want to modify the storage capacity for.
+
+    ```bash
+    kubectl get pvc example-pvc
+    ```
+
+    After running the command, you should see an example like:
+
+    ```output
+    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
+    ```
+
+2. Set the field `storage` to a new value.
+
+    ```yaml
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+    name: example-pvc 
+    spec:
+      storageClassName: iomesh-csi-driver
+      accessModes:
+        - ReadWriteOnce
+    resources:
+      requests:
+        storage: 20Gi # Enter a new value greater than the original value.
+    ```
+
+3. Apply the modification.
+
+    ```bash
+    kubectl apply -f pvc.yaml
+    ```
+
+4. Verify that the PVC capacity is already expanded. 
+
+    ```bash
+    kubectl get pvc example-pvc 
+    ```
+
+    After running the command, you should see an example below and get the volume name.
+
+    ```output
+    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
+    ```
+
+5. Once the PVC modification is applied, the PV capacity will be expanded as well. Run the following command to see if the PV capacity is expanded as expected.
+   
+    ```bash
+    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # The PV name you get in Step 4.
+    ```
+
+    After running the command, you should see an example like this:
+    ```output
+    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
+    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
     ```
