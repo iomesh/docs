@@ -6,8 +6,6 @@ sidebar_label: Create PV
 
 ## Create PV
 
-### Create PV
-
 To create a PV, you should first create a PVC. Once done, IOMesh will sense the creation of this PVC and automatically create a new PV based on the `spec` in it, binding them together. Then the pair of PV and PVC will be ready to use.
 
 > _Note:_
@@ -65,220 +63,69 @@ Ensure that there is already a StorageClass available for use.
     pvc-34230f3f-47dc-46e8-8c42-38c073c40598   10Gi       Delete           Bound    default/iomesh-example-pvc   iomesh-csi-driver
     ```
 
-### Create PV with Secret 
+## Encrypt PV  
 
-To ensure secure access, you may create a PV with a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) that stores authentication details and user login information. Whenever anyone wants to access this PV, accurate login information is required.
+IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass. Every time a pod declares the use of a PVC, the PVC will only be allowed for use if the two secrets match exactly.
 
-This authentication is achieved by configuring a Secret for the StorageClass, and each StorageClass has a separate authentication information. Whenever a user wants to use the StorageClass, the Secret of the StorageClass needs to be configured in the PVC, and the PVC can only be used by the Pod if the data of the two Secrets match exactly.
-
-**Precaution**
-- Since authentication is implemented through iSCSI CHAP, the secret password field used for authentication must meet the password length requirements of the CHAP protocol, that is, between 12 and 16.
-
-- 使用 Per StorageClass 的方式鉴权时，由于 StorageClass 为非 namespace 限制的全局对象，而部分 Kubernetes 发行版在默认情况下支持任何 namespace 的用户访问所有的 StorageClass，因此需要使用 RBAC 确保带鉴权功能的 StorageClass 只对必要的用户可见。
+**Precautions**
+- Since authentication is implemented through iSCSI CHAP, the secret password must be 12-16 characters long according to the password length requirements of the CHAP protocol.
+- To ensure that a StorageClass with configured secrets is accessible only to intended users, Role-Based Access Control (RBAC) is necessary. This is because StorageClass is not an object limited to a specific namespace, and some versions of Kubernetes allow all namespaces to access all StorageClasses.
 
 **Procedure**
-1. Create a Secret for authentication. The user name is `iomesh`, the password is `abcdefghijklmn`, and the namespace is `smtx-system`.
+1. Create a secret that holds credentials for encrypting a volume. The username is `iomesh`, and the namespace is `smtx-system`.
 
     ```bash
     kubectl create secret generic volume-secret -n smtx-system --from-literal=username=iomesh --from-literal=password=abcdefghijklmn
     ```
-2. Create a Secret to provide authentication information with the same username and password as the Secret in the previous step.
+2. Create a CSI secret that points to the encrypted secret from step 1. Its username and password remain the same as the secret in step 1.
 
     ```bash
     kubectl create secret generic user-secret -n user-namespace --from-literal=username=iomesh --from-literal=password=abcdefghijklmn
     ```
-3. Create a StorageClass and configure fields as instructed below.
-
+3. Create a StorageClass and configure the following fields.
     ```yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
-    name: per-storageclass-auth
+      name: per-storageclass-auth
     provisioner: com.smartx.csi-driver 
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
-    csi.storage.k8s.io/fstype: "ext4"
-    replicaFactor: "2"
-    thinProvision: "true"
-    # Enable authentication 
-    auth: "true"
-    # 鉴权使用的 secret，csi 会通过 pvc 的 annotations 对应字段进行动态提取
-    csi.storage.k8s.io/controller-publish-secret-name: volume-secret 
-    csi.storage.k8s.io/controller-publish-secret-namespace: smtx-system
-    # 登陆认证使用的 secret
-    csi.storage.k8s.io/node-stage-secret-name: ${pvc.annotations['iomesh.com/key']}
-    csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
+      csi.storage.k8s.io/fstype: "ext4"
+      replicaFactor: "2"
+      thinProvision: "true"
+      # Enable PV encryption.
+      auth: "true" 
+      # The secret holding credentials for encrypting a volume, which will be fetched by the CSI reading in the `annotations` field of the PVC.
+      csi.storage.k8s.io/controller-publish-secret-name: volume-secret 
+      csi.storage.k8s.io/controller-publish-secret-namespace: smtx-system
+      # The CSI secret that points to the encrypted secret.
+      csi.storage.k8s.io/node-stage-secret-name: ${pvc.annotations['iomesh.com/key']}
+      csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
     ```
-    其中 parameters 中引用步骤 1 和 2 所创建的 secret 的字段如下：
     |Field|Description|
     |---|---|
-    |`csi.storage.k8s.io/controller-publish-secret-name`| The Secret for authentication.|
-    |`csi.storage.k8s.io/controller-publish-secret-namespace`|The NameSpace where the Secret for authentication resides.|
-    |`csi.storage.k8s.io/node-stage-secret-name`|登录认证时使用的 secret|
-    |`csi.storage.k8s.io/node-stage-secret-namespace`|登录认证时使用的 secret 所在的 namespace|
+    |`csi.storage.k8s.io/controller-publish-secret-name`| The secret created in Step 1, holding credentials for encryption.|
+    |`csi.storage.k8s.io/controller-publish-secret-namespace`|The namespace where the encryption secret resides.|
+    |`csi.storage.k8s.io/node-stage-secret-name`|The CSI secret created in Step 1, pointing to and verifying the encrypted secret. |
+    |`csi.storage.k8s.io/node-stage-secret-namespace`|The namespace where the CSI secret resides.|
 
-4. Create a PVC. Use the secret created in Step 2 for authentication in the `iomesh.com/key` field.
-
+4. Create a PVC and specify `annotations.iomesh.com/key` with the CSI secret created in Step 2.
     ```yaml
     kind: PersistentVolumeClaim
     apiVersion: v1
     metadata:
-    name: user-pvc
-    namespace: user-namespace
-    # Specify the Secret for authentication.
-    annotations:
-        iomesh.com/key: user-secret
+      name: user-pvc
+      namespace: user-namespace
+      # Specify the CSI secret created in Step 2.
+      annotations:
+          iomesh.com/key: user-secret
     spec:
-    storageClassName: per-storageclass-auth
-    accessModes:
-    - ReadWriteOnce
-    resources:
-        requests:
-        storage: 2Gi
-    ```
-## Clone PV
-
-A clone is a duplicate of an existing volume in the system and data on the source will be duplicated to the destination. To clone a PV, you should create a new PVC and specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
-
-**Precautions**
-- The source PVC and the destination PVC must be in the same namespace.
-- The source PVC and the destination PVC must have the same StorageClass and VolumeMode configurations.
-- The capacity value must be the same or larger than that of the source PVC.
-
-**Prerequisite**
-
-Verify that there is already a PVC available for cloning.
-
-**Procedure**
-1. Create a YAML config `clone.yaml`. Specify the source PVC in `spec.dataSource.name`.
-
-    ```yaml
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: cloned-pvc
-    spec:
-      storageClassName: iomesh-csi-driver
-      dataSource:
-        name: existing-pvc # Specify the source PVC that should be from the same namespace as the destination PVC. 
-        kind: PersistentVolumeClaim
+      storageClassName: per-storageclass-auth
       accessModes:
-        - ReadWriteOnce
+      - ReadWriteOnce
       resources:
         requests:
-          storage: 5Gi # The capacity value must be the same or larger than that of the source volume.
-      volumeMode: Block
-    ```
-
-2. Apply the YAML config. Once done, a clone of `existing-pvc` will be created.
-
-    ```bash
-    kubectl apply -f clone.yaml
-    ``` 
-   
-3. Check the new PVC.
-
-    ```
-    kubectl get pvc cloned-pvc
-    ```
-   After running the command, you should see an example like:
-    ```output
-    NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
-    cloned-pvc                                  Bound    pvc-44230f3f-47dc-46e8-8c42-38c073c40598   5Gi        RWO            iomesh-csi-driver   21h   
-    ```
-4. Get the cloned PV.
-    ```shell
-    kubectl get pv pvc-44230f3f-47dc-46e8-8c42-38c073c40598 # The PV name you get in Step 3.
-    ```
-
-    After running the command, you should see an example like:
-    ```output
-    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM         STORAGECLASS
-    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   5Gi        Retain           Bound    cloned-pvc    iomesh-csi-driver
-    ```
-
-## Expand PV
-To expand the capacity of a PV, you only need to modify the field `storage` in the corresponding PVC.
-
-**Prerequisite**
-
-The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to `true`. 
-
-**Procedure**
-
-The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with a capacity of `10Gi`.
-
-    ```yaml
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: example-pvc
-    spec:
-      storageClassName: iomesh-csi-driver
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 10Gi # The original capacity of the PVC.
-    ```
-
-1. Get the PVC that you want to modify the storage capacity for.
-
-    ```bash
-    kubectl get pvc example-pvc
-    ```
-
-    After running the command, you should see an example like:
-
-    ```output
-    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
-    ```
-
-2. Set the field `storage` to a new value.
-
-    ```yaml
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-    name: example-pvc 
-    spec:
-      storageClassName: iomesh-csi-driver
-      accessModes:
-        - ReadWriteOnce
-    resources:
-      requests:
-        storage: 20Gi # Enter a new value greater than the original value.
-    ```
-
-3. Apply the modification.
-
-    ```bash
-    kubectl apply -f pvc.yaml
-    ```
-
-4. Verify that the PVC capacity is already expanded. 
-
-    ```bash
-    kubectl get pvc example-pvc 
-    ```
-
-    After running the command, you should see an example below and get the volume name.
-
-    ```output
-    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
-    ```
-
-5. Once the PVC modification is applied, the PV capacity will be expanded as well. Run the following command to see if the PV capacity is expanded as expected.
-   
-    ```bash
-    kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # The PV name you get in Step 4.
-    ```
-
-    After running the command, you should see an example like this:
-    ```output
-    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
-    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
+          storage: 2Gi
     ```
