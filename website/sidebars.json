@@ -11,13 +11,14 @@
       "deploy-iomesh-cluster/setup-iomesh",
       "deploy-iomesh-cluster/activate-license"
     ],
-    "Volume": [
+    "Volume Operations": [
       "volume-operations/create-storageclass",
       "volume-operations/create-pv",
+      "volume-operations/encrypt-pv",
       "volume-operations/expand-pv",
       "volume-operations/clone-pv"
     ],
-    "VolumeSnapshot":[
+    "VolumeSnapshot Operations":[
       "volumesnapshot-operations/create-snapshotclass",
       "volumesnapshot-operations/create-volumesnapshot",
       "volumesnapshot-operations/restore-volumesnapshot"
