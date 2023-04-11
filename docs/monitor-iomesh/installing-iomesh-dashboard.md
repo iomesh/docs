@@ -42,7 +42,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
       # Configure ServiceMonitor for Prometheus Operator.
       serviceMonitor: 
-        create: false # Set it to "true" to create a ServiceMonitor object, which defaults to false.
+        create: true # Set it to "true" to create a ServiceMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for ServiceMonitor object, which defaults to iomesh-system.
         labels: {} # Set the label for ServiceMonitor object, which defaults to blank.
 
@@ -51,13 +51,13 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
       
       # Configure PrometheusRule for Prometheus Operator.
       prometheusRule:
-        create: false # Set it to "true" to create a PrometheusRule object, which defaults to false.
+        create: true # Set it to "true" to create a PrometheusRule object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PrometheusRule object, which defaults to iomesh-system.
         labels: {} # Set the label for PrometheusRule object, which defaults to blank.
   
       # Configure kube-state-metrics service.
       kubeStateMetrics:
-        create: false # Whether you deploy kube-state-metrics service. If it is already deployed, set it to false.
+        create: true # Whether you deploy kube-state-metrics service. If it is already deployed, set it to false.
         image:
           registry: registry.k8s.io
           repo: kube-state-metrics/kube-state-metrics
@@ -73,7 +73,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
     iomesh:
       # Configure ServiceMonitor for Prometheus Operator.
       serviceMonitor:
-        create: false # Set it to true to create a serviceMonitor object, which defaults to false.
+        create: true # Set it to true to create a serviceMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for serviceMonitor object, which defaults to iomesh-system.
         labels: {} # Set the label for serviceMonitor object, which defaults to blank. 
       meta:
@@ -90,12 +90,12 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
     blockdevice-monitor:
       # Configure PodMonitor for Prometheus Operator.
       podMonitor:
-        create: false # Set it to true to create a PodMonitor object, which defaults to false.
+        create: true # Set it to true to create a PodMonitor object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PodMonitor object, which defaults to iomesh-system.
         labels: {} # Set the label for PodMonitor object, which defaults to blank.
       # Configure PrometheusRule for Prometheus Operator.
       prometheusRule:
-        create: false # Set it to true to create a PrometheusRule object, which defaults to false.
+        create: true # Set it to true to create a PrometheusRule object, which defaults to false.
         namespace: "iomesh-system" # Create a Namespace for PrometheusRule object, which defaults to iomesh-system.
         labels: {} # Set the label for PrometheusRule object, which defaults to blank.
       blockdevicemonitor:
@@ -182,7 +182,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded [IOMesh Cluster Dashboard File](./assets/iomesh-cluster-dashboard.json) .（发布前更新链接）
+You have downloaded [IOMesh Cluster Dashboard File](https://iomesh.run/dashboard/iomesh-cluster-dashboard.json) .（发布前更新链接）
 
 **Procedure**
 

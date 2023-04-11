@@ -27,8 +27,9 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 |`iomesh`|Management cluster| k8s-woker-{0~2} |`iomesh-system`|
 |`iomesh-cluster-1`| Independent storage pool|k8s-woker-{3~5}|` iomesh-cluster-1`| 
 
->_Note_: 
-> For multiple cluster deployment, both custom and offline installation are suitable. For [online custom installation](../deploy-iomesh-cluster/install-iomesh.md#custom-installation), [install Helm and add the IOMesh Helm repository]. For [offline installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation), download the installation package and load the IOMesh image.
+>_Note_: To expand an IOMesh cluster into multiple clusters, refer to the following to configure node affinity for the existing IOMesh cluster, that is, the management cluster, and apply modifications through `helm upgrade`.
+
+>_Note_: Both custom and offline installation are suitable for multiple cluster deployment. For [online custom installation](../deploy-iomesh-cluster/install-iomesh.md#custom-installation), install `Helm` and add the IOMesh Helm repository. For [offline installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation), download the installation package and load the IOMesh image.
 
 ### Deploy Management Cluster
 

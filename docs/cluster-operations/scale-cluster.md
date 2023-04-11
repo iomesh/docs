@@ -4,10 +4,10 @@ title: Scale Cluster
 sidebar_label: Scale Cluster
 ---
 
-Before scaling the IOMesh cluster, consider the following:
+You can scale the IOMesh cluster online without interrupting services. Before scaling the IOMesh cluster, consider the following:
 
 - Scaling is only supported for IOMesh Enterprise Edition. The number of meta or chunk pods in IOMesh Community Edition is limited to 3.
-- Before increasing the number of chunk or meta pods, add worker nodes to the Kubernetes cluster. Each worker node can only have one meta pod and one chunk pod, so determine the number of worker nodes based on the number of chunk or meta pods you want to add.
+- Add worker nodes to the Kubernetes cluster before increasing the number of chunk or meta pods. The number of worker nodes needed depends on how many chunk or meta pods you want to add, as each worker node can only have one meta pod and one chunk pod.
 
 ## Scale Chunk Server
 
@@ -54,11 +54,11 @@ The minimum number of meta pods is 3 and the maximum is 5.
 
 **Procedure**
 
-1. In `iomesh.yaml`, locate `meta` and then edit `replicas`. 
+1. In `iomesh.yaml`, locate `meta` and then edit `replicaCount`. 
 
     ```yaml
     meta:
-      replicaCount: 5 # Change the value from 3 to 5.
+      replicaCount: 5 # Change the value to 5.
     ```
 2. Apply the modification.
     ```shell

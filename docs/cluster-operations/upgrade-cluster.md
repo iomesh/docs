@@ -4,9 +4,9 @@ title: Upgrade Cluster
 sidebar_label: Upgrade Cluster
 ---
 
-Before upgrading the IOMesh cluster, consider the following:
-- Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to this version from 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
-- IOMesh allows online and offline upgrades, and the upgrade steps are slightly different.
+You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 either online or offline. Before proceeding, consider the following:
+- Upgrade is not supported if the Kubernetes cluster has only one meta pod or one chunk pod.
+- Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to 1.0.0 from 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
 
 **Procedure**
 <!--DOCUSAURUS_CODE_TABS-->
@@ -19,17 +19,17 @@ Before upgrading the IOMesh cluster, consider the following:
     ```shell
     kubectl delete sc iomesh-csi-driver
     ```
-2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be enabled automatically again.
+2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be automatically enabled again.
 
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
-3. Install the CRD of IOMesh 1.0. 
+3. Install the CRD of IOMesh 1.0.0. 
 
     ```shell
     kubectl apply -f https://iomesh.run/config/crd/iomesh.com_blockdevicemonitors.yaml
     ```
-4. Get the new fields and values added in IOMesh 1.0.
+4. Get the new fields and values added in IOMesh 1.0.0.
     ```shell
     wget https://iomesh.run/config/merge-values/v1.0.0.yaml -O merge-values.yaml
     ```
@@ -46,18 +46,18 @@ Before upgrading the IOMesh cluster, consider the following:
 <!--Offline Upgrade-->
 1. Delete the default StorageClass. 
 
-    IOMesh 1.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.
+    IOMesh 1.0.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.
 
     ```shell
     kubectl delete sc iomesh-csi-driver
     ```
 
-2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be reinstalled automatically.
+2. Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be automatically enabled again.
 
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
-3. Install the CRD of IOMesh 1.0. 
+3. Install the CRD of IOMesh 1.0.0.
 
     ```shell
     kubectl apply -f https://iomesh.run/config/crd/iomesh.com_blockdevicemonitors.yaml

@@ -4,7 +4,7 @@ title: Update License
 sidebar_label: Update License
 ---
 
-IOMesh currently offers two editions: Community and Enterprise. They differ in the maximum number of worker nodes and level of business support provided. You can find more information on IOMesh official website at https://www.iomesh.com/spec.
+IOMesh currently offers two editions: Community and Enterprise. They differ in the maximum number of worker nodes and level of business support provided. You can find more information on the IOMesh official website at https://www.iomesh.com/spec.
 
 ## View License Information
 
@@ -17,7 +17,7 @@ See details in the following table:
 |License Information|Description|
 |---|---|
 |`Expiration Date`|The date when the license expires.|
-|`License Type`|<ul><li>Trial: Automatically generated after deploying IOMesh and remains valid for 30 days by default.</li><li>Subscription: Set your own subscription period, with a minimum of 1 year.</li><li>Perpetual: Permanently valid.</li></ul>|
+|`License Type`|<ul><li>Trial: Automatically generated after deploying IOMesh and remains valid for 30 days by default.</li><li>Subscription: Custom subscription period, minimum 1 year.</li><li>Perpetual: Permanently valid.</li></ul>|
 |`Max Chunk Num`|The maximum number of worker nodes to deploy IOMesh.|
 |`Max Physical Data Capacity`| The maximum capacity of the IOMesh cluster, and 0 means no limit.|
 |`Max Physical Data Capacity Per Node`|The maximum capacity of each node in the IOMesh cluster, and 0 means no limit.| 
@@ -31,7 +31,7 @@ See details in the following table:
 
 Update the license in the following scenarios:
 
-- Activate the license after installing IOMesh, which is already explained in [Activate License]().
+- Activate the license after installing IOMesh, which is already illustrated in [Activate License](../deploy-iomesh-cluster/activate-license.md).
 - Increase the number of nodes when the current node quota cannot meet requirements.
 - Extend the validity period of a trial license or subscription license.
 
@@ -75,7 +75,7 @@ Update the license in the following scenarios:
       licenseSecretName: iomesh-authorization-code
     ```
 
-4. Confirm the update, and whether the update is successful will be shown in the output. 
+4. Confirm the update, and whether the update is successful will be shown in events. 
 
     ```bash
     kubectl describe iomesh -n iomesh-system # Whether the update is successful will be displayed in the events.

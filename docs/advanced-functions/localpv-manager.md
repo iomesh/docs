@@ -145,17 +145,19 @@ When choosing between these volume types, consider whether your applications or 
           - mountPath: /mnt/iomesh/localpv
             name: iomesh-localpv-hostpath
       ```
+
     - Apply the YAML config to create the pod.
     
         ```shell
         kubectl apply -f iomesh-localpv-hostpath-pod.yaml
         ```
+
     - Verify that the pod is in the `Running` state.
 
         ```shell
         kubectl get pod iomesh-localpv-hostpath-pod
         ```
-
+        
     - Verify that the PVC is in `Bound` state and its corresponding PV was created.
         ```shell
         kubectl get pvc iomesh-localpv-hostpath-pvc
