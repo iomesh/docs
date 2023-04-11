@@ -524,7 +524,7 @@ When upgrading multiple IOMesh clusters, upgrade the management cluster first an
 
 There is no difference between scaling up one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale Cluster](../cluster-operations/scale-cluster.md).
 
-### Uninstalling Multiple Clusters
+### Uninstall Multiple Clusters
 
 When uninstalling more than one IOMesh clusters, follow the order: first non-management clusters, then the management cluster. If not, resources may reside in the namespace `iomesh-system`, affecting the next deployment of IOMesh.
 

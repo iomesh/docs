@@ -48,3 +48,11 @@ The storage capacity value in the new PV should be the same as that of the sourc
     NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
     example-restore                             Bound    pvc-54230f3f-47dc-46e8-8c42-38c073c40598   6Gi        RWO            iomesh-csi-driver   21h   
     ```
+4. View the PV. 
+    ```bash
+    kubectl get pv pvc-54230f3f-47dc-46e8-8c42-38c073c40598 # The PV name you get in Step 3.
+    ```
+    ```output
+    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
+    pvc-54230f3f-47dc-46e8-8c42-38c073c40598   6Gi       Delete           Bound    example-restore   iomesh-csi-driver
+    ```
