@@ -27,11 +27,11 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 |`iomesh`|Management cluster| k8s-woker-{0~2} |`iomesh-system`|
 |`iomesh-cluster-1`| Independent storage pool|k8s-woker-{3~5}|` iomesh-cluster-1`| 
 
->_Note_: To expand an IOMesh cluster into multiple clusters, refer to the following to configure node affinity for the existing IOMesh cluster, that is, the management cluster, and apply modifications through `helm upgrade`.
-
->_Note_: Both custom and offline installation are suitable for multiple cluster deployment. For [online custom installation](../deploy-iomesh-cluster/install-iomesh.md#custom-installation), install `Helm` and add the IOMesh Helm repository. For [offline installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation), download the installation package and load the IOMesh image.
+>_NOTE_: Both custom and offline installation are suitable for deploying multiple clusters. For [online custom installation](../deploy-iomesh-cluster/install-iomesh.md#custom-installation), install `Helm` and add the IOMesh Helm repository. For [offline installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation), download the installation package and load the IOMesh image.
 
 ### Deploy Management Cluster
+
+>_NOTE_: If you already have an IOMesh cluster and want to expand it to multiple clusters, configure node affinity as instructed below and apply modifications via `helm upgrade`.
 
 1. Export the YAML config `iomesh.yaml`. 
 
@@ -90,7 +90,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                         - k8s-woker-2
         ```       
 
-    - Configure `nodeAffinity` and `podAntiAffinity` for `iomesh.zookeeper`. The former will schedule `zookeeper` to the nodes `k8s-woker-{0~2}`, while the latter ensures that each node has a `zookeeper` pod to avoid a single point of failure.
+    - Configure `nodeAffinity` and `podAntiAffinity` for `iomesh.zookeeper`. The former will schedule `zookeeper` to nodes `k8s-woker-{0~2}`, while the latter ensures that each node has a `zookeeper` pod to avoid a single point of failure.
     
       - Locate `nodeAffinity` and `podAntiAffinity`, you should see the content below:
         ```yaml
@@ -136,7 +136,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                     weight: 20 
         ```
 
-4. Perform deployment. If all pods are shown Running, then IOMesh has been installed successfully.
+4. Perform deployment. If all pods are shown as `Running`, then IOMesh has been installed successfully.
 
    ```shell
    helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
@@ -197,56 +197,56 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
       apiVersion: zookeeper.pravega.io/v1beta1
       kind: ZookeeperCluster
       metadata:
-          namespace: iomesh-cluster-1
-          name: iomesh-cluster-1-zookeeper
+        namespace: iomesh-cluster-1
+        name: iomesh-cluster-1-zookeeper
       spec:
-          replicas: 3 
-          image:
+        replicas: 3 
+        image:
           repository: iomesh/zookeeper
           tag: 3.5.9
           pullPolicy: IfNotPresent
-          pod:
+        pod:
           affinity:
-              nodeAffinity:
+            nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
-                  nodeSelectorTerms:
-                  - matchExpressions:
-                  - key: kubernetes.io/hostname # The key of the Kubernetes node label.
-                      operator: In
-                      values: # The values of the Kubernetes node label.
+                nodeSelectorTerms:
+                - matchExpressions:
+              - key: kubernetes.io/hostname # The key of the Kubernetes node label.
+                operator: In
+                values: # The values of the Kubernetes node label.
                       - k8s-woker-3
                       - k8s-woker-4
                       - k8s-woker-5
               podAntiAffinity:
-              preferredDuringSchedulingIgnoredDuringExecution:
-              - podAffinityTerm:
-                  labelSelector:
+                preferredDuringSchedulingIgnoredDuringExecution:
+                - podAffinityTerm:
+                    labelSelector:
                       matchExpressions:
                       - key: app
                       operator: In
                       values:
                       - iomesh-cluster-1-zookeeper
-                  topologyKey: kubernetes.io/hostname
-                  weight: 20
+                    topologyKey: kubernetes.io/hostname
+              weight: 20
           securityContext:
-              runAsUser: 0
-          persistence:
+            runAsUser: 0
+        persistence:
           reclaimPolicy: Delete
           spec:
-              storageClassName: hostpath
-              resources:
+            storageClassName: hostpath
+            resources:
               requests:
-                  storage: 20Gi
+                storage: 20Gi
       ```
     - Apply the YAMl config to create the `zookeeper` cluster.
       ```shell
       kubectl apply -f iomesh-cluster-1-zookeeper.yaml
       ```
 
-3. Create the YAML config `iomesh-cluster-1.yaml` with the following content. Configure fields `nodeAffinity` for `meta`, `dataCIDR`, `blockDeviceNamespace`, and  
+3. Create the YAML config `iomesh-cluster-1.yaml` with the following content. Configure the following fields.
 
     - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisite](../deploy-iomesh-cluster/prerequisites.md#network-requirements) for `meta`, `chunk`, and `redirector`, respectively.
-    - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components are installed in the namespace `iomesh-system` and all block devices are also in this namespace.
+    - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components and all block devices reside in it.
     - Set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector`, respectively for an Enterprise edition. If not, a community edition will be automatically installed.
     - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements) according to your disk configurations.
 
@@ -277,9 +277,9 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                 - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
                   operator: In
                   values:  # The values of the Kubernetes node label.
-                        - k8s-woker-3
-                        - k8s-woker-4
-                        - k8s-woker-5
+                      - k8s-woker-3
+                      - k8s-woker-4
+                      - k8s-woker-5
           chunk:
             dataCIDR: <your-data-cidr-here>  # Fill in the IOMesh data CIDR.
             replicas: 3
@@ -302,9 +302,9 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                 - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
                   operator: In
                   values:  # The values of the Kubernetes node label.
-                        - k8s-woker-3
-                        - k8s-woker-4
-                        - k8s-woker-5    
+                      - k8s-woker-3
+                      - k8s-woker-4
+                      - k8s-woker-5    
           redirector:
             dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
             image:
@@ -320,9 +320,9 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                 - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
                   operator: In
                   values:  # The values of the Kubernetes node label.
-                        - k8s-woker-3
-                        - k8s-woker-4
-                        - k8s-woker-5
+                     - k8s-woker-3
+                     - k8s-woker-4
+                     - k8s-woker-5
           probe:
             image:
               repository: iomesh/operator-probe
@@ -337,7 +337,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
       ```
 ### Mount Disks
 
-1. [View block devices available for use](../deploy-iomesh-cluster/setup-iomesh.md#view-block-device-objects). Note that all block devices resides in the namespace `iomesh-system`.
+1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh.md#view-block-device-objects). Note that all block devices resides in the namespace `iomesh-system`.
 
     ```shell
     kubectl --namespace iomesh-system -o wide get blockdevice
@@ -356,84 +356,80 @@ To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need
 **Procedure**
 
 1. Create a `ConfigMap` for the first IOMesh cluster.
+    ```yaml
+    # Source: iomesh-csi-configmap.yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: iomesh-csi-configmap
+      namespace: iomesh-system
+    data:
+      clusterId: k8s-cluster
+      iscsiPortal: 127.0.0.1:3260
+      metaAddr: iomesh-meta-client.iomesh-system.svc.cluster.local:10100
+    ```
+    ```shell
+    kubectl apply -f iomesh-csi-configmap.yaml
+    ```
+    | Field | Description |
+    | ----- | ----- |
+    | `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.|
+    | `data.iscsiPortal`| iSCSI access point, fixed to 127.0.0.1:3260.|
+    | `data.metaAddr`      | IOMesh meta service address, which follows the format: `<iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100.` |
 
-    Create a YAML config `iomesh-csi-configmap.yaml` with the following content. Then apply the YAML config to generate `ConfigMap`. 
-
-      ```yaml
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: iomesh-csi-configmap
-        namespace: iomesh-system
-      data:
-        clusterId: k8s-cluster
-        iscsiPortal: 127.0.0.1:3260
-        metaAddr: iomesh-meta-client.iomesh-system.svc.cluster.local:10100
-      ``` 
-      | Field | Description |
-      | ----- | ----- |
-      | `data.clusterId` | The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.|
-      | `data.iscsiPortal`| iSCSI access point, fixed to 127.0.0.1:3260.|
-      | `data.metaAddr`      | IOMesh meta service address, which follows the format: `<iomesh-cluster-name>-meta-client.<iomesh-cluster-namespace>.svc.cluster.local:10100.` |
-
-      ```shell
-      kubectl apply -f iomesh-csi-configmap.yaml
-      ```
 2. Create a `ConfigMap` for the second IOMesh cluster.
-
-    Create a YAML config `iomesh-cluster-1-csi-configmap.yaml` with the following content. Then apply the YAML config to generate `ConfigMap`.
-
-      ```
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: iomesh-cluster-1-csi-configmap
-        namespace: iomesh-cluster-1
-      data:
-        clusterId: k8s-cluster
-        iscsiPortal: 127.0.0.1:3260
-        metaAddr: iomesh-cluster-1-meta-client.iomesh-cluster-1.svc.cluster.local:10100
-      ```
-      ```shell
-      kubectl apply -f iomesh-cluster-1-csi-configmap.yaml
-      ```
+    ```yaml
+    # Source: iomesh-cluster-1-csi-configmap.yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: iomesh-cluster-1-csi-configmap
+      namespace: iomesh-cluster-1
+    data:
+      clusterId: k8s-cluster
+      iscsiPortal: 127.0.0.1:3260
+      metaAddr: iomesh-cluster-1-meta-client.iomesh-cluster-1.svc.cluster.local:10100
+    ```
+    ```shell
+    kubectl apply -f iomesh-cluster-1-csi-configmap.yaml
+    ```
 
 ### Create StorageClass for Each Cluster
 
-When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. For details, refer to the following and [Create StorageClass](../volume-operations/create-storageclass.md). 
-
-|Field| Description|
-|---|---|
-| `parameters.clusterConnection` |The namespace you specify in `configMap`/the `configMap` name.|
-| `parameters.iomeshCluster`| The namespace where the IOMesh cluster is located/the IOMesh cluster name.                              |
+When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. 
 
 **Procedure**
 
 1. Create a StorageClass for the first IOMesh cluster.
-
-      ```yaml
-      apiVersion: storage.k8s.io/v1
-      kind: StorageClass
-      metadata:
-        name: iomesh
-      parameters:
-        csi.storage.k8s.io/fstype: "ex4" 
-        replicaFactor: "2"  
-        thinProvision: "true"
-        reclaimPolicy: Delete
-        clusterConnection: "iomesh-system/iomesh-csi-configmap"  # Specify the namespace and configMap of the management cluster.
-        iomeshCluster: "iomesh-system/iomesh" # Specify the namespace where this cluster resides and cluster name.
-      volumeBindingMode: Immediate
-      provisioner: com.iomesh.csi-driver
-      allowVolumeExpansion: true
-      ```
-      ```shell
-      kubectl apply -f <yaml.filename>
-      ```
+    ```yaml
+    # Source: iomesh-sc.yaml
+    apiVersion: storage.k8s.io/v1
+    kind: StorageClass
+    metadata:
+      name: iomesh
+    parameters:
+      csi.storage.k8s.io/fstype: ext4
+      replicaFactor: "2"
+      thinProvision: "true"
+      reclaimPolicy: Delete
+      clusterConnection: "iomesh-system/iomesh-csi-configmap"  # The namespace and configMap of the management cluster.
+      iomeshCluster: "iomesh-system/iomesh" # The namespace where this cluster resides and cluster name.
+    volumeBindingMode: Immediate
+    provisioner: com.iomesh.csi-driver
+    allowVolumeExpansion: true
+    ```
+    ```shell
+    kubectl apply -f iomesh-pvc.yaml
+    ```
+    |Field| Description|
+    |---|---|
+    | `parameters.clusterConnection` |The namespace you specify in `configMap`/the `configMap` name.|
+    | `parameters.iomeshCluster`| The namespace where the IOMesh cluster is located/the IOMesh cluster name.  |
+    For more information, refer to [Create StorageClass](../volume-operations/create-storageclass.md).
 
 2. Create a StorageClass for the second IOMesh cluster.
-
-    ```yaml
+    ```yaml 
+    # Source: iomesh-cluster-1-sc.yaml
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
     metadata:
@@ -443,23 +439,23 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
       replicaFactor: "2"
       thinProvision: "true"
       reclaimPolicy: Delete
-      clusterConnection: "iomesh-cluster-1/iomesh-cluster-1-csi-configmap"  # Specify the namespace and configMap for the non-management cluster.
-      iomeshCluster: "iomesh-cluster-1/iomesh-cluster-1" # Specify the namespace where this cluster resides and cluster name.
+      clusterConnection: "iomesh-cluster-1/iomesh-cluster-1-csi-configmap"  # The namespace and configMap of the non-management cluster.
+      iomeshCluster: "iomesh-cluster-1/iomesh-cluster-1" # The namespace of the non-management cluster and its cluster name.
     volumeBindingMode: Immediate
     provisioner: com.iomesh.csi-driver
     allowVolumeExpansion: true
     ```
-      ```shell
-      kubectl apply -f <yaml.filename> 
-      ```
+    ```shell
+    kubectl apply -f iomesh-cluster1-pvc.yaml
+    ```
 
 ### Verify Deployment 
 
 To verify if the IOMesh clusters are deployed, create a PVC using the StorageClass you created respectively. 
 
 1. Create a PVC for the first IOMesh cluster.
-
     ```yaml
+    # Source: iomesh-pvc.yaml
     kind: PersistentVolumeClaim
     apiVersion: v1
     kind: PersistentVolumeClaim
@@ -473,37 +469,36 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
         requests:
           storage: 1Gi
     ```
-
     ```shell
-    kubectl apply -f <yaml.filename>
+    kubectl apply -f iomesh-pvc.yaml
     ```
 
 2. Create a PVC for the second IOMesh cluster. 
-
-      ```yaml
-      kind: PersistentVolumeClaim
-      apiVersion: v1
-      kind: PersistentVolumeClaim
-      metadata:
-        name: iomesh-cluster1-pvc
-      spec:
-        storageClassName: iomesh-cluster-1
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
-      ```                                               
+    ```yaml
+    # Source: iomesh-cluster1-pvc.yaml
+    kind: PersistentVolumeClaim
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: iomesh-cluster1-pvc
+    spec:
+      storageClassName: iomesh-cluster-1
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+    ```                                             
 
       ```shell
-      kubectl apply -f <yaml.filename>
+      kubectl apply -f iomesh-cluster1-pvc.yaml
       ```
 
-IOMesh automatically enables topology awareness to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
+Topology awareness is automatically enabled for IOMesh to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
 
-## Management 
+## Operations 
 
-All procedures below are based on the example in [Deployment](../advanced-functions/multiple-cluster-management.md#deployment).
+All of the following procedures are based on the example in [Deployment](../advanced-functions/multiple-cluster-management.md#deployment).
 
 ### Upgrade Multiple Clusters
 
@@ -513,23 +508,23 @@ When upgrading multiple IOMesh clusters, upgrade the management cluster first an
 
 1. [Upgrade the management cluster](../cluster-operations/upgrade-cluster.md).
 
-2. After the first upgrade is complete, edit the non-management cluster.
+2. After the first upgrade is successful, edit the non-management cluster.
 
     - View the YAML config of the management cluster.
       ```bash
       kubectl get iomesh iomesh -n iomesh-system -o yaml
       ```
 
-    - Edit the non-management cluster, ensuring all values of `spec.*.image.tags` are consistent with the values of the first cluster.
+    - Edit the non-management cluster, ensuring all values of `spec.*.image.tags` are consistent with the values of the management cluster.
       ```
       kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1
       ```
 
-### Scale Multiple Clusters
+### Scaling Multiple Clusters
 
 There is no difference between scaling up one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale Cluster](../cluster-operations/scale-cluster.md).
 
-### Uninstall Multiple Clusters
+### Uninstalling Multiple Clusters
 
 When uninstalling more than one IOMesh clusters, follow the order: first non-management clusters, then the management cluster. If not, resources may reside in the namespace `iomesh-system`, affecting the next deployment of IOMesh.
 
@@ -547,6 +542,6 @@ When uninstalling more than one IOMesh clusters, follow the order: first non-man
     helm uninstall --namespace iomesh-system iomesh
     ```
 
-### License Management
+### Update License
 
-Each IOMesh cluster has a license with a unique serial number, and update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively. For other operations, refer to [Update License](../cluster-operations/manage-license.md).
+Each IOMesh cluster has a license with a unique serial number, and update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively after deployment. For other operations, refer to [Update License](../cluster-operations/manage-license.md).

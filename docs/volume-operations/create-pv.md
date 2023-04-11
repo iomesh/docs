@@ -26,7 +26,7 @@ Ensure that there is already a StorageClass available for use.
     metadata:
       name: iomesh-example-pvc
     spec:
-      storageClassName: iomesh-example-sc
+      storageClassName: iomesh-csi-driver
       accessModes:
         - ReadWriteOnce # Specify the access mode. 
       resources:
@@ -67,7 +67,7 @@ Ensure that there is already a StorageClass available for use.
 
 ### Create PV with Secret 
 
-To ensure secure access, you may create a PV with a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) that stores authentication details and user login information. Whenever you want to access this PV, you need to enter the accurate login details.
+To ensure secure access, you may create a PV with a [secret](https://kubernetes.io/docs/concepts/configuration/secret/) that stores authentication details and user login information. Whenever anyone wants to access this PV, accurate login information is required.
 
 This authentication is achieved by configuring a Secret for the StorageClass, and each StorageClass has a separate authentication information. Whenever a user wants to use the StorageClass, the Secret of the StorageClass needs to be configured in the PVC, and the PVC can only be used by the Pod if the data of the two Secrets match exactly.
 

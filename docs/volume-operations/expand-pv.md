@@ -48,7 +48,7 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
     metadata:
       name: example-pvc
     spec:
-      storageClassName: iomesh-csi-driver-default
+      storageClassName: iomesh-csi-driver
       accessModes:
         - ReadWriteOnce
       resources:
@@ -72,7 +72,7 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver-default   11m
+    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver   11m
     ```
 
 5. Once the PVC modification is applied, the PV capacity will be expanded as well. Run the following command to see if the PV capacity is expanded as expected.
@@ -84,5 +84,5 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
     After running the command, you should see an example like this:
     ```output
     NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
-    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver-default
+    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver
     ```
