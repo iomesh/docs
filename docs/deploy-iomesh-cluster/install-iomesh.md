@@ -4,7 +4,6 @@ title: Install IOMesh
 sidebar_label: Install IOMesh
 ---
 
-
 Before installing IOMesh, refer to the following to choose how you install IOMesh.
 - Quick Installation：One click to install IOMesh online, but all parameters take default values and cannot be modified.
 - Custom Installation: Configure parameters during installation on your own, but during installation, you must ensure that the Kubernetes cluster network is connected to the public network.
@@ -177,9 +176,9 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
 ## Offline Installation
 
-1. Download [IOMesh Offline Installation Package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
+1. Download [IOMesh Offline Installation Package].需要替换成 1.0 离线安装包
 
-2. Unpack the installation package.
+2. Unpack the installation package. 替换 1.0 安装包名
 
     ```shell
     tar -xf  iomesh-offline-v0.11.1.tgz && cd iomesh-offline

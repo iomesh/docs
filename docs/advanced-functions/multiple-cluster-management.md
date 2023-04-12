@@ -43,100 +43,97 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
     - Set `iomesh.chunk.dataCIDR`, `diskDeploymentMode`, and `edition`. See configuration details in [Install IOMesh](../deploy-iomesh-cluster/install-iomesh.md).
 
     - Configure `nodeAffinity` for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` respectively so that they can be scheduled to nodes `k8s-woker-{0~2}`.
-
-        ```yaml
+  
+      ```yaml
+      ...
+      iomesh:
+      ...
+        chunk:
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: kubernetes.io/hostname  # The key of the node label.
+                      operator: In
+                      values:  # The value of the node label.
+                      - k8s-woker-0
+                      - k8s-woker-1
+                      - k8s-woker-2
+      ...
         meta:
-              podPolicy:
-                affinity:
-                  nodeAffinity:
-                    requiredDuringSchedulingIgnoredDuringExecution:
-                      nodeSelectorTerms:
-                      - matchExpressions:
-                        - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
-                          operator: In
-                          values:  # The values of the Kubernetes node label.
-                          - k8s-woker-0
-                          - k8s-woker-1
-                          - k8s-woker-2        
-        ...
-        iomesh:
-        ...
-            chunk:
-            podPolicy:
-                affinity:
-                nodeAffinity:
-                    requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                    - matchExpressions:
-                        - key: kubernetes.io/hostname # The key of the Kubernetes node label.
-                        operator: In
-                        values: # The values of the Kubernetes node label.
-                        - k8s-woker-0
-                        - k8s-woker-1
-                        - k8s-woker-2
-        ...  
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: kubernetes.io/hostname  # The key of the node label.
+                      operator: In
+                      values:  # The value of the node label.
+                      - k8s-woker-0
+                      - k8s-woker-1
+                      - k8s-woker-2
+      ...
         redirector:
-            podPolicy:
-              affinity:
-                nodeAffinity:
-                  requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                    - matchExpressions:
-                      - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
-                        operator: In
-                        values:  # The values of the Kubernetes node label.
-                        - k8s-woker-0
-                        - k8s-woker-1
-                        - k8s-woker-2
-        ```       
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                    - key: kubernetes.io/hostname  # The key of the node label.
+                      operator: In
+                      values:  # The value of the node label.
+                      - k8s-woker-0
+                      - k8s-woker-1
+                      - k8s-woker-2
+      ```
 
     - Configure `nodeAffinity` and `podAntiAffinity` for `iomesh.zookeeper`. The former will schedule `zookeeper` to nodes `k8s-woker-{0~2}`, while the latter ensures that each node has a `zookeeper` pod to avoid a single point of failure.
     
-      - Locate `nodeAffinity` and `podAntiAffinity`, you should see the content below:
-        ```yaml
-        ...
-          iomesh:
-          ...
-              zookeeper:
-              podPolicy:
-                  affinity:
-                  nodeAffinity:
-                  podAntiAffinity:
-        ```
-    
+      - Locate `iomesh.zookeeper.podPolicy`, you should see the content below:
+      ```yaml
+      ...
+      iomesh:
+      ...
+        zookeeper:
+          podPolicy:
+            affinity:
+      ```    
       - Copy and paste the following sample code and configure `key` and `values`.
 
         ```yaml
         ...
         iomesh:
         ...
-            zookeeper:
+          zookeeper:
             podPolicy:
-                affinity:
+              affinity:
                 nodeAffinity:
-                    requiredDuringSchedulingIgnoredDuringExecution:
+                  requiredDuringSchedulingIgnoredDuringExecution:
                     nodeSelectorTerms:
                     - matchExpressions:
-                        - key: kubernetes.io/hostname # The key of the Kubernetes node label.
+                      - key: kubernetes.io/hostname  # The key of the node label.
                         operator: In
-                        values: # The values of the Kubernetes node label.
+                        values:  # The value of the node label.
                         - k8s-woker-0
                         - k8s-woker-1
                         - k8s-woker-2
                 podAntiAffinity:
-                    preferredDuringSchedulingIgnoredDuringExecution:
-                    - podAffinityTerm:
-                        labelSelector:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                  - podAffinityTerm:
+                      labelSelector:
                         matchExpressions:
                         - key: app
-                            operator: In
-                            values:
-                            - iomesh-zookeeper 
-                        topologyKey: kubernetes.io/hostname
-                    weight: 20 
-        ```
+                          operator: In
+                          values:
+                          - iomesh-zookeeper
+                      topologyKey: kubernetes.io/hostname
+                    weight: 20
 
-4. Perform deployment. If all pods are shown as `Running`, then IOMesh has been installed successfully.
+3. Perform deployment. If all pods are shown as `Running`, then IOMesh has been installed successfully.
 
    ```shell
    helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
@@ -192,7 +189,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 2. Create a `zookeeper` cluster for the cluster `iomesh-cluster-1`. 
 
     - Create a YAML config `iomesh-cluster-1-zookeeper.yaml` with the following content. Then configure `nodeAffinity` and `podAntiAffinity` so that the `zookeeper` cluster will be scheduled to nodes `k8s-woker-{3~5}`. 
-
+  
       ```yaml
       apiVersion: zookeeper.pravega.io/v1beta1
       kind: ZookeeperCluster
@@ -200,7 +197,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
         namespace: iomesh-cluster-1
         name: iomesh-cluster-1-zookeeper
       spec:
-        replicas: 3 
+        replicas: 3
         image:
           repository: iomesh/zookeeper
           tag: 3.5.9
@@ -211,23 +208,23 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
                 - matchExpressions:
-              - key: kubernetes.io/hostname # The key of the Kubernetes node label.
+              - key: kubernetes.io/hostname  # The key of the node label.
                 operator: In
-                values: # The values of the Kubernetes node label.
+                values:  # The value of the node label.
                       - k8s-woker-3
                       - k8s-woker-4
                       - k8s-woker-5
-              podAntiAffinity:
-                preferredDuringSchedulingIgnoredDuringExecution:
-                - podAffinityTerm:
-                    labelSelector:
-                      matchExpressions:
-                      - key: app
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                    - key: app
                       operator: In
                       values:
                       - iomesh-cluster-1-zookeeper
-                    topologyKey: kubernetes.io/hostname
-              weight: 20
+                  topologyKey: kubernetes.io/hostname
+                weight: 20
           securityContext:
             runAsUser: 0
         persistence:
@@ -238,6 +235,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               requests:
                 storage: 20Gi
       ```
+
     - Apply the YAMl config to create the `zookeeper` cluster.
       ```shell
       kubectl apply -f iomesh-cluster-1-zookeeper.yaml
@@ -245,95 +243,94 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 3. Create the YAML config `iomesh-cluster-1.yaml` with the following content. Configure the following fields.
 
-    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisite](../deploy-iomesh-cluster/prerequisites.md#network-requirements) for `meta`, `chunk`, and `redirector`, respectively.
+    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisite](../deploy-iomesh-cluster/prerequisites.md#network-requirements) for `chunk` and `redirector`, respectively.
     - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components and all block devices reside in it.
     - Set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector`, respectively for an Enterprise edition. If not, a community edition will be automatically installed.
     - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements) according to your disk configurations.
 
       ```yaml
-        apiVersion: iomesh.com/v1alpha1
-        kind: IOMeshCluster
-        metadata:
-          namespace: iomesh-cluster-1
-          name: iomesh-cluster-1
-        spec:
-          diskDeploymentMode: hybridFlash
-          storageClass: hostpath
-          reclaimPolicy:
-            volume: Delete
-            blockdevice: Delete
-          meta:
-            replicas: 3
-            image:
-              repository: iomesh/zbs-metad
-              tag: v5.3.0-rc13 # For an enterprise Edition, set it to "v5.3.0-rc13-enterprise". 
-              pullPolicy: IfNotPresent
-            podPolicy:
-              affinity:
-                nodeAffinity:
-                  requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                    - matchExpressions:
-                - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
+      apiVersion: iomesh.com/v1alpha1
+      kind: IOMeshCluster
+      metadata:
+        namespace: iomesh-cluster-1
+        name: iomesh-cluster-1
+      spec:
+        diskDeploymentMode: hybridFlash
+        storageClass: hostpath
+        reclaimPolicy:
+          volume: Delete
+          blockdevice: Delete
+        meta:
+          replicas: 3
+          image:
+            repository: iomesh/zbs-metad
+            tag: v5.3.0-rc13 # For an enterprise Edition, set it to "v5.3.0-rc13-enterprise". 
+            pullPolicy: IfNotPresent
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                - key: kubernetes.io/hostname  # The key of the node label.
                   operator: In
-                  values:  # The values of the Kubernetes node label.
+                  values:  # The value of the node label.
                       - k8s-woker-3
                       - k8s-woker-4
                       - k8s-woker-5
-          chunk:
-            dataCIDR: <your-data-cidr-here>  # Fill in the IOMesh data CIDR.
-            replicas: 3
+        chunk:
+          dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
+          replicas: 3
+          image:
+            repository: iomesh/zbs-chunkd
+            tag: v5.3.0-rc13
+            pullPolicy: IfNotPresent
+          devicemanager:
             image:
-              repository: iomesh/zbs-chunkd
-              tag: v5.3.0-rc13
+              repository: iomesh/operator-devicemanager
+              tag: v1.0.0
               pullPolicy: IfNotPresent
-            devicemanager:
-              image:
-                repository: iomesh/operator-devicemanager
-                tag: v1.0.0
-                pullPolicy: IfNotPresent
-              blockDeviceNamespace: iomesh-system  # Fill in the namespace of the management cluster.
-            podPolicy:
-              affinity:
-                nodeAffinity:
-                  requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                    - matchExpressions:
-                - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
+            blockDeviceNamespace: iomesh-system  # Fill in the namespace of the management cluster.
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                - key: kubernetes.io/hostname  # The key of the node label.
                   operator: In
-                  values:  # The values of the Kubernetes node label.
+                  values:  # The value of the node label.
                       - k8s-woker-3
                       - k8s-woker-4
                       - k8s-woker-5    
-          redirector:
-            dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
-            image:
-              repository: iomesh/zbs-iscsi-redirectord
-              tag: v5.3.0-rc13
-              pullPolicy: IfNotPresent
-            podPolicy:
-              affinity:
-                nodeAffinity:
-                  requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                    - matchExpressions:
-                - key: kubernetes.io/hostname  # The key of the Kubernetes node label.
+        redirector:
+          dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
+          image:
+            repository: iomesh/zbs-iscsi-redirectord
+            tag: v5.3.0-rc13
+            pullPolicy: IfNotPresent
+          podPolicy:
+            affinity:
+              nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                  - matchExpressions:
+                - key: kubernetes.io/hostname  # The key of the node label.
                   operator: In
-                  values:  # The values of the Kubernetes node label.
-                     - k8s-woker-3
-                     - k8s-woker-4
-                     - k8s-woker-5
-          probe:
-            image:
-              repository: iomesh/operator-probe
-              tag: v1.0.0
-              pullPolicy: IfNotPresent
-          toolbox:
-            image:
-              repository: iomesh/operator-toolbox
-              tag: v1.0.0
-              pullPolicy: IfNotPresent
-
+                  values:  # The value of the node label.
+                      - k8s-woker-3
+                      - k8s-woker-4
+                      - k8s-woker-5
+        probe:
+          image:
+            repository: iomesh/operator-probe
+            tag: v1.0.0
+            pullPolicy: IfNotPresent
+        toolbox:
+          image:
+            repository: iomesh/operator-toolbox
+            tag: v1.0.0
+            pullPolicy: IfNotPresent
       ```
 ### Mount Disks
 
@@ -346,8 +343,8 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh.md#configure-devicemap).
 
     ```shell
-    kubectl edit iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
-    kubectl edit iomesh-cluster-1 -n iomesh-cluster-1 # Configure deviceMap for the second IOMesh cluster.
+    kubectl edit iomesh iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
+    kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1 # Configure deviceMap for the second IOMesh cluster.
 
 ### Configure Multi-Cluster Connection
 
@@ -412,14 +409,14 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
       replicaFactor: "2"
       thinProvision: "true"
       reclaimPolicy: Delete
-      clusterConnection: "iomesh-system/iomesh-csi-configmap"  # The namespace and configMap of the management cluster.
+      clusterConnection: "iomesh-system/iomesh-csi-configmap" # The namespace and configMap of the management cluster.
       iomeshCluster: "iomesh-system/iomesh" # The namespace where this cluster resides and cluster name.
     volumeBindingMode: Immediate
     provisioner: com.iomesh.csi-driver
     allowVolumeExpansion: true
     ```
     ```shell
-    kubectl apply -f iomesh-pvc.yaml
+    kubectl apply -f iomesh-sc.yaml
     ```
     |Field| Description|
     |---|---|
@@ -446,7 +443,7 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
     allowVolumeExpansion: true
     ```
     ```shell
-    kubectl apply -f iomesh-cluster1-pvc.yaml
+    kubectl apply -f iomesh-cluster-1-sc.yaml
     ```
 
 ### Verify Deployment 
@@ -489,10 +486,9 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
         requests:
           storage: 1Gi
     ```                                             
-
-      ```shell
-      kubectl apply -f iomesh-cluster1-pvc.yaml
-      ```
+    ```shell
+    kubectl apply -f iomesh-cluster1-pvc.yaml
+    ```
 
 Topology awareness is automatically enabled for IOMesh to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
 

@@ -12,21 +12,20 @@ The StorageClass must set `allowVolumeExpansion` to true. The default StorageCla
 
 **Procedure**
 
-The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with a capacity of `10Gi`.
-
-    ```yaml
-    apiVersion: v1
-    kind: PersistentVolumeClaim
-    metadata:
-      name: example-pvc
-    spec:
-      storageClassName: iomesh-csi-driver
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 10Gi # The original capacity of the PVC.
-    ```
+The following example assumes a YAML config `pvc.yaml` that points to a PVC `example-pvc` with a capacity of `10Gi`.
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: example-pvc
+spec:
+  storageClassName: iomesh-csi-driver
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi # The original capacity of the PVC.
+```
 
 1. Get the PVC that you want to modify the storage capacity for.
 
@@ -34,7 +33,7 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
     kubectl get pvc example-pvc
     ```
 
-    After running the command, you should see an example like:
+    If successful, you should see output below:
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
@@ -62,27 +61,29 @@ The following example assumes a YAML config `pvc.yaml`, a PVC `example-pvc` with
     kubectl apply -f pvc.yaml
     ```
 
-4. Verify that the PVC capacity is already expanded. 
+4. View the PVC and the corresponding PV. 
+
+    > **_NOTE:** The PV capacity will be changed to the new value set, but the capacity value in the PVC will remain the same until it is used by the pod.
 
     ```bash
     kubectl get pvc example-pvc 
     ```
 
-    After running the command, you should see an example below and get the volume name.
+   If successful, you should see output below. 
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi        RWO            iomesh-csi-driver   11m
+    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
     ```
 
-5. Once the PVC modification is applied, the PV capacity will be expanded as well. Run the following command to see if the PV capacity is expanded as expected.
+5. Verify that the PV capacity was expanded. You can find the PV name from the PVC output.
    
     ```bash
     kubectl get pv pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca # The PV name you get in Step 4.
     ```
 
-    After running the command, you should see an example like this:
+    If successful, you should see output below:
     ```output
     NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
-    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Retain           Bound    default/example-pvc   iomesh-csi-driver
+    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Delete           Bound    default/example-pvc   iomesh-csi-driver
     ```

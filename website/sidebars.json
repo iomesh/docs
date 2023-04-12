@@ -40,7 +40,8 @@
     ],
     "Advanced Functions": [
       "advanced-functions/manage-multiple-cluster",
-      "advanced-functions/localpv-manager"
+      "advanced-functions/localpv-manager", 
+      "advanced-functions/external-storage"
     ],
     "Appendices": [
       "appendices/iomesh-metrics",

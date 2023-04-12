@@ -4,17 +4,17 @@ title: Encrypt PV
 sidebar_label: Encrypt PV  
 ---
 
-IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass. Every time a pod declares the use of a PVC, the PVC will only be allowed for use if the two secrets match exactly.
+IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass. Every time a pod declares the use of a encrypted PVC, the PVC will only be allowed for use if the two secrets match exactly.
 
 **Precautions**
 - Since authentication is implemented through iSCSI CHAP, the secret password must be 12-16 characters long according to the password length requirements of the CHAP protocol.
 - To ensure that a StorageClass with configured secrets is accessible only to intended users, Role-Based Access Control (RBAC) is necessary. This is because StorageClass is not an object limited to a specific namespace, and some versions of Kubernetes allow all namespaces to access all StorageClasses.
 
 **Procedure**
-1. Create a secret that holds credentials for encrypting a volume. The username is `iomesh`, and the namespace is `smtx-system`.
+1. Create a secret that holds credentials for encrypting a volume. The username is `iomesh`, and the namespace is `iomesh-system`.
 
     ```bash
-    kubectl create secret generic volume-secret -n smtx-system --from-literal=username=iomesh --from-literal=password=abcdefghijklmn
+    kubectl create secret generic volume-secret -n iomesh-system --from-literal=username=iomesh --from-literal=password=abcdefghijklmn
     ```
 2. Create a CSI secret that points to the encrypted secret from step 1. Its username and password remain the same as the secret in step 1.
 
@@ -27,7 +27,7 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
     apiVersion: storage.k8s.io/v1
     metadata:
       name: per-storageclass-auth
-    provisioner: com.smartx.csi-driver 
+    provisioner: com.iomesh.csi-driver 
     reclaimPolicy: Retain
     allowVolumeExpansion: true
     parameters:
@@ -38,7 +38,7 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
       auth: "true" 
       # The secret holding credentials for encrypting a volume, which will be fetched by the CSI reading in the `annotations` field of the PVC.
       csi.storage.k8s.io/controller-publish-secret-name: volume-secret 
-      csi.storage.k8s.io/controller-publish-secret-namespace: smtx-system
+      csi.storage.k8s.io/controller-publish-secret-namespace: iomesh-system
       # The CSI secret that points to the encrypted secret.
       csi.storage.k8s.io/node-stage-secret-name: ${pvc.annotations['iomesh.com/key']}
       csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
@@ -47,7 +47,7 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
     |---|---|
     |`csi.storage.k8s.io/controller-publish-secret-name`| The secret created in Step 1, holding credentials for encryption.|
     |`csi.storage.k8s.io/controller-publish-secret-namespace`|The namespace where the encryption secret resides.|
-    |`csi.storage.k8s.io/node-stage-secret-name`|The CSI secret created in Step 1, pointing to and verifying the encrypted secret. |
+    |`csi.storage.k8s.io/node-stage-secret-name`|The CSI secret created in Step 2, pointing to and verifying the encrypted secret. |
     |`csi.storage.k8s.io/node-stage-secret-namespace`|The namespace where the CSI secret resides.|
 
 4. Create a PVC and specify `annotations.iomesh.com/key` with the CSI secret created in Step 2.

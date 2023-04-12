@@ -20,7 +20,7 @@ A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each
     apiVersion: snapshot.storage.k8s.io/v1beta1
     kind: VolumeSnapshotClass
     metadata:
-      name: snapshotclass_name
+      name: iomesh-csi-driver
     driver: com.iomesh.csi-driver  # Specify the driver, which defaults to the driver in iomesh.yaml.
     deletionPolicy: Delete # Specify the deletion policy.
     ```
@@ -34,12 +34,12 @@ A VolumeSnapshot is a snapshot of an existing PV on the storage system, and each
 3. Get the VolumeSnapshotClass.
 
     ```
-    kubectl get volumesnapshotclass <snapshotclass_name>
+    kubectl get volumesnapshotclass iomesh-csi-driver
     ```
 
    After running the command, you should see an example like:
     ```output
     NAME                       DRIVER                  DELETIONPOLICY   AGE
-    <snapshotclass_name>       com.smartx.csi-driver   Delete           24s
+    iomesh-csi-driver       com.smartx.csi-driver   Delete           24s
     ```
 
