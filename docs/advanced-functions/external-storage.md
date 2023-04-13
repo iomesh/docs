@@ -4,23 +4,26 @@ title: External Storage outside Kubernetes
 sidebar_label: External Storage outside Kubernetes
 ---
 
+Besides offering storage within the Kubernetes cluster, IOMesh can also provide storage to external clients through the IOMesh CSI driver or by functioning as an iSCSI target.
 
 ## Configure iSCSI Access Point
 
-To ensure high availability and a stable IP address for the iSCSI service access point, IOMesh employs a LoadBalancer type service, `iomesh-access`, to access iSCSI service.
+In order to utilize IOMesh storage via the CSI driver or iSCSI target, it is necessary to first configure an iSCSI access point.
 
-The `iomesh-access` service needs to have an external IP, and the way to configure the IP depends on the cloud environment where IOMesh is deployed.
+To guarantee a consistent and functional IP as the iSCSI service access point, IOMesh employs `iomesh-access` service with a service type of `LoadBalancer` to access the iSCSI service. This service must have an IP externally exposed, and the specific method for configuring this external IP will vary depending on the cloud environment in which IOMesh is deployed.
 
-- When IOMesh is deployed in [cloud environments that supports LoadBalancer](https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer), refer to **In-Tree LoadBalancer**. 
-- If IOMesh is deployed on bare metal or other cloud environments that do not support LoadBalancer, refer to **Out-of-Tree LoadBalancer**.
+- For IOMesh deployed in [LoadBalancer-supported cloud environments]((https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer)), see `In-Tree LoadBalancer`.
+- For IOMesh deployed on bare metal or other LoadBalancer-not-supported cloud environments, see `Out-of-Tree LoadBalancer`.
+
+**Procedure**
 
 <!--DOCUSAURUS_CODE_TABS-->
 
 <!--In-Tree LoadBalancer-->
 
-Kubernetes will automatically call API of the cloud provider and assign an external IP to `iomesh-access` service as the entry point for the LoadBalancer.
+If IOMesh is deployed in a cloud environment that supports `LoadBalancer`, Kubernetes will automatically call the API of the cloud provider and assign an external IP to `iomesh-access` service 
 
-1. Check the status of `iomesh-access` service, ensuring an external IP has been assigned to it.
+1. Check the status of `iomesh-access` service, ensuring it has been assigned an external IP.
 
     ```bash
     kubectl get service iomesh-access -n iomesh-system
@@ -29,14 +32,17 @@ Kubernetes will automatically call API of the cloud provider and assign an exter
     NAME            TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                                          AGE
     iomesh-access   LoadBalancer   10.96.22.212   192.168.2.1     3260:32012/TCP,10206:31920/TCP,10201:31402/TCP,10207:31802/TCP   45h
 
-2. Set `spec.redirector.iscsiVirtualIP` to the external IP for `iomesh-access` service. Once edited, the `iomesh-iscsi-redirector` pod will restart to make 
+2. Set `spec.redirector.iscsiVirtualIP` to the external IP of `iomesh-access` service by running the following command. Once edited, the `iomesh-iscsi-redirector` pod will automatically restart to make the modification take effect. 
+    ```bash
+    kubectl edit iomesh -n iomesh-system
+    ```
 
-    > **_NOTE_:** `spec.redirector.iscsiVirtualIP` should be the same as the external IP of `iomesh-access` service. If the external IP is changed, update `spec.redirector.iscsiVi rtualIP`.
+    > **_NOTE_:** `spec.redirector.iscsiVirtualIP` must be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVirtualIP`.
 
 <!--Out-of-Tree LoadBalancer-->
-If IOMesh is deployed in a bare metal or other cloud environments that do not support Kubernetes LoadBalancer, you need to install `MetallLB` as a default LocalBalancer in the Kubernetes cluster. 
+In case IOMesh is deployed on bare metal or any cloud environment that does not support Kubernetes `LoadBalancer`, you will need to install `MetallLB` as the default `LocalBalancer` in the Kubernetes cluster.
 
-1. Verify that the Kubernetes cluster meets the requirements of installing [ `MetalLB` ](https://metallb.universe.tf/installation/#preparation).
+1. Verify that the Kubernetes cluster meets [the `MetalLB` installation requirements](https://metallb.universe.tf/installation/#preparation).
 
 2. Install `MetalLB`.
     ```shell
@@ -45,7 +51,7 @@ If IOMesh is deployed in a bare metal or other cloud environments that do not su
     ```
 3. Create a `MetalLB` YAML configMap `metallb-config.yaml`. 
 
-    Set `protocol` to `layer2`. Fill in an IP range in `addresses`. The IP pool must be an IP range like "192.168.1.100-192.168.1.110" or the subnet mask like "192.168.2.0/24".  
+    Set `protocol` to `layer2`. Fill in an IP pool in `addresses`. The IP pool must be an IP range like "192.168.1.100-192.168.1.110" or the subnet mask like "192.168.2.0/24".  
 
     ```yaml
     apiVersion: v1
@@ -74,9 +80,9 @@ If IOMesh is deployed in a bare metal or other cloud environments that do not su
     NAME            TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                                          AGE
     iomesh-access   LoadBalancer   10.96.22.212   192.168.2.1     3260:32012/TCP,10206:31920/TCP,10201:31402/TCP,10207:31802/TCP   45h
     ```
-6. Run the following command to set `spec.redirector.iscsiVirtualIP` to the external IP of `iomesh-access` service. After the modification is saved, the `iomesh-iscsi-redirector` pod will be automatically restarted to make modifications effective.
+6. Set `spec.redirector.iscsiVirtualIP` to the external IP by running the following command. Once edited, the `iomesh-iscsi-redirector` pod will automatically restart to make the modification take effect.
 
-    > **_NOTE_:** `spec.redirector.iscsiVirtualIP` should be the same as the external IP of `iomesh-access` service. If the external IP is changed, update `spec.redirector.iscsiVi rtualIP`.
+    > **_NOTE_:** `spec.redirector.iscsiVirtualIP` should be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVi rtualIP`.
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
@@ -87,8 +93,6 @@ IOMesh provides support for the external iSCSI access service. You can create an
 > **_NOTE_**: This function requires the iSCSI client to be able to access the `DATA_CIDR` segment that was configured during IOMesh installation.
 
 ### Create iSCSI LUN using PVC
-
-Create a YAML config
 
 1. Create an external iSCSI LUN using PVC. You may obtain the iSCSI client IQNs by using the command `cat /etc/iscsi/initiatorname.iscsi`.
     ```yaml
@@ -112,9 +116,9 @@ Create a YAML config
         requests:
           storage: 1Gi
     ```
-    > **_NOTE_**: You also set the field `iomesh.com/iscsi-lun-iqn-allow-list` after the PVC is created.
+    > **_NOTE_**: You can also set the field `iomesh.com/iscsi-lun-iqn-allow-list` after the PVC is created.
 
-2. Once the PVC transitions to `Bound` state, run the following command to view the field `spec.volumeAttributes.iscsiEntrypoint`.
+2. Once the PVC transitions to the `Bound` state, run the following command to view the field `spec.volumeAttributes.iscsiEntrypoint`.
     ```shell
     kubectl get pv pvc-d84b4657-7ab5-4212-9270-ce40e6a1356a -o jsonpath='{.spec.csi.volumeAttributes.iscsiEndpoint}'
     ```
@@ -133,17 +137,23 @@ Create a YAML config
 
 ### Delete PVC
 
-To delete a PVC for an iSCSI LUN, ensure that the `iomesh.com/iscsi-lun-iqn-allow-list` field in the PVC has a blank value or is already deleted. Whether the external iSCSI LUN is retained after deleting the PVC depends on the `reclaimPolicy` field in the StorageClass of the PVC.
+To delete a PVC for an iSCSI LUN, ensure that the `iomesh.com/iscsi-lun-iqn-allow-list` field in the PVC is blank or is already deleted. Whether the external iSCSI LUN is retained after deleting the PVC depends on the `reclaimPolicy` field in the StorageClass of the PVC.
 
-### External Storage for Multiple Clusters
+### External LUN from Multiple Clusters
 
 To utilize external storage from multiple IOMesh clusters, simply configure the YAML file for the desired cluster.
 
-Take the cluster `iomesh-cluster-1` in the namespace `iomesh-cluster-1` as an example. To use storage from the cluster as an external LUN, run the following command to set the `spec.redirector.iscsiVirtualIP` field to the external IP of the `iomesh-access` service. Once the changes are saved, the `iomesh-cluster-1-iscsi-redirector` pod will restart to apply the modification.
+Take the cluster `iomesh-cluster-1` in the namespace `iomesh-cluster-1` as an example. To use storage from the cluster as an external LUN, run the following command to set the `spec.redirector.iscsiVirtualIP` field to the external IP of the `iomesh-access` service. Once the changes are saved, the `iomesh-cluster-1-iscsi-redirector` pod will automatically restart to apply the modification.
 ```shell
 kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1
 ```
 ## IOMesh via CSI for External Storage
+
+IOMesh 支持直接对外提供 CSI 接入服务。用户可以通过在计算 K8s 集群部署 IOMesh CSI Driver 的方式来使用 IOMesh 提供的存储服务。
+
+> **_NOTE_**: 为了顺利使用该功能，计算 K8s 集群需要能够访问 IOMesh 部署时配置的 DATA_CIDR 网段
+
+
 
 
 

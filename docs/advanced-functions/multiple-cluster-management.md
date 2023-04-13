@@ -243,10 +243,10 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 3. Create the YAML config `iomesh-cluster-1.yaml` with the following content. Configure the following fields.
 
-    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisite](../deploy-iomesh-cluster/prerequisites.md#network-requirements) for `chunk` and `redirector`, respectively.
+    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) for `chunk` and `redirector`, respectively.
     - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components and all block devices reside in it.
     - Set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector`, respectively for an Enterprise edition. If not, a community edition will be automatically installed.
-    - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements) according to your disk configurations.
+    - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites.md) according to your disk configurations.
 
       ```yaml
       apiVersion: iomesh.com/v1alpha1
@@ -334,13 +334,13 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
       ```
 ### Mount Disks
 
-1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh.md#view-block-device-objects). Note that all block devices resides in the namespace `iomesh-system`.
+1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh.md). Note that all block devices resides in the namespace `iomesh-system`.
 
     ```shell
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh.md#configure-devicemap).
+2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh.md).
 
     ```shell
     kubectl edit iomesh iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
