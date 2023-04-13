@@ -17,7 +17,7 @@ The following example assumes a YAML config `pvc.yaml` that points to a PVC `exa
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: example-pvc
+  name: iomesh-example-pvc
 spec:
   storageClassName: iomesh-csi-driver
   accessModes:
@@ -30,14 +30,14 @@ spec:
 1. Get the PVC that you want to modify the storage capacity for.
 
     ```bash
-    kubectl get pvc example-pvc
+    kubectl get pvc iomesh-example-pvc
     ```
 
     If successful, you should see output below:
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
+    iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
     ```
 
 2. Set the field `storage` to a new value.
@@ -45,7 +45,7 @@ spec:
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
-      name: example-pvc
+      name: iomesh-example-pvc
     spec:
       storageClassName: iomesh-csi-driver
       accessModes:
@@ -66,14 +66,14 @@ spec:
     > **_NOTE_:** The PV capacity will be changed to the new value set, but the capacity value in the PVC will remain the same until it is used by the pod.
 
     ```bash
-    kubectl get pvc example-pvc 
+    kubectl get pvc iomesh-example-pvc 
     ```
 
    If successful, you should see output below. 
 
     ```output
     NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
+    iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
     ```
 
 5. Verify that the PV capacity was expanded. You can find the PV name from the PVC output.
@@ -85,5 +85,5 @@ spec:
     If successful, you should see output below:
     ```output
     NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
-    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Delete           Bound    default/example-pvc   iomesh-csi-driver
+    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Delete           Bound    default/iomesh-example-pvc  iomesh-csi-driver
     ```
