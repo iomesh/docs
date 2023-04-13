@@ -31,7 +31,7 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | `zbs_cluster_avg_write_latency_ns` | Cluster write latency. |
 | `zbs_cluster_avg_read_latency_ns` | Cluster read latency. |
 | `zbs_cluster_avg_write_size_bytes` | Average write request size. |
-| `zbs_cluster_avg_read_size_bytes` | Average write request size. |
+| `zbs_cluster_avg_read_size_bytes` | Average read request size. |
 | `zbs_cluster_avg_readwrite_size_bytes` | Average read write request size. |
 
 **Cluster Cache**

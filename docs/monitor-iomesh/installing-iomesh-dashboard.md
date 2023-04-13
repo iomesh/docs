@@ -84,8 +84,7 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
         relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
     ```
 
-    `blockdevice monitor`
-
+    `blockdevice monitor`   
     ```yaml
     blockdevice-monitor:
       # Configure PodMonitor for Prometheus Operator.

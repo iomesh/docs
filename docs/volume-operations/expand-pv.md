@@ -63,7 +63,7 @@ spec:
 
 4. View the PVC and the corresponding PV. 
 
-    > **_NOTE:** The PV capacity will be changed to the new value set, but the capacity value in the PVC will remain the same until it is used by the pod.
+    > **_NOTE_:** The PV capacity will be changed to the new value set, but the capacity value in the PVC will remain the same until it is used by the pod.
 
     ```bash
     kubectl get pvc example-pvc 
