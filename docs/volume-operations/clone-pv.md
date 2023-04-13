@@ -60,5 +60,5 @@ Verify that there is already a PVC available for cloning.
     If successful, you should see output below:
     ```output
     NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM         STORAGECLASS
-    pvc-34230f3f-47dc-46e8-8c42-38c073c40598   5Gi        Delete           Bound    cloned-pvc    iomesh-csi-driver
+    pvc-44230f3f-47dc-46e8-8c42-38c073c40598   5Gi        Delete           Bound    cloned-pvc    iomesh-csi-driver
     ```
