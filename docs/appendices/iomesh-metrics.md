@@ -27,12 +27,12 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | `zbs_cluster_read_speed_bps` | Cluster read speed. |
 | `zbs_cluster_write_speed_bps` | Cluster write speed. |
 | `zbs_cluster_readwrite_speed_bps` | Cluster read write speed. |
-| `zbs_cluster_avg_readwrite_latency_ns` | Cluster read write latency. |
-| `zbs_cluster_avg_write_latency_ns` | Cluster write latency. |
-| `zbs_cluster_avg_read_latency_ns` | Cluster read latency. |
-| `zbs_cluster_avg_write_size_bytes` | Average write request size. |
-| `zbs_cluster_avg_read_size_bytes` | Average read request size. |
-| `zbs_cluster_avg_readwrite_size_bytes` | Average read write request size. |
+| `zbs_cluster_avg_readwrite_latency_ns` | Cluster average read write latency. |
+| `zbs_cluster_avg_write_latency_ns` | Cluster average write latency. |
+| `zbs_cluster_avg_read_latency_ns` | Cluster average read latency. |
+| `zbs_cluster_avg_write_size_bytes` | Cluster average write request size. |
+| `zbs_cluster_avg_read_size_bytes` | Cluster average read request size. |
+| `zbs_cluster_avg_readwrite_size_bytes` | Cluster average read write request size. |
 
 **Cluster Cache**
 
@@ -91,16 +91,16 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | --- | --- |
 | `zbs_chunk_read_iops` | Chunk read IOPS. |
 | `zbs_chunk_read_speed_bps` | Chunk read speed. |
-| `zbs_chunk_avg_read_size_bytes` | Average read request size.|
-| `zbs_chunk_avg_read_latency_ns` | Chunk read latency. |
+| `zbs_chunk_avg_read_size_bytes` | Chunk average read request size.|
+| `zbs_chunk_avg_read_latency_ns` | Chunk average read latency. |
 | `zbs_chunk_write_iops` | Chunk write IOPS. |
 | `zbs_chunk_write_speed_bps` | Chunk write speed.|
-| `zbs_chunk_avg_write_size_bytes` |Average write request size.|
-| `zbs_chunk_avg_write_latency_ns` | Chunk write latency. |
+| `zbs_chunk_avg_write_size_bytes` |Chunk average write request size.|
+| `zbs_chunk_avg_write_latency_ns` | Chunk average write latency. |
 | `zbs_chunk_readwrite_iops` | Chunk read write IOPS. |
 | `zbs_chunk_readwrite_speed_bps` | Chunk read write speed. |
-| `zbs_chunk_avg_readwrite_size_bytes` | Average read write request size.|
-| `zbs_chunk_avg_readwrite_latency_ns` | Chunk read write latency. |
+| `zbs_chunk_avg_readwrite_size_bytes` | Chunk average read write request size.|
+| `zbs_chunk_avg_readwrite_latency_ns` | Chunk average read write latency. |
 
 **Chunk Cache Space**
 | Metrics | Description |
@@ -147,9 +147,9 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_volume_shared_logical_size_bytes` | Shared logical size.|
+| `zbs_volume_shared_logical_size_bytes` | Volume shared logical size.|
 | `zbs_volume_unique_logical_size_bytes` | Logical size dedicated to a specific volume.|
-| `zbs_volume_logical_size_bytes` | Total logical size.|
+| `zbs_volume_logical_size_bytes` | Volume total logical size.|
 
 **Volume IO**
 | Metrics | Description|    
