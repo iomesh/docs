@@ -28,7 +28,7 @@ IOMesh comes with a trial license when it is installed and deployed. However, it
 
     ```output
     spec:
-    licenseSecretName: iomesh-authorization-code
+      licenseSecretName: iomesh-authorization-code
     ```
 
 4. Confirm the update, and whether the update is successful will be shown in the output. 

@@ -53,7 +53,7 @@ Update the license in the following scenarios:
     ```
     ```output
     spec:
-    licenseSecretName: iomesh-authorization-code # Delete this line.
+      licenseSecretName: iomesh-authorization-code # Delete this line.
     ```
 
 2. Create a file `license-code.txt` and save the new license code in it.

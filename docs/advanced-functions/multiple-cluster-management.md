@@ -496,26 +496,6 @@ Topology awareness is automatically enabled for IOMesh to ensure correct pod sch
 
 All of the following procedures are based on the example in [Deployment](../advanced-functions/multiple-cluster-management.md#deployment).
 
-### Upgrade Multiple Clusters
-
-When upgrading multiple IOMesh clusters, upgrade the management cluster first and then the other clusters. If not, the non-management cluster will be temporarily unavailable during the second upgrade, but all clusters will return to normal afterwards.
-
-**Procedure**
-
-1. [Upgrade the management cluster](../cluster-operations/upgrade-cluster.md).
-
-2. After the first upgrade is successful, edit the non-management cluster.
-
-    - View the YAML config of the management cluster.
-      ```bash
-      kubectl get iomesh iomesh -n iomesh-system -o yaml
-      ```
-
-    - Edit the non-management cluster, ensuring all values of `spec.*.image.tags` are consistent with the values of the management cluster.
-      ```
-      kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1
-      ```
-
 ### Scaling Multiple Clusters
 
 There is no difference between scaling up one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale Cluster](../cluster-operations/scale-cluster.md).
@@ -530,7 +510,8 @@ When uninstalling more than one IOMesh clusters, follow the order: first non-man
     To uninstall one more cluster, replace `iomesh-cluster-1-zookeeper.yaml` with its zookeeper YAML filename and `iomesh-cluster-1.yaml` with its YAML filename.
 
     ```shell
-    kubectl delete -f iomesh-cluster-1-zookeeper.yaml && kubectl delete -f iomesh-cluster-1.yaml
+    kubectl delete -f iomesh-cluster-1-zookeeper.yaml 
+    kubectl delete -f iomesh-cluster-1.yaml
     ```
 
 2. [Uninstall the management cluster](../cluster-operations/uninstall-cluster.md).

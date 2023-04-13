@@ -168,7 +168,7 @@ When choosing between these volume types, consider whether your applications or 
 
     - View the PV configurations. Replace `pvc-ab61547e-1d81-4086-b4e4-632a08c6537b` with the PV name obtained in the above output. 
       ```shell
-      kubeclt get pv pvc-ab61547e-1d81-4086-b4e4-632a08c6537b -o yaml
+      kubectl get pv pvc-ab61547e-1d81-4086-b4e4-632a08c6537b -o yaml
       ```
       ```yaml
       apiVersion: v1
@@ -241,7 +241,7 @@ The following example assumes that the local PV is created in the `/var/iomesh/l
     apiVersion: storage.k8s.io/v1
     kind: StorageClass
     metadata:
-      name: iomesh-localpv-manager-hostpath
+      name: iomesh-localpv-manager-hostpath-example
     parameters:
       volumeType: hostpath
       basePath: /var/iomesh/localpv-quota
@@ -273,7 +273,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     parameters:
       volumeType: device
       csi.storage.k8s.io/fstype: "ext4"
-      deviceSelector: {}
+      deviceSelector: ""
     provisioner: com.iomesh.iomesh-localpv-manager
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
@@ -299,7 +299,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
       volumeType: device
       deviceSelector: |
         matchLabels:
-          iomesh.com/bd-driveType: SSD
+          iomesh.com/bd-driverType: SSD
     provisioner: com.iomesh.iomesh-localpv-manager
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
@@ -411,7 +411,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
 6. View the configurations of this PV. Replace `pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4` with the PV name obtained in Step 4.
 
     ```shell
-    kubeclt get pv pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4 -o yaml
+    kubectl get pv pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4 -o yaml
     ```
     You should see output like this:
 
@@ -428,7 +428,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
           csi.storage.k8s.io/pv/name: pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4
           csi.storage.k8s.io/pvc/name: iomesh-localpv-device-pvc
           csi.storage.k8s.io/pvc/namespace: default
-          nodeID: k8s-worker-2
+          nodeID: iomesh-node-17-19
           quotaProjectID: "0"
           storage.kubernetes.io/csiProvisionerIdentity: 1675327673777-8081-com.iomesh.localpv-manager
           volumeType: device
@@ -440,7 +440,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
             - key: topology.iomesh-localpv-manager.csi/node
               operator: In
               values:
-              - k8s-worker-2
+              - iomesh-node-17-19
     ...
     ```
 
