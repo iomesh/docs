@@ -86,12 +86,10 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
 
 ## External Storage vis CSI
 
-Once the access point is configured, IOMesh can provide storage externally to a Kubernetes cluster. However, before doing so, the IOMesh CSI driver must be deployed in this cluster.
+After the access point is configured, IOMesh can provide storage externally to a Kubernetes cluster. However, before doing this, it is necessary to install the IOMesh CSI driver in the cluster using the instructions provided below. Please note that the deployment should be online.
 
-> **_NOTE_**: To use this function, the external Kubernetes cluster should be able to access the IOMesh data CIDR configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md).
+> **_NOTE_**: To use this function, the external Kubernetes cluster should be able to access IOMesh `DATA_CIDR` that was configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md).
 
-
-Install IOMesh CSI Driver
 1. Add the Helm chart repository.
     ```shell
     helm repo add iomesh http://iomesh.com/charts
@@ -137,18 +135,18 @@ Install IOMesh CSI Driver
           # ...
 
 | Field | Value | Description  |
-| ---------|---------------------|------|
+| ---------|-------|------|
 | `nameOverride` | `"iomesh-csi-driver"` | The CSI driver name.  |
 | `co`       | `"kubernetes"` | The container orchestration system.  |
 | `coVersion`| `"1.18"` | The version of the container orchestration system.  |
 | `storageClass.nameOverride` | `"iomesh-csi-driver"` | The default StorageClass name, which is customizable during installation. |
 | `storageClass.parameters` | `"parameters"` | The parameters for the default StorageClass, which is customizable during installation.
 | `volumeSnapshotClass.nameOverride` | `"iomesh-csi-driver"` |The default volumeSnapshotClass name, which is customizable during installation.|
-| `driver.clusterID` |`"my-cluster"` |The ID of the Kubernetes cluster, is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters. |
+| `driver.clusterID` |`"my-cluster"` |The ID of the Kubernetes cluster, which is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters. |
 | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
 | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
-| `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh from the outside.|
-| `driver.controller.driver.podDeletePolicy` | `"no-delete-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.||
+| `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
+| `driver.controller.driver.podDeletePolicy` | `"no-delete-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
 | `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 
 
 1. Deploy IOMesh CSI driver.
@@ -159,7 +157,7 @@ Install IOMesh CSI Driver
         --values csi-driver.yaml \
         --wait
     ```
-2. Verify that IOMesh CSI driver has been successfully deployed. If all pods are shows in `Running` state, then IOMesh has been successfully installed.
+2. Verify that IOMesh CSI driver has been successfully installed. If all pods are shown in `Running` state, then IOMesh has been successfully installed.
     ```shell
     watch kubectl get --namespace iomesh-system pods
     ```
@@ -172,7 +170,7 @@ Install IOMesh CSI Driver
     iomesh-csi-driver-node-plugin-fscsp                    3/3     Running   0          30s
     iomesh-csi-driver-node-plugin-g4c4v                    3/3     Running   0          39s
     ```
-Once IOMesh CSI driver is deployed, you can access IOMesh storage by referring to [Volume Operations](../volume-operations/create-storageclass.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-snapshotclass.md).
+Once IOMesh CSI driver is installed, you may refer to [Volume Operations](../volume-operations/create-storageclass.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-snapshotclass.md) for storage operations.
 
 
 ## IOMesh as iSCSI Target
@@ -213,7 +211,7 @@ IOMesh provides support for the external iSCSI access service. You can create an
     ```
     ```output
     iscsi://cluster-loadbalancer-ip:3260/iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3/1
-    # The IP and port number of iSCSI Portal is the cluster LoadBalancer IP and 3260.
+    # The IP of iSCSI Portal is the cluster LoadBalancer IP, and port number is 3260.
     # The target is `iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3`.
     # LUN ID is 1.
     ```
