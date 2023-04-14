@@ -203,7 +203,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                  matchExpressions:
+                - matchExpressions:
                   - key: kubernetes.io/hostname  # The key of the node label.
                     operator: In
                     values:  # The value of the node label.
@@ -267,7 +267,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                    matchExpressions:
+                  - matchExpressions:
                     - key: kubernetes.io/hostname  # The key of the node label.
                       operator: In
                       values:  # The value of the node label.
@@ -292,7 +292,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                    matchExpressions:
+                  - matchExpressions:
                     - key: kubernetes.io/hostname  # The key of the node label.
                       operator: In
                       values:  # The value of the node label.
@@ -310,7 +310,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                    matchExpressions:
+                  - matchExpressions:
                     - key: kubernetes.io/hostname  # The key of the node label.
                       operator: In
                       values:  # The value of the node label.
