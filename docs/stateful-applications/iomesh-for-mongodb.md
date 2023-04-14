@@ -11,7 +11,7 @@ Verify the IOMesh cluster is already deployed.
 
 **Procedure**
 
-1. Create a YAML config `iomesh-mongodb-sc.yaml` with the following content.  You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass.md).
+1. Create a YAML config `iomesh-mongodb-sc.yaml` with the following content.  You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass).
 
     ```yaml
     kind: StorageClass
@@ -116,4 +116,4 @@ Verify the IOMesh cluster is already deployed.
 
     Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as the filesystem type and replication factor as specified in the StorageClass.
 
-    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot.md).
+    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot).

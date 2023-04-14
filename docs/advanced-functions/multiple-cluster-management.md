@@ -13,10 +13,10 @@ The IOMesh CSI driver is shared by all IOMesh clusters to facilitate connection,
 ## Deployment
 
 **Prerequisites**
-- Verify that all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) are met.
+- Verify that all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites) are met.
 - The IOMesh version should be 1.0.0 or above. 
 - A Kubernetes cluster consisting of at least 6 worker nodes.
-- Verify that [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node.md) has been set up for each worker node.
+- Verify that [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node) has been set up for each worker node.
 
 **Procedure**
 
@@ -27,7 +27,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 |`iomesh`|Management cluster| k8s-woker-{0~2} |`iomesh-system`|
 |`iomesh-cluster-1`| Independent storage pool|k8s-woker-{3~5}|` iomesh-cluster-1`| 
 
->_NOTE_: Both custom and offline installation are suitable for deploying multiple clusters. For [online custom installation](../deploy-iomesh-cluster/install-iomesh.md#custom-installation), install `Helm` and add the IOMesh Helm repository. For [offline installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation), download the installation package and load the IOMesh image.
+>_NOTE_: Both custom and offline installation are suitable for deploying multiple clusters. For [online custom installation](../deploy-iomesh-cluster/install-iomesh#custom-installation), install `Helm` and add the IOMesh Helm repository. For [offline installation](../deploy-iomesh-cluster/install-iomesh#offline-installation), download the installation package and load the IOMesh image.
 
 ### Deploy Management Cluster
 
@@ -40,7 +40,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
     ```
 2. Configure `iomesh.yaml`.
 
-    - Set `iomesh.chunk.dataCIDR`, `diskDeploymentMode`, and `edition`. See configuration details in [Install IOMesh](../deploy-iomesh-cluster/install-iomesh.md).
+    - Set `iomesh.chunk.dataCIDR`, `diskDeploymentMode`, and `edition`. See configuration details in [Install IOMesh](../deploy-iomesh-cluster/install-iomesh).
 
     - Configure `nodeAffinity` for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` respectively so that they can be scheduled to nodes `k8s-woker-{0~2}`.
   
@@ -239,10 +239,10 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 3. Create the YAML config `iomesh-cluster-1.yaml` with the following content. Configure the following fields.
 
-    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) for `chunk` and `redirector`, respectively.
+    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements) for `chunk` and `redirector`, respectively.
     - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components and all block devices reside in it.
     - Set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector`, respectively for an Enterprise edition. If not, a community edition will be automatically installed.
-    - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites.md) according to your disk configurations.
+    - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites#hardware-requirements) according to your disk configurations.
 
       ```yaml
       apiVersion: iomesh.com/v1alpha1
@@ -335,13 +335,13 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
       ```
 ### Mount Disks
 
-1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh.md). Note that all block devices resides in the namespace `iomesh-system`.
+1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh). Note that all block devices resides in the namespace `iomesh-system`.
 
     ```shell
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh.md).
+2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh).
 
     ```shell
     kubectl edit iomesh iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
@@ -423,7 +423,7 @@ When deploying more than one IOMesh cluster, you must create a separate StorageC
     |---|---|
     | `parameters.clusterConnection` |The namespace you specify in `configMap`/the `configMap` name.|
     | `parameters.iomeshCluster`| The namespace where the IOMesh cluster is located/the IOMesh cluster name.  |
-    For more information, refer to [Create StorageClass](../volume-operations/create-storageclass.md).
+    For more information, refer to [Create StorageClass](../volume-operations/create-storageclass).
 
 2. Create a StorageClass for the second IOMesh cluster.
     ```yaml 
@@ -495,11 +495,11 @@ Topology awareness is automatically enabled for IOMesh to ensure correct pod sch
 
 ## Operations 
 
-All of the following procedures are based on the example in [Deployment](../advanced-functions/multiple-cluster-management.md#deployment).
+All of the following procedures are based on the example in [Deployment](../advanced-functions/multiple-cluster-management#deployment).
 
 ### Scaling Multiple Clusters
 
-There is no difference between scaling up one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale Cluster](../cluster-operations/scale-cluster.md).
+There is no difference between scaling up one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale Cluster](../cluster-operations/scale-cluster).
 
 ### Uninstall Multiple Clusters
 
@@ -515,11 +515,11 @@ When uninstalling more than one IOMesh clusters, follow the order: first non-man
     kubectl delete -f iomesh-cluster-1.yaml
     ```
 
-2. [Uninstall the management cluster](../cluster-operations/uninstall-cluster.md).
+2. [Uninstall the management cluster](../cluster-operations/uninstall-cluster).
     ```shell
     helm uninstall --namespace iomesh-system iomesh
     ```
 
 ### Update License
 
-Each IOMesh cluster has a license with a unique serial number, and update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively after deployment. For other operations, refer to [Update License](../cluster-operations/manage-license.md).
+Each IOMesh cluster has a license with a unique serial number, and update the license from `Trial` to `Subscription` or `Perpetual` for each IOMesh cluster respectively after deployment. For other operations, refer to [Update License](../cluster-operations/manage-license).

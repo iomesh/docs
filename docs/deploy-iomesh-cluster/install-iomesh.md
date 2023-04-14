@@ -55,7 +55,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
 4. Configure `iomesh.yaml`.
 
-    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
+    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
 
       ```yaml
         iomesh:
@@ -63,7 +63,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
             dataCIDR: "" # Fill in the dataCIDR you configured previously in Prerequisites.
       ```
 
-    - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements). The system defaults to `hybridFlash`. 
+    - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites#hardware-requirements). The system defaults to `hybridFlash`. 
 
       ```yaml
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
@@ -211,7 +211,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
 5. Configure `iomesh.yaml`.
 
-   - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md#network-requirements).
+   - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
 
       ```yaml
       iomesh:
@@ -219,7 +219,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
           dataCIDR: "" # Fill in the dataCIDR you configured previously in Prerequisites.
       ```
 
-    - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites.md#hardware-requirements). The system defaults to `hybridFlash`. 
+    - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites#hardware-requirements). The system defaults to `hybridFlash`. 
 
       ```yaml
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.

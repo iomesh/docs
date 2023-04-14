@@ -9,7 +9,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
 - Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to 1.0.0 from 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
 
     > _NOTE:_
-    > There might be temporary IO latency fluctuations during the IOMesh upgrade.
+    > There might be temporary I/O latency fluctuations during the upgrade.
 
 **Procedure**
 <!--DOCUSAURUS_CODE_TABS-->

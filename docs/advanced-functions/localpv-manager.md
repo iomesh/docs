@@ -78,7 +78,7 @@ When choosing between these volume types, consider whether your applications or 
     volumeBindingMode: WaitForFirstConsumer
     ```
 
-    You may also create a StorageClass with custom parameters. See details in the following table and [Create StorageClass](../volume-operations/create-storageclass.md).
+    You may also create a StorageClass with custom parameters. See details in the following table and [Create StorageClass](../volume-operations/create-storageclass).
     | Field | Description  |
     | ------- | ---- |
     | `parameters.volumeType`  | Local PV type, either `hostpath` or `device`. Set the field to `hostpath` for the IOMesh HostPath local PV.|
@@ -278,7 +278,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     reclaimPolicy: Delete
     volumeBindingMode: WaitForFirstConsumer
     ```
-    You may also create a StorageClass with custom parameters. See details in the following table and [Create StorageClass](../volume-operations/create-storageclass.md).
+    You may also create a StorageClass with custom parameters. See details in the following table and [Create StorageClass](../volume-operations/create-storageclass).
     | Field  | Description   |
     | -------- | ----------- |
     | `parameters.volumeType`     | Local PV type, either `hostpath` or `device`. Set the field to `device` for the IOMesh device local PV.

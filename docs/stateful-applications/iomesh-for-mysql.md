@@ -10,7 +10,7 @@ sidebar_label: IOMesh for MySQL
 Verify that your IOMesh cluster is already deployed. 
 
 **Procedure**
-1. Create a YAML config `iomesh-mysql-sc.yaml` with the following content. You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass.md).
+1. Create a YAML config `iomesh-mysql-sc.yaml` with the following content. You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass).
 
     ```yaml
     kind: StorageClass
@@ -100,4 +100,4 @@ Verify that your IOMesh cluster is already deployed.
 
     Once done, persistent volumes will be created by IOMesh for each MySQL pod, and each persistent volume will have configurations such as filesystem type and replication factor as specified in the StorageClass.
 
-    You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv.md) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot.md).
+    You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot).
