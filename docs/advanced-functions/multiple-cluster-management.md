@@ -328,6 +328,11 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
             tag: v1.0.0
             pullPolicy: IfNotPresent
       ```
+    
+    - Apply the YAML config.
+      ```shell
+      kubectl apply -f iomesh-cluster-1.yaml -n iomesh-cluster-1
+      ```
 ### Mount Disks
 
 1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh.md). Note that all block devices resides in the namespace `iomesh-system`.
