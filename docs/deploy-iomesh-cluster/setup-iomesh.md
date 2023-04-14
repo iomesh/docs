@@ -30,6 +30,9 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
  
     > _Note:_
     > The field `FSTYPE` of each IOMesh block device should be blank. If not, the block device will be filtered out by the device selector.
+
+    > _Note:_
+    >  NDM 只在磁盘的发生插拔时才会更新 blockdevice 的状态，因此当磁盘被分区或格式化时，blockdevice 的信息并不会及时更新，此时可以通过 `kubectl delete pod -n iomesh-system -l app=openebs-ndm` 命令重启 ndm pod 的触发磁盘扫描及时更新分区/格式化信息
    
 2. View details of a block device object. Replace `<device_name>` with the block device name. 
 
