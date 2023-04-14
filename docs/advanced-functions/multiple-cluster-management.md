@@ -45,9 +45,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
     - Configure `nodeAffinity` for fields `iomesh.meta.podPolicy`, `iomesh.chunk.podPolicy`, and `iomesh.redirector.podPolicy` respectively so that they can be scheduled to nodes `k8s-woker-{0~2}`.
   
       ```yaml
-      ...
       iomesh:
-      ...
         chunk:
           podPolicy:
             affinity:
@@ -61,7 +59,6 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                       - k8s-woker-0
                       - k8s-woker-1
                       - k8s-woker-2
-      ...
         meta:
           podPolicy:
             affinity:
@@ -75,7 +72,6 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                       - k8s-woker-0
                       - k8s-woker-1
                       - k8s-woker-2
-      ...
         redirector:
           podPolicy:
             affinity:
@@ -207,13 +203,13 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
             nodeAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:
                 nodeSelectorTerms:
-                - matchExpressions:
-              - key: kubernetes.io/hostname  # The key of the node label.
-                operator: In
-                values:  # The value of the node label.
-                      - k8s-woker-3
-                      - k8s-woker-4
-                      - k8s-woker-5
+                  matchExpressions:
+                  - key: kubernetes.io/hostname  # The key of the node label.
+                    operator: In
+                    values:  # The value of the node label.
+                    - k8s-woker-3
+                    - k8s-woker-4
+                    - k8s-woker-5
             podAntiAffinity:
               preferredDuringSchedulingIgnoredDuringExecution:
               - podAffinityTerm:
@@ -271,13 +267,13 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                  - matchExpressions:
-                - key: kubernetes.io/hostname  # The key of the node label.
-                  operator: In
-                  values:  # The value of the node label.
-                      - k8s-woker-3
-                      - k8s-woker-4
-                      - k8s-woker-5
+                    matchExpressions:
+                    - key: kubernetes.io/hostname  # The key of the node label.
+                      operator: In
+                      values:  # The value of the node label.
+                        - k8s-woker-3
+                        - k8s-woker-4
+                        - k8s-woker-5
         chunk:
           dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
           replicas: 3
@@ -296,10 +292,10 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                  - matchExpressions:
-                - key: kubernetes.io/hostname  # The key of the node label.
-                  operator: In
-                  values:  # The value of the node label.
+                    matchExpressions:
+                    - key: kubernetes.io/hostname  # The key of the node label.
+                      operator: In
+                      values:  # The value of the node label.
                       - k8s-woker-3
                       - k8s-woker-4
                       - k8s-woker-5    
@@ -314,10 +310,10 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
               nodeAffinity:
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
-                  - matchExpressions:
-                - key: kubernetes.io/hostname  # The key of the node label.
-                  operator: In
-                  values:  # The value of the node label.
+                    matchExpressions:
+                    - key: kubernetes.io/hostname  # The key of the node label.
+                      operator: In
+                      values:  # The value of the node label.
                       - k8s-woker-3
                       - k8s-woker-4
                       - k8s-woker-5

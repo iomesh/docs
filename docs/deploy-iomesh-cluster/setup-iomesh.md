@@ -19,7 +19,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-   After running the command, you should see an example like:
+   After running the command, you should see output below:
 
     ```output
     NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
@@ -28,19 +28,19 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     blockdevice-f4681681be66411f226d1b6a690270c0   kind-control-plane   /dev/sdb              1073742336     Unclaimed    Active   10m
     ```
  
-    > _Note:_
+    > _NOTE:_
     > The field `FSTYPE` of each IOMesh block device should be blank. If not, the block device will be filtered out by the device selector.
 
-    > _Note:_
-    >  NDM 只在磁盘的发生插拔时才会更新 blockdevice 的状态，因此当磁盘被分区或格式化时，blockdevice 的信息并不会及时更新，此时可以通过 `kubectl delete pod -n iomesh-system -l app=openebs-ndm` 命令重启 ndm pod 的触发磁盘扫描及时更新分区/格式化信息
-   
+    > _NOTE:_
+    > The status of a block device will only be updated when the disk is unplugged. Therefore, if a disk is partitioned or formatted, its status will not be immediately updated. To update information about disk  partitioning and formatting, run the command `kubectl delete pod -n iomesh-system -l app=openebs-ndm` to restart the NDM pod, which will trigger a disk scan.
+    
 2. View details of a block device object. Replace `<device_name>` with the block device name. 
 
     ```shell
     kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
     ```
 
-    After running the command, you should see an example like:
+    After running the command, you should see output below:
 
     ```output
     apiVersion: openebs.io/v1alpha1
@@ -154,7 +154,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
         # ...
     ```
 
-    If the deployment mode is `allflash`, you should see an example like:
+    If the deployment mode is `allflash`, refer to the following example:
     ```yaml
     spec:
       # ...
