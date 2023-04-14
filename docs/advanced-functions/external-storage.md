@@ -12,7 +12,7 @@ To use IOMesh storage via the CSI driver or iSCSI target, it is necessary to con
 
 To ensure that the access point has a consistent and functional IP address, IOMesh employs `iomesh-access` service with a service type of `LoadBalancer`. This service must have an IP externally exposed, and the specific method for configuring this external IP will vary depending on the cloud environment in which IOMesh is deployed.
 
-- For IOMesh deployed in [LoadBalancer-supported cloud environments]((https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer)), see `In-Tree LoadBalancer`.
+- For IOMesh deployed in [LoadBalancer-supported cloud environments](https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer), see `In-Tree LoadBalancer`.
 - For IOMesh deployed on bare metal or other LoadBalancer-not-supported cloud environments, see `Out-of-Tree LoadBalancer`.
 
 <!--DOCUSAURUS_CODE_TABS-->
@@ -86,19 +86,21 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
 
 ## External Storage vis CSI
 
-After the access point is configured, IOMesh can provide storage externally to a Kubernetes cluster. However, before doing this, it is necessary to install the IOMesh CSI driver in the cluster using the instructions provided below. Please note that the deployment should be online.
+After the access point is configured, IOMesh can provide storage externally to a Kubernetes cluster. However, before doing this, it is necessary to install the IOMesh CSI driver in the cluster using the instructions provided below. Note that the installation should be online.
 
 > **_NOTE_**: To use this function, the external Kubernetes cluster should be able to access IOMesh `DATA_CIDR` that was configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md).
 
-1. Add the Helm chart repository.
+1. Set up [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node.md) on the worker nodes of the external Kubernetes cluster.
+   
+2. Add the Helm chart repository.
     ```shell
     helm repo add iomesh http://iomesh.com/charts
     ```
-2. Export the IOMesh CSI Driver configuration file `csi-driver.yaml`.
+3. Export the IOMesh CSI Driver configuration file `csi-driver.yaml`.
     ```shell
     helm show values iomesh/csi-driver > csi-driver.yaml
     ```
-3. Edit the following fields in `csi-driver.yaml`.
+4. Edit the following fields in `csi-driver.yaml`.
     ```yaml
     nameOverride: "iomesh-csi-driver"
         # ...
@@ -133,23 +135,23 @@ After the access point is configured, IOMesh can provide storage externally to a
               # The root directory of `kubelet` service.
               kubeletRootDir: "/var/lib/kubelet"
           # ...
+    ```
+    | Field | Value | Description  |
+    | ---------|-------|------|
+    | `nameOverride` | `"iomesh-csi-driver"` | The CSI driver name.  |
+    | `co`       | `"kubernetes"` | The container orchestration system.  |
+    | `coVersion`| `"1.18"` | The version of the container orchestration system.  |
+    | `storageClass.nameOverride` | `"iomesh-csi-driver"` | The default StorageClass name, which is customizable during installation. |
+    | `storageClass.parameters` | `"parameters"` | The parameters for the default StorageClass, which is customizable during installation.
+    | `volumeSnapshotClass.nameOverride` | `"iomesh-csi-driver"` |The default volumeSnapshotClass name, which is customizable during installation.|
+    | `driver.clusterID` |`"my-cluster"` |The ID of the Kubernetes cluster, which is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters. |
+    | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
+    | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
+    | `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
+    | `driver.controller.driver.podDeletePolicy` | `"no-delete-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
+    | `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 
 
-| Field | Value | Description  |
-| ---------|-------|------|
-| `nameOverride` | `"iomesh-csi-driver"` | The CSI driver name.  |
-| `co`       | `"kubernetes"` | The container orchestration system.  |
-| `coVersion`| `"1.18"` | The version of the container orchestration system.  |
-| `storageClass.nameOverride` | `"iomesh-csi-driver"` | The default StorageClass name, which is customizable during installation. |
-| `storageClass.parameters` | `"parameters"` | The parameters for the default StorageClass, which is customizable during installation.
-| `volumeSnapshotClass.nameOverride` | `"iomesh-csi-driver"` |The default volumeSnapshotClass name, which is customizable during installation.|
-| `driver.clusterID` |`"my-cluster"` |The ID of the Kubernetes cluster, which is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters. |
-| `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
-| `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
-| `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
-| `driver.controller.driver.podDeletePolicy` | `"no-delete-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
-| `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 
-
-1. Deploy IOMesh CSI driver.
+5. Deploy IOMesh CSI driver.
     ```shell
     helm install csi-driver iomesh/csi-driver \
         --namespace iomesh-system \
@@ -157,7 +159,7 @@ After the access point is configured, IOMesh can provide storage externally to a
         --values csi-driver.yaml \
         --wait
     ```
-2. Verify that IOMesh CSI driver has been successfully installed. If all pods are shown in `Running` state, then IOMesh has been successfully installed.
+6. Verify that IOMesh CSI driver has been successfully installed. If all pods are shown in `Running` state, then IOMesh has been successfully installed.
     ```shell
     watch kubectl get --namespace iomesh-system pods
     ```
