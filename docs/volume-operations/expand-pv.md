@@ -36,7 +36,7 @@ spec:
     If successful, you should see output below:
 
     ```output
-    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    NAME                     STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
     iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
     ```
 
@@ -72,7 +72,7 @@ spec:
    If successful, you should see output below. 
 
     ```output
-    NAME          STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    NAME                       STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
     iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
     ```
 
