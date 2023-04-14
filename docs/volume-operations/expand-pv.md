@@ -36,8 +36,8 @@ spec:
     If successful, you should see output below:
 
     ```output
-    NAME                     STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
+    NAME                 STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver           11m
     ```
 
 2. Set the field `storage` to a new value.
@@ -72,8 +72,8 @@ spec:
    If successful, you should see output below. 
 
     ```output
-    NAME                       STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
-    iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver   11m
+    NAME                 STATUS   VOLUME                                     CAPACITY    ACCESS MODES   STORAGECLASS                AGE
+    iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver           11m
     ```
 
 5. Verify that the PV capacity was expanded. You can find the PV name from the PVC output.
@@ -84,6 +84,6 @@ spec:
 
     If successful, you should see output below:
     ```output
-    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                 STORAGECLASS
+    NAME                                       CAPACITY   RECLAIM POLICY   STATUS   CLAIM                       STORAGECLASS
     pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   20Gi       Delete           Bound    default/iomesh-example-pvc  iomesh-csi-driver
     ```
