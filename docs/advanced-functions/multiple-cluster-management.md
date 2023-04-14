@@ -271,9 +271,9 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                     - key: kubernetes.io/hostname  # The key of the node label.
                       operator: In
                       values:  # The value of the node label.
-                        - k8s-woker-3
-                        - k8s-woker-4
-                        - k8s-woker-5
+                      - k8s-woker-3
+                      - k8s-woker-4
+                      - k8s-woker-5
         chunk:
           dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
           replicas: 3
