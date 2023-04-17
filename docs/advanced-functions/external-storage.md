@@ -49,7 +49,7 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
     ```
 3. Create a `MetalLB` YAML configMap `metallb-config.yaml`. 
 
-    Set `protocol` to `layer2`. Fill in an IP pool in `addresses`. The IP pool must be an IP range like "192.168.1.100-192.168.1.110" or the subnet mask like "192.168.2.0/24".  
+    Set `protocol` to `layer2`. Fill in an IP pool in `addresses`. The IP pool must be an IP range like "192.168.1.100-192.168.1.110" or the CIDR like "192.168.2.0/24".  
 
     ```yaml
     apiVersion: v1
@@ -83,7 +83,7 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
     kubectl edit iomesh -n iomesh-system
     ```
 
-    > **_NOTE_:** `spec.redirector.iscsiVirtualIP` should be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVi rtualIP`.
+    > **_NOTE_:** `spec.redirector.iscsiVirtualIP` should be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVirtualIP`.
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
@@ -162,7 +162,7 @@ After the access point is configured, IOMesh can provide storage externally to a
         --values csi-driver.yaml \
         --wait
     ```
-6. Verify that IOMesh CSI driver has been successfully installed. If all pods are shown in `Running` state, then IOMesh has been successfully installed.
+6. Verify that IOMesh CSI driver has been successfully installed. If all pods are shown in `Running` state, then IOMesh CSI driver has been successfully installed.
     ```shell
     watch kubectl get --namespace iomesh-system pods
     ```
