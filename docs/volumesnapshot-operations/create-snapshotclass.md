@@ -18,10 +18,10 @@ To create a VolumeSnaphotClass, refer to the following:
 1. Create a YAML config `sc.yaml` and configure the fields `driver` and `deletionPolicy`.
 
     ```yaml
-    apiVersion: snapshot.storage.k8s.io/v1beta1
+    apiVersion: snapshot.storage.k8s.io/v1
     kind: VolumeSnapshotClass
     metadata:
-      name: iomesh-example-snapshot-sc
+      name: iomesh-csi-driver
     driver: com.iomesh.csi-driver  # The driver in iomesh.yaml.
     deletionPolicy: Delete # "Delete" is recommended.
     ```
@@ -35,12 +35,12 @@ To create a VolumeSnaphotClass, refer to the following:
 3. Get the VolumeSnapshotClass.
 
     ```
-    kubectl get volumesnapshotclass iomesh-example-snapshot-sc
+    kubectl get volumesnapshotclass iomesh-csi-driver
     ```
 
-   After running the command, you should see an example like:
+   After running the command, you should see output like this:
     ```output
     NAME                             DRIVER                  DELETIONPOLICY   AGE
-    iomesh-example-snapshot-sc       com.iomesh.csi-driver   Delete           24s
+    iomesh-csi-driver                com.iomesh.csi-driver   Delete           24s
     ```
 

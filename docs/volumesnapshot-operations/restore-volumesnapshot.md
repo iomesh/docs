@@ -43,7 +43,7 @@ The storage capacity value in the new PV should be the same as that of the sourc
     ```
     kubectl get pvc example-restore
     ```
-   After running the command, you should see an example like:
+   After running the command, you should see output like this:
     ```output
     NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
     example-restore                             Bound    pvc-54230f3f-47dc-46e8-8c42-38c073c40598   6Gi        RWO            iomesh-csi-driver   21h   

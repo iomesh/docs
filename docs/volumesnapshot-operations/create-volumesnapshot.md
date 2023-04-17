@@ -39,7 +39,7 @@ Ensure that there is already a SnapshotClass.
     kubectl get Volumesnapshots example-snapshot
     ```
 
-    After running the command, you should see an example like:
+    After running the command, you should see output like this:
 
     ```output
     NAME               SOURCEPVC            RESTORESIZE    SNAPSHOTCONTENT                                    CREATIONTIME
