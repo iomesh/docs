@@ -17,7 +17,7 @@ Ensure that there is already a SnapshotClass.
 1. Create the YAML file `snapshot.yaml`. Specify the SnapshotClass and PVC.
 
     ```yaml
-    apiVersion: snapshot.storage.k8s.io/v1beta1
+    apiVersion: snapshot.storage.k8s.io/v1
     kind: VolumeSnapshot
     metadata:
       name: example-snapshot
