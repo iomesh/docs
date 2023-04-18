@@ -107,8 +107,8 @@ After the access point is configured, IOMesh can provide storage externally to a
    ```yaml
     nameOverride: "iomesh-csi-driver"
     # ...
-    # The container orchestration system such as Kubernetes or Openshift.
-    co: "kubernetes"
+    # Specify the container platform, either "kubernetes" or "openshift". 
+    co: "kubernetes" 
     coVersion: "1.18"
     # ...
     storageClass:
@@ -123,7 +123,7 @@ After the access point is configured, IOMesh can provide storage externally to a
     # ...
     driver:
       # ...
-      # # The Kubernetes cluster ID.
+      # The Kubernetes cluster ID.
       clusterID: "my-cluster"
       # The address of the meta server.
       metaAddr: "iomesh-cluster-vip:10206"
@@ -142,8 +142,8 @@ After the access point is configured, IOMesh can provide storage externally to a
     | Field | Value | Description  |
     | ---------|-------|------|
     | `nameOverride` | `"iomesh-csi-driver"` | The CSI driver name.  |
-    | `co`       | `"kubernetes"` | The container orchestration system.  |
-    | `coVersion`| `"1.18"` | The version of the container orchestration system.  |
+    | `co`       | `"kubernetes"` | The container platform. If your container platform is OpenShift, type `"openshift"`.|
+    | `coVersion`| `"1.18"` | The version of the container platform.  |
     | `storageClass.nameOverride` | `"iomesh-csi-driver"` | The default StorageClass name, which is customizable during installation. |
     | `storageClass.parameters` | `"parameters"` | The parameters for the default StorageClass, which is customizable during installation.
     | `volumeSnapshotClass.nameOverride` | `"iomesh-csi-driver"` |The default volumeSnapshotClass name, which is customizable during installation.|
