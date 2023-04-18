@@ -456,7 +456,6 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
     # Source: iomesh-pvc.yaml
     kind: PersistentVolumeClaim
     apiVersion: v1
-    kind: PersistentVolumeClaim
     metadata:
       name: iomesh-pvc
     spec:
@@ -476,7 +475,6 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
     # Source: iomesh-cluster1-pvc.yaml
     kind: PersistentVolumeClaim
     apiVersion: v1
-    kind: PersistentVolumeClaim
     metadata:
       name: iomesh-cluster1-pvc
     spec:
@@ -508,7 +506,7 @@ When uninstalling more than one IOMesh clusters, follow the order: first non-man
 **Procedure**
 1. Uninstall the second IOMesh cluster, which will also delete `iomesh` and `zookeeper` components in it. 
 
-    To uninstall one more cluster, replace `iomesh-cluster-1-zookeeper.yaml` with its zookeeper YAML filename and `iomesh-cluster-1.yaml` with its YAML filename.
+    Replace `iomesh-cluster-1-zookeeper.yaml` with its zookeeper YAML filename and `iomesh-cluster-1.yaml` with its YAML filename. Run the following two commands at the same time.
 
     ```shell
     kubectl delete -f iomesh-cluster-1-zookeeper.yaml 
