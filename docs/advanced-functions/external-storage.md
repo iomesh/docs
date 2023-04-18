@@ -132,6 +132,9 @@ After the access point is configured, IOMesh can provide storage externally to a
       # Access IOMesh as external storage.
       deploymentMode: "EXTERNAL"
       # ...
+      controller:
+        driver:
+          podDeletePolicy: "no-delete-pod"
       node:
         driver:
           # ...
@@ -151,7 +154,7 @@ After the access point is configured, IOMesh can provide storage externally to a
     | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
     | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
     | `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
-    | `driver.controller.driver.podDeletePolicy` | `"no-delete-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
+    | `driver.controller.driver.podDeletePolicy` | `"no-delete-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue. Support options: "no-delete-pod(default)/delete-deployment-pod/delete-statefulset-pod/delete-both-statefulset-and-deployment-pod"|
     | `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 
 
 5. Deploy IOMesh CSI driver.
