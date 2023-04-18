@@ -32,14 +32,12 @@ To ensure that the access point has a consistent and functional IP address, IOMe
 
 2. Set `spec.redirector.iscsiVirtualIP` to the external IP of `iomesh-access` service by running the following command. Once edited, the `iomesh-iscsi-redirector` pod will automatically restart to make the modification take effect. 
     ```bash
-    kubectl edit iomesh -n iomesh-system
+    kubectl edit iomesh iomesh -n iomesh-system
     ```
 
     > **_NOTE_:** `spec.redirector.iscsiVirtualIP` must be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVirtualIP`.
 
-3. An optional step. To use storage from one more IOMesh cluster, run `kubectl edit` command to set the `spec.redirector.iscsiVirtualIP` field in its YAML file to the external IP of the `iomesh-access` service.
-
-    Once the changes are saved, the iSCSI redirector pod will automatically restart to apply the modification.
+3. An optional step. To use storage from one more IOMesh cluster, run the `kubectl edit` command to set the `spec.redirector.iscsiVirtualIP` field in its YAML file to the external IP of the `iomesh-access` service.
 
 <!--Out-of-Tree LoadBalancer-->
 In case IOMesh is deployed on bare metal or any cloud environment that does not support Kubernetes `LoadBalancer`, you will need to install `MetallLB` as the default `LocalBalancer` in the Kubernetes cluster.

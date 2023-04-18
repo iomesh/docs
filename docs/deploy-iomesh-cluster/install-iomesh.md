@@ -26,7 +26,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
     watch kubectl get --namespace iomesh-system pods
     ```
 
-    > _Note:_
+    > **_NOTE:_**
     > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
 ## Custom Installation 
@@ -77,7 +77,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
       edition: "" # If left blank, Community Edition will be installed. 
       ```
 
-   - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods
+   - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods。
 
       ```yaml
       iomesh:

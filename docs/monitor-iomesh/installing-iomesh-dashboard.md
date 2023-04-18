@@ -14,14 +14,11 @@ Verify that [Prometheus and Prometheus Operator](https://github.com/prometheus-o
 
 **Procedure**
 
-1. Get `iomesh.yaml`. 
-
-    If you previously chose quick or offline installation, run the corresponding command to export `iomesh.yaml`. For custom installation, you already have `iomesh.yaml` during IOMesh installation. 
-
+1. Run the corresponding command to export `iomesh.yaml`.
 
 <!--DOCUSAURUS_CODE_TABS-->
 
-<!--Quick-->
+<!--Quick/Custom-->
 ```shell
 helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 ```

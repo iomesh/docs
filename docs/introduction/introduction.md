@@ -32,7 +32,7 @@ A system with multiple levels of data protection makes sure that data is always 
 
 **Fully Integrated into Kubernetes Ecosystem**
 
-IOMesh flexibly provides storage for stateful applications via CSI even when they are migrated across nodes. It also works seamlessly with the Kubernetes toolchain, easily deploying IOMesh using Helm Chart and integrating with Prometheus and Grafana to provide standardized, visualized monitoring and alerting service.
+IOMesh flexibly provides storage for stateful applications via CSI even when they are migrated. It also works seamlessly with the Kubernetes toolchain, easily deploying IOMesh using Helm Chart and integrating with Prometheus and Grafana to provide standardized, visualized monitoring and alerting service.
 
 ## Architecture
 ![IOMesh arch](https://user-images.githubusercontent.com/78140947/122766241-e2352c00-d2d3-11eb-9630-bb5b428c3178.png)

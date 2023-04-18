@@ -21,18 +21,18 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_cluster_read_iops` | Cluster read IOPS. |
-| `zbs_cluster_readwrite_iops` | Cluster read write IOPS. |
-| `zbs_cluster_write_iops` | Cluster write IOPS. |
-| `zbs_cluster_read_speed_bps` | Cluster read speed. |
-| `zbs_cluster_write_speed_bps` | Cluster write speed. |
-| `zbs_cluster_readwrite_speed_bps` | Cluster read write speed. |
-| `zbs_cluster_avg_readwrite_latency_ns` | Cluster average read write latency. |
-| `zbs_cluster_avg_write_latency_ns` | Cluster average write latency. |
-| `zbs_cluster_avg_read_latency_ns` | Cluster average read latency. |
-| `zbs_cluster_avg_write_size_bytes` | Cluster average write request size. |
-| `zbs_cluster_avg_read_size_bytes` | Cluster average read request size. |
-| `zbs_cluster_avg_readwrite_size_bytes` | Cluster average read write request size. |
+| `zbs_cluster_read_iops` | Read IOPS. |
+| `zbs_cluster_readwrite_iops` | Read write IOPS. |
+| `zbs_cluster_write_iops` | Write IOPS. |
+| `zbs_cluster_read_speed_bps` | Read speed. |
+| `zbs_cluster_write_speed_bps` | Write speed. |
+| `zbs_cluster_readwrite_speed_bps` | Read write speed. |
+| `zbs_cluster_avg_readwrite_latency_ns` | Average read write latency. |
+| `zbs_cluster_avg_write_latency_ns` | Average write latency. |
+| `zbs_cluster_avg_read_latency_ns` | Average read latency. |
+| `zbs_cluster_avg_write_size_bytes` | Average write request size. |
+| `zbs_cluster_avg_read_size_bytes` | Average read request size. |
+| `zbs_cluster_avg_readwrite_size_bytes` | Average read write request size. |
 
 **Cluster Cache**
 
@@ -54,7 +54,7 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | --- | --- |
 | `zbs_cluster_data_capacity_bytes` | The total data capacity. |
 | `zbs_cluster_data_space_use_rate` | Max(provisioned space, used space)/valid data space. |
-| `zbs_cluster_unique_logical_size_bytes` | Logical size dedicated to a specific volume. |
+| `zbs_cluster_unique_logical_size_bytes` | Logical size dedicated to specific volumes.|
 | `zbs_cluster_shared_logical_size_bytes` | Shared logical size. |
 | `zbs_cluster_logical_size_bytes` | Total logical size. |
 | `zbs_cluster_valid_data_space_bytes` | Valid data space. |
@@ -82,25 +82,25 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | Metrics | Description |
 | --- | --- |
 | `zbs_chunk_use_state` |  Chunk use state.|
-| `zbs_chunk_connect_status` | Chunk server status. |
+| `zbs_chunk_connect_status` | Chunk connection status. |
 | `zbs_chunk_maintenance_mode` | Shows if chunk is in maintenance mode. |
 
 **Chunk IO**
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_chunk_read_iops` | Chunk read IOPS. |
-| `zbs_chunk_read_speed_bps` | Chunk read speed. |
-| `zbs_chunk_avg_read_size_bytes` | Chunk average read request size.|
-| `zbs_chunk_avg_read_latency_ns` | Chunk average read latency. |
-| `zbs_chunk_write_iops` | Chunk write IOPS. |
-| `zbs_chunk_write_speed_bps` | Chunk write speed.|
-| `zbs_chunk_avg_write_size_bytes` |Chunk average write request size.|
-| `zbs_chunk_avg_write_latency_ns` | Chunk average write latency. |
-| `zbs_chunk_readwrite_iops` | Chunk read write IOPS. |
-| `zbs_chunk_readwrite_speed_bps` | Chunk read write speed. |
-| `zbs_chunk_avg_readwrite_size_bytes` | Chunk average read write request size.|
-| `zbs_chunk_avg_readwrite_latency_ns` | Chunk average read write latency. |
+| `zbs_chunk_read_iops` | Read IOPS. |
+| `zbs_chunk_read_speed_bps` | Read speed. |
+| `zbs_chunk_avg_read_size_bytes` | Average read request size.|
+| `zbs_chunk_avg_read_latency_ns` | Average read latency. |
+| `zbs_chunk_write_iops` | Write IOPS. |
+| `zbs_chunk_write_speed_bps` | Write speed.|
+| `zbs_chunk_avg_write_size_bytes` |Average write request size.|
+| `zbs_chunk_avg_write_latency_ns` | Average write latency. |
+| `zbs_chunk_readwrite_iops` | Read write IOPS. |
+| `zbs_chunk_readwrite_speed_bps` | Read write speed. |
+| `zbs_chunk_avg_readwrite_size_bytes` | Average read write request size.|
+| `zbs_chunk_avg_readwrite_latency_ns` | Average read write latency. |
 
 **Chunk Cache Space**
 | Metrics | Description |
@@ -129,7 +129,7 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 | Metrics | Description |
 | --- | --- |
 | `zbs_chunk_temporary_replica_space_bytes` | Space used by temporary replicas.|
-| `zbs_chunk_temporary_replica_num` | The number of temporary chunk replicas.|
+| `zbs_chunk_temporary_replica_num` | The number of temporary replicas.|
 
 **Chunk Migration & Recovery**
 
@@ -147,25 +147,25 @@ IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the c
 
 | Metrics | Description |
 | --- | --- |
-| `zbs_volume_shared_logical_size_bytes` | Volume shared logical size.|
+| `zbs_volume_shared_logical_size_bytes` | Shared logical size.|
 | `zbs_volume_unique_logical_size_bytes` | Logical size dedicated to a specific volume.|
-| `zbs_volume_logical_size_bytes` | Volume total logical size.|
+| `zbs_volume_logical_size_bytes` | Total logical size.|
 
 **Volume IO**
 | Metrics | Description|    
 | --- | --- |
-| `zbs_volume_readwrite_latency_ns` | Volume read write latency.|
-| `zbs_volume_readwrite_speed_bps` | Volume read write speed.|
-| `zbs_volume_readwrite_size_bytes` | Volume read write size.|
-| `zbs_volume_readwrite_iops` | Volume read write IOPS. |
-| `zbs_volume_readwrite_iop30s` | Volume read write IOPS at a interval of 30 seconds.|
-| `zbs_volume_read_latency_ns` | Volume read latency.|
-| `zbs_volume_read_speed_bps` | Volume read speed. |
-| `zbs_volume_read_size_bytes` | Volume read size. |
-| `zbs_volume_read_iops` | Volume read IOPS. |
-| `zbs_volume_write_latency_ns` | Volume write latency.|
-| `zbs_volume_write_speed_bps` | Volume write speed. |
-| `zbs_volume_write_size_bytes` | Volume write size. |
-| `zbs_volume_write_iops` | Volume write IOPS. |
-| `zbs_volume_avg_iodepth` | Volume average IO depth. |
+| `zbs_volume_readwrite_latency_ns` | Read write latency.|
+| `zbs_volume_readwrite_speed_bps` | Read write speed.|
+| `zbs_volume_readwrite_size_bytes` | Read write size.|
+| `zbs_volume_readwrite_iops` | Read write IOPS. |
+| `zbs_volume_readwrite_iop30s` | Read write IOPS at a interval of 30 seconds.|
+| `zbs_volume_read_latency_ns` | Read latency.|
+| `zbs_volume_read_speed_bps` | Read speed. |
+| `zbs_volume_read_size_bytes` | Read size. |
+| `zbs_volume_read_iops` | Read IOPS. |
+| `zbs_volume_write_latency_ns` | Write latency.|
+| `zbs_volume_write_speed_bps` | Write speed. |
+| `zbs_volume_write_size_bytes` | Write size. |
+| `zbs_volume_write_iops` | Write IOPS. |
+| `zbs_volume_avg_iodepth` | Average IO depth. |
 
