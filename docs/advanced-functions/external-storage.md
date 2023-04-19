@@ -82,14 +82,12 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
     ```
 6. Set `spec.redirector.iscsiVirtualIP` to the external IP by running the following command. Once the changes are saved, the `iomesh-iscsi-redirector` pod will automatically restart to make the modification take effect.
     ```shell
-    kubectl edit iomesh -n iomesh-system
+    kubectl edit iomesh iomesh -n iomesh-system
     ```
 
     > **_NOTE_:** `spec.redirector.iscsiVirtualIP` should be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVirtualIP`.
 
 7. An optional step. To use storage from one more IOMesh cluster, run `kubectl edit` command to set the `spec.redirector.iscsiVirtualIP` field in its YAML file to the external IP of the `iomesh-access` service.
-
-   Once the changes are saved, the iSCSI redirector pod will automatically restart to apply the modification.
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
@@ -101,7 +99,7 @@ After the access point is configured, IOMesh can provide storage externally to a
 
 > **_NOTE_**: To use this function, the external Kubernetes cluster should be able to access IOMesh `DATA_CIDR` that was configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
 
-1. Set up [`open-iscsi`](../deploy-iomesh-cluster/setup-iomesh) on the worker nodes of the external Kubernetes cluster.
+1. Set up [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node.md) on the worker nodes of the external Kubernetes cluster.
    
 2. Add the Helm chart repository.
     ```shell

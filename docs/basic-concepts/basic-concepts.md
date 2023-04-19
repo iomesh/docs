@@ -10,6 +10,10 @@ Before deploying and using IOMesh, familiarity with the following concepts is su
 
 A portable, extensible open source container orchestration platform for managing containerized workloads and services, facilitating both declarative configuration and automation.
 
+[**Master Node**](https://kubernetes.io/docs/concepts/overview/components/#control-plane-components)
+
+A node that runs the control plane components of the Kubernetes cluster and manages a set of worker nodes. Typically, a Kubernetes cluster has 1, 3, or 5 master nodes. 
+
 **Worker Node**
 
 A worker machine that runs Kubernetes node components and containerized applications. IOMesh is installed, deployed, and running on the worker node. 

@@ -77,7 +77,7 @@ Shows disk attribute information, health and usage status, and purpose of use.
 | Device Name        | The physical disk name. | "dev/sdv"      |
 | Health Status      | Shows the health status of the physical disk, including ` Healthy`, `Unhealthy`, `Failing`, and `S.M.A.R.T not passed`.    | "Healthy"      |
 | Usage Status       | Shows if the usage status of the physical disk, including `Unmounted`, `Partially mounted`, `Mounted`, and `Unmounting`. | "Mounted"      |
-| Remaining Lifetime | Shows the remaining life of the cache disk. A higher percentage (%) value indicates a longer remaining life.               | "99%"          |
+| Remaining Lifetime | Shows the remaining life of SSD. A higher percentage (%) value indicates a longer remaining life.               | "99%"          |
 | Type               | Shows the disk type, including `SSD` and `HDD`.       | "HDD"          |
 | Model              | Shows disk attribute information, which may contain brand information.                                                     | "DL2400MM0159" |
 | Serial Number      | The serial number of the physical disk.                                                                                    | "WBM3C4TE"     |
@@ -95,7 +95,6 @@ Shows the attribute information, status, and usage of a PV in the IOMesh cluster
 | Allocated Capacity | The logical capacity allocated to this PV.| "50 GiB"|
 | Exclusive Capacity | The logical capacity exclusive for this PV.| "25 GiB" |
 | Shared Capacity | The physical capacity shared by this PV and other objects. | "10 GiB"|
-| VolumeMode| Shows the volume mode set for this PV, either `Block` or `Filesystem`.| "Block"               |
 | PV Provisioning    | Shows the PV provisioning type, including `Thin provisioning` and `Thick provisioning`. | "Thin provisioning"   |
 | Replicas | The number of replicas for this PV, either `2` or `3`.|"2"|
 | Created Time | The time when this PV was created. | "2022-12-08 14:45:00"|

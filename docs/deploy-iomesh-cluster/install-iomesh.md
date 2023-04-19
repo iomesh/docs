@@ -11,16 +11,18 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 ## Quick Installation
 
-The quick installation option is limited to deploying IOMesh on three worker nodes only, and it only supports hybrid disk configurations.
+The quick installation option is limited to deploying IOMesh on 3 worker nodes only, and it only supports hybrid disk configurations.
 
-1. Replace `10.234.1.0/24` with the actual network segment and run the command to install IOMesh. After executing the following command, wait for a few minutes. Note that `Helm3` is included in the commands below. It will be installed automatically if it is not found. 
+1. Access the master node.
+   
+2. Replace `10.234.1.0/24` with the actual CIDR and run the command to install IOMesh. After executing the following command, wait for a few minutes. Note that `Helm3` is included in the commands below. It will be installed automatically if it is not found. 
 
     ```shell
     # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
     export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
     ```
 
-2. Verify that all pods are in `Running` state. If so, then IOMesh has been successfully installed.
+3. Verify that all pods are in `Running` state. If so, then IOMesh has been successfully installed.
 
     ```shell
     watch kubectl get --namespace iomesh-system pods
@@ -31,7 +33,9 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
 ## Custom Installation 
 
-1. Install `Helm`. Skip this step if `Helm` is already installed. 
+1. Access the master node.
+   
+2. Install `Helm`. Skip this step if `Helm` is already installed. 
 
     ```shell
     curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
@@ -41,19 +45,19 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
    For more details, refer to **[Installing Helm](https://helm.sh/docs/intro/install/)**.
 
-2. Add the IOMesh Helm repository.
+3. Add the IOMesh Helm repository.
 
     ```shell
     helm repo add iomesh http://iomesh.com/charts
     ```
 
-3. Export the IOMesh default configuration file `iomesh.yaml`. 
+4. Export the IOMesh default configuration file `iomesh.yaml`. 
 
     ```shell
     helm show values iomesh/iomesh > iomesh.yaml
     ```
 
-4. Configure `iomesh.yaml`.
+5. Configure `iomesh.yaml`.
 
     - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
 
@@ -105,7 +109,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
       It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-5. Deploy the IOMesh cluster.
+6. Deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -126,7 +130,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
     TEST SUITE: None
     ```
 
-6. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
+7. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
 
     ```bash
     kubectl --namespace iomesh-system get pods
@@ -176,14 +180,14 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
 ## Offline Installation
 
-1. Download [IOMesh Offline Installation Package].需要替换成 1.0 离线安装包
+1. Download [IOMesh Offline Installation Package] on each worker node. 需要替换成 1.0 离线安装包
 
-2. Unpack the installation package. 替换 1.0 安装包名
+2. Unpack the installation package on each worker node. 替换 1.0 安装包名
 
     ```shell
     tar -xf  iomesh-offline-v0.11.1.tgz && cd iomesh-offline
     ```
-3. Load the IOMesh image on each Kubernetes node and then execute the corresponding scripts based on your container runtime and container manager.
+3. Load the IOMesh image on each worker node and then execute the corresponding scripts based on your container runtime and container manager.
 
   <!--DOCUSAURUS_CODE_TABS-->
 
@@ -203,7 +207,7 @@ The quick installation option is limited to deploying IOMesh on three worker nod
 
   <!--END_DOCUSAURUS_CODE_TABS-->
 
-4. Export the IOMesh default configuration file `iomesh.yaml`. 
+4. On the master node, export the IOMesh default configuration file `iomesh.yaml`. 
 
     ```shell
     ./helm show values charts/iomesh > iomesh.yaml
