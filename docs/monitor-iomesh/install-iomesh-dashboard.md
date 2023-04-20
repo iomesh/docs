@@ -31,8 +31,49 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
 2. In `iomesh.yaml`, configure `operator`, `iomesh`, and `blockdevice monitor`.
 
-    `operator`
+    `blockdevice monitor`   
+    ```yaml
+    blockdevice-monitor:
+      # Configure PodMonitor for Prometheus Operator.
+      podMonitor:
+        create: true # Set it to true to create a PodMonitor object, which defaults to false.
+        namespace: "" # Create a namespace for PodMonitor object. If left blank, "iomesh-system" will be specified.
+        labels: {} # Set the label for PodMonitor object, which defaults to blank.
+      # Configure PrometheusRule for Prometheus Operator.
+      prometheusRule:
+        create: true # Set it to true to create a PrometheusRule object, which defaults to false.
+        namespace: "" # Create a namespace for PrometheusRule object. If left blank, "iomesh-system" will be specified.
+        labels: {} # Set the label for PrometheusRule object, which defaults to blank.
+   
+      blockdevicemonitor:
+        podMonitor:
+          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>. 
+          relabelings: [] # Set relabelings parameters, which defaults to blank.
 
+      prober:
+        podMonitor:
+          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>. 
+          relabelings: [] # Set relabelings parameters, which defaults to blank.
+    ```
+    `iomesh` 
+    ```yaml
+    iomesh:
+      # Configure ServiceMonitor for Prometheus Operator.
+      serviceMonitor:
+        create: true # Set it to true to create a serviceMonitor object, which defaults to false.
+        namespace: "" # Create a namespace for serviceMonitor object. If left blank, "iomesh-system" will be specified.
+        labels: {} # Set the label for serviceMonitor object, which defaults to blank. 
+
+      meta:
+        serviceMonitor:
+          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>.
+          relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
+      chunk:
+        serviceMonitor:
+          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>.  
+          relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
+    ```
+    `operator`
     ```yaml
     operator:
       metricsPort: 8080
@@ -62,49 +103,6 @@ helm -n iomesh-system get values iomesh -o yaml > iomesh.yaml
 
         # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>
         relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
-    ```
-
-    `iomesh` 
-    ```yaml
-    iomesh:
-      # Configure ServiceMonitor for Prometheus Operator.
-      serviceMonitor:
-        create: true # Set it to true to create a serviceMonitor object, which defaults to false.
-        namespace: "" # Create a namespace for serviceMonitor object. If left blank, "iomesh-system" will be specified.
-        labels: {} # Set the label for serviceMonitor object, which defaults to blank. 
-
-      meta:
-        serviceMonitor:
-          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>.
-          relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
-      chunk:
-        serviceMonitor:
-          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>.  
-          relabelings: [] # Set relabeling parameters for metrics, which defaults to blank.
-    ```
-    `blockdevice monitor`   
-    ```yaml
-    blockdevice-monitor:
-      # Configure PodMonitor for Prometheus Operator.
-      podMonitor:
-        create: true # Set it to true to create a PodMonitor object, which defaults to false.
-        namespace: "" # Create a namespace for PodMonitor object. If left blank, "iomesh-system" will be specified.
-        labels: {} # Set the label for PodMonitor object, which defaults to blank.
-      # Configure PrometheusRule for Prometheus Operator.
-      prometheusRule:
-        create: true # Set it to true to create a PrometheusRule object, which defaults to false.
-        namespace: "" # Create a namespace for PrometheusRule object. If left blank, "iomesh-system" will be specified.
-        labels: {} # Set the label for PrometheusRule object, which defaults to blank.
-   
-      blockdevicemonitor:
-        podMonitor:
-          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>. 
-          relabelings: [] # Set relabelings parameters, which defaults to blank.
-
-      prober:
-        podMonitor:
-          # Configure Relabelings. See more information at <https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config>. 
-          relabelings: [] # Set relabelings parameters, which defaults to blank.
     ```
 
 3. Run the corresponding command to apply configurations according to your installation.

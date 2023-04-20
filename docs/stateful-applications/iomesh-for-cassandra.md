@@ -9,6 +9,9 @@ sidebar_label: IOMesh for Cassandra
 Verify the IOMesh cluster is already deployed.
 
 **Procedure**
+
+**_NOTE_:** The following example does not apply to a `AArch64` Kubernetes cluster.
+
 1. Create a YAML config `iomesh-cassandra-sc.yaml` with the following content.  You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass.md).
 
     ```yaml
@@ -135,7 +138,7 @@ Verify the IOMesh cluster is already deployed.
       - metadata:
           name: cassandra-data
         spec:
-          accessModes: "ReadWriteOnce"
+          accessModes: ["ReadWriteOnce"]
           storageClassName: iomesh-cassandra-sc # The StorageClass in Step 1.
           resources:
             requests:

@@ -46,7 +46,7 @@ The minimum number of chunk pods is 3, and the maximum number you can add depend
 
 ## Scale Meta Server
 
-If the Kubernetes cluster has 4 or fewer nodes, there is no need to scale the meta server since the cluster can tolerate one failed meta server. However, for a cluster with 5 or more nodes, it is recommended to increase the number of meta pods from 3 to 5 to ensure that the cluster can tolerate up to 2 failed meta servers.
+For a Kubernetes cluster with 4 nodes or fewer, there is no need to scale the meta server. However for a cluster with 5 or more nodes, it is recommended to increase the number of meta pods from 3 to 5.
 
 **Precaution**
 

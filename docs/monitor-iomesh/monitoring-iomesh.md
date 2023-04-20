@@ -24,14 +24,14 @@ Shows IOMesh cluster information and resource usage.
 |Panel|Description|
 |---|---|
 |Alert|Shows all alarms detected in the IOMesh cluster, by default presenting essential details such as alarm names, trigger status, and duration. You can further investigate into the severity, reasons, impacts, and recommended solutions for each alarm, and set the threshold for alert rules on your own on the Alert page.|
-|Cluster Info|Shows the basic information of the IOMesh cluster, including IOMesh version, IOMesh block storage version, CPU architecture, license type, license edition, maximum number of nodes, and license expiration time.|
+|Cluster Info|Shows the basic information of the IOMesh cluster, including IOMesh version, IOMesh block storage version, CPU architecture, license type, license edition, maximum number of nodes, and license expiration date.|
 |Node|Shows the total number of nodes in the IOMesh cluster and how many of them are in the unhealthy state.|
 |Physical Disk|Shows the number of total SSDs, total HDDs, unhealthy SSDs and HDDs, respectively.|
 |Persistent Volume| Shows the total number of all persistent volumes in the IOMesh cluster.|
 |PV Status|Shows the number of persistent volumes in different states in the IOMesh cluster.|
-|Total Storage Capacity|Shows the total capacity of the IOMesh cluster.|
-|Used Storage Capacity|Shows the used capacity of the IOMesh cluster.|
-|Total Storage Capacity Usage|Shows the percentage of used capacity to total capacity of the IOMesh cluster.|
+|Total Storage Capacity|Shows the total storage capacity of the IOMesh cluster.|
+|Used Storage Capacity|Shows the used storage capacity of the IOMesh cluster.|
+|Total Storage Capacity Usage|Shows the percentage of used storage capacity to total storage capacity of the IOMesh cluster.|
 |Data Migrate & Recovery|Shows the amount of data to be migrated and migration speed, or the amount of all data to be recovered and recovery speed.|
 |Cluster IOPS|Shows the minimum, maximum and latest values of read, write and total IOPS for the IOMesh cluster in a given time period, respectively.|
 |Cluster Average Latency|Shows the minimum, maximum, and latest values of read, write, and total average latency for the IOMesh cluster in a given time period, respectively.|
@@ -46,14 +46,14 @@ Shows the basic information of each node in the IOMesh cluster.
 | Name          | The node name. | "node-1" |
 | Namespace     | The namespace where the node is located. | "iomesh-system" |
 | Health Status | Shows node health status, including `Initializing`, `Healthy`, `Error`, and `Disconnected`.</p> | "Healthy"|
-|Storage Capacity| The total capacity of the node.| "2 TiB" |
-|  Storage Capacity Usage | The space usage of the node. | "20%"    |
-| Dirty Cache   | The dirty data space of the node.| "5 GiB"|
-| Cache Hit     | Node read cache hit ratio * read ratio + write cache hit ratio * write ratio.   | "70%" |
-| Overall IOPS  |The total IOPS of the node.  | "500 io/s" |
-| Avg Latency   | The average read and write latency of the node. | "1 us"   |
-| Migrate       | The data migration speed for the node.  | "1000 B/s"|
-| Recovery      | The data recovery speed for the node.| "1000 B/s"|
+|Storage Capacity| The total storage capacity of the node.| "2.0 TiB" |
+|  Storage Capacity Usage | The storage space usage of the node. | "20.0%"    |
+| Dirty Cache   | The dirty data space of the node.| "5.0 GiB"|
+| Cache Hit     | Node read cache hit ratio * read ratio + write cache hit ratio * write ratio.   | "70.0%" |
+| Overall IOPS  |The total IOPS of the node.  | "500.0 io/s" |
+| Avg Latency   | The average read and write latency of the node. | "1.0 us"   |
+| Migrate       | The data migration speed for the node.  | "1000.0 B/s"|
+| Recovery      | The data recovery speed for the node.| "1000.0 B/s"|
 
 ## Details of Node
 Shows data migration, recovery, and performance data of a specific node in the IOMesh cluster.
@@ -83,7 +83,7 @@ Shows disk attribute information, health and usage status, and purpose of use.
 | Serial Number      | The serial number of the physical disk.                                                                                    | "WBM3C4TE"     |
 | Use                | Shows the purpose of the physical disk, including `Datastore`, `Cache with journal`, and `Datastore with journal`. | "Datastore"        |
 | Capacity | The total capacity of the physical disk. | "500 GiB"      |
-| Node| The node where the disk is located. | "node-1"       |
+| Nodename| The node where the disk is located. | "node-1"       |
 ## Persistent Volume
 Shows the attribute information, status, and usage of a PV in the IOMesh cluster.
 

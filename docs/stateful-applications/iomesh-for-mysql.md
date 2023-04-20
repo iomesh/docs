@@ -10,6 +10,9 @@ sidebar_label: IOMesh for MySQL
 Verify that your IOMesh cluster is already deployed. 
 
 **Procedure**
+
+**_NOTE_:** The following example does not apply to a `AArch64` Kubernetes cluster.
+
 1. Create a YAML config `iomesh-mysql-sc.yaml` with the following content. You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass).
 
     ```yaml
@@ -31,7 +34,7 @@ Verify that your IOMesh cluster is already deployed.
     ```bash
     kubectl apply -f iomesh-mysql-sc.yaml
     ```
-3. Create a YAML config `mysql-deployment.yaml` with the following content,  containing `PersistentVolumeClaim`, `Service`, and `Deployment`.
+3. Create a YAML config `mysql-deployment.yaml` with the following content,  containing `PersistentVolumeClaim`, `Service`, and `Deployment`. Enter a password to allow access to the database as instructed below.
     ```yaml
     apiVersion: v1
     kind: PersistentVolumeClaim

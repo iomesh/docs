@@ -17,7 +17,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
 
 1. Delete the default StorageClass. 
 
-    IOMesh 1.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.
+    IOMesh 1.0.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.
 
     ```shell
     kubectl delete sc iomesh-csi-driver

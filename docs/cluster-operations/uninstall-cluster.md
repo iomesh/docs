@@ -14,7 +14,7 @@ helm uninstall --namespace iomesh-system iomesh
 
 If there are IOMesh resources left after uninstalling IOMesh due to network or other issues, run the following command to delete all IOMesh resources.
 ```shell
-`curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` 
+curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -
 ```
 
 

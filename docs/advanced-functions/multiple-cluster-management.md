@@ -31,8 +31,6 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 ### Deploy Management Cluster
 
->_NOTE_: If you already have an IOMesh cluster and want to expand it to multiple clusters, configure node affinity as instructed below and apply modifications via `helm upgrade`.
-
 1. Export the YAML config `iomesh.yaml`. 
 
     ```
@@ -129,13 +127,15 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
                       topologyKey: kubernetes.io/hostname
                     weight: 20
 
-3. Perform deployment. If all pods are shown as `Running`, then IOMesh has been installed successfully.
+3. Perform deployment. If all pods are shown in `Running` state, then IOMesh has been installed successfully. 
+   
+   Note that the CSI pods on node `k8s-woker-{3~5}` are in `Crash` state at this time and will only transition to `Running` state after the second IOMesh cluster is deployed.
 
    ```shell
    helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
    ```
   
-    If successful, you should see output like this:
+    If successful, you should see output below:
    ```output
    NAME                                                  READY   STATUS    RESTARTS   AGE
    iomesh-blockdevice-monitor-766655959f-7bwvv           1/1     Running   0          5h37m
@@ -176,7 +176,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 ### Deploy Non-Management Cluster
 
-1. Create a namespace for the cluster `iomesh-cluster-1`, 
+1. Create a namespace for the cluster `iomesh-cluster-1`. 
 
     ```
     kubectl create namespace iomesh-cluster-1
