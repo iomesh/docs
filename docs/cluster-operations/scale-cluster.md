@@ -46,8 +46,9 @@ The minimum number of chunk pods is 3, and the maximum number you can add depend
 
 ## Scale Down Chunk Server
 
-> _NOTE:_
-> You can only reduce one chunk pod at a time.
+**Precaution**
+
+You can only reduce one chunk pod at a time.
 
 **Procedure**
 

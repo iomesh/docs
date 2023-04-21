@@ -1,7 +1,7 @@
 ---
 id: replace-failed-disk
-title: Replace Failed Disk
-sidebar_label: Replace Failed Disk
+title: Replace Disk
+sidebar_label: Replace Disk
 ---
 
 You can see the health status of physical disks on the IOMesh Dashboard. If any disk is in `Unhealthy`, `Failing`, or `S.M.A.R.T not passed` state, you need to replace it with a new disk as soon as possible.
