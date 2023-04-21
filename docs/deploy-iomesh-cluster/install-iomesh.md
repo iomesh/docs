@@ -11,7 +11,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 ## Quick Installation
 
-The quick installation option is limited to deploying IOMesh on 3 worker nodes only, and it only supports hybrid disk configurations.
+The quick installation option is limited to deploying IOMesh on 3 worker nodes only, and it only supports hybrid disk configurations，且仅支持 intel x86_64 架构的 K8s 集群
 
 1. Access the master node.
    
@@ -73,12 +73,20 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
     
-    - Specify IOMesh edition. The field is blank by default, and if left unspecified, the system installs the community edition automatically. 
+    - Specify platform
     
-      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+      IOMesh 支持部署在三种 cpu 架构中，分别是 amd64/aarch64/hygon_x86_64，请保证该配置与 K8s 集群节点的 cpu 架构一致
    
       ```yaml
-      edition: "" # If left blank, Community Edition will be installed. 
+      platform: "amd64" # Support: amd64/aarch64/hygon_x86_64
+      ```
+
+    - Specify IOMesh edition. 
+    
+      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. platform 为 aarch64/hygon_x86_64 时仅支持企业版。For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+   
+      ```yaml
+      edition: "community" # Community Edition will be installed. 
       ```
 
    - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods。
@@ -185,7 +193,7 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
 2. Unpack the installation package on each worker node. 替换 1.0 安装包名
 
     ```shell
-    tar -xf  iomesh-offline-v0.11.1.tgz && cd iomesh-offline
+    tar -xf  iomesh-offline-<VERSION>-<ARCH>.tgz && cd iomesh-offline
     ```
 3. Load the IOMesh image on each worker node and then execute the corresponding scripts based on your container runtime and container manager.
 
@@ -228,13 +236,23 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
       ```yaml
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
-    - Specify IOMesh `edition`. The field is blank by default, and if left unspecified, the system installs the community edition automatically. 
-    
-      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
 
+    - Specify platform
+    
+      IOMesh 支持部署在三种 cpu 架构中，分别是 amd64/aarch64/hygon_x86_64，请保证该配置与 K8s 集群节点的 cpu 架构一致
+   
       ```yaml
-      edition: "" # If left blank, Community Edition will be installed. 
+      platform: "amd64" # Support: amd64/aarch64/hygon_x86_64
       ```
+
+    - Specify IOMesh edition. 
+    
+      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. platform 为 aarch64/hygon_x86_64 时仅支持企业版。For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+   
+      ```yaml
+      edition: "community" # Community Edition will be installed. 
+      ```
+
    - An optional step: The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods.
 
       ```yaml

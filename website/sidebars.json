@@ -32,7 +32,8 @@
       "cluster-operations/scale-cluster",
       "cluster-operations/upgrade-cluster",
       "cluster-operations/uninstall-cluster",
-      "cluster-operations/manage-license"
+      "cluster-operations/manage-license",
+      "cluster-operations/replace-failed-disk"
     ],
     "Monitor IOMesh":[
       "monitor-iomesh/install-iomesh-dashboard",
