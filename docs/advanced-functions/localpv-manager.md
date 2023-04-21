@@ -259,8 +259,6 @@ The following example assumes that the local PV is created in the `/var/iomesh/l
 
 IOMesh Device Local PV supports creating local PVs based on a block device on the node for pod use.
 
-### Create IOMesh Device Local PV
-
 **Procedure**
 
 1. When IOMesh LocalPV Manager is deployed, a default StorageClass will be created as shown below with `volumeType` set to `device`. 

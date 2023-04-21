@@ -35,7 +35,7 @@ To ensure that the access point has a consistent and functional IP address, IOMe
     kubectl edit iomesh iomesh -n iomesh-system
     ```
 
-    > **_NOTE_:** `spec.redirector.iscsiVirtualIP` must be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVirtualIP`.
+    > _NOTE_: `spec.redirector.iscsiVirtualIP` must be the same as the external IP. If the external IP is changed, update `spec.redirector.iscsiVirtualIP`.
 
 3. An optional step. To use storage from one more IOMesh cluster, run the `kubectl edit` command to set the `spec.redirector.iscsiVirtualIP` field in its YAML file to the external IP of the `iomesh-access` service.
 
@@ -68,7 +68,7 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
           - <fill-in-your-ip-address-pool-here> # Fill in an IP pool.
     ```
 
-    > **_NOTE_:** metallb 的 0.12.1 版本不支持将 address-pools 绑定到某一张指定的网卡，如果要使用网卡绑定功能请使用 metallb 0.13.0 以上版本，参考 https://metallb.universe.tf/concepts/layer2/ 进行配置
+    > **_NOTE_:** `metallb` 0.12.1 does not support binding `address-pools` to a specific NIC. To use the NIC binding feature, `metallb` must be version 0.13.0 or higher. Refer to https://metallb.universe.tf/concepts/layer2/ for configuration.
 
 4. Apply the YAML config.
     ```shell

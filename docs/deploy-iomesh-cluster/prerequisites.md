@@ -9,7 +9,7 @@ Before installing and deploying IOMesh, verify the following requirements.
 ## Cluster Requirements
 
 - A Kubernetes or OpenShift cluster with minimum 3 worker nodes.
-- The Kubernetes version should be 1.17-1.25 or OpenShift version should be 4.0-4.11.
+- The Kubernetes version should be 1.17-1.25 or OpenShift version should be 4.4-4.12.
 
 ## Hardware Requirements 
 
@@ -17,7 +17,7 @@ Ensure that each worker node has the following hardware configurations, and note
 
 **CPU**
 
-- The CPU architecture should be Intel x86_64, Hygon x86_64, or Kunpeng AArch64.
+- The CPU architecture should be AArch64 or x86_64.
 - At least 8 cores for each worker node.
 
 **Memory**
@@ -56,7 +56,7 @@ Each worker node should have at least one 10/25 GbE NIC.
 
 To prevent network bandwidth contention, create a dedicated storage network for IOMesh or leverage an existing network. 
 
-- Plan `dataCIDR` segment for IOMesh storage network. The IP of each worker node running IOMesh should be within that `dataCIDR` segment.
+- Plan a CIDR for IOMesh storage network. The IP of each worker node running IOMesh should be within that CIDR.
 - The ping latency of the IOMesh storage network should below 1 ms.
 - All worker nodes must be connected to the L2 layer network.
 

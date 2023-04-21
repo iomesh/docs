@@ -11,7 +11,12 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 ## Quick Installation
 
-The quick installation option is limited to deploying IOMesh on 3 worker nodes only, and it only supports hybrid disk configurations，且仅支持 intel x86_64 架构的 K8s 集群
+**Precautions**
+- IOMesh deployment is supported on a minimum of three nodes.
+- Only hybrid disk configurations are supported.
+- The CPU architecture of the Kubernetes cluster must be Intel x86_64.
+
+**Procedure**
 
 1. Access the master node.
    
@@ -33,6 +38,11 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
 
 ## Custom Installation 
 
+**Precautions**
+- The CPU architecture of the Kubernetes cluster should be `Intel x86_64`, `Hygon x86_64`, or `Kunpeng AArch64`.
+- If the Kubernetes cluster's CPU architecture is Hygon x86_64 or Kunpeng AArch64, you can only select the Enterprise edition.
+
+**Procedure**
 1. Access the master node.
    
 2. Install `Helm`. Skip this step if `Helm` is already installed. 
@@ -73,20 +83,22 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
     
-    - Specify platform
-    
-      IOMesh 支持部署在三种 cpu 架构中，分别是 amd64/aarch64/hygon_x86_64，请保证该配置与 K8s 集群节点的 cpu 架构一致
+   - Specify the CPU architecture. Ensure the value you specify is consistent with that of the Kubernetes cluster.
+
+      Values include: `amd64` for Intel x86_64, `hygon_x86_64` for Hygon x86_64, and `aarch64` for Kunpeng AArch64.
    
       ```yaml
-      platform: "amd64" # Support: amd64/aarch64/hygon_x86_64
+      platform: "amd64" # Specify the CPU architecture.
       ```
 
-    - Specify IOMesh edition. 
+    - Specify the IOMesh edition. 
     
-      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. platform 为 aarch64/hygon_x86_64 时仅支持企业版。For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+      If you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
+      
+      Note that you can only choose `enterprise` if the CPU architecture is either Kunpeng AArch64 or Hygon x86_64. 
    
       ```yaml
-      edition: "community" # Community Edition will be installed. 
+      edition: "community" # Specify the IOMesh edition. 
       ```
 
    - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods。
@@ -117,7 +129,7 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
 
       It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-6. Deploy the IOMesh cluster.
+1. Deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -138,7 +150,7 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
     TEST SUITE: None
     ```
 
-7. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
+2. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
 
     ```bash
     kubectl --namespace iomesh-system get pods
@@ -187,6 +199,12 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
     [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
 ## Offline Installation
+
+**Precautions**
+- The CPU architecture of the Kubernetes cluster should be `Intel x86_64`, `Hygon x86_64`, or `Kunpeng AArch64`.
+- If the Kubernetes cluster's CPU architecture is Hygon x86_64 or Kunpeng AArch64, you can only select the Enterprise edition.
+
+**Procedure**
 
 1. Download [IOMesh Offline Installation Package] on each worker node. 需要替换成 1.0 离线安装包
 
@@ -237,23 +255,25 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
 
-    - Specify platform
+    - Specify the CPU architecture. Ensure the value you specify is consistent with that of the Kubernetes cluster.
     
-      IOMesh 支持部署在三种 cpu 架构中，分别是 amd64/aarch64/hygon_x86_64，请保证该配置与 K8s 集群节点的 cpu 架构一致
+      Values include: `amd64` for Intel x86_64, `hygon_x86_64` for Hygon x86_64, and `aarch64` for Kunpeng AArch64.
    
       ```yaml
-      platform: "amd64" # Support: amd64/aarch64/hygon_x86_64
+      platform: "amd64" # Specify the CPU architecture.
       ```
 
-    - Specify IOMesh edition. 
+    - Specify the IOMesh edition. 
     
-      In case you have purchased the Enterprise Edition, set the value of `edition` to `enterprise`. platform 为 aarch64/hygon_x86_64 时仅支持企业版。For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec).
+      If you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
+      
+      Note that you can only choose `enterprise` if the CPU architecture is either Kunpeng AArch64 or Hygon x86_64. 
    
       ```yaml
-      edition: "community" # Community Edition will be installed. 
+      edition: "community" # Specify the IOMesh edition. 
       ```
 
-   - An optional step: The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods.
+   - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods.
 
       ```yaml
         iomesh:
@@ -261,7 +281,7 @@ The quick installation option is limited to deploying IOMesh on 3 worker nodes o
             replicaCount: "" # Specify the number of chunk pods.
       ```
 
-   - An optional step : If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
+   - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.
    
       ```yaml
       iomesh:
