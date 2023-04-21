@@ -67,6 +67,9 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
           addresses:
           - <fill-in-your-ip-address-pool-here> # Fill in an IP pool.
     ```
+
+    > **_NOTE_:** metallb 的 0.12.1 版本不支持将 address-pools 绑定到某一张指定的网卡，如果要使用网卡绑定功能请使用 metallb 0.13.0 以上版本，参考 https://metallb.universe.tf/concepts/layer2/ 进行配置
+
 4. Apply the YAML config.
     ```shell
     kubectl apply -f metallb-config.yaml
