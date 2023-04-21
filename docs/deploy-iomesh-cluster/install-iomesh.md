@@ -12,7 +12,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 ## Quick Installation
 
 **Precautions**
-- IOMesh deployment is supported on only 3 worker nodes.
+- Quick installation installs the Community Edition by default and supports IOMesh deployment on only 3 worker nodes.
 - Only hybrid disk configurations are supported.
 - The CPU architecture of the Kubernetes cluster must be Intel x86_64.
 
@@ -276,9 +276,9 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
    - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods.
 
       ```yaml
-        iomesh:
-          chunk:
-            replicaCount: "" # Specify the number of chunk pods.
+      iomesh:
+        chunk:
+          replicaCount: "" # Specify the number of chunk pods.
       ```
 
    - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.

@@ -6,6 +6,8 @@ sidebar_label: Prerequisites
 
 Before installing and deploying IOMesh, verify the following requirements.
 
+> _NOTE:_ Expanding an IOMesh cluster to multiple clusters is not currently supported. Decide at the beginning whether to deploy one or multiple clusters. For multi-cluster deployment and operations, refer to [Multiple Cluster Management](../advanced-functions/multiple-cluster-management).
+
 ## Cluster Requirements
 
 - A Kubernetes or OpenShift cluster with minimum 3 worker nodes.

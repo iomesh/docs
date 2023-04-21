@@ -32,7 +32,7 @@ Implemented as a standard CSI controller server. With one instance on each worke
 
 **Node Driver** 
 
-Implemented as a standard CSI node server. With one instance on each worker node, its main task is to interact with `kubelet` to mount and format local PVs.
+Implemented as a standard CSI node server. With one instance on each worker node, it has the task to interact with `kubelet` to mount and format local PVs.
 
 **Node Disk Manager**
 

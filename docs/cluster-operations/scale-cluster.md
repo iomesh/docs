@@ -48,7 +48,7 @@ The minimum number of chunk pods is 3, and the maximum number you can add depend
 
 **Precaution**
 
-You can only reduce one chunk pod at a time.
+You can only reduce 1 chunk pod at a time.
 
 **Procedure**
 
@@ -77,21 +77,20 @@ You can only reduce one chunk pod at a time.
     kubectl edit iomesh iomesh -n iomesh-system
     ```
     ```yaml
-          chunks:
-          - id: 1
-            ip: 192.168.29.23
-            spaceInfo:
-              dirtyCacheSpace: 0B
-              failureCacheSpace: 0B
-              failureDataSpace: 0B
-              provisionedDataSpace: 0B
-              totalCacheCapacity: 0B
-              totalDataCapacity: 0B
-              usedCacheSpace: 0B
-              usedDataSpace: 0B
-            status: CHUNK_STATUS_SESSION_EXPIRED
+    chunks:
+    - id: 1
+      ip: 192.168.29.23
+      spaceInfo:
+        dirtyCacheSpace: 0B
+        failureCacheSpace: 0B
+        failureDataSpace: 0B
+        provisionedDataSpace: 0B
+        totalCacheCapacity: 0B
+        totalDataCapacity: 0B
+        usedCacheSpace: 0B
+        usedDataSpace: 0B
+      status: CHUNK_STATUS_SESSION_EXPIRED
     ```
-
 5. Get the meta leader pod name.
     ```shell
     kubectl get pod -n iomesh-system -l=iomesh.com/meta-leader -o=jsonpath='{.items[0].metadata.name}'
@@ -111,8 +110,9 @@ You can only reduce one chunk pod at a time.
     ```
 
 8. Run the following command. Then locate the `status.summary.chunkSummary.chunks` field to verify that the chunk was removed.
-
-
+    ```shell
+    kubectl edit iomesh iomesh -n iomesh-system
+    ```
 ## Scale Up Meta Server
 
 For a Kubernetes cluster with 4 nodes or fewer, there is no need to scale the meta server. However for a cluster with 5 or more nodes, it is recommended to increase the number of meta pods from 3 to 5.
