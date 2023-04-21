@@ -12,7 +12,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 ## Quick Installation
 
 **Precautions**
-- IOMesh deployment is supported on a minimum of three nodes.
+- IOMesh deployment is supported on only 3 worker nodes.
 - Only hybrid disk configurations are supported.
 - The CPU architecture of the Kubernetes cluster must be Intel x86_64.
 
