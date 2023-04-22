@@ -83,22 +83,18 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
     
-   - Specify the CPU architecture. Ensure the value you specify is consistent with that of the Kubernetes cluster.
+   - Specify the CPU architecture. Only when your k8s cluster uses hygon cpu, this field needs to be filled in as `hygon_x86_64`. In other cases this field is empty
 
-      Values include: `amd64` for Intel x86_64, `hygon_x86_64` for Hygon x86_64, and `aarch64` for Kunpeng AArch64.
-   
       ```yaml
-      platform: "amd64" # Specify the CPU architecture.
+      platform: ""
       ```
 
     - Specify the IOMesh edition. 
     
       If you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
       
-      Note that you can only choose `enterprise` if the CPU architecture is either Kunpeng AArch64 or Hygon x86_64. 
-   
       ```yaml
-      edition: "community" # Specify the IOMesh edition. 
+      edition: "" # If left blank, Community Edition will be installed.
       ```
 
    - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods。
@@ -255,22 +251,18 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
 
-    - Specify the CPU architecture. Ensure the value you specify is consistent with that of the Kubernetes cluster.
-    
-      Values include: `amd64` for Intel x86_64, `hygon_x86_64` for Hygon x86_64, and `aarch64` for Kunpeng AArch64.
-   
+    - Specify the CPU architecture. Only when your k8s cluster uses hygon cpu, this field needs to be filled in as `hygon_x86_64`. In other cases this field is empty
+
       ```yaml
-      platform: "amd64" # Specify the CPU architecture.
+      platform: ""
       ```
 
     - Specify the IOMesh edition. 
     
       If you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
       
-      Note that you can only choose `enterprise` if the CPU architecture is either Kunpeng AArch64 or Hygon x86_64. 
-   
       ```yaml
-      edition: "community" # Specify the IOMesh edition. 
+      edition: "" # If left blank, Community Edition will be installed.
       ```
 
    - An optional step. The number of IOMesh chunk pods is 3 by default. If you install IOMesh Enterprise Edition, you can deploy more than 3 chunk pods.
