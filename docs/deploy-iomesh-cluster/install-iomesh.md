@@ -42,7 +42,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 **Prerequisite**
 
-Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. If you are using a `Hygon x86_64` or `Kunpeng AArch64` cluster, you can only opt for the Enterprise edition.
+Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. 
 
 **Procedure**
 1. Access the master node.
@@ -93,7 +93,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
     - Specify the IOMesh edition. The field is blank by default, and if left unspecified, the system will install the Community edition automatically. 
     
-      In case you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
+      If you have purchased the Enterprise edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
       
       ```yaml
       edition: "" # If left blank, Community Edition will be installed.
@@ -200,7 +200,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
 **Prerequisite**
 
-Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. If you are using a `Hygon x86_64` or `Kunpeng AArch64` cluster, you can only opt for the Enterprise edition.
+Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64.
 
 **Procedure**
 
@@ -261,7 +261,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
     - Specify the IOMesh edition. The field is blank by default, and if left unspecified, the system will install the Community edition automatically. 
     
-      If you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
+      If you have purchased the Enterprise edition, set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
       
       ```yaml
       edition: "" # If left blank, Community Edition will be installed.
