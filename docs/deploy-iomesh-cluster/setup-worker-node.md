@@ -6,7 +6,7 @@ sidebar_label: Set Up Worker Node
 
 Once you have confirmed that all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites) are met, set up `open-iscsi` for each worker node on which IOMesh will be installed and running. 
 
-It is important to note that if you intend for IOMesh to provide storage to pther nodes within this Kubernetes cluster, you will also need to set up `open-iscsi` for those nodes.
+It is important to note that if you intend for IOMesh to provide storage to other nodes within this Kubernetes cluster, you will also need to set up `open-iscsi` for those nodes.
 
 1. On the node console, run the following command to install `open-iscsi`.
 

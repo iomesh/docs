@@ -14,7 +14,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 **Precautions**
 - The CPU architecture of the Kubernetes cluster must be Intel x86_64.
 - The Community edition is installed by default and only 3 worker nodes are supported for IOMesh deployment.
-- Only hybrid disk configurations are only allowed. 
+- Only hybrid disk configurations are allowed. 
 
 **Procedure**
 
