@@ -10,7 +10,8 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 **Prerequisite**
 
-Verify that [Prometheus and Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed, and Prometheus is located in the namespace `iomesh-system`.
+- Verify that [Prometheus Operator and Prometheus](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed, and Prometheus is located in the namespace `iomesh-system`.
+- Configure [Prometheus Operator and Prometheus RBAC](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/rbac.md) to grant them access to IOMesh and its monitoring components.
 
 **Procedure**
 
@@ -173,6 +174,26 @@ helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml
     NAME                                  READY   STATUS    RESTARTS   AGE
     kube-state-metrics-7bb75797f9-h9r97   1/1     Running   0          10m
     ```
+5. An optional step. To monitor multiple IOMesh clusters, run the following command to access the ServiceMonitor object `iomesh` and then add the namespace of the cluster to be monitored to the field `spec.namespaceSelector.matchNames`. 
+
+    ```shell
+    kubectl -n iomesh-system edit servicemonitor iomesh
+    ```
+    ```yaml
+    apiVersion: monitoring.coreos.com/v1
+    kind: ServiceMonitor
+    metadata:
+      name: iomesh
+      namespace: iomesh-system
+    spec:
+      # ...
+      namespaceSelector:
+        matchNames:
+        - iomesh-system
+        - iomesh-cluster-1 # Add the namespace of the target cluster.
+      # ...
+    ```
+
 
 ## Import Grafana Dashboard
 

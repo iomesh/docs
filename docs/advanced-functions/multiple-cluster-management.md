@@ -491,6 +491,10 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
 
 Topology awareness is automatically enabled for IOMesh to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
 
+## Monitoring
+
+To monitor multiple IOMesh clusters, navigate to [Install IOMesh Dashboard](../monitor-iomesh/install-iomesh-dashboard.md) for monitoring configuration. After completing the configuration, you can select the target cluster and its namespace to view its storage performance.
+
 ## Operations 
 
 All of the following procedures are based on the example in [Deployment](../advanced-functions/multiple-cluster-management#deployment).
