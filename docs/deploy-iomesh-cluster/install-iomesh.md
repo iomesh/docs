@@ -5,16 +5,16 @@ sidebar_label: Install IOMesh
 ---
 
 Before installing IOMesh, refer to the following to choose how you install IOMesh.
-- Quick Installation：One click to install IOMesh online, but all parameters take default values and cannot be modified.
+- Quick Installation: One click to install IOMesh online, but all parameters take default values and cannot be modified.
 - Custom Installation: Configure parameters during installation on your own, but during installation, you must ensure that the Kubernetes cluster network is connected to the public network.
 - Offline Installation: Recommended when the Kubernetes cluster cannot communicate with the public network and support for custom parameters during installation.
 
 ## Quick Installation
 
 **Precautions**
-- Quick installation installs the Community Edition by default and supports IOMesh deployment on only 3 worker nodes.
-- Only hybrid disk configurations are supported.
 - The CPU architecture of the Kubernetes cluster must be Intel x86_64.
+- The Community edition is installed by default and only 3 worker nodes are supported for IOMesh deployment.
+- Only hybrid disk configurations are only allowed. 
 
 **Procedure**
 
@@ -29,7 +29,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
     export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
     ```
 
-1. Verify that all pods are in `Running` state. If so, then IOMesh has been successfully installed.
+3. Verify that all pods are in `Running` state. If so, then IOMesh has been successfully installed.
 
     ```shell
     watch kubectl get --namespace iomesh-system pods
@@ -40,7 +40,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 ## Custom Installation 
 
-**Precaution**
+**Prerequisite**
 
 Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. If you are using a `Hygon x86_64` or `Kunpeng AArch64` cluster, you can only opt for the Enterprise edition.
 
@@ -198,7 +198,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
 ## Offline Installation
 
-**Precaution**
+**Prerequisite**
 
 Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. If you are using a `Hygon x86_64` or `Kunpeng AArch64` cluster, you can only opt for the Enterprise edition.
 
