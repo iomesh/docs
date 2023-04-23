@@ -12,7 +12,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 ## Quick Installation
 
 **Precautions**
-- The CPU architecture of the Kubernetes cluster must be Intel x86_64.
+- The CPU architecture of the Kubernetes cluster must be Intel x86_64 or Kunpeng AArch64.
 - The Community edition is installed by default and only 3 worker nodes are supported for IOMesh deployment.
 - Only hybrid disk configurations are allowed. 
 
@@ -104,7 +104,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
       ```yaml
       iomesh:
         chunk:
-          replicaCount: 5 # Enter the number of chunk pods.
+          replicaCount: 3 # Enter the number of chunk pods.
       ```
 
    - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the label of the corresponding node in the `chunk.podPolicy.affinity` field.
@@ -272,7 +272,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
       ```yaml
       iomesh:
         chunk:
-          replicaCount: "" # Specify the number of chunk pods.
+          replicaCount: 3 # Specify the number of chunk pods.
       ```
 
    - An optional step. If you want IOMesh to only use the disks of specific Kubernetes nodes, configure the values of the node label.

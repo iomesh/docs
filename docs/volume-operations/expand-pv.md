@@ -12,7 +12,7 @@ The StorageClass must set `allowVolumeExpansion` to true. The default StorageCla
 
 **Procedure**
 
-The following example assumes a YAML config `pvc.yaml` that points to a PVC `example-pvc` with a capacity of `10Gi`.
+The following example assumes a YAML config `pvc.yaml` that points to a PVC `iomesh-example-pvc` with a capacity of `10Gi`.
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim

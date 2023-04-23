@@ -23,7 +23,7 @@ Shows IOMesh cluster information and resource usage.
 
 |Panel|Description|
 |---|---|
-|Alert|Shows all alarms detected in the IOMesh cluster, by default presenting essential details such as alarm names, trigger status, and duration. You can further investigate into the severity, reasons, impacts, and recommended solutions for each alarm, and set the threshold for alert rules on your own on the Alert page.|
+|Alert|<p>Shows all alarms detected in the IOMesh cluster, by default presenting essential details such as alarm names, trigger status, and duration.</p><p>You can further investigate into the severity, reasons, impacts, and recommended solutions for each alarm, and set the threshold for alert rules on your own on the Alert page.</p><p>Due to a Grafana defect, the values of all alarm items are presented in scientific notation.</p>|
 |Cluster Info|Shows the basic information of the IOMesh cluster, including IOMesh version, IOMesh block storage version, CPU architecture, license type, license edition, maximum number of nodes, and license expiration date.|
 |Node|Shows the total number of nodes in the IOMesh cluster and how many of them are in the unhealthy state.|
 |Physical Disk|Shows the number of total SSDs, total HDDs, unhealthy SSDs and HDDs, respectively.|

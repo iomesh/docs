@@ -48,7 +48,7 @@ In IOMesh 1.0, hybrid mode is only supported for tiered storage and all-flash mo
 |Deployment Mode|Disk Requirements|
 |---|---|
 |Hybrid Mode|<ul><li>Cache Disk: At least 1 SATA SSD, SAS SSD or NVMe SSD, and the capacity must be greater than 60 GB.</li><li>Data Disk: At least 1 SATA HDD or SAS HDD.</li><li>The total SSD disk capacity should be 10% to 20% of total HDD disk capacity.</li></ul>|
-|All-Flash Mode|At least 2 SSDs, each with a capacity greater than 60G.|
+|All-Flash Mode|At least 1 SSD with a capacity greater than 60G.|
 
 **NIC**
 
