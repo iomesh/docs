@@ -18,16 +18,18 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 **Procedure**
 
-1. Access the master node.
+1. Access a master node.
    
-2. Replace `10.234.1.0/24` with the actual CIDR and run the command to install IOMesh. After executing the following command, wait for a few minutes. Note that `Helm3` is included in the commands below. It will be installed automatically if it is not found. 
+2. Run the following command to install IOMesh. Make sure to replace `10.234.1.0/24` with your actual CIDR. 
+
+    After executing the following command, wait for a few minutes. Note that `Helm3` is included in the commands below. It will be installed automatically if it is not found. 
 
     ```shell
     # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
     export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
     ```
 
-3. Verify that all pods are in `Running` state. If so, then IOMesh has been successfully installed.
+1. Verify that all pods are in `Running` state. If so, then IOMesh has been successfully installed.
 
     ```shell
     watch kubectl get --namespace iomesh-system pods
@@ -38,9 +40,9 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 ## Custom Installation 
 
-**Precautions**
-- The CPU architecture of the Kubernetes cluster should be `Intel x86_64`, `Hygon x86_64`, or `Kunpeng AArch64`.
-- If the Kubernetes cluster's CPU architecture is Hygon x86_64 or Kunpeng AArch64, you can only select the Enterprise edition.
+**Precaution**
+
+Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. If you are using a `Hygon x86_64` or `Kunpeng AArch64` cluster, you can only opt for the Enterprise edition.
 
 **Procedure**
 1. Access the master node.
@@ -74,7 +76,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
       ```yaml
         iomesh:
           chunk:
-            dataCIDR: "" # Fill in the dataCIDR you configured previously in Prerequisites.
+            dataCIDR: "" # Fill in the dataCIDR you configured in Prerequisites.
       ```
 
     - Set `diskDeploymentMode` according to your [disk configurations](../deploy-iomesh-cluster/prerequisites#hardware-requirements). The system defaults to `hybridFlash`. 
@@ -83,15 +85,15 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
     
-   - Specify the CPU architecture. Only when your k8s cluster uses hygon cpu, this field needs to be filled in as `hygon_x86_64`. In other cases this field is empty
+   - Specify the CPU architecture. If you have a `hygon_x86_64` Kubernetes cluster, enter `hygon_x86_64`, or else leave the filed blank. 
 
       ```yaml
       platform: ""
       ```
 
-    - Specify the IOMesh edition. 
+    - Specify the IOMesh edition. The field is blank by default, and if left unspecified, the system will install the Community edition automatically. 
     
-      If you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
+      In case you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
       
       ```yaml
       edition: "" # If left blank, Community Edition will be installed.
@@ -125,7 +127,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
       It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-1. Deploy the IOMesh cluster.
+6. Deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -146,7 +148,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
     TEST SUITE: None
     ```
 
-2. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
+7. Verify that all pods are in `Running` state. If so, then IOMesh has been installed successfully.
 
     ```bash
     kubectl --namespace iomesh-system get pods
@@ -196,9 +198,9 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 ## Offline Installation
 
-**Precautions**
-- The CPU architecture of the Kubernetes cluster should be `Intel x86_64`, `Hygon x86_64`, or `Kunpeng AArch64`.
-- If the Kubernetes cluster's CPU architecture is Hygon x86_64 or Kunpeng AArch64, you can only select the Enterprise edition.
+**Precaution**
+
+Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. If you are using a `Hygon x86_64` or `Kunpeng AArch64` cluster, you can only opt for the Enterprise edition.
 
 **Procedure**
 
@@ -251,13 +253,13 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
 
-    - Specify the CPU architecture. Only when your k8s cluster uses hygon cpu, this field needs to be filled in as `hygon_x86_64`. In other cases this field is empty
+    - Specify the CPU architecture. If you have a `hygon_x86_64` Kubernetes cluster, enter `hygon_x86_64`, or else leave the filed blank. 
 
       ```yaml
       platform: ""
       ```
 
-    - Specify the IOMesh edition. 
+    - Specify the IOMesh edition. The field is blank by default, and if left unspecified, the system will install the Community edition automatically. 
     
       If you have purchased the Enterprise edition, then set the value of `edition` to `enterprise`. For details, refer to [IOMesh Specifications](https://www.iomesh.com/spec). 
       
