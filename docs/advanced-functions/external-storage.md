@@ -69,7 +69,8 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
     ```
 
     > **_NOTE_:** `metallb` 0.12.1 does not support binding `address-pools` to a specific NIC. To use the NIC binding feature, `metallb` must be version 0.13.0 or higher. Refer to https://metallb.universe.tf/concepts/layer2/ for configuration.
-    > **_NOTE_:** 如果你更新了这个 configmap，你需要重启所有的 metallb pod 才能使配置重新生效
+    
+    > **_NOTE_:** If you have updated this ConfigMap, you will need to restart all `metallb` pods in order for the configuration to take effect.
 
 4. Apply the YAML config.
     ```shell
