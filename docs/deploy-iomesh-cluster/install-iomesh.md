@@ -85,7 +85,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
     
-   - Specify the CPU architecture. If you have a `hygon_x86_64` Kubernetes cluster, enter `hygon_x86_64`, or else leave the filed blank. 
+   - Specify the CPU architecture. If you have a `hygon_x86_64` Kubernetes cluster, enter `hygon_x86_64`, or else leave the field blank. 
 
       ```yaml
       platform: ""
@@ -253,7 +253,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
       diskDeploymentMode: "hybridFlash" # Set the disk deployment mode.
       ```
 
-    - Specify the CPU architecture. If you have a `hygon_x86_64` Kubernetes cluster, enter `hygon_x86_64`, or else leave the filed blank. 
+    - Specify the CPU architecture. If you have a `hygon_x86_64` Kubernetes cluster, enter `hygon_x86_64`, or else leave the field blank. 
 
       ```yaml
       platform: ""
