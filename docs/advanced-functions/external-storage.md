@@ -68,11 +68,11 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
           - <fill-in-your-ip-address-pool-here> # Fill in an IP pool.
     ```
 
-    > **_NOTE_:** `metallb` 0.12.1 does not support binding `address-pools` to a specific NIC. To use the NIC binding feature, `metallb` must be version 0.13.0 or higher. Refer to https://metallb.universe.tf/concepts/layer2/ for configuration.
+    > _NOTE_: `metallb` 0.12.1 does not support binding `address-pools` to a specific NIC. To use the NIC binding feature, `metallb` must be version 0.13.0 or higher. Refer to https://metallb.universe.tf/concepts/layer2/ for configuration.
 
-    > **_NOTE_:** `metallb` 0.12.1 不支持 K8s v1.25 及以上版本，如果要使用 K8s v1.25 及以上版本需要参考 https://metallb.universe.tf 部署 `metallb` 0.13.0 以上版本。
-    
-    > **_NOTE_:** If you have updated this ConfigMap, you will need to restart all `metallb` pods in order for the configuration to take effect.
+    > _NOTE_: `metallb` 0.12.1 does not support Kubernetes 1.25 or above. For Kubernetes 1.25 or above, refer to https://metallb.universe.tf to deploy `metallb` 0.13.0 or higher.
+
+    > _NOTE_: If you have updated this ConfigMap, you will need to restart all `metallb` pods in order for the configuration to take effect.
 
 4. Apply the YAML config.
     ```shell
@@ -106,7 +106,7 @@ After the access point is configured, IOMesh can provide storage externally to a
 
 > **_NOTE_**: To use this function, the external Kubernetes cluster should be able to access IOMesh `DATA_CIDR` that was configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
 
-1. Set up [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node.md) on the worker nodes of the external Kubernetes cluster.
+1. Set up [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node) on the worker nodes of the external Kubernetes cluster.
    
 2. Add the Helm chart repository.
     ```shell
@@ -141,9 +141,8 @@ After the access point is configured, IOMesh can provide storage externally to a
       iscsiPortal: "iomesh-cluster-vip:3260"
       # Access IOMesh as external storage.
       deploymentMode: "EXTERNAL"
-      # The unique csi driver name in a kubernetes cluster.
+      # The unique csi driver name in a Kubernetes cluster.
       nameOverride: "com.iomesh.csi-driver"
-
       # ...
       controller:
         driver:
@@ -166,7 +165,6 @@ After the access point is configured, IOMesh can provide storage externally to a
     | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
     | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
     | `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
-    | `driver.nameOverride` | `"com.iomesh.csi-driver"` | The unique csi driver name in a kubernetes cluster.|
     | `driver.controller.driver.podDeletePolicy` | <p>`"no-delete-pod"`(default)</p><p>`"delete-deployment-pod"`</p><p> `"delete-statefulset-pod"`</p> `"delete-both-statefulset-and-deployment-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
     | `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 
 
@@ -178,7 +176,9 @@ After the access point is configured, IOMesh can provide storage externally to a
         --values csi-driver.yaml \
         --wait
     ```
-6. Verify that IOMesh CSI driver has been successfully installed. If all pods are shown in `Running` state, then IOMesh CSI driver has been successfully installed.
+6. Verify that IOMesh CSI driver has been successfully installed. 
+   
+   If all pods are shown in `Running` state, then IOMesh CSI driver has been successfully installed.
     ```shell
     watch kubectl get --namespace iomesh-system pods
     ```

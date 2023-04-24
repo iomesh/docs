@@ -204,14 +204,14 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
 **Procedure**
 
-1. Download [IOMesh Offline Installation Package] on each worker node. 需要替换成 1.0 离线安装包
+1. Download [IOMesh Offline Installation Package] on each worker node and the master node. 需要替换成 1.0 离线安装包
 
-2. Unpack the installation package on each worker node. 替换 1.0 安装包名
+2. Unpack the installation package on each worker node and the master node. 替换 1.0 安装包名
 
     ```shell
     tar -xf  iomesh-offline-<VERSION>-<ARCH>.tgz && cd iomesh-offline
     ```
-3. Load the IOMesh image on each worker node and then execute the corresponding scripts based on your container runtime and container manager.
+3. Load the IOMesh image on each worker node and then execute the corresponding script based on your container runtime and container manager.
 
   <!--DOCUSAURUS_CODE_TABS-->
 
@@ -294,7 +294,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
       ```
         It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-6. Deploy the IOMesh cluster.
+6. On the master node, deploy the IOMesh cluster.
 
     ```shell
     ./helm install iomesh ./charts/iomesh \

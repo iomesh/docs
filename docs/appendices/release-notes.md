@@ -31,22 +31,24 @@ sidebar_label: Release Notes
 - Enhanced data integrity by allocating a temporary replica to hold newly written data after a replica is removed. 
 - Enhanced data channel fault tolerance to prevent disconnection due to IO timeout.
 - Optimized Lease Owner allocation mechanism to avoid IO failures due to network failures.
-- 优化对执行iscsiadm 时创建的文件锁的清理行为，避免因文件锁未清理导致 CSI Driver 不可用的问题。
-- Simplified the configuration method for accessing IOMesh from outside its Kubernetes cluster, eliminating the need for creating a separate Kubernetes service.
-- 
-- 简化了从 IOMesh 所属的 Kubernetes 集群外部接入 IOMesh 的配置方式，用户不需要再单独创建 Kubernetes service。
+- Cleared the file lock created when executing `iscsiadm`, or else the CSI driver will be unavailable. 
+- Simplified the configuration method for accessing IOMesh from outside its Kubernetes cluster, eliminating the need to create a separate Kubernetes service.
 - Optimized the default CPU/memory resource limit setting for Pods to avoid Pods running slowly due to insufficient resources.
 
 **Operations & Management**
 
-优化 Grafana 仪表盘，新增对于集群信息、物理盘信息、PV 信息的展示，新增报警项与报警面板。
+- Added an alert panel on the IOMesh dashboard and display of information about cluster, physical disk and PV.
 
 #### Resolved Issues
 
 **Storage**
 
-- 修复了大容量卷制作快照后 Meta DB 空间被占满，导致 ZooKeeper 无法提供服务的问题。
-- 修复了 Chunk IP 发生变更后，data channel manager 无法感知到新的 Chunk IP，从而导致数据迁移失败的问题。
+- Meta DB space become full after a snapshot of a large volume was taken, making the ZooKeeper unavailable. This issue has been resolved in this version.
+- After the Chunk IP was changed, the data channel manager was unable to detect the new Chunk IP, resulting in data migration failure. The issue has been resolved in this version.
+
+**Operations & Management**
+- There might be pod resources left when uninstalling IOMesh via `Helm`. The issue has been resolved in this version.
+  
 ### Specifications
 
 | Component | Version|
@@ -171,6 +173,19 @@ IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 >**Note**:
 >
 > IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
+
+## Known Issues
+
+- When multiple IOMesh clusters are deployed in the same Kubernetes cluster, the alarm information of all IOMesh clusters will be displayed in the alarm panel of the Grafana dashboard of any one of the IOMesh clusters.
+- The Grafana dashboard cannot display the correct storage usage when the IOMesh cluster has invalid storage capacity.
+- A PV whose volume mode is Block can still be written due to a Kubernetes code defect even if the access mode is ReadOnlyMany.
+- 由于 ndm 机制缺陷，存在如下问题：
+  - IOMesh 集群被卸载后，被 IOMesh 集群使用过的 blockdevice 对应的磁盘有小概率未被正确清理。
+  - Device 类型的 IOMesh Local PV 被删除后，blockdevice 对应的磁盘有小概率未被正确清理。
+  - Blockdevice 的状态有小概率在 active/inactive 之间来回切换，有时会导致无法挂载磁盘。
+- IOMesh CR still shows disks of removed node after scaling down the chunk server.
+- 对 IOMesh 集群执行 Chunk Server 缩容操作后，IOMesh cr 中仍会展示被缩容节点的磁盘。
+
 
 ## IOMesh 0.11.0 Release Notes
 

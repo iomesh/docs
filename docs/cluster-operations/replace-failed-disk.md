@@ -80,11 +80,11 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
               matchLabels:
                 iomesh.com/bd-deviceType: disk
             exclude:
-      - blockdevice-66312cce9037ae891a099ad83f44d7c9
+            - blockdevice-66312cce9037ae891a099ad83f44d7c9
       # ...
     ```
 
-6. Repeat Step 3 to verify that there are no ongoing migration or recovery tasks for the cluster. 
+6. Repeat Step 2 and 3 to verify that there are no ongoing migration or recovery tasks for the cluster. 
 
 7. Verify that the block device is in `unclaimed` state.
     ```shell

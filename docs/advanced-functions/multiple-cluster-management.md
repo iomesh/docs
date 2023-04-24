@@ -489,7 +489,7 @@ To verify if the IOMesh clusters are deployed, create a PVC using the StorageCla
     kubectl apply -f iomesh-cluster1-pvc.yaml
     ```
 
-Topology awareness is automatically enabled for IOMesh to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster for I/O localization.
+Topology awareness is automatically enabled for IOMesh to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster.
 
 ## Monitoring
 

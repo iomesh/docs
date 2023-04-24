@@ -65,12 +65,12 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     kubectl apply -f https://iomesh.run/config/crd/iomesh.com_blockdevicemonitors.yaml
     ```
-4. Download [IOMesh Offline Installation Package](https://download.smartx.com/iomesh-offline-v0.11.1.tgz).
+4. Download [IOMesh Offline Installation Package](换新的离线下载包).
 
 5. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
 
     ```bash
-    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0
+    ./helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0
     ```
 6. Verify that all pods are running. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
     ```bash
