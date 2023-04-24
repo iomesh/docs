@@ -493,7 +493,7 @@ Topology awareness is automatically enabled for IOMesh to ensure correct pod sch
 
 ## Monitoring
 
-To monitor multiple IOMesh clusters, navigate to [Install IOMesh Dashboard](../monitor-iomesh/install-iomesh-dashboard.md) for monitoring configuration. After completing the configuration, you can select the target cluster and its namespace to view its storage performance.
+To monitor multiple IOMesh clusters, navigate to [Install IOMesh Dashboard](../monitor-iomesh/install-iomesh-dashboard.md) for monitoring configuration. After completing the configuration, you can select the target cluster and its namespace to view its storage performance on the dashboard.
 
 ## Operations 
 
