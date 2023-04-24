@@ -49,7 +49,6 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
     ```shell
     kubectl apply -f encrypt-sc.yaml
     ```
-    ```
     |Field|Description|
     |---|---|
     |`csi.storage.k8s.io/controller-publish-secret-name`| The secret created in Step 1, holding credentials for encryption.|
