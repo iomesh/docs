@@ -4,14 +4,13 @@ title: IOMesh for MySQL
 sidebar_label: IOMesh for MySQL
 ---
 
-
 **Prerequisite**
 
 Verify that your IOMesh cluster is already deployed. 
 
 **Procedure**
 
-**_NOTE_:** The following example does not apply to a `AArch64` Kubernetes cluster.
+> _NOTE:_ The following example does not apply to a `AArch64` Kubernetes cluster.
 
 1. Create a YAML config `iomesh-mysql-sc.yaml` with the following content. You may also use the default StorageClass `iomesh-csi-driver`. See more details in [Create StorageClass](../volume-operations/create-storageclass).
 

@@ -25,12 +25,13 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
     ```
 2. Create a StorageClass. Enable volume encryption and specify the secrets as instructed below.
     ```yaml
+    # Source: encrypt-sc.yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:
       name: per-storageclass-auth
     provisioner: com.iomesh.csi-driver 
-    reclaimPolicy: Retain
+    reclaimPolicy: Delete
     allowVolumeExpansion: true
     parameters:
       csi.storage.k8s.io/fstype: "ext4"
@@ -45,6 +46,10 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
       csi.storage.k8s.io/node-stage-secret-name: ${pvc.annotations['iomesh.com/key']}
       csi.storage.k8s.io/node-stage-secret-namespace: ${pvc.namespace}
     ```
+    ```shell
+    kubectl apply -f encrypt-sc.yaml
+    ```
+    ```
     |Field|Description|
     |---|---|
     |`csi.storage.k8s.io/controller-publish-secret-name`| The secret created in Step 1, holding credentials for encryption.|
@@ -54,6 +59,7 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
 
 3. Create a PVC and specify `annotations.iomesh.com/key` with the CSI secret created in Step 2.
     ```yaml
+    # Source: encrypt-pvc.yaml
     kind: PersistentVolumeClaim
     apiVersion: v1
     metadata:
@@ -69,4 +75,7 @@ IOMesh allows for volume encryption using Kubernetes secret. Encryption is imple
       resources:
         requests:
           storage: 2Gi
+    ```
+    ```shell
+    kubectl apply -f encrypt-pvc.yaml
     ```
