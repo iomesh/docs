@@ -69,6 +69,8 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
     ```
 
     > **_NOTE_:** `metallb` 0.12.1 does not support binding `address-pools` to a specific NIC. To use the NIC binding feature, `metallb` must be version 0.13.0 or higher. Refer to https://metallb.universe.tf/concepts/layer2/ for configuration.
+
+    > **_NOTE_:** `metallb` 0.12.1 不支持 K8s v1.25 及以上版本，如果要使用 K8s v1.25 及以上版本需要参考 https://metallb.universe.tf 部署 `metallb` 0.13.0 以上版本。
     
     > **_NOTE_:** If you have updated this ConfigMap, you will need to restart all `metallb` pods in order for the configuration to take effect.
 
@@ -116,7 +118,7 @@ After the access point is configured, IOMesh can provide storage externally to a
     ```
 4. Edit the following fields in `csi-driver.yaml`.
    ```yaml
-    nameOverride: "iomesh-csi-driver"
+    fullnameOverride: "iomesh-csi-driver"
     # ...
     # Specify the container platform, either "kubernetes" or "openshift". 
     co: "kubernetes" 
@@ -139,6 +141,9 @@ After the access point is configured, IOMesh can provide storage externally to a
       iscsiPortal: "iomesh-cluster-vip:3260"
       # Access IOMesh as external storage.
       deploymentMode: "EXTERNAL"
+      # The unique csi driver name in a kubernetes cluster.
+      nameOverride: "com.iomesh.csi-driver"
+
       # ...
       controller:
         driver:
@@ -152,7 +157,7 @@ After the access point is configured, IOMesh can provide storage externally to a
    ```
     | Field | Value | Description  |
     | ---------|-------|------|
-    | `nameOverride` | `"iomesh-csi-driver"` | The CSI driver name.  |
+    | `fullnameOverride` | `"iomesh-csi-driver"` | The CSI driver name.  |
     | `co`       | `"kubernetes"` | The container platform. If your container platform is OpenShift, type `"openshift"`.|
     | `coVersion`| `"1.18"` | The version of the container platform, which should be the same as the version of the cluster hosting IOMesh.  |
     | `storageClass.nameOverride` | `"iomesh-csi-driver"` | The default StorageClass name, which is customizable during installation. |
@@ -161,6 +166,7 @@ After the access point is configured, IOMesh can provide storage externally to a
     | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
     | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
     | `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
+    | `driver.nameOverride` | `"com.iomesh.csi-driver"` | The unique csi driver name in a kubernetes cluster.|
     | `driver.controller.driver.podDeletePolicy` | <p>`"no-delete-pod"`(default)</p><p>`"delete-deployment-pod"`</p><p> `"delete-statefulset-pod"`</p> `"delete-both-statefulset-and-deployment-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
     | `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 
 
