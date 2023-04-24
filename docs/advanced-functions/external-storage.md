@@ -157,7 +157,6 @@ After the access point is configured, IOMesh can provide storage externally to a
     | `coVersion`| `"1.18"` | The version of the container platform, which should be the same as the version of the cluster hosting IOMesh.  |
     | `storageClass.nameOverride` | `"iomesh-csi-driver"` | The default StorageClass name, which is customizable during installation. |
     | `storageClass.parameters` | `"parameters"` | The parameters for the default StorageClass, which is customizable during installation.
-    | `volumeSnapshotClass.nameOverride` | `"iomesh-csi-driver"` |The default volumeSnapshotClass name, which is customizable during installation.|
     | `driver.clusterID` |`"my-cluster"` |The ID of the Kubernetes cluster, which is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters. |
     | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
     | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
