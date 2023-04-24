@@ -5,7 +5,29 @@ sidebar_label: Release Notes
 ---
 
 ## IOMesh 1.0 Release Notes
+
+The release notes 1.0.0 cover the following topics.
+
+
 ### What's in Release Notes
+
+#### New Features
+**Installation & Deployment**
+- Adds support for Hygon x86_64 and Kunpeng AArch64 architectures to deploy IOMesh.
+- Adds support for Kubernetes version 1.25.
+- Adds support for deploying multiple IOMesh clusters within a single Kubernetes cluster.
+
+**Storage**
+- 支持管理和使用 Local PV：可通过动态置备的方式直接使用本地存储设备，例如磁盘、分区或目录。
+- 支持 CSI 拓扑特性，在多 IOMesh 集群场景下，保证使用了某个 IOMesh 集群 PV 的 Pod 能被正确调度至对应集群的某个 Worker 节点上。
+- 支持 Kubernetes Worker 节点断电时 Pod HA。
+
+**Operations & Management**
+
+支持探测异常状态硬盘和自动隔离不健康盘，以降低对系统性能的影响。
+
+#### Improved Features
+
 
 
 ## IOMesh 0.11.1 Release Notes

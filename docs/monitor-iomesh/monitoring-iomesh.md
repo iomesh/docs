@@ -75,7 +75,7 @@ Shows disk attribute information, health and usage status, and purpose of use.
 | Field              | Description      | Example        |
 |--------------------|------------------|----------------|
 | Device Name        | The physical disk name. | "dev/sdv"      |
-| Health Status      | Shows the health status of the physical disk, including ` Healthy`, `Unhealthy`, `Failing`, and `S.M.A.R.T not passed`.    | "Healthy"      |
+| Health Status      | <p>Shows the health status of the physical disk, including ` Healthy`, `Unhealthy`, `Failing`, and `S.M.A.R.T not passed`.</p><p>`S.M.A.R.T not passed` is only supported for certain Intel/Samsung SSDs.| "Healthy"      |
 | Usage Status       | Shows if the usage status of the physical disk, including `Unmounted`, `Partially mounted`, `Mounted`, and `Unmounting`. | "Mounted"      |
 | Remaining Lifetime | Shows the remaining life of SSD. A higher percentage (%) value indicates a longer remaining life.               | "99%"          |
 | Type               | Shows the disk type, including `SSD` and `HDD`.       | "HDD"          |

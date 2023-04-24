@@ -10,7 +10,7 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 **Prerequisite**
 
-- Verify that [Prometheus Operator and Prometheus](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed, and Prometheus is located in the namespace `iomesh-system`.
+- Verify that [Prometheus Operator and Prometheus](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed. It is recommended that you install Prometheus in the `iomesh-system` namespace. If Prometheus is not installed in this namespace, you will need to set a label selector so that Prometheus can access objects such as `ServiceMonitor`, `PodMonitor`, and `PrometheusRule`.
 - Configure [Prometheus Operator and Prometheus RBAC](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/rbac.md) to grant them access to IOMesh and its monitoring components.
 
 **Procedure**
@@ -205,7 +205,7 @@ You have downloaded [IOMesh Cluster Dashboard File](https://iomesh.run/dashboard
 
 **Procedure**
 
-1. Log in [Grafana](https://grafana.com/auth/sign-in/?plcmt=top-nav&cta=myaccount).
+1. Log in Grafana.
 
 2. In the upper left corner of Dashboard homepage, click **Dashboard** > **+ Import**. 
 

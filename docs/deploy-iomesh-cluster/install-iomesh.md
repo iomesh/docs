@@ -291,7 +291,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
                       values:
                       - iomesh-worker-0 # Specify the values of the node label.
                       - iomesh-worker-1
-        ```
+      ```
         It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
 6. Deploy the IOMesh cluster.
