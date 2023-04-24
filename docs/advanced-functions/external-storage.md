@@ -129,9 +129,6 @@ After the access point is configured, IOMesh can provide storage externally to a
         replicaFactor: "2"
         thinProvision: "true"
     # ...
-    volumeSnapshotClass:
-      nameOverride: "iomesh-csi-driver"
-    # ...
     driver:
       # ...
       # The Kubernetes cluster ID.

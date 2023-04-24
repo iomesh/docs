@@ -4,10 +4,7 @@ title: Release Notes
 sidebar_label: Release Notes
 ---
 
-## IOMesh 1.0 Release Notes
-
-The release notes 1.0.0 cover the following topics.
-
+## IOMesh 1.0.0 Release Notes
 
 ### What's in Release Notes
 
@@ -18,17 +15,89 @@ The release notes 1.0.0 cover the following topics.
 - Adds support for deploying multiple IOMesh clusters within a single Kubernetes cluster.
 
 **Storage**
-- 支持管理和使用 Local PV：可通过动态置备的方式直接使用本地存储设备，例如磁盘、分区或目录。
-- 支持 CSI 拓扑特性，在多 IOMesh 集群场景下，保证使用了某个 IOMesh 集群 PV 的 Pod 能被正确调度至对应集群的某个 Worker 节点上。
-- 支持 Kubernetes Worker 节点断电时 Pod HA。
+- Allows for creating PVs using local storage like a directory or block device for pod use.
+- Implements CSI typology awareness to schedule pods bound to PVs from IOMesh clusters to worker nodes holding their PVs.
+- Triggers pod high availability when its worker node has a power outrage.
+
 
 **Operations & Management**
 
-支持探测异常状态硬盘和自动隔离不健康盘，以降低对系统性能的影响。
+- Detects abnormal disks and isolates them to minimize impact on system performance and reduce operational burden.
 
 #### Improved Features
 
+**Storage**
+- Reduced IO interruption to within 22 seconds in case of node or network failure.
+- Enhanced data integrity by allocating a temporary replica to hold newly written data after a replica is removed. 
+- Enhanced data channel fault tolerance to prevent disconnection due to IO timeout.
+- Optimized Lease Owner allocation mechanism to avoid IO failures due to network failures.
+- 优化对执行iscsiadm 时创建的文件锁的清理行为，避免因文件锁未清理导致 CSI Driver 不可用的问题。
+- Simplified the configuration method for accessing IOMesh from outside its Kubernetes cluster, eliminating the need for creating a separate Kubernetes service.
+- 
+- 简化了从 IOMesh 所属的 Kubernetes 集群外部接入 IOMesh 的配置方式，用户不需要再单独创建 Kubernetes service。
+- Optimized the default CPU/memory resource limit setting for Pods to avoid Pods running slowly due to insufficient resources.
 
+**Operations & Management**
+
+优化 Grafana 仪表盘，新增对于集群信息、物理盘信息、PV 信息的展示，新增报警项与报警面板。
+
+#### Resolved Issues
+
+**Storage**
+
+- 修复了大容量卷制作快照后 Meta DB 空间被占满，导致 ZooKeeper 无法提供服务的问题。
+- 修复了 Chunk IP 发生变更后，data channel manager 无法感知到新的 Chunk IP，从而导致数据迁移失败的问题。
+### Specifications
+
+| Component | Version|
+| -------| -------|
+|iomesh-operator|1.0.0|
+| csi-driver| 2.6.0|
+|zbs|5.3.0|
+|zookeeper|3.5.9|
+|node-disk-manager|1.8.0|
+|hostpath-provisioner|0.5.3|
+
+### Compatibility
+
+#### Server Architecture Compatibility for IOMesh  
+
+IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 architectures.
+
+#### Kubernetes and Linux OS Compatibility for IOMesh
+
+<table>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kubernetes</td>
+<td>
+<ul>
+<li>Kubernetes v1.17-v1.25</li>
+<li>OpenShift v4.4-v4.12</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Linux OS</td>
+<td>
+<ul>
+<li>CentOS 7</li>
+<li>CentOS 8</li>
+<li>CoreOS</li>
+<li>RHEL 7</li>
+<li>RHEL 8</li>
+<li>OpenEluer 22.03 LTS</li>
+</tbody>
+</table> 
+
+>**Note**:
+>
+> IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
 
 ## IOMesh 0.11.1 Release Notes
 

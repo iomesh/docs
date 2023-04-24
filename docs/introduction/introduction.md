@@ -28,7 +28,7 @@ IOMesh facilitates cost-effective, hybrid deployment of SSDs & HDDs, maximizing 
 
 **Data Protection & Security**
 
-A system with multiple levels of data protection makes sure that data is always secure and available. IOMesh does this by placing multiple replicas on different nodes, allowing PV-level snapshots for easy recovery in case of trouble, while also isolating abnormal disks to minimize the impact and reduce the operational burden. Authentication is also provided for specific PVs to ensure secure access.
+A system with multiple levels of data protection makes sure that data is always secure and available. IOMesh does this by placing multiple replicas on different nodes, allowing PV-level snapshots for easy recovery in case of trouble, while also isolating abnormal disks to minimize impact on system performance and reduce operational burden. Authentication is also provided for specific PVs to ensure secure access.
 
 **Fully Integrated into Kubernetes Ecosystem**
 

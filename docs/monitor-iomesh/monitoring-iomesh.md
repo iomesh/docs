@@ -45,7 +45,7 @@ Shows the basic information of each node in the IOMesh cluster.
 |------|------|--------|
 | Name          | The node name. | "node-1" |
 | Namespace     | The namespace where the node is located. | "iomesh-system" |
-| Health Status | Shows node health status, including `Initializing`, `Healthy`, `Error`, and `Disconnected`.</p> | "Healthy"|
+| Health Status | Shows node health status, including `Initializing`, `Healthy`, and `Error`.| "Healthy"|
 |Storage Capacity| The total storage capacity of the node.| "2.0 TiB" |
 |  Storage Capacity Usage | The storage space usage of the node. | "20.0%"    |
 | Dirty Cache   | The dirty data space of the node.| "5.0 GiB"|
