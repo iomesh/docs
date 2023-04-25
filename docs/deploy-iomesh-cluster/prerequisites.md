@@ -11,7 +11,7 @@ Before installing and deploying IOMesh, verify the following requirements.
 ## Cluster Requirements
 
 - A Kubernetes or OpenShift cluster with minimum 3 worker nodes.
-- The Kubernetes version should be 1.17-1.25 or OpenShift version should be 4.4-4.12.
+- The Kubernetes version should be 1.17-1.25 or OpenShift version should be 3.11-4.10.
 
 ## Hardware Requirements 
 

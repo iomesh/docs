@@ -10,9 +10,9 @@ sidebar_label: Release Notes
 
 #### New Features
 **Installation & Deployment**
-- Adds support for Hygon x86_64 and Kunpeng AArch64 architectures to deploy IOMesh.
+- Adds support for Hygon x86_64 and Kunpeng AArch64 architectures for IOMesh deployment.
 - Adds support for Kubernetes version 1.25.
-- Adds support for deploying multiple IOMesh clusters within a single Kubernetes cluster.
+- Allows for deploying multiple IOMesh clusters within a single Kubernetes cluster.
 
 **Storage**
 - Allows for creating PVs using local storage like a directory or block device for pod use.
@@ -26,17 +26,17 @@ sidebar_label: Release Notes
 #### Improved Features
 
 **Storage**
-- Reduced IO interruption to within 22 seconds in case of node or network failure.
-- Enhanced data integrity by allocating a temporary replica to hold newly written data after a replica is removed. 
+- Reduced IO interruption to within 22 seconds in case of node or network failure, ensuring that data access is timely and reliable even in the face of disruptions.
+- Enhanced data integrity by allocating a temporary replica to hold newly written data after a replica has been removed. 
 - Enhanced data channel fault tolerance to prevent disconnection due to IO timeout.
-- Optimized Lease Owner allocation mechanism to avoid IO failures due to network failures.
-- Cleared the file lock created when executing `iscsiadm`, or else the CSI driver will be unavailable. 
-- Simplified the configuration method for accessing IOMesh from outside its Kubernetes cluster, eliminating the need to create a separate Kubernetes service.
+- Optimized Lease Owner allocation mechanism to avoid IO failures due to network failures, enabling more efficient and robust data transmission.
+- Cleared the file lock created when executing `iscsiadm `, or else the CSI driver will be unavailable.
+- Simplified the configuration method for accessing IOMesh from outside its Kubernetes cluster, eliminating the need to create a separate Kubernetes service, making it easier and more convenient to access and use IOMesh.
 - Optimized the default CPU/memory resource limit setting for Pods to avoid Pods running slowly due to insufficient resources.
 
 **Operations & Management**
 
-- Added an alert panel on the IOMesh dashboard and display of information about cluster, physical disk and PV.
+- Added an alert panel on the IOMesh dashboard and display of information about cluster, physical disk, and PV, providing administrators with real-time monitoring and status updates.
 
 #### Resolved Issues
 
@@ -46,7 +46,7 @@ sidebar_label: Release Notes
 - After the Chunk IP was changed, the data channel manager was unable to detect the new Chunk IP, resulting in data migration failure. The issue has been resolved in this version.
 
 **Operations & Management**
-- There might be pod resources left when uninstalling IOMesh via `Helm`. The issue has been resolved in this version.
+- Uninstalling IOMesh via `Helm` sometimes left pod resources behind, causing issues with system performance and maintenance. This issue has been resolved in this version.
   
 ### Specifications
 
@@ -80,7 +80,7 @@ IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 archi
 <td>
 <ul>
 <li>Kubernetes v1.17-v1.25</li>
-<li>OpenShift v4.4-v4.12</li>
+<li>OpenShift v3.11-v4.10</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -100,16 +100,17 @@ IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 archi
 >
 > IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
 
-## Known Issues
+### Known Issues
 
-- When multiple IOMesh clusters are deployed in the same Kubernetes cluster, the alarm information of all IOMesh clusters will be displayed in the alarm panel of the Grafana dashboard of any one of the IOMesh clusters.
-- The Grafana dashboard cannot display the correct storage usage when the IOMesh cluster has invalid storage capacity.
+- When a Kubernetes cluster has multiple IOMesh clusters deployed, the IOMesh dashboard will display alert information of all clusters instead of just one.
+- The IOMesh dashboard cannot display the correct storage usage when the IOMesh cluster has invalid storage capacity.
 - A PV whose volume mode is Block can still be written due to a Kubernetes code defect even if the access mode is ReadOnlyMany.
 - The following issues persist due to a flaw in the NDM mechanism:
   - After an IOMesh cluster is unmounted, there is a small chance that the disks corresponding to the block device used by the IOMesh cluster are not cleaned up correctly.
   - After the IOMesh Device Local PV is deleted, there is a small chance that the disk corresponding to the block device is not cleaned up correctly.
-  - There is a small chance that the state of blockdevice will switch back and forth between active/inactive, which sometimes causes the disk to be unmountable.
+  - There is a small chance that the state of block device will switch back and forth between active/inactive, which sometimes causes the disk to be unmountable.
 - IOMesh CR still shows the disks from the removed node after scaling down the chunk server.
+- If you uninstall an IOMesh cluster, the metrics in the IOMesh Operator may not be fully cleaned up. This can cause the license version to not display in the dashboard if you later deploy an IOMesh cluster with the same name in the same Namespace. You may restart the operator to fix this issue.
 
 ## IOMesh 0.11.1 Release Notes
 
