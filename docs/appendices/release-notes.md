@@ -6,7 +6,7 @@ sidebar_label: Release Notes
 
 ## IOMesh 1.0.0 Release Notes
 
-### What's in Release Notes
+### What's New
 
 #### New Features
 **Installation & Deployment**
@@ -18,7 +18,6 @@ sidebar_label: Release Notes
 - Allows for creating PVs using local storage like a directory or block device for pod use.
 - Implements CSI typology awareness to schedule pods bound to PVs from IOMesh clusters to worker nodes holding their PVs.
 - Triggers pod high availability when its worker node has a power outrage.
-
 
 **Operations & Management**
 
@@ -101,6 +100,17 @@ IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 archi
 >
 > IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
 
+## Known Issues
+
+- When multiple IOMesh clusters are deployed in the same Kubernetes cluster, the alarm information of all IOMesh clusters will be displayed in the alarm panel of the Grafana dashboard of any one of the IOMesh clusters.
+- The Grafana dashboard cannot display the correct storage usage when the IOMesh cluster has invalid storage capacity.
+- A PV whose volume mode is Block can still be written due to a Kubernetes code defect even if the access mode is ReadOnlyMany.
+- The following issues persist due to a flaw in the NDM mechanism:
+  - After an IOMesh cluster is unmounted, there is a small chance that the disks corresponding to the block device used by the IOMesh cluster are not cleaned up correctly.
+  - After the IOMesh Device Local PV is deleted, there is a small chance that the disk corresponding to the block device is not cleaned up correctly.
+  - There is a small chance that the state of blockdevice will switch back and forth between active/inactive, which sometimes causes the disk to be unmountable.
+- IOMesh CR still shows the disks from the removed node after scaling down the chunk server.
+
 ## IOMesh 0.11.1 Release Notes
 
 ### What's New 
@@ -173,19 +183,6 @@ IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 >**Note**:
 >
 > IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
-
-## Known Issues
-
-- When multiple IOMesh clusters are deployed in the same Kubernetes cluster, the alarm information of all IOMesh clusters will be displayed in the alarm panel of the Grafana dashboard of any one of the IOMesh clusters.
-- The Grafana dashboard cannot display the correct storage usage when the IOMesh cluster has invalid storage capacity.
-- A PV whose volume mode is Block can still be written due to a Kubernetes code defect even if the access mode is ReadOnlyMany.
-- 由于 ndm 机制缺陷，存在如下问题：
-  - IOMesh 集群被卸载后，被 IOMesh 集群使用过的 blockdevice 对应的磁盘有小概率未被正确清理。
-  - Device 类型的 IOMesh Local PV 被删除后，blockdevice 对应的磁盘有小概率未被正确清理。
-  - Blockdevice 的状态有小概率在 active/inactive 之间来回切换，有时会导致无法挂载磁盘。
-- IOMesh CR still shows disks of removed node after scaling down the chunk server.
-- 对 IOMesh 集群执行 Chunk Server 缩容操作后，IOMesh cr 中仍会展示被缩容节点的磁盘。
-
 
 ## IOMesh 0.11.0 Release Notes
 
