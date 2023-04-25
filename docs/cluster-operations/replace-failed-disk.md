@@ -51,7 +51,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
 
 4. View the disk that needs to be replaced. In this example, we assume it is the disk `blockdevice-66312cce9037ae891a099ad83f44d7c9` to be replaced.
     ```shell
-    kubectl --namespace iomesh-system get bd
+    kubectl --namespace iomesh-system get bd -o wide
     ```
     ```output
     NAME                                           NODENAME      PATH       FSTYPE   SIZE          CLAIMSTATE   STATUS   AGE

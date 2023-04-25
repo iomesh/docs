@@ -36,6 +36,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     wget https://iomesh.run/config/merge-values/v1.0.0.yaml -O merge-values.yaml
     ```
+
 5. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
 
     ```bash
@@ -61,21 +62,21 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
-3. Install the CRD of IOMesh 1.0.0.
-
-    ```shell
-    kubectl apply -f ./config/iomesh.com_blockdevicemonitors.yaml
-    ```
-4. Download [IOMesh Offline Installation Package](换新的离线下载包).
+3. Download [IOMesh Offline Installation Package](换新的离线下载包).
 
     ```shell
     tar -xf  iomesh-offline-<VERSION>-<ARCH>.tgz && cd iomesh-offline
+    ```
+4. Install the CRD of IOMesh 1.0.0.
+
+    ```shell
+    kubectl apply -f ./configs/iomesh.com_blockdevicemonitors.yaml
     ```
 
 5. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
 
     ```bash
-    ./helm upgrade --namespace iomesh-system iomesh ./charts/iomesh --reuse-values -f ./config/merge-values.yaml
+    ./helm upgrade --namespace iomesh-system iomesh ./charts/iomesh --reuse-values -f ./configs/merge-values.yaml
     ```
 
 6. Verify that all pods are running. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.

@@ -22,7 +22,7 @@ The minimum number of chunk pods is 3, and the maximum number you can add depend
 1. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
     ```yaml
     chunk:
-      replicaCount: 3 # Enter the number of chunk pods.
+      replicaCount: 5 # Enter the number of chunk pods.
     ```
 2. Apply the modification.
     
@@ -67,39 +67,38 @@ The following example reduces the number of chunk pods by removing `iomesh-chunk
       ip: 192.168.29.23
     ```
 
-2. Get the meta leader pod name.
+3. Get the meta leader pod name.
     ```shell
     kubectl get pod -n iomesh-system -l=iomesh.com/meta-leader -o=jsonpath='{.items[0].metadata.name}'
     ```
     ```output
     iomesh-meta-0
     ```
-
-3. Access the meta leader pod.
+4. Access the meta leader pod.
     ```shell
     kubectl exec -it iomesh-meta-0 -n iomesh-system -c iomesh-meta bash
     ```
 
-4. Perform `chunk unregister`. Replace <chunk_id> with the chunk ID obtained from Step 2. 
+5. Perform `chunk unregister`. Replace <chunk_id> with the chunk ID obtained from Step 2. 
 
     Depending on the size of the data in the chunk, executing this command can take from a few minutes to several hours.
     ```
     /opt/iomesh/iomeshctl chunk unregister <chunk_id>
     ```
 
-5. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
+6. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
     ```yaml
     chunk:
       replicaCount: 3 # Reduce the value to 2. 
     ```
 
-6. Apply the modification.
+7. Apply the modification.
     
     ```shell
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh.yaml
     ```
 
-7. Verify that the number of chunk pods is reduced.
+8. Verify that the number of chunk pods is reduced.
     
     ```shell
     kubectl get pod -n iomesh-system | grep chunk
@@ -110,9 +109,9 @@ The following example reduces the number of chunk pods by removing `iomesh-chunk
     iomesh-chunk-1                                         3/3     Running   0          5h5m
     ```
 
-8. Run the following command. Then locate the `status.summary.chunkSummary.chunks` field to verify that the chunk was removed.
+9. Run the following command. Then locate the `status.summary.chunkSummary.chunks` field to verify that the chunk was removed.
     ```shell
-    kubectl edit iomesh iomesh -n iomesh-system
+    kubectl get iomesh iomesh -n iomesh-system -o yaml
     ```
 ## Scale Up Meta Server
 
