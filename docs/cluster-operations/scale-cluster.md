@@ -37,61 +37,35 @@ The minimum number of chunk pods is 3, and the maximum number you can add depend
    
    If successful, you should see output below:
     ```output
-    iomesh-chunk-0                                         2/2     Running   0          5h5m
-    iomesh-chunk-1                                         2/2     Running   0          5h5m
-    iomesh-chunk-2                                         2/2     Running   0          5h5m
-    iomesh-chunk-3                                         2/2     Running   0          5h5m
-    iomesh-chunk-4                                         2/2     Running   0          5h5m
+    iomesh-chunk-0                                         3/3     Running   0          5h5m
+    iomesh-chunk-1                                         3/3     Running   0          5h5m
+    iomesh-chunk-2                                         3/3     Running   0          5h5m
+    iomesh-chunk-3                                         3/3     Running   0          5h5m
+    iomesh-chunk-4                                         3/3     Running   0          5h5m
     ```
 
 ## Scale Down Chunk Server
 
 **Precaution**
 
-You can only reduce 1 chunk pod at a time.
+statefulset 会给每个 chunk pod 分配唯一的编号，并按编号顺序创建 chunk pod，当 chunk pod 数量为 3 时，chunk pod 的创建顺序为：iomesh-chunk-0，iomesh-chunk-1，iomesh-chunk-2。缩容操作必须保持与创建顺序相反，后续的操作示例以缩容 iomesh-chunk-2 为例，You can only reduce 1 chunk pod at a time.
 
 **Procedure**
 
-1. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
-    ```yaml
-    chunk:
-      replicaCount: 2 # Reduce the value to 1. 
-    ```
-2. Apply the modification.
-    
-    ```shell
-    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh.yaml
-    ```
-3. Verify that the number of chunk pods is reduced.
-    
-    ```shell
-    kubectl get pod -n iomesh-system | grep chunk
-    ```   
-    If successful, you should see output below:
-    ```output
-    iomesh-chunk-0                                         2/2     Running   0          5h5m
-    iomesh-chunk-1                                         2/2     Running   0          5h5m
-    ```
-4. Run the following command. Locate the `status.summary.chunkSummary.chunks` field and find the chunk ID with status `CHUNK_STATUS_SESSION_EXPIRED`.
+1. 确认 iomesh-chunk-2 pod 的存储网 ip 地址。假设 iomesh-chunk-2 运行在 k8s-worker-2 这个节点上，在 k8s-worker-2 上通过 `ip a` 命令找到属于 DATA_CIDR 的唯一 ip 地址，假设为 192.168.29.23
+
+2. Run the following command. Locate the `status.summary.chunkSummary.chunks` field and find the chunk id which ip equal 192.168.29.23.
     ```shell
     kubectl edit iomesh iomesh -n iomesh-system
     ```
     ```yaml
     chunks:
-    - id: 1
+    - id: 2
       ip: 192.168.29.23
-      spaceInfo:
-        dirtyCacheSpace: 0B
-        failureCacheSpace: 0B
-        failureDataSpace: 0B
-        provisionedDataSpace: 0B
-        totalCacheCapacity: 0B
-        totalDataCapacity: 0B
-        usedCacheSpace: 0B
-        usedDataSpace: 0B
-      status: CHUNK_STATUS_SESSION_EXPIRED
     ```
-5. Get the meta leader pod name.
+in this example, chunk id is 2.
+
+3. Get the meta leader pod name.
     ```shell
     kubectl get pod -n iomesh-system -l=iomesh.com/meta-leader -o=jsonpath='{.items[0].metadata.name}'
     ```
@@ -99,17 +73,40 @@ You can only reduce 1 chunk pod at a time.
     iomesh-meta-0
     ```
 
-6. Access the meta leader pod.
+4. Access the meta leader pod.
     ```shell
     kubectl exec -it iomesh-meta-0 -n iomesh-system -c iomesh-meta bash
     ```
 
-7. Perform `chunk unregister`. Replace <chunk_id> with the chunk ID obtained from Step 4. 
+5. Perform `chunk unregister`. Replace <chunk_id> with the chunk ID obtained from Step 2. 根据 chunk 中数据容量大小，这个命令可能会执行几分钟到数小时 
     ```
     /opt/iomesh/iomeshctl chunk unregister <chunk_id>
     ```
 
-8. Run the following command. Then locate the `status.summary.chunkSummary.chunks` field to verify that the chunk was removed.
+6. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
+    ```yaml
+    chunk:
+      replicaCount: 3 # Reduce the value to 2. 
+    ```
+
+7. Apply the modification.
+    
+    ```shell
+    helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --values iomesh.yaml
+    ```
+
+8. Verify that the number of chunk pods is reduced.
+    
+    ```shell
+    kubectl get pod -n iomesh-system | grep chunk
+    ```   
+    If successful, you should see output below:
+    ```output
+    iomesh-chunk-0                                         3/3     Running   0          5h5m
+    iomesh-chunk-1                                         3/3     Running   0          5h5m
+    ```
+
+9. Run the following command. Then locate the `status.summary.chunkSummary.chunks` field to verify that the chunk was removed.
     ```shell
     kubectl edit iomesh iomesh -n iomesh-system
     ```
@@ -141,10 +138,10 @@ The minimum number of meta pods is 3 and the maximum is 5.
 
     If successful, you should see output below:
     ```output
-    iomesh-meta-0                                         2/2     Running   0          5h5m
-    iomesh-meta-1                                         2/2     Running   0          5h5m
-    iomesh-meta-2                                         2/2     Running   0          5h5m
-    iomesh-meta-3                                         2/2     Running   0          5h5m
-    iomesh-meta-4                                         2/2     Running   0          5h5m
+    iomesh-meta-0                                         3/3     Running   0          5h5m
+    iomesh-meta-1                                         3/3     Running   0          5h5m
+    iomesh-meta-2                                         3/3     Running   0          5h5m
+    iomesh-meta-3                                         3/3     Running   0          5h5m
+    iomesh-meta-4                                         3/3     Running   0          5h5m
     ```
 
