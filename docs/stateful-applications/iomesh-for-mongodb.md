@@ -87,12 +87,10 @@ Verify the IOMesh cluster is already deployed.
               - mongod
               - "--replSet"
               - rs0
-              - "--smallfiles"
-              - "--noprealloc"
             ports:
               - containerPort: 27017
             volumeMounts:
-              - name: mongo-persistent-storage
+              - name: mongodb-data
                 mountPath: /data/db
           - name: mongo-sidecar
             image: cvallance/mongo-k8s-sidecar
