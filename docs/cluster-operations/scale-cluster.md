@@ -59,7 +59,7 @@ The following example reduces the number of chunk pods by removing `iomesh-chunk
 
 2. Run the following command. Locate the `status.summary.chunkSummary.chunks` field and find the ID of chunks whose IP is `192.168.29.23`.
     ```shell
-    kubectl edit iomesh iomesh -n iomesh-system
+    kubectl get iomesh iomesh -n iomesh-system -o yaml
     ```
     ```yaml
     chunks:
