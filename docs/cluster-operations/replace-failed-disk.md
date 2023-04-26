@@ -49,7 +49,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
         pending_recovers_bytes: 0
     ```
 
-4. View the disk that needs to be replaced. In this example, we assume it is the disk `blockdevice-66312cce9037ae891a099ad83f44d7c9` to be replaced.
+4. View the disk that needs to be replaced. Assume the disk `blockdevice-66312cce9037ae891a099ad83f44d7c9` needs to be replaced.
     ```shell
     kubectl --namespace iomesh-system get bd -o wide
     ```
@@ -92,7 +92,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
     ```
     ```output
     NAME                                           NODENAME      PATH       FSTYPE   SIZE          CLAIMSTATE   STATUS   AGE
-    blockdevice-66312cce9037ae891a099ad83f44d7c9   qtest-k8s-1   /dev/sdc            69793218560   Unclaimed      Active   44h
+    blockdevice-66312cce9037ae891a099ad83f44d7c9   qtest-k8s-1   /dev/sdc            69793218560   Unclaimed     Active  44h
     ```
 
 8. Unplug the disk. Then the disk will enter `Inactive` state. 
