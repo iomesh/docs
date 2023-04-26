@@ -58,6 +58,8 @@ sidebar_label: Release Notes
 |zookeeper|3.5.9|
 |node-disk-manager|1.8.0|
 |hostpath-provisioner|0.5.3|
+|block-device-monitor|0.1.0|
+|local-pv-manager|0.1.0|
 
 ### Compatibility
 
@@ -239,7 +241,7 @@ The issues listed below are resolved in this release.
 |zbs|5.2.0|
 |zookeeper|3.5.9|
 |node-disk-manager|1.8.0|
-|hostpath-provisioner|0.5.2
+|hostpath-provisioner|0.5.2|
 
 ### Compatibility
 

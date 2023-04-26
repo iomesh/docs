@@ -6,9 +6,8 @@ sidebar_label: Monitor IOMesh
 
 After importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) for more configurations and adjustments.
 
-图片需要在发布前更新一次
-<img width="1920" alt="image" src="https://user-images.githubusercontent.com/7987906/229396752-5a443b9d-6c53-4fd3-a4b5-4fe96d0b23e0.png">
 
+![image](https://user-images.githubusercontent.com/102718816/234539619-1eb6988b-464f-48dd-8ca4-aad36430ef00.png)
 
 IOMesh provide 5 rows of contents for monitoring IOMesh storage: 
 

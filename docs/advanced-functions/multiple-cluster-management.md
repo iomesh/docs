@@ -6,7 +6,7 @@ sidebar_label: Multiple Cluster Management
 
 In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation. In this case, there is typically one management cluster that holds components such as the IOMesh Operator, IOMesh CSI Driver, and Node Disk Manager, while other clusters function as independent storage pools without any management responsibilities. 
 
-The IOMesh CSI driver is shared by all IOMesh clusters to facilitate connection, which reduces the number of Controller Plugin pods for the CSI driver.
+IOMesh CSI Driver is shared by all IOMesh clusters to facilitate connection, which reduces the number of Controller Plugin pods for the CSI driver.
 
 ![image](https://user-images.githubusercontent.com/102718816/228175494-9d69fac5-de12-4519-a85f-2520c2070f4c.png)
 
@@ -349,7 +349,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
     ```
 ### Configure Multi-Cluster Connection
 
-To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to create a `ConfigMap` containing connection information for each IOMesh cluster. 
+To enable IOMesh CSI Driver to connect to multiple IOMesh clusters, you need to create a `ConfigMap` containing connection information for each IOMesh cluster. 
 
 **Procedure**
 

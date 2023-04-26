@@ -25,7 +25,6 @@
     ],
     "Deploy Stateful Applications": [
       "stateful-applications/iomesh-for-mysql",
-      "stateful-applications/iomesh-for-cassandra",
       "stateful-applications/iomesh-for-mongodb"
     ],
     "Cluster Operations": [

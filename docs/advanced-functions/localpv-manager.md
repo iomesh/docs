@@ -306,7 +306,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
 
 3. Create a PVC using the StorageClass.
 
-    > _NOTE_: To ensure successful creation, make sure that each Kubernetes worker node has at least 1 available raw block device with a capacity larger than 10G and has no filesystem specified.
+    > _NOTE_: To ensure successful creation, make sure that each Kubernetes worker node has at least 1 available raw block device and has no filesystem specified.
 
     - Create a YAML config `iomesh-localpv-device-pvc.yaml` with the following content. Configure `volumeMode`, and setting this field to `filesystem` or `block` depends on the need of formatting the filesystem.
 
@@ -324,7 +324,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
               - ReadWriteOnce
             resources:
               requests:
-                storage: 10Gi
+                storage: 10Gi # Specify the storage value.
             volumeMode: Filesystem
           ```
     - Apply the YAML config to create the PVC.

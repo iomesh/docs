@@ -100,7 +100,7 @@ In case IOMesh is deployed on bare metal or any cloud environment that does not 
 
 ## External Storage vis CSI
 
-After the access point is configured, IOMesh can provide storage externally to a Kubernetes cluster. However, before doing this, it is necessary to install the IOMesh CSI driver in the cluster using the instructions provided below. Note that the installation should be online.
+After the access point is configured, IOMesh can provide storage externally to a Kubernetes cluster. However, before doing this, it is necessary to install IOMesh CSI Driver in the cluster using the instructions provided below. Note that the installation should be online.
 
 ![image](https://user-images.githubusercontent.com/102718816/232662353-dccb8a34-052d-4a3b-9b1a-67f5170c5e4c.png)
 
@@ -165,10 +165,10 @@ After the access point is configured, IOMesh can provide storage externally to a
     | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
     | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
     | `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
-    | `driver.controller.driver.podDeletePolicy` | <p>`"no-delete-pod"`(default)</p><p>`"delete-deployment-pod"`</p><p> `"delete-statefulset-pod"`</p> `"delete-both-statefulset-and-deployment-pod"` | When creating a PVC using the IOMesh CSI driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
+    | `driver.controller.driver.podDeletePolicy` | <p>`"no-delete-pod"`(default)</p><p>`"delete-deployment-pod"`</p><p> `"delete-statefulset-pod"`</p> `"delete-both-statefulset-and-deployment-pod"` | When creating a PVC using IOMesh CSI Driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
     | `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 
 
-5. Deploy IOMesh CSI driver.
+5. Deploy IOMesh CSI Driver.
     ```shell
     helm install csi-driver iomesh/csi-driver \
         --namespace iomesh-system \
@@ -176,9 +176,9 @@ After the access point is configured, IOMesh can provide storage externally to a
         --values csi-driver.yaml \
         --wait
     ```
-6. Verify that IOMesh CSI driver has been successfully installed. 
+6. Verify that IOMesh CSI Driver has been successfully installed. 
    
-   If all pods are shown in `Running` state, then IOMesh CSI driver has been successfully installed.
+   If all pods are shown in `Running` state, then IOMesh CSI Driver has been successfully installed.
     ```shell
     watch kubectl get --namespace iomesh-system pods
     ```
@@ -191,7 +191,7 @@ After the access point is configured, IOMesh can provide storage externally to a
     iomesh-csi-driver-node-plugin-fscsp                    3/3     Running   0          30s
     iomesh-csi-driver-node-plugin-g4c4v                    3/3     Running   0          39s
     ```
-Once IOMesh CSI driver is installed, you may refer to [Volume Operations](../volume-operations/create-storageclass) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-snapshotclass) for storage operations.
+Once IOMesh CSI Driver is installed, you may refer to [Volume Operations](../volume-operations/create-storageclass) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-snapshotclass) for storage operations.
 
 
 ## IOMesh as iSCSI Target
