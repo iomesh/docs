@@ -346,7 +346,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
     ```shell
     kubectl edit iomesh iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
     kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1 # Configure deviceMap for the second IOMesh cluster.
-
+    ```
 ### Configure Multi-Cluster Connection
 
 To enable the IOMesh CSI driver to connect to multiple IOMesh clusters, you need to create a `ConfigMap` containing connection information for each IOMesh cluster. 

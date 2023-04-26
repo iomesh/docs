@@ -15,7 +15,7 @@ If storage capacity is insufficient or storage usage exceeds 80%, you should add
 
 **Precaution**
 
-The minimum number of chunk pods is 3, and the maximum number you can add depends on the IOMesh Enterprise Edition node limit, which can be up to 255.
+The minimum number of chunk pods is 3, and the maximum number depends on the IOMesh Enterprise Edition node limit, which can be up to 255.
 
 **Procedure**
 

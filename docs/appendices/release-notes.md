@@ -96,9 +96,7 @@ IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 archi
 </tbody>
 </table> 
 
->**Note**:
->
-> IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
+>_NOTE_: IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
 
 ### Known Issues
 
@@ -110,7 +108,7 @@ IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 archi
   - After the IOMesh Device Local PV is deleted, the disk corresponding to the block device might not be cleared completely.
   - The state of a block device might switch back and forth between `active` and `inactive`, which sometimes causes the disk to be unmountable.
 - After removing the chunk pod on a worker node, IOMesh CR still shows disks on this node.
-- After an IOMesh cluster is uninstalled, the metrics in the IOMesh Operator may not be completely cleaned up. This can cause the license version to not display in the dashboard if you later deploy an IOMesh cluster with the same name in the same namespace. You may restart the Operator pod to fix this issue.
+- After an IOMesh cluster is uninstalled, the metrics in the IOMesh Operator may not be completely cleaned up. This can cause the license edition to not be displayed in the dashboard if you later deploy an IOMesh cluster with the same name in the same namespace. You may restart the Operator pod to fix this issue.
 
 ## IOMesh 0.11.1 Release Notes
 
@@ -181,9 +179,7 @@ IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 </tbody>
 </table> 
 
->**Note**:
->
-> IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
+>_NOTE_: IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
 
 ## IOMesh 0.11.0 Release Notes
 

@@ -66,7 +66,7 @@ A user request for a snapshot of a volume, which is similar to a persistent volu
 
 Provides a way to describe the classes of storage when provisioning a volume snapshot. It allows you to specify different attributes belonging to a VolumeSnapshot. These attributes may differ among snapshots taken from the same volume on the storage system and therefore cannot be expressed by using the same StorageClass of a PersistentVolumeClaim.
 
-[**Volume Snapshot Content**]((https://kubernetes.io/docs/concepts/storage/volume-snapshots/))
+[**Volume Snapshot Content**](https://kubernetes.io/docs/concepts/storage/volume-snapshots/)
 
 A snapshot taken from a volume in the cluster that has been provisioned by an administrator. It is a resource in the cluster just like a persistent volume is a cluster resource.
 
