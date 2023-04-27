@@ -85,7 +85,7 @@ The following example reduces the number of chunk pods by removing `iomesh-chunk
     /opt/iomesh/iomeshctl chunk unregister <chunk_id>
     ```
 
-6. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
+6. Find `chunk` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`.
     ```yaml
     chunk:
       replicaCount: 3 # Reduce the value to 2. 
@@ -122,7 +122,7 @@ The minimum number of meta pods is 3 and the maximum is 5.
 
 **Procedure**
 
-1. In `iomesh.yaml`, locate `meta` and then edit `replicaCount`. 
+1. Find `meta` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`.
 
     ```yaml
     meta:

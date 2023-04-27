@@ -2,7 +2,9 @@
 id: manage-multiple-cluster
 title: Multiple Cluster Management
 sidebar_label: Multiple Cluster Management
+hide_title: true
 ---
+# Multiple Cluster Management
 
 In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation. In this case, there is typically one management cluster that holds components such as the IOMesh Operator, IOMesh CSI Driver, and Node Disk Manager, while other clusters function as independent storage pools without any management responsibilities. 
 
