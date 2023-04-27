@@ -141,10 +141,10 @@ The minimum number of meta pods is 3 and the maximum is 5.
 
     If successful, you should see output below:
     ```output
-    iomesh-meta-0                                         3/3     Running   0          5h5m
-    iomesh-meta-1                                         3/3     Running   0          5h5m
-    iomesh-meta-2                                         3/3     Running   0          5h5m
-    iomesh-meta-3                                         3/3     Running   0          5h5m
-    iomesh-meta-4                                         3/3     Running   0          5h5m
+    iomesh-meta-0                                         2/2     Running   0          5h5m
+    iomesh-meta-1                                         2/2     Running   0          5h5m
+    iomesh-meta-2                                         2/2     Running   0          5h5m
+    iomesh-meta-3                                         2/2     Running   0          5h5m
+    iomesh-meta-4                                         2/2     Running   0          5h5m
     ```
 

@@ -176,6 +176,9 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     iomesh-meta-0                                         2/2     Running   0          55s
     iomesh-meta-1                                         2/2     Running   0          55s
     iomesh-meta-2                                         2/2     Running   0          55s
+    iomesh-localpv-manager-ddkgq                          4/4     Running   0          7h57m
+    iomesh-localpv-manager-nmgz6                          4/4     Running   0          7h57m
+    iomesh-localpv-manager-vqtcf                          4/4     Running   0          7h57m
     iomesh-openebs-ndm-5457z                              1/1     Running   0          2m8s
     iomesh-openebs-ndm-599qb                              1/1     Running   0          2m8s
     iomesh-openebs-ndm-cluster-exporter-68c757948-gszzx   1/1     Running   0          2m8s
@@ -341,6 +344,9 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     iomesh-meta-0                                          2/2     Running   0          104s
     iomesh-meta-1                                          2/2     Running   0          104s
     iomesh-meta-2                                          2/2     Running   0          104s
+    iomesh-localpv-manager-ddkgq                           4/4     Running   0          7h57m
+    iomesh-localpv-manager-nmgz6                           4/4     Running   0          7h57m
+    iomesh-localpv-manager-vqtcf                           4/4     Running   0          7h57m
     iomesh-openebs-ndm-569pb                               1/1     Running   0          3m20s
     iomesh-openebs-ndm-9fhln                               1/1     Running   0          3m20s
     iomesh-openebs-ndm-cluster-exporter-68c757948-vkkdz    1/1     Running   0          3m20s
