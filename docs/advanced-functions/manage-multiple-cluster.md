@@ -499,7 +499,7 @@ To monitor multiple IOMesh clusters, navigate to [Install IOMesh Dashboard](../m
 
 ## Operations 
 
-All of the following procedures are based on the example in [Deployment](../advanced-functions/manage-multiple-cluster.md#deployment).
+All of the following procedures are based on the example in [Deployment](#deployment).
 
 ### Scaling Multiple Clusters
 
