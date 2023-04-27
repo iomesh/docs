@@ -18,8 +18,7 @@ If storage capacity is insufficient or storage usage exceeds 80%, you should add
 The minimum number of chunk pods is 3, and the maximum number depends on the IOMesh Enterprise Edition node limit, which can be up to 255.
 
 **Procedure**
-
-1. In `iomesh.yaml`, locate `chunk` and then edit `replicaCount`. 
+1. Find `chunk` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`.
     ```yaml
     chunk:
       replicaCount: 5 # Enter the number of chunk pods.
@@ -141,10 +140,10 @@ The minimum number of meta pods is 3 and the maximum is 5.
 
     If successful, you should see output below:
     ```output
-    iomesh-meta-0                                         3/3     Running   0          5h5m
-    iomesh-meta-1                                         3/3     Running   0          5h5m
-    iomesh-meta-2                                         3/3     Running   0          5h5m
-    iomesh-meta-3                                         3/3     Running   0          5h5m
-    iomesh-meta-4                                         3/3     Running   0          5h5m
+    iomesh-meta-0                                         2/2     Running   0          5h5m
+    iomesh-meta-1                                         2/2     Running   0          5h5m
+    iomesh-meta-2                                         2/2     Running   0          5h5m
+    iomesh-meta-3                                         2/2     Running   0          5h5m
+    iomesh-meta-4                                         2/2     Running   0          5h5m
     ```
 
