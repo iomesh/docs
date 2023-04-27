@@ -34,7 +34,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     > _NOTE:_
     > The status of a block device will only be updated when the disk is unplugged. Therefore, if a disk is partitioned or formatted, its status will not be immediately updated. To update information about disk  partitioning and formatting, run the command `kubectl delete pod -n iomesh-system -l app=openebs-ndm` to restart the NDM pod, which will trigger a disk scan.
     
-2. View details of a block device object. Replace `<device_name>` with the block device name. 
+2. View details of a block device object. Replace `<block_device_name>` with the block device name. 
 
     ```shell
     kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
