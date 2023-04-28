@@ -29,7 +29,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
     ```
  
     > _NOTE:_
-    > The field `FSTYPE` of each IOMesh block device should be blank. If not, the block device will be filtered out by the device selector.
+    > The field `FSTYPE` of each IOMesh block device should be blank.
 
     > _NOTE:_
     > The status of a block device will only be updated when the disk is unplugged. Therefore, if a disk is partitioned or formatted, its status will not be immediately updated. To update information about disk  partitioning and formatting, run the command `kubectl delete pod -n iomesh-system -l app=openebs-ndm` to restart the NDM pod, which will trigger a disk scan.
@@ -105,7 +105,8 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
     ```
 2. Copy and paste `deviceMap` contents from the following sample code. Fill in `mount-type` according to the deployment mode and configure `matchLabels` or `matchExpressions` and `exclude`. 
 
-    For the labels, you only need to choose one of the two fields `matchLabels` or `matchExpressions` to fill in. To know the keys and values of the block device, refer to Step 2 in [Viewing Block Device Objects]. 
+    For the labels, you only need to choose one of the two fields `matchLabels` or `matchExpressions` to fill in. To know the keys and values of the block device, refer to Step 2 in [View Block Device Objects](#view-block-device-objects).
+    > _NOTE:_ The field `FSTYPE` of each IOMesh block device should be blank. Make sure to exclude the block device that has a specified filesystem.
     
     ```yaml 
     spec:
@@ -177,7 +178,7 @@ For more information, refer to [Kubernetes Documentation](https://kubernetes.io/
 
     Once configured, block devices filtered out will be mounted on the IOMesh cluster.
 
-5. Verify that `CLAIMSTATE` of `BlockDevice` you select becomes `Claimed`.
+3. Verify that `CLAIMSTATE` of `BlockDevice` you select becomes `Claimed`.
 
     ```bash
     kubectl --namespace iomesh-system -o wide get blockdevice

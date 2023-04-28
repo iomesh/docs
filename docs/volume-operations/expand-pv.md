@@ -40,7 +40,7 @@ spec:
     iomesh-example-pvc   Bound    pvc-b2fc8425-9dbc-4204-8240-41cb4a7fa8ca   10Gi        RWO            iomesh-csi-driver           11m
     ```
 
-2. Set the field `storage` to a new value.
+2. Access `pvc.yaml`. Then set the field `storage` to a new value.
     ```yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
