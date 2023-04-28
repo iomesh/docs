@@ -98,6 +98,8 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
 8. Unplug the disk. Then the disk will enter `Inactive` state. 
 
    Run the following commands simultaneously to remove the block device and its corresponding `blockdeviceclaim`. 
+
+   > _NOTE:_ It is normal to see a prompt indicating that `bdc` cannot be found when running the following commands to clear it.
     ```shell
     kubectl patch bdc/blockdevice-66312cce9037ae891a099ad83f44d7c9 -p '{"metadata":{"finalizers":[]}}' --type=merge -n iomesh-system
     kubectl patch bd/blockdevice-66312cce9037ae891a099ad83f44d7c9 -p '{"metadata":{"finalizers":[]}}' --type=merge -n iomesh-system

@@ -37,7 +37,7 @@ IOMesh manages disks on Kubernetes worker nodes with OpenEBS [node-disk-manager(
 2. View details of a block device object. Replace `<block_device_name>` with the block device name. 
 
     ```shell
-    kubectl --namespace iomesh-system -o yaml get blockdevice <device_name>
+    kubectl --namespace iomesh-system -o yaml get blockdevice <block_device_name>
     ```
 
     After running the command, you should see output below:
