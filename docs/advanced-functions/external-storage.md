@@ -122,6 +122,7 @@ After the access point is configured, IOMesh can provide storage externally to a
     # ...
     # Specify the container platform, either "kubernetes" or "openshift". 
     co: "kubernetes" 
+    # Specify the container platform version, which should be the same as the version of the cluster hosting IOMesh.
     coVersion: "1.18"
     # ...
     storageClass:
@@ -134,14 +135,14 @@ After the access point is configured, IOMesh can provide storage externally to a
     driver:
       # ...
       # The Kubernetes cluster ID.
-      clusterID: "my-cluster"
-      # The address of the meta server.
+      clusterID: "my-iomesh"
+      # IOMesh meta server iSCSI portal address.
       metaAddr: "iomesh-cluster-vip:10206"
-      # The external IP and port number of the chunk server.
+      # IOMesh chunk server iSCSI portal address.
       iscsiPortal: "iomesh-cluster-vip:3260"
       # Access IOMesh as external storage.
       deploymentMode: "EXTERNAL"
-      # The unique csi driver name in a Kubernetes cluster.
+      # The unique CSI driver name in the Kubernetes cluster.
       nameOverride: "com.iomesh.csi-driver"
       # ...
       controller:
@@ -158,12 +159,12 @@ After the access point is configured, IOMesh can provide storage externally to a
     | ---------|-------|------|
     | `fullnameOverride` | `"iomesh-csi-driver"` | The CSI driver name.  |
     | `co`       | `"kubernetes"` | The container platform. If your container platform is OpenShift, type `"openshift"`.|
-    | `coVersion`| `"1.18"` | The version of the container platform, which should be the same as the version of the cluster hosting IOMesh.  |
+    | `coVersion`| `"1.18"` | The container platform version, which should be the same as the version of the cluster hosting IOMesh.  |
     | `storageClass.nameOverride` | `"iomesh-csi-driver"` | The default StorageClass name, which is customizable during installation. |
     | `storageClass.parameters` | `"parameters"` | The parameters for the default StorageClass, which is customizable during installation.
-    | `driver.clusterID` |`"my-cluster"` |The ID of the Kubernetes cluster, which is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters. |
-    | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The external IP of `iomesh-access` service and port number of meta server.  |
-    | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The external IP of `iomesh-access` service and port number of iSCSI Portal.  |
+    | `driver.clusterID` |`"my-iomesh"` |The ID of the Kubernetes cluster, which is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters. |
+    | `driver.metaAddr` | `"iomesh-cluster-vip:10206"` | The iSCSI portal address of the IOMesh meta server.  |
+    | `driver.iscsiPortal` | `"iomesh-cluster-vip:3260"` | The iSCSI portal address of the IOMesh chunk server.   |
     | `driver.deploymentMode` | `"EXTERNAL"` | `EXTERNAL` means accessing IOMesh as external storage.|
     | `driver.controller.driver.podDeletePolicy` | <p>`"no-delete-pod"`(default)</p><p>`"delete-deployment-pod"`</p><p> `"delete-statefulset-pod"`</p> `"delete-both-statefulset-and-deployment-pod"` | When creating a PVC using IOMesh CSI Driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.|
     | `driver.node.driver.kubeletRootDir` | `"/var/lib/kubelet"` |The root directory for `kubelet` service to manage pod-mounted volumes. Default value is `/var/lib/kubelet`. 

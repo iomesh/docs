@@ -277,6 +277,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     volumeBindingMode: WaitForFirstConsumer
     ```
     You may also create a StorageClass with custom parameters. See details in the following table and [Create StorageClass](../volume-operations/create-storageclass).
+
     | Field  | Description   |
     | -------- | ----------- |
     | `parameters.volumeType`     | Local PV type, either `hostpath` or `device`. Set the field to `device` for the IOMesh device local PV.
@@ -284,7 +285,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     | `parameters.csi.storage.k8s.io/fstype ` | The filesystem type when the `volumeMode` is set to `Filesystem`, which defaults to `ext4`. |
     | `volumeBindingMode` | Controls when volume binding and dynamic provisioning should occur. IOMesh only supports `WaitForFirstConsumer`. |
 
-2. Configure `deviceSelector`. For configuration details, refer to [`Device Selector`](../deploy-iomesh-cluster/setup-iomesh.md) and [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
+    When creating a StorageClass, you have the option to configure `deviceSelector` to filter disks as desired. For configuration details, refer to [`Device Selector`](../deploy-iomesh-cluster/setup-iomesh.md) and [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 
     For example, `iomesh.com/bd-driveType: SSD` means the StorageClass will only filter SSD for creating local PVs.
 
@@ -304,7 +305,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
     ```
     > _NOTE_: Kubernetes only supports one-level key/value nesting when configuring `parameters` in the StorageClass , so you should add `|` to the `deviceSelector` field to identify the subsequent content as a multi-line string.
 
-3. Create a PVC using the StorageClass.
+2. Create a PVC using the StorageClass.
 
     > _NOTE_: To ensure successful creation, make sure that each Kubernetes worker node has at least 1 available raw block device and has no filesystem specified.
 
@@ -342,7 +343,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         iomesh-localpv-device-pvc     Pending                                      localpv-manager-device     1m12s
         ```
 
-4. Create a pod and bind it to the PVC created in Step 3.
+3. Create a pod and bind it to the PVC created in Step 3.
 
     - Create a YAML config `iomesh-localpv-device-pod.yaml` with the following content, which will mount the PV to the `/mnt/iomesh/localpv` directory.
       ```yaml
@@ -388,7 +389,7 @@ IOMesh Device Local PV supports creating local PVs based on a block device on th
         NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES     
         iomesh-localpv-device-pvc     Bound    pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4   10G         RWO           
         ```
-5.  Check the status of the block device that should be in `Claimed` state.
+4.  Check the status of the block device that should be in `Claimed` state.
 
     ```shell
     kubectl  get blockdevice --namespace iomesh-system -o wide

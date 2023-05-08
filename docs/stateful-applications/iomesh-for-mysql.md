@@ -79,7 +79,7 @@ Verify that your IOMesh cluster is already deployed.
             env:
               # Enter a password to allow access to the database.
             - name: MYSQL_ROOT_PASSWORD
-              value: password
+              value: "password"
             ports:
             - containerPort: 3306
               name: mysql

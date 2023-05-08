@@ -15,7 +15,7 @@ To create a VolumeSnaphotClass, refer to the following:
 
 **Procedure**
 
-1. Create a YAML config `sc.yaml` and configure the fields `driver` and `deletionPolicy`.
+1. Create a YAML config `snc.yaml` and configure the fields `driver` and `deletionPolicy`.
 
     ```yaml
     apiVersion: snapshot.storage.k8s.io/v1
@@ -29,7 +29,7 @@ To create a VolumeSnaphotClass, refer to the following:
 2. Apply the YAML config to create the VolumeSnapshotClass.
   
     ```
-    kubectl apply -f sc.yaml 
+    kubectl apply -f snc.yaml 
     ```
 
 3. Get the VolumeSnapshotClass.
