@@ -7,9 +7,9 @@ sidebar_label: Clone PV
 To clone a PV, you should create a new PVC and specify an existing PVC in the field `dataSource` so that you can clone a volume based on it.
 
 **Precautions**
-- The source PVC and the target PVC must be in the same namespace.
-- The source PVC and the target PVC must have the same StorageClass and volume mode.
-- The capacity value of the target PVC must be the same as that of the source PVC.
+- The target PVC must be in the same namespace as the source PVC.
+- The target PVC must have the same StorageClass and volume mode as the source PVC.
+- The capacity of the target PVC must match the capacity of the source PVC.
 
 **Prerequisite**
 
@@ -19,6 +19,7 @@ Verify that there is already a PVC available for cloning.
 1. Create a YAML config `clone.yaml`. Specify the source PVC in the field `name`.
 
     ```yaml
+    # Source: clone.yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:

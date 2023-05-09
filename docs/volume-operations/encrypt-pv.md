@@ -4,7 +4,9 @@ title: Create Encrypted PV
 sidebar_label: Create Encrypted PV  
 ---
 
-IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass. Every time a pod declares the use of a encrypted PVC, the PVC will only be allowed for use if the two secrets match exactly.
+IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass. 
+
+Every time a pod declares the use of a encrypted PVC, the PVC will only be allowed for use if the two secrets match exactly.
 
 **Precautions**
 - Since authentication is implemented through iSCSI CHAP, the secret password must be 12-16 characters long according to the password length requirements of the CHAP protocol.

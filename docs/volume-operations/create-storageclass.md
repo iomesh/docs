@@ -9,11 +9,11 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 | Field |Description|Default (`iomesh-csi-driver`)|
 |---|---|---|
 |`provisioner`| The provisioner that determines what volume plugin is used for provisioning PVs. |`com.iomesh.csi-driver`|
-|`reclaimPolicy`|<p>Determines whether PV is retained when the PVC is deleted.</p><p>`Delete`: When PVC is deleted, PV and the corresponding IOMesh volume will be deleted when the PVC is deleted. <p>`Retain`: When PVC is deleted, PV and the corresponding IOMesh volume will be retained.|`delete`|
+|`reclaimPolicy`|<p>Determines whether PV is retained when the PVC is deleted.</p><p>`Delete`: When PVC is deleted, PV and the corresponding IOMesh volume will be deleted. <p>`Retain`: When PVC is deleted, PV and the corresponding IOMesh volume will be retained.|`delete`|
 |`allowVolumeExpansion`|Shows if volume expansion support is enabled.| `true`|
-|`csi.storage.k8s.io/fstype`|<p>The filesystem type, including:</P>`xfs`, `ext2`, `ext3`, `ext4`|`ext4`|
-|`replicaFactor` | The number of replicas for PVs, either `2` or `3`|`2`|   
-| `thinProvision` |<p>Shows the provisioning type.</p><p>`true` for thin provisioning</p><p>`false` for thick provisioning.</p>|`true`|
+|`csi.storage.k8s.io/fstype`|<p>The filesystem type, including</P>`xfs`, `ext2`, `ext3`, `ext4`|`ext4`|
+|`replicaFactor` | The number of replicas for PVs, either `2` or `3`|`2`.|   
+| `thinProvision` |<p>Shows the provisioning type.</p><p>`true` for thin provisioning.</p><p>`false` for thick provisioning.</p>|`true`|
 
 
 **Procedure**
@@ -21,6 +21,7 @@ IOMesh provides a default StorageClass `iomesh-csi-driver` that provides PVs for
 1. Create a YAML config `sc.yaml` and configure the parameters as needed.
 
     ```yaml
+    # Source: sc.yaml
     kind: StorageClass
     apiVersion: storage.k8s.io/v1
     metadata:

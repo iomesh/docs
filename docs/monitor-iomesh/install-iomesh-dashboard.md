@@ -8,7 +8,7 @@ Monitoring IOMesh storage is implemented on the capabilities of Prometheus and G
 
 ## Enable IOMesh Metrics
 
-**Prerequisite**
+**Prerequisites**
 
 - Verify that [Prometheus Operator and Prometheus](https://github.com/prometheus-operator/prometheus-operator#quickstart) are already installed. It is recommended that you install Prometheus in the `iomesh-system` namespace. If Prometheus is not installed in this namespace, you will need to set a label selector so that Prometheus can access objects such as `ServiceMonitor`, `PodMonitor`, and `PrometheusRule`.
 - Configure [Prometheus Operator and Prometheus RBAC](https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/rbac.md) to grant them access to IOMesh and its monitoring components.
@@ -201,7 +201,7 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-You have downloaded [IOMesh Cluster Dashboard File](https://iomesh.run/dashboard/iomesh-cluster-dashboard.json) .（发布前更新链接）
+You have downloaded [IOMesh Cluster Dashboard File](../appendices/downloads).
 
 **Procedure**
 

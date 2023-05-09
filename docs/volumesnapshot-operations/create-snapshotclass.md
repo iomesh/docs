@@ -18,6 +18,7 @@ To create a VolumeSnaphotClass, refer to the following:
 1. Create a YAML config `snc.yaml` and configure the fields `driver` and `deletionPolicy`.
 
     ```yaml
+    # Source: snc.yaml
     apiVersion: snapshot.storage.k8s.io/v1
     kind: VolumeSnapshotClass
     metadata:
@@ -38,7 +39,7 @@ To create a VolumeSnaphotClass, refer to the following:
     kubectl get volumesnapshotclass iomesh-csi-driver
     ```
 
-   After running the command, you should see output like this:
+   If successful, you should see output like this:
     ```output
     NAME                             DRIVER                  DELETIONPOLICY   AGE
     iomesh-csi-driver                com.iomesh.csi-driver   Delete           24s

@@ -6,7 +6,7 @@ sidebar_label: Prerequisites
 
 Before installing and deploying IOMesh, verify the following requirements.
 
-> _NOTE:_ Expanding an IOMesh cluster to multiple clusters is not currently supported. Decide at the beginning whether to deploy one or multiple clusters. For multi-cluster deployment and operations, refer to [Multiple Cluster Management](../advanced-functions/manage-multiple-cluster.md).
+> _NOTE:_ Expanding an IOMesh cluster to multiple clusters is not currently supported. You should decide at the beginning whether to deploy one or multiple clusters. For multi-cluster deployment and operations, refer to [Multiple Cluster Management](../advanced-functions/manage-multiple-cluster.md).
 
 ## Cluster Requirements
 
@@ -24,15 +24,15 @@ Ensure that each worker node has the following hardware configurations, and note
 
 **Memory**
 
-At least 16 GB on each worker node.
+- At least 16 GB on each worker node.
 
 **Storage Controller**
 
-SAS HBA or RAID cards that support passthrough mode (JBOD). 
+- SAS HBA or RAID cards that support passthrough mode (JBOD). 
 
 **OS Disk**
 
-An SSD with at least 100 GB of free space in the /opt directory for storing IOMesh metadata.
+- An SSD with at least 100 GB of free space in the /opt directory for storing IOMesh metadata.
 
 **Data & Cache Disk**
 
@@ -52,7 +52,7 @@ In IOMesh 1.0, hybrid mode is only supported for tiered storage and all-flash mo
 
 **NIC**
 
-Each worker node should have at least one 10/25 GbE NIC.
+- Each worker node should have at least one 10/25 GbE NIC.
 
 ## Network Requirements
 

@@ -26,7 +26,7 @@ sudo apt-get install open-iscsi -y
 
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-2. Edit the file `/etc/iscsi/iscsid.conf` by setting `node.startup` to `manual`.
+2. Edit the file `/etc/iscsi/iscsid.conf`. Set the value of the field `node.startup` to `manual`.
 
     ```shell
     sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf

@@ -4,18 +4,18 @@ title: Restore VolumeSnapshot
 sidebar_label: Restore VolumeSnapshot
 ---
 
-
 Restoring a VolumeSnapshot means creating a PVC while specifying the `dataSource` field referencing to the target snapshot. 
 
-**Precaution**
-
-The storage capacity value in the new PV should be the same as that of the source PV.
+**Precaution** 
+- The new PVC must have the same access mode as the VolumeSnapshot.
+- The new PVC must have the same storage value as the VolumeSnapshot.
 
 **Procedure**
 
-1. Create a YAML config `restore.yaml`. 
+1. Create a YAML config `restore.yaml`. Specify the field `dataSource.name`.
 
     ```yaml
+    # Source: restore.yaml
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
@@ -23,7 +23,7 @@ The storage capacity value in the new PV should be the same as that of the sourc
     spec:
       storageClassName: iomesh-csi-driver 
       dataSource:
-        name: example-snapshot # Specify the target VolumeSnapshot.
+        name: example-snapshot # Specify the VolumeSnapshot.
         kind: VolumeSnapshot
         apiGroup: snapshot.storage.k8s.io
       accessModes:
@@ -43,12 +43,12 @@ The storage capacity value in the new PV should be the same as that of the sourc
     ```
     kubectl get pvc example-restore
     ```
-   After running the command, you should see output like this:
+   If successful, you should see output like this:
     ```output
     NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS        AGE
     example-restore                             Bound    pvc-54230f3f-47dc-46e8-8c42-38c073c40598   6Gi        RWO            iomesh-csi-driver   21h   
     ```
-4. View the PV. 
+4. View the PV. You can find the PV name from the PVC output.
     ```bash
     kubectl get pv pvc-54230f3f-47dc-46e8-8c42-38c073c40598 # The PV name you get in Step 3.
     ```

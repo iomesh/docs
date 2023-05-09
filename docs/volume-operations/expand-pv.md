@@ -4,16 +4,17 @@ title: Expand PV
 sidebar_label: Expand PV
 ---
 
-To expand the capacity of a PV, you only need to modify the field `storage` in the corresponding PVC.
+To expand the capacity of a PV, you only need to modify the field `storage` in its corresponding PVC.
 
 **Prerequisite**
 
-The StorageClass must set `allowVolumeExpansion` to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to `true`. 
+The StorageClass must have `allowVolumeExpansion` set to true. The default StorageClass `iomesh-csi-driver` already does this. If a StorageClass is created and configured with custom parameters, verify that its `allowVolumeExpansion` is set to `true`. 
 
 **Procedure**
 
 The following example assumes a YAML config `pvc.yaml` that points to a PVC `iomesh-example-pvc` with a capacity of `10Gi`.
 ```yaml
+# Source: pvc.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -27,7 +28,7 @@ spec:
       storage: 10Gi # The original capacity of the PVC.
 ```
 
-1. Get the PVC that you want to modify the storage capacity for.
+1. Get the PVC. 
 
     ```bash
     kubectl get pvc iomesh-example-pvc
@@ -52,7 +53,7 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: 20Gi # Enter a new value greater than the original value.
+          storage: 20Gi # The new value must be greater than the original one.
     ```
 
 3. Apply the modification.
@@ -61,9 +62,9 @@ spec:
     kubectl apply -f pvc.yaml
     ```
 
-4. View the PVC and the corresponding PV. 
+4. View the PVC and its corresponding PV. 
 
-    > **_NOTE_:** The PV capacity will be changed to the new value, but the capacity value in the PVC will remain the same until it is used by the pod.
+    > **_NOTE_:** The PV capacity will be changed to the new value, but the capacity value in the PVC will remain the same until it is actually used by the pod.
 
     ```bash
     kubectl get pvc iomesh-example-pvc 

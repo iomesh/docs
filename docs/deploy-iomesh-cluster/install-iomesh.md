@@ -5,27 +5,30 @@ sidebar_label: Install IOMesh
 ---
 
 Before installing IOMesh, refer to the following to choose how you install IOMesh.
-- Quick Installation: One click to install IOMesh online, but all parameters take default values and cannot be modified.
-- Custom Installation: Configure parameters during installation on your own, but during installation, you must ensure that the Kubernetes cluster network is connected to the public network.
-- Offline Installation: Recommended when the Kubernetes cluster cannot communicate with the public network and support for custom parameters during installation.
+
+- Quick Installation: One-click online installation with default parameter values that cannot be modified.
+- Custom Installation: Configure parameters during installation, but ensure that your Kubernetes cluster is connected to the public network.
+- Offline Installation: Recommended for Kubernetes clusters with no public network connectivity and supports custom parameter configuration during installation.
 
 ## Quick Installation
 
-**Precautions**
+**Prerequisite**
 - The CPU architecture of the Kubernetes cluster must be Intel x86_64 or Kunpeng AArch64.
-- The Community edition is installed by default and only 3 worker nodes are supported for IOMesh deployment.
+
+**Limitations**
+- The Community Edition is installed by default, which has a 3-node limit.
 - Only hybrid disk configurations are allowed. 
 
 **Procedure**
 
 1. Access a master node.
    
-2. Run the following command to install IOMesh. Make sure to replace `10.234.1.0/24` with your actual CIDR. 
-
-    After executing the following command, wait for a few minutes. Note that `Helm3` is included in the commands below. It will be installed automatically if it is not found. 
+2. Run the following command to install IOMesh. Make sure to replace `10.234.1.0/24` with your actual CIDR. After executing the following command, wait for a few minutes. 
+    
+    > _NOTE:_ Quick Installation utilizes `Helm`, which is included in the following command and will be installed automatically if it is not found. 
 
     ```shell
-    # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR segment.
+    # The IP address of each worker node running IOMesh must be within the same IOMESH_DATA_CIDR.
     export IOMESH_DATA_CIDR=10.234.1.0/24; curl -sSL https://iomesh.run/install_iomesh.sh | sh -
     ```
 
@@ -35,8 +38,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
     watch kubectl get --namespace iomesh-system pods
     ```
 
-    > **_NOTE:_**
-    > IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
+    > _NOTE:_ IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
 ## Custom Installation 
 
@@ -44,7 +46,7 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. 
 
-**Procedure**
+**Procedur
 1. Access the master node.
    
 2. Install `Helm`. Skip this step if `Helm` is already installed. 
@@ -154,47 +156,51 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     kubectl --namespace iomesh-system get pods
     ```
 
-    If successful, you should see an example like:
+    If successful, you should see output like:
 
     ```output
-    NAME                                                  READY   STATUS    RESTARTS   AGE
-    csi-driver-controller-plugin-89b55d6b5-8r2fc          6/6     Running   10         2m8s
-    csi-driver-controller-plugin-89b55d6b5-d4rbr          6/6     Running   10         2m8s
-    csi-driver-controller-plugin-89b55d6b5-n5s48          6/6     Running   10         2m8s
-    csi-driver-node-plugin-9wccv                          3/3     Running   2          2m8s
-    csi-driver-node-plugin-mbpnk                          3/3     Running   2          2m8s
-    csi-driver-node-plugin-x6qrk                          3/3     Running   2          2m8s
-    iomesh-chunk-0                                        3/3     Running   0          52s
-    iomesh-chunk-1                                        3/3     Running   0          47s
-    iomesh-chunk-2                                        3/3     Running   0          43s
-    iomesh-hostpath-provisioner-8fzvj                     1/1     Running   0          2m8s
-    iomesh-hostpath-provisioner-gfl9k                     1/1     Running   0          2m8s
-    iomesh-hostpath-provisioner-htzx9                     1/1     Running   0          2m8s
-    iomesh-iscsi-redirector-96672                         2/2     Running   1          55s
-    iomesh-iscsi-redirector-c2pwm                         2/2     Running   1          55s
-    iomesh-iscsi-redirector-pcx8c                         2/2     Running   1          55s
-    iomesh-meta-0                                         2/2     Running   0          55s
-    iomesh-meta-1                                         2/2     Running   0          55s
-    iomesh-meta-2                                         2/2     Running   0          55s
-    iomesh-openebs-ndm-5457z                              1/1     Running   0          2m8s
-    iomesh-openebs-ndm-599qb                              1/1     Running   0          2m8s
-    iomesh-openebs-ndm-cluster-exporter-68c757948-gszzx   1/1     Running   0          2m8s
-    iomesh-openebs-ndm-node-exporter-kzjfc                1/1     Running   0          2m8s
-    iomesh-openebs-ndm-node-exporter-qc9pt                1/1     Running   0          2m8s
-    iomesh-openebs-ndm-node-exporter-v7sh7                1/1     Running   0          2m8s
-    iomesh-openebs-ndm-operator-56cfb5d7b6-srfzm          1/1     Running   0          2m8s
-    iomesh-openebs-ndm-svp9n                              1/1     Running   0          2m8s
-    iomesh-zookeeper-0                                    1/1     Running   0          2m3s
-    iomesh-zookeeper-1                                    1/1     Running   0          102s
-    iomesh-zookeeper-2                                    1/1     Running   0          76s
-    iomesh-zookeeper-operator-7b5f4b98dc-6mztk            1/1     Running   0          2m8s
-    operator-85877979-66888                               1/1     Running   0          2m8s
-    operator-85877979-s94vz                               1/1     Running   0          2m8s
-    operator-85877979-xqtml                               1/1     Running   0          2m8s
+    NAME                                                   READY   STATUS    RESTARTS   AGE
+    iomesh-blockdevice-monitor-76ddc8cf85-82d4h            1/1     Running   0          3m23s
+    iomesh-blockdevice-monitor-prober-kk2qf                1/1     Running   0          3m23s
+    iomesh-blockdevice-monitor-prober-w6g5q                1/1     Running   0          3m23s
+    iomesh-blockdevice-monitor-prober-z6b7f                1/1     Running   0          3m23s
+    iomesh-chunk-0                                         3/3     Running   2          2m17s
+    iomesh-chunk-1                                         3/3     Running   0          2m8s
+    iomesh-chunk-2                                         3/3     Running   0          113s
+    iomesh-csi-driver-controller-plugin-856565b79d-brt2j   6/6     Running   0          3m23s
+    iomesh-csi-driver-controller-plugin-856565b79d-g6rnd   6/6     Running   0          3m23s
+    iomesh-csi-driver-controller-plugin-856565b79d-kp9ct   6/6     Running   0          3m23s
+    iomesh-csi-driver-node-plugin-6pbpp                    3/3     Running   4          3m23s
+    iomesh-csi-driver-node-plugin-bpr7x                    3/3     Running   4          3m23s
+    iomesh-csi-driver-node-plugin-krjts                    3/3     Running   4          3m23s
+    iomesh-hostpath-provisioner-6ffbh                      1/1     Running   0          3m23s
+    iomesh-hostpath-provisioner-bqrjp                      1/1     Running   0          3m23s
+    iomesh-hostpath-provisioner-rm8ms                      1/1     Running   0          3m23s
+    iomesh-iscsi-redirector-2pc26                          2/2     Running   1          2m19s
+    iomesh-iscsi-redirector-7msvs                          2/2     Running   1          2m19s
+    iomesh-iscsi-redirector-nnbb2                          2/2     Running   1          2m19s
+    iomesh-localpv-manager-6flpl                           4/4     Running   0          3m23s
+    iomesh-localpv-manager-m8qgq                           4/4     Running   0          3m23s
+    iomesh-localpv-manager-p88x7                           4/4     Running   0          3m23s
+    iomesh-meta-0                                          2/2     Running   0          2m17s
+    iomesh-meta-1                                          2/2     Running   0          2m17s
+    iomesh-meta-2                                          2/2     Running   0          2m17s
+    iomesh-openebs-ndm-9chdk                               1/1     Running   0          3m23s
+    iomesh-openebs-ndm-cluster-exporter-68c757948-2lgvr    1/1     Running   0          3m23s
+    iomesh-openebs-ndm-f6qkg                               1/1     Running   0          3m23s
+    iomesh-openebs-ndm-ffbqv                               1/1     Running   0          3m23s
+    iomesh-openebs-ndm-node-exporter-pnc8h                 1/1     Running   0          3m23s
+    iomesh-openebs-ndm-node-exporter-scd6q                 1/1     Running   0          3m23s
+    iomesh-openebs-ndm-node-exporter-tksjh                 1/1     Running   0          3m23s
+    iomesh-openebs-ndm-operator-bd4b94fd6-zrpw7            1/1     Running   0          3m23s
+    iomesh-zookeeper-0                                     1/1     Running   0          3m17s
+    iomesh-zookeeper-1                                     1/1     Running   0          2m56s
+    iomesh-zookeeper-2                                     1/1     Running   0          2m21s
+    iomesh-zookeeper-operator-58f4df8d54-2wvgj             1/1     Running   0          3m23s
+    operator-87bb89877-fkbvd                               1/1     Running   0          3m23s
+    operator-87bb89877-kfs9d                               1/1     Running   0          3m23s
+    operator-87bb89877-z9tfr                               1/1     Running   0          3m23s
     ```
-
-    [1]: http://iomesh.com/charts
-    [2]: http://www.iomesh.com/docs/installation/setup-iomesh-storage#setup-data-network
 
 ## Offline Installation
 
@@ -314,48 +320,50 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     TEST SUITE: None
     ```
 
-7. Verify that all pods are running. If all pods are shown `Running`, then IOMesh has been installed successfully.
+7. Verify that all pods are running. If so, then IOMesh has been installed successfully.
 
     ```bash
     kubectl --namespace iomesh-system get pods
     ```
-    After running the command, you should see an example like:
-
+    After running the command, you should see output like:
     ```output
-    NAME                                                   READY   STATUS    RESTARTS   AGE
-    iomesh-chunk-0                                         3/3     Running   0          102s
-    iomesh-chunk-1                                         3/3     Running   0          98s
-    iomesh-chunk-2                                         3/3     Running   0          94s
-    iomesh-csi-driver-controller-plugin-5b66557959-jhshb   6/6     Running   10         3m20s
-    iomesh-csi-driver-controller-plugin-5b66557959-p4m9x   6/6     Running   10         3m20s
-    iomesh-csi-driver-controller-plugin-5b66557959-w9qbq   6/6     Running   10         3m20s
-    iomesh-csi-driver-node-plugin-6pjpn                    3/3     Running   2          3m20s
-    iomesh-csi-driver-node-plugin-dj2cd                    3/3     Running   2          3m20s
-    iomesh-csi-driver-node-plugin-stbdw                    3/3     Running   2          3m20s
-    iomesh-hostpath-provisioner-55j8t                      1/1     Running   0          3m20s
-    iomesh-hostpath-provisioner-c7jlz                      1/1     Running   0          3m20s
-    iomesh-hostpath-provisioner-jqrsd                      1/1     Running   0          3m20s
-    iomesh-iscsi-redirector-675vr                          2/2     Running   1          119s
-    iomesh-iscsi-redirector-d2j4m                          2/2     Running   1          119s
-    iomesh-iscsi-redirector-sjfjk                          2/2     Running   1          119s
-    iomesh-meta-0                                          2/2     Running   0          104s
-    iomesh-meta-1                                          2/2     Running   0          104s
-    iomesh-meta-2                                          2/2     Running   0          104s
-    iomesh-openebs-ndm-569pb                               1/1     Running   0          3m20s
-    iomesh-openebs-ndm-9fhln                               1/1     Running   0          3m20s
-    iomesh-openebs-ndm-cluster-exporter-68c757948-vkkdz    1/1     Running   0          3m20s
-    iomesh-openebs-ndm-m64j5                               1/1     Running   0          3m20s
-    iomesh-openebs-ndm-node-exporter-2brc6                 1/1     Running   0          3m20s
-    iomesh-openebs-ndm-node-exporter-g97q5                 1/1     Running   0          3m20s
-    iomesh-openebs-ndm-node-exporter-kvn88                 1/1     Running   0          3m20s
-    iomesh-openebs-ndm-operator-56cfb5d7b6-gwlg9           1/1     Running   0          3m20s
-    iomesh-zookeeper-0                                     1/1     Running   0          3m14s
-    iomesh-zookeeper-1                                     1/1     Running   0          2m59s
-    iomesh-zookeeper-2                                     1/1     Running   0          2m20s
-    iomesh-zookeeper-operator-7b5f4b98dc-fxfb6             1/1     Running   0          3m20s
-    operator-85877979-5fvvn                                1/1     Running   0          3m20s
-    operator-85877979-74rl6                                1/1     Running   0          3m20s
-    operator-85877979-cvgcz                                1/1     Running   0          3m20s
+    NAME                                                  READY   STATUS    RESTARTS   AGE
+    csi-driver-controller-plugin-89b55d6b5-8r2fc          6/6     Running   10         2m8s
+    csi-driver-controller-plugin-89b55d6b5-d4rbr          6/6     Running   10         2m8s
+    csi-driver-controller-plugin-89b55d6b5-n5s48          6/6     Running   10         2m8s
+    csi-driver-node-plugin-9wccv                          3/3     Running   2          2m8s
+    csi-driver-node-plugin-mbpnk                          3/3     Running   2          2m8s
+    csi-driver-node-plugin-x6qrk                          3/3     Running   2          2m8s
+    iomesh-chunk-0                                        3/3     Running   0          52s
+    iomesh-chunk-1                                        3/3     Running   0          47s
+    iomesh-chunk-2                                        3/3     Running   0          43s
+    iomesh-hostpath-provisioner-8fzvj                     1/1     Running   0          2m8s
+    iomesh-hostpath-provisioner-gfl9k                     1/1     Running   0          2m8s
+    iomesh-hostpath-provisioner-htzx9                     1/1     Running   0          2m8s
+    iomesh-iscsi-redirector-96672                         2/2     Running   1          55s
+    iomesh-iscsi-redirector-c2pwm                         2/2     Running   1          55s
+    iomesh-iscsi-redirector-pcx8c                         2/2     Running   1          55s
+    iomesh-meta-0                                         2/2     Running   0          55s
+    iomesh-meta-1                                         2/2     Running   0          55s
+    iomesh-meta-2                                         2/2     Running   0          55s
+    iomesh-localpv-manager-jwng7                          4/4     Running   0          6h23m
+    iomesh-localpv-manager-khhdw                          4/4     Running   0          6h23m
+    iomesh-localpv-manager-xwmzb                          4/4     Running   0          6h23m
+    iomesh-openebs-ndm-5457z                              1/1     Running   0          2m8s
+    iomesh-openebs-ndm-599qb                              1/1     Running   0          2m8s
+    iomesh-openebs-ndm-cluster-exporter-68c757948-gszzx   1/1     Running   0          2m8s
+    iomesh-openebs-ndm-node-exporter-kzjfc                1/1     Running   0          2m8s
+    iomesh-openebs-ndm-node-exporter-qc9pt                1/1     Running   0          2m8s
+    iomesh-openebs-ndm-node-exporter-v7sh7                1/1     Running   0          2m8s
+    iomesh-openebs-ndm-operator-56cfb5d7b6-srfzm          1/1     Running   0          2m8s
+    iomesh-openebs-ndm-svp9n                              1/1     Running   0          2m8s
+    iomesh-zookeeper-0                                    1/1     Running   0          2m3s
+    iomesh-zookeeper-1                                    1/1     Running   0          102s
+    iomesh-zookeeper-2                                    1/1     Running   0          76s
+    iomesh-zookeeper-operator-7b5f4b98dc-6mztk            1/1     Running   0          2m8s
+    operator-85877979-66888                               1/1     Running   0          2m8s
+    operator-85877979-s94vz                               1/1     Running   0          2m8s
+    operator-85877979-xqtml                               1/1     Running   0          2m8s  
     ```
 
    
