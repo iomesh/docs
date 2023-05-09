@@ -100,6 +100,6 @@ Verify that your IOMesh cluster is already deployed.
     kubectl apply -f mysql-deployment.yaml
     ```
 
-    Once done, persistent volumes will be created by IOMesh for each MySQL pod, and each persistent volume will have configurations such as filesystem type and replication factor as specified in the StorageClass.
+    Once done, a persistent volume will be created by IOMesh for MySQL pod, and the persistent volume will have configurations such as filesystem type and replication factor as specified in the StorageClass.
 
     You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot).
