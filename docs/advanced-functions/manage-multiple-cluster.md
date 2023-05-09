@@ -262,7 +262,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
           replicas: 3
           image:
             repository: iomesh/zbs-metad
-            tag: v5.3.0-rc13 # For an enterprise Edition, set it to "v5.3.0-rc13-enterprise". 
+            tag: v5.3.0-rc13-community # For an enterprise Edition, set it to "v5.3.0-rc13-enterprise". 
             pullPolicy: IfNotPresent
           podPolicy:
             affinity:
@@ -281,7 +281,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
           replicas: 3
           image:
             repository: iomesh/zbs-chunkd
-            tag: v5.3.0-rc13
+            tag: v5.3.0-rc13-community
             pullPolicy: IfNotPresent
           devicemanager:
             image:
@@ -305,7 +305,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
           dataCIDR: <your-data-cidr-here>  # Fill in IOMesh data CIDR.
           image:
             repository: iomesh/zbs-iscsi-redirectord
-            tag: v5.3.0-rc13
+            tag: v5.3.0-rc13-community
             pullPolicy: IfNotPresent
           podPolicy:
             affinity:

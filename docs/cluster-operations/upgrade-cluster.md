@@ -36,14 +36,19 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     wget https://iomesh.run/config/merge-values/v1.0.0.yaml -O merge-values.yaml
     ```
-
-5. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
+5. Edit the `merge-values.yaml` file and set the `iomesh.edition` field to the edition corresponding to the old version of IOMesh
+    ```yaml
+    iomesh:
+      # IOMesh software edition, support: enterprise/community. If left blank, community edition will be installed.
+      edition: ""
+    ```
+6. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
 
     ```bash
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0  --reuse-values -f merge-values.yaml
     ```
 
-6. Verify that all pods are running. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
+7. Verify that all pods are running. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
     ```bash
     watch kubectl get pod --namespace iomesh-system
     ```
@@ -73,13 +78,20 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     kubectl apply -f ./configs/iomesh.com_blockdevicemonitors.yaml
     ```
 
-5. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
+5. Edit the `./configs/merge-values.yaml` file and set the `iomesh.edition` field to the edition corresponding to the old version of IOMesh
+    ```yaml
+    iomesh:
+      # IOMesh software edition, support: enterprise/community. If left blank, community edition will be installed.
+      edition: ""
+    ```
+
+6. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
 
     ```bash
     ./helm upgrade --namespace iomesh-system iomesh ./charts/iomesh --reuse-values -f ./configs/merge-values.yaml
     ```
 
-6. Verify that all pods are running. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
+7. Verify that all pods are running. If all pods are shown as `Running`, then IOMesh has been successfully upgraded.
     ```bash
     watch kubectl get pod --namespace iomesh-system
     ```
