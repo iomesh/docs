@@ -243,7 +243,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
     - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements) for `chunk` and `redirector`, respectively.
     - Set `spec.chunk.devicemanager.blockDeviceNamespace` to `iomesh-system` as management components and all block devices reside in it.
-    - Set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector`, respectively for an Enterprise edition. If not, a community edition will be automatically installed.
+    - Set `image.repository.tag` to `v5.3.0-rc13-enterprise` for `meta`, `chunk`, and `redirector`, respectively for an Enterprise edition. If not, a community edition will be automatically installed.(如果使用 hygon 平台，`image.repository.tag` 字段需要设置为 `v5.3.0-rc13-community-hygon`/`v5.3.0-rc13-enterprise-hygon`。)
     - Set [`diskDeploymentMode`](../deploy-iomesh-cluster/prerequisites#hardware-requirements) according to your disk configurations.
 
       ```yaml
