@@ -202,7 +202,7 @@ iomesh-localpv-manager-w4j8m                                   4/4     Running  
         | `spec.csi.volumeAttributes.basePath` | `basePath` created by the IOMesh local PV. Taking the above YAML config as an example, the directory for the PV is created on  `/var/iomesh/local/pvc-ab61547e-1d81-4086-b4e4-632a08c6537b` on the node `iomesh-k8s-0`. |
         | `spec.nodeAffinity`| PV node affinity. This PV will be bound to the specified node once created and will not move to another node.|  
 
-### Enable Capacity Limit
+## Enable Capacity Limit
 
 In the above example, an IOMesh local PV with a capacity of 2G is created, corresponding to a directory on the node. By default, there is no limit on the amount of data written to this directory, allowing more than 2G to be written. However, if you have capacity isolation requirements, you can enable the capacity limit for the IOMesh local PV.
 
