@@ -9,7 +9,7 @@ sidebar_label: Downloads
 
 - IOMesh Cluster Dashboard File
   
-  https://download.smartx.com/iomesh-cluster-dashboard-v1.0.0.json
+  https://download.smartx.com/iomesh-cluster-dashboard/v1.0.0/iomesh-cluster-dashboard.json
 
 
 

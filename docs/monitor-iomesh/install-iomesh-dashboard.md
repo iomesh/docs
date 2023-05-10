@@ -207,7 +207,7 @@ Verify that you have downloaded [IOMesh Cluster Dashboard File](../appendices/do
 
 1. Log in Grafana.
 
-2. On the dashboard, import the `IOMesh-cluster-dashboard.json` file. Once done, you will be able to see IOMesh storage on the dashboard.
+2. On the dashboard, import the `iomesh-cluster-dashboard.json` file. Once done, you will be able to see IOMesh storage on the dashboard.
 
 
 
