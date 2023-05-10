@@ -67,7 +67,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
-3. Download [IOMesh Offline Installation Package](../appendices/downloads). Make sure to replace `<VERSION>` with `1.0.0` and  `<ARCH>` based on your CPU architecture.
+3. Download [IOMesh Offline Installation Package](../appendices/downloads). Make sure to replace `<VERSION>` with `v1.0.0` and  `<ARCH>` based on your CPU architecture.
    - Hygon x86_64: `hygon-amd64` 
    - Intel x86_64: `amd64`  
    - Kunpeng AArch64: `arm64` 
