@@ -67,7 +67,10 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
-3. Download [IOMesh Offline Installation Package](../appendices/downloads).
+3. Download [IOMesh Offline Installation Package](../appendices/downloads). Make sure to replace `<VERSION>` with `1.0.0` and  `<ARCH>` based on your CPU architecture.
+   - Hygon x86_64: `hygon-amd64` 
+   - Intel x86_64: `amd64`  
+   - Kunpeng AArch64: `arm64` 
 
     ```shell
     tar -xf  iomesh-offline-<VERSION>-<ARCH>.tgz && cd iomesh-offline
@@ -78,7 +81,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     kubectl apply -f ./configs/iomesh.com_blockdevicemonitors.yaml
     ```
 
-5. Edit the YAML file `merge-values.yaml` in the directory `iomesh-offline/configs/`. Set the value of the `iomesh.edition` field to match the edition specified for the previous version of IOMesh.
+5. Edit the YAML file `merge-values.yaml` located in the directory `iomesh-offline/configs/`. Set the value of the `iomesh.edition` field to match the edition specified for the previous version of IOMesh.
     ```yaml
     iomesh:
       # Specify the IOMesh edition, including "enterprise" and "community". If left blank, the community edition will be installed.
