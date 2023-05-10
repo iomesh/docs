@@ -38,7 +38,12 @@ Implemented as a standard CSI node server. With one instance on each worker node
 
 A component for discovering block devices and transforming them to block device objects, and providing a BlockDeviceClaim to ensure that a block device is exclusive to a particular pod.
 
-## Deployment
+### Local PV Type
+IOMesh LocalPV Manager offers 2 types of volumes: `HostPath` and `Device`. With `HostPath`, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. 
+
+When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or whether they need a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
+
+## Deployment 
 
 IOMesh LocalPV Manager is automatically installed during IOMesh installation and runs as a pod on each worker node. To see the status of the IOMesh LocalPV Manager pod, run the following command:
 
@@ -51,16 +56,7 @@ iomesh-localpv-manager-rjg8j                                   4/4     Running  
 iomesh-localpv-manager-vphz9                                   4/4     Running            0          10s
 iomesh-localpv-manager-w4j8m                                   4/4     Running            0          10s
 ```
-
-## IOMesh Hostpath Local PV
-
-IOMesh LocalPV Manager offers 2 types of volumes: `HostPath` and `Device`. With `HostPath`, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. 
-
-When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or whether they need a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
-
-### Create HostPath Local PV
-
-**Procedure**
+## Create HostPath Local PV
 
 1. When IOMesh LocalPV Manager is deployed, a default StorageClass will be created as shown below, with `volumeType` set to `hostPath`. 
 
@@ -212,8 +208,6 @@ In the above example, an IOMesh local PV with a capacity of 2G is created, corre
 
 To use the capacity limit function with the `xfs_quota `tool, `parameters.basePath` in StorageClass should be an XFS format mount point and has the XFS `prjquota` feature enabled via the mount option. Once enabled, a local PV with `xfs quota` configured will be created to verify the declared capacity in the PVC.
 
-**Procedure**
-
 The following example assumes that the local PV is created in the `/var/iomesh/localpv-quota` directory, and the disk path is `/dev/sdx`. 
 
 1. Create a directory `/var/iomesh/localpv-quota` as `basePath`.
@@ -255,11 +249,7 @@ The following example assumes that the local PV is created in the `/var/iomesh/l
 
     > _NOTE_: Scheduler is currently not supported in this release. The pod may be scheduled to a node with insufficient capacity. You should manually modify node affinity for this pod so that it can be rescheduled to a proper node. For modification procedure, refer to [Kubernetes Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/).
 
-##  IOMesh Device Local PV
-
-IOMesh Device Local PV supports creating local PVs based on a block device on the node for pod use.
-
-**Procedure**
+##  Create Device Local PV
 
 1. When IOMesh LocalPV Manager is deployed, a default StorageClass will be created as shown below with `volumeType` set to `device`. 
 
