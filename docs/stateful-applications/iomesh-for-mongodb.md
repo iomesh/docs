@@ -114,6 +114,6 @@ Verify the IOMesh cluster is already deployed.
     kubectl apply -f mongodb-statefulset.yaml
     ```
 
-    Persistent volumes will be created by IOMesh for each MongoDB pod, and each persistent volume will have configurations such as the filesystem type and replication factor as specified in the StorageClass.
+    After completion, IOMesh will create a PV for the MongoDB pod with configurations such as filesystem type and replication factor specified in the StorageClass.
 
     Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot).
