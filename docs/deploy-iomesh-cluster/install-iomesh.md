@@ -210,12 +210,15 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
 **Procedure**
 
-1. Download [IOMesh Offline Installation Package] on each worker node and the master node. 需要替换成 1.0 离线安装包
+1. Download the corresponding [IOMesh Offline Installation Package](../appendices/downloads) on each worker node and the master node, based on your CPU architecture.
 
-2. Unpack the installation package on each worker node and the master node. 替换 1.0 安装包名
+2. Unpack the installation package on each worker node and the master node. Make sure to replace `<VERSION>` with `1.0.0` and  `<ARCH>` based on your CPU architecture.
+   - Hygon x86_64: `hygon-amd64` 
+   - Intel x86_64: `amd64`  
+   - Kunpeng AArch64: `arm64` 
 
     ```shell
-    tar -xf  iomesh-offline-<VERSION>-<ARCH>.tgz && cd iomesh-offline
+    tar -xf  iomesh-offline-1.0.0-<ARCH>.tgz && cd iomesh-offline
     ```
 3. Load the IOMesh image on each worker node and then execute the corresponding script based on your container runtime and container manager.
 

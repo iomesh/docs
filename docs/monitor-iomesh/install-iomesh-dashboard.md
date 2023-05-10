@@ -201,7 +201,11 @@ Once you have enabled IOMesh metrics, go to Grafana to import Grafana Dashboard.
 
 **Prerequisite**
 
-Verify that you have downloaded [IOMesh Cluster Dashboard File](../appendices/downloads). If you previously chose offline installation, you do not need to download the IOMesh Cluster Dashboard File separately as it is included in the installation package already.
+Verify that you have downloaded [IOMesh Cluster Dashboard File](../appendices/downloads). 
+
+If you previously chose offline installation, make sure to 
+obtain the IOMesh Cluster Dashboard file from the offline installation package, which is located in the `iomesh-offline/configs` directory.
+
 
 **Procedure**
 

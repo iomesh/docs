@@ -78,7 +78,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     kubectl apply -f ./configs/iomesh.com_blockdevicemonitors.yaml
     ```
 
-5. Edit the YAML file `merge-values.yaml`. Set the value of the `iomesh.edition` field to match the edition specified for the previous version of IOMesh.
+5. Edit the YAML file `merge-values.yaml` in the directory `iomesh-offline/configs/`. Set the value of the `iomesh.edition` field to match the edition specified for the previous version of IOMesh.
     ```yaml
     iomesh:
       # Specify the IOMesh edition, including "enterprise" and "community". If left blank, the community edition will be installed.
