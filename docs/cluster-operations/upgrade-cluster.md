@@ -5,11 +5,11 @@ sidebar_label: Upgrade Cluster
 ---
 
 You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 either online or offline. Before proceeding, consider the following:
-- Upgrade is not supported if the Kubernetes cluster has only one meta pod or one chunk pod.
+- Upgrade is not supported if the Kubernetes cluster has only 1 meta pod or 1 chunk pod.
 - Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to 1.0.0 from 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.
 
-    > _NOTE:_
-    > There might be temporary I/O latency fluctuations during the upgrade.
+> _NOTE:_
+> There might be temporary I/O latency fluctuations during the upgrade.
 
 **Procedure**
 <!--DOCUSAURUS_CODE_TABS-->

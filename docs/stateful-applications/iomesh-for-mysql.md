@@ -101,4 +101,4 @@ Verify that your IOMesh cluster is already deployed.
     ```
     After completion, IOMesh will create a PV for the MySQL pod with configurations such as filesystem type and replication factor specified in the StorageClass.
 
-    You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot).
+    You can expand, snapshot, or clone persistent volumes where MySQL data are located. For details, refer to [Volume Operations](../volume-operations/create-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-volumesnapshot).

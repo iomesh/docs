@@ -60,7 +60,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
     blockdevice-7aff82fe93fac5153b14af3c82d68856   qtest-k8s-2   /dev/sdb            69793218560   Claimed      Active   44h
     ```
 
-5. Run the following command to edit the `deviceMap` of the disk. That is, add the disk name to the `exclude` field under `devicemap`.
+5. Run the following command to edit the `deviceMap` of the disk. Add the disk name to the field `exclude` under `devicemap`.
 
     ```shell
     kubectl edit iomesh iomesh -n iomesh-system
@@ -86,7 +86,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
 
 6. Repeat Step 2 and 3 to verify that there are no ongoing migration or recovery tasks for the cluster. 
 
-7. Verify that the block device is in `unclaimed` state.
+7. Verify that the block device is in `Unclaimed` state.
     ```shell
     kubectl get bd blockdevice-66312cce9037ae891a099ad83f44d7c9 -n iomesh-system
     ```

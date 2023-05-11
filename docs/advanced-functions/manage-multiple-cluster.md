@@ -353,8 +353,6 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 
 To enable IOMesh CSI Driver to connect to multiple IOMesh clusters, you need to create a `ConfigMap` containing connection information for each IOMesh cluster. 
 
-**Procedure**
-
 1. Create a `ConfigMap` for the first IOMesh cluster.
     ```yaml
     # Source: iomesh-csi-configmap.yaml
@@ -397,8 +395,6 @@ To enable IOMesh CSI Driver to connect to multiple IOMesh clusters, you need to 
 ### Create StorageClass for Each Cluster
 
 When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass `iomesh-csi-driver`. 
-
-**Procedure**
 
 1. Create a StorageClass for the first IOMesh cluster.
     ```yaml
@@ -495,7 +491,7 @@ Topology awareness is automatically enabled for IOMesh to ensure correct pod sch
 
 ## Monitoring
 
-To monitor multiple IOMesh clusters, navigate to [Install IOMesh Dashboard](../monitor-iomesh/install-iomesh-dashboard.md) for monitoring configuration. After completing the configuration, you can select the target cluster and its namespace to view its storage performance on the dashboard.
+To monitor multiple IOMesh clusters, navigate to [Install IOMesh Dashboard](../monitor-iomesh/install-iomesh-dashboard) for monitoring configuration. After completing the configuration, you can select the target cluster and its namespace to view its storage performance on the dashboard.
 
 ## Operations 
 

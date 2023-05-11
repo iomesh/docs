@@ -44,9 +44,9 @@
       "advanced-functions/external-storage"
     ],
     "Appendices": [
-      "appendices/iomesh-metrics",
       "appendices/release-notes",
       "appendices/downloads",
+      "appendices/iomesh-metrics",
       "appendices/faq"
     ]
   }

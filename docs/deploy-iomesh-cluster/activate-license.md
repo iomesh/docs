@@ -9,8 +9,8 @@ IOMesh currently offers two editions: Community and Enterprise. They differ in t
 IOMesh comes with a trial license when it is installed and deployed. However, it is recommended that you update the trial license to a subscription or perpetual license, depending on your IOMesh edition and how long you plan to use it.
 
 **Prerequisites**
-- **Community**: Apply for the new license code at https://www.iomesh.com/license.
-- **Enterprise**: Get the license code either of a subscription or perpetual license from SmartX sales.
+- **Community Edition**: Apply for the new license code at https://www.iomesh.com/license.
+- **Enterprise Edition**: Get the license code either of a subscription or perpetual license from SmartX sales.
 
 **Procedure**
 

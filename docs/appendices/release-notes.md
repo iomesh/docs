@@ -65,7 +65,7 @@ sidebar_label: Release Notes
 
 #### Server Architecture Compatibility for IOMesh  
 
-IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 architectures.
+IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architectures.
 
 #### Kubernetes and Linux OS Compatibility for IOMesh
 
@@ -106,12 +106,12 @@ IOMesh is compatible with Intel x86_64 and Hygon x86_64 or Kunpeng AArch64 archi
 - The IOMesh dashboard cannot display the correct storage capacity usage when the IOMesh cluster has invalid storage capacity.
 - A PV with `Block` as the volume mode can still be written due to a Kubernetes code defect even if the access mode is ReadOnlyMany.
 - The following issues persist due to a flaw in the NDM mechanism:
-  - After an IOMesh cluster is uninstalled, the disk corresponding to the block device used by this cluster might not be cleared completely.
-  - After the IOMesh Device Local PV is deleted, the disk corresponding to the block device might not be cleared completely.
-  - The state of a block device might switch back and forth between `active` and `inactive`, which sometimes causes the disk to be unmountable.
+  - After an IOMesh cluster is uninstalled, the disk corresponding to the block device used by this cluster might not be cleared.
+  - After the IOMesh Device Local PV is deleted, the disk corresponding to the block device might not be cleared.
+  - The status of a block device might switch back and forth between `active` and `inactive`, which sometimes causes the disk to be unmountable.
 - After removing the chunk pod on a worker node, IOMesh CR still shows disks on this node.
 - After an IOMesh cluster is uninstalled, the metrics in the IOMesh Operator may not be completely cleaned up. This can cause the license edition to not be displayed in the dashboard if you later deploy an IOMesh cluster with the same name in the same namespace. You may restart the Operator pod to fix this issue. 
-- If a prober pod of BDM(Block Device Monitor) panics during startup due to network issues or other problems, the detection process will not be automatically recovered. This may cause IOMesh dashboard to display incorrect disk information. Restarting the prober pod can fix this issue.
+- If a prober pod of BDM(Block Device Monitor) panics during startup due to network issues or other problems, the detection process will not be automatically recovered. This may cause the IOMesh dashboard to display incorrect disk information. Restarting the prober pod can fix this issue.
 - Newly deployed IOMesh 1.0.0 clusters may not display the correct version of IOMesh Block Storage on the IOMesh dashboard due to an error in obtaining the meta leader. This issue does not affect clusters upgraded from previous versions to 1.0.0.
 
 ## IOMesh 0.11.1 Release Notes

@@ -35,7 +35,7 @@ Verify the IOMesh cluster is already deployed.
     kubectl apply -f iomesh-mongodb-sc.yaml
     ```
 
-3. Create a YAML config `mongodb-service.yaml` with the following content. This file defines the headless service, which is used for DNS lookups between MongoDB pods and clients within your cluster
+3. Create a YAML config `mongodb-service.yaml` with the following content. This file defines the headless service, which is used for DNS lookups between MongoDB pods and clients within your cluster.
 
     ```yaml
     apiVersion: v1
@@ -116,4 +116,4 @@ Verify the IOMesh cluster is already deployed.
 
     After completion, IOMesh will create a PV for the MongoDB pod with configurations such as filesystem type and replication factor specified in the StorageClass.
 
-    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/expand-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/restore-volumesnapshot).
+    Once done, you can expand, snapshot, or clone persistent volumes where MongoDB data are located. For details, refer to [Volume Operations](../volume-operations/create-pv) and [VolumeSnapshot Operations](../volumesnapshot-operations/create-volumesnapshot).

@@ -7,7 +7,7 @@ sidebar_label: Scale Cluster
 You can scale the IOMesh cluster online without interrupting services. Before scaling the IOMesh cluster, consider the following:
 
 - Scaling is only supported for IOMesh Enterprise Edition. The number of meta or chunk pods in IOMesh Community Edition is limited to 3.
-- Add worker nodes to the Kubernetes cluster before increasing the number of chunk or meta pods. The number of worker nodes needed depends on how many chunk or meta pods you want to add, as each worker node can only have one meta pod and one chunk pod.
+- Add worker nodes to the Kubernetes cluster before increasing the number of chunk or meta pods. The number of worker nodes needed depends on how many chunk or meta pods you want to add, as each worker node can only have 1 meta pod and 1 chunk pod.
 
 ## Scale Up Chunk Server
 
@@ -34,7 +34,7 @@ The minimum number of chunk pods is 3, and the maximum number depends on the IOM
     kubectl get pod -n iomesh-system | grep chunk
     ```   
    
-   If successful, you should see output below:
+   If successful, you should see output like this:
     ```output
     iomesh-chunk-0                                         3/3     Running   0          5h5m
     iomesh-chunk-1                                         3/3     Running   0          5h5m
@@ -45,7 +45,7 @@ The minimum number of chunk pods is 3, and the maximum number depends on the IOM
 
 ## Scale Down Chunk Server
 
-**Precaution**
+**Precautions**
 
 - You can only remove 1 chunk pod at a time.
 - Remove chunk pods in reverse creation order. Each chunk pod is uniquely numbered by `StatefulSet` when created. For instance, if there are 3 chunk pods `iomesh-chunk-0`, `iomesh-chunk-1`, and `iomesh-chunk-2`, begin by removing `iomesh-chunk-2`. 
@@ -54,9 +54,9 @@ The minimum number of chunk pods is 3, and the maximum number depends on the IOM
 
 The following example reduces the number of chunk pods by removing `iomesh-chunk-2` on the node `k8s-worker-2`.
 
-1. Run the `ip a` command on the `k8s-worker-2` node to obtain the unique IP within the DATA CIDR. Assume the IP is `192.168.29.23`.
+1. Run the `ip a` command on the `k8s-worker-2` node to obtain the unique IP within the data CIDR. Assume the IP is `192.168.29.23`.
 
-2. Run the following command. Locate the `status.summary.chunkSummary.chunks` field and find the ID of chunks whose IP is `192.168.29.23`.
+2. Run the following command. Locate the `status.summary.chunkSummary.chunks` field and find the ID of `chunks` whose IP is `192.168.29.23`.
     ```shell
     kubectl get iomesh iomesh -n iomesh-system -o yaml
     ```
@@ -102,7 +102,7 @@ The following example reduces the number of chunk pods by removing `iomesh-chunk
     ```shell
     kubectl get pod -n iomesh-system | grep chunk
     ```   
-    If successful, you should see output below:
+    If successful, you should see output like this:
     ```output
     iomesh-chunk-0                                         3/3     Running   0          5h5m
     iomesh-chunk-1                                         3/3     Running   0          5h5m
@@ -138,7 +138,7 @@ The minimum number of meta pods is 3 and the maximum is 5.
     kubectl get pod -n iomesh-system | grep meta
     ```
 
-    If successful, you should see output below:
+    If successful, you should see output like this:
     ```output
     iomesh-meta-0                                         2/2     Running   0          5h5m
     iomesh-meta-1                                         2/2     Running   0          5h5m
