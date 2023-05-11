@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Monitor IOMesh · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="After importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) for more configurations and adjustments."/><meta name="docsearch:version" content="v1.0.0"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Monitor IOMesh · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="After importing Grafana, you will see the dashboard shown below. Refer to [Grafana Docs](https://grafana.com/docs/grafana/latest/dashboards/) for more configurations and adjustments."/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.0</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Monitor IOMesh</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/encrypt-pv">Create Encrypted PV</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/cluster-operations/scale-cluster">Scale Cluster</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Monitor IOMesh</h1></header><article><div><span><p>After importing Grafana, you will see the dashboard shown below. Refer to <a href="https://grafana.com/docs/grafana/latest/dashboards/">Grafana Docs</a> for more configurations and adjustments.</p>
+<p><img src="https://user-images.githubusercontent.com/102718816/234539619-1eb6988b-464f-48dd-8ca4-aad36430ef00.png" alt="image"></p>
+<p>IOMesh provide 5 rows of contents for monitoring IOMesh storage:</p>
+<ul>
+<li>Overview</li>
+<li>Node</li>
+<li>Details of Node</li>
+<li>Physical Disk</li>
+<li>Persistent Volume</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="overview"></a><a href="#overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Overview</h2>
+<p>Shows IOMesh cluster information and resource usage.</p>
+<table>
+<thead>
+<tr><th>Panel</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Alert</td><td><p>Shows all alarms detected in the IOMesh cluster, by default presenting essential details such as alarm names, trigger status, and duration.</p><p>You can further investigate into the severity, reasons, impacts, and recommended solutions for each alarm, and set the threshold for alert rules on your own on the Alert page.</p><p>Due to a Grafana defect, the values of all alarm items are presented in scientific notation.</p></td></tr>
+<tr><td>Cluster Info</td><td>Shows the basic information of the IOMesh cluster, including IOMesh version, IOMesh block storage version, CPU architecture, license type, license edition, maximum number of nodes, and license expiration date.</td></tr>
+<tr><td>Node</td><td>Shows the total number of nodes in the IOMesh cluster and how many of them are in the unhealthy state.</td></tr>
+<tr><td>Physical Disk</td><td>Shows the number of total SSDs, total HDDs, unhealthy SSDs and HDDs, respectively.</td></tr>
+<tr><td>Persistent Volume</td><td>Shows the total number of all persistent volumes in the IOMesh cluster.</td></tr>
+<tr><td>PV Status</td><td>Shows the number of persistent volumes in different states in the IOMesh cluster.</td></tr>
+<tr><td>Total Storage Capacity</td><td>Shows the total storage capacity of the IOMesh cluster.</td></tr>
+<tr><td>Used Storage Capacity</td><td>Shows the used storage capacity of the IOMesh cluster.</td></tr>
+<tr><td>Total Storage Capacity Usage</td><td>Shows the percentage of used storage capacity to total storage capacity of the IOMesh cluster.</td></tr>
+<tr><td>Data Migrate &amp; Recovery</td><td>Shows the amount of data to be migrated and migration speed, or the amount of all data to be recovered and recovery speed.</td></tr>
+<tr><td>Cluster IOPS</td><td>Shows the minimum, maximum and latest values of read, write and total IOPS for the IOMesh cluster in a given time period, respectively.</td></tr>
+<tr><td>Cluster Average Latency</td><td>Shows the minimum, maximum, and latest values of read, write, and total average latency for the IOMesh cluster in a given time period, respectively.</td></tr>
+<tr><td>Cluster I/O Average Block Size</td><td>Shows the minimum, maximum, and latest values of read, write, and total average block size for the IOMesh cluster in a given time period, respectively.</td></tr>
+<tr><td>Cluster I/O Bandwidth</td><td>Shows the minimum, maximum, and latest values of read, write, and total bandwidth for the IOMesh cluster in a given time period, respectively.</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="node"></a><a href="#node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Node</h2>
+<p>Shows the basic information of each node in the IOMesh cluster.</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Name</td><td>The node name.</td><td>&quot;node-1&quot;</td></tr>
+<tr><td>Namespace</td><td>The namespace where the node is located.</td><td>&quot;iomesh-system&quot;</td></tr>
+<tr><td>Health Status</td><td>Shows node health status, including <code>Initializing</code>, <code>Healthy</code>, and <code>Error</code>.</td><td>&quot;Healthy&quot;</td></tr>
+<tr><td>Storage Capacity</td><td>The total storage capacity of the node.</td><td>&quot;2.0 TiB&quot;</td></tr>
+<tr><td>Storage Capacity Usage</td><td>The storage space usage of the node.</td><td>&quot;20.0%&quot;</td></tr>
+<tr><td>Dirty Cache</td><td>The dirty data space of the node.</td><td>&quot;5.0 GiB&quot;</td></tr>
+<tr><td>Cache Hit</td><td>Node read cache hit ratio * read ratio + write cache hit ratio * write ratio.</td><td>&quot;70.0%&quot;</td></tr>
+<tr><td>Overall IOPS</td><td>The total IOPS of the node.</td><td>&quot;500.0 io/s&quot;</td></tr>
+<tr><td>Avg Latency</td><td>The average read and write latency of the node.</td><td>&quot;1.0 us&quot;</td></tr>
+<tr><td>Migrate</td><td>The data migration speed for the node.</td><td>&quot;1000.0 B/s&quot;</td></tr>
+<tr><td>Recovery</td><td>The data recovery speed for the node.</td><td>&quot;1000.0 B/s&quot;</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="details-of-node"></a><a href="#details-of-node" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Details of Node</h2>
+<p>Shows data migration, recovery, and performance data of a specific node in the IOMesh cluster.</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Pending Migrate</td><td>The amount of data to be migrated on the node.</td><td>&quot;50.0 MiB&quot;</td></tr>
+<tr><td>Pending Recover</td><td>The amount of data to be recovered on the node.</td><td>&quot;50.0 MiB&quot;</td></tr>
+<tr><td>Invalid Cache Capacity</td><td>The amount of unavailable cache space on the node.</td><td>&quot;50.0 MiB&quot;</td></tr>
+<tr><td>Invalid Storage Capacity</td><td>The amount of unavailable data space on the node.</td><td>&quot;50.0 MiB&quot;</td></tr>
+<tr><td>Node IOPS</td><td>Shows the minimum, maximum, and latest values of read write IOPS in a given time period.</td><td>/</td></tr>
+<tr><td>Node Average Latency</td><td>Shows the minimum, maximum, and latest values of read write average latency in a given time period.</td><td>/</td></tr>
+<tr><td>Node I/O Average Block Size</td><td>Shows the minimum, maximum, and latest values of read write average block size in a given time period.</td><td>/</td></tr>
+<tr><td>Node I/O Bandwidth</td><td>Shows the minimum, maximum, and latest values of read write bandwidth in a given time period.</td><td>/</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="physical-disk"></a><a href="#physical-disk" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Physical Disk</h2>
+<p>Shows disk attribute information, health and usage status, and purpose of use.</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Device Name</td><td>The physical disk name.</td><td>&quot;dev/sdv&quot;</td></tr>
+<tr><td>Health Status</td><td><p>Shows the health status of the physical disk, including <code>Healthy</code>, <code>Unhealthy</code>, <code>Failing</code>, and <code>S.M.A.R.T not passed</code>.</p><p><code>S.M.A.R.T not passed</code> is only supported for certain Intel/Samsung SSDs.</td><td>&quot;Healthy&quot;</td></tr>
+<tr><td>Usage Status</td><td>Shows if the usage status of the physical disk, including <code>Unmounted</code>, <code>Partially mounted</code>, <code>Mounted</code>, and <code>Unmounting</code>.</td><td>&quot;Mounted&quot;</td></tr>
+<tr><td>Remaining Lifetime</td><td>Shows the remaining life of SSD. A higher percentage (%) value indicates a longer remaining life.</td><td>&quot;99%&quot;</td></tr>
+<tr><td>Type</td><td>Shows the disk type, including <code>SSD</code> and <code>HDD</code>.</td><td>&quot;HDD&quot;</td></tr>
+<tr><td>Model</td><td>Shows disk attribute information, which may contain brand information.</td><td>&quot;DL2400MM0159&quot;</td></tr>
+<tr><td>Serial Number</td><td>The serial number of the physical disk.</td><td>&quot;WBM3C4TE&quot;</td></tr>
+<tr><td>Use</td><td>Shows the purpose of the physical disk, including <code>Datastore</code>, <code>Cache with journal</code>, and <code>Datastore with journal</code>.</td><td>&quot;Datastore&quot;</td></tr>
+<tr><td>Capacity</td><td>The total capacity of the physical disk.</td><td>&quot;500 GiB&quot;</td></tr>
+<tr><td>Nodename</td><td>The node where the disk is located.</td><td>&quot;node-1&quot;</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="persistent-volume"></a><a href="#persistent-volume" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Persistent Volume</h2>
+<p>Shows the attribute information, status, and usage of a PV in the IOMesh cluster.</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Name</td><td>The PV name.</td><td>&quot;Volume-1&quot;</td></tr>
+<tr><td>StorageClass</td><td>The StorageClass of this PV.</td><td>&quot;StorageClass1&quot;</td></tr>
+<tr><td>Status</td><td>Shows the PV status, including: <p><ul><li><code>Available</code>: The PV is available for use but is not bound to any PVC.</li><li><code>Bound</code>: The PV is already bound to a PVC.</li><li><code>Released</code>: The PVC bound to the PV has been deleted, but the resource has not been reclaimed by the cluster.</li><li><code>Failed</code>: Failed to automatically reclaim the PV.</li><li> <code>Pending</code>: The PV is already created but needs to wait for CSI to create the entity storage resource.</li></ul></td><td>&quot;Available&quot;</td></tr>
+<tr><td>Allocated Capacity</td><td>The logical capacity allocated to this PV.</td><td>&quot;50 GiB&quot;</td></tr>
+<tr><td>Exclusive Capacity</td><td>The logical capacity exclusive for this PV.</td><td>&quot;25 GiB&quot;</td></tr>
+<tr><td>Shared Capacity</td><td>The physical capacity shared by this PV and other objects.</td><td>&quot;10 GiB&quot;</td></tr>
+<tr><td>PV Provisioning</td><td>Shows the PV provisioning type, including <code>Thin provisioning</code> and <code>Thick provisioning</code>.</td><td>&quot;Thin provisioning&quot;</td></tr>
+<tr><td>Replicas</td><td>The number of replicas for this PV, either <code>2</code> or <code>3</code>.</td><td>&quot;2&quot;</td></tr>
+<tr><td>Created Time</td><td>The time when this PV was created.</td><td>&quot;2022-12-08 14:45:00&quot;</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/monitor-iomesh/install-iomesh-dashboard"><span class="arrow-prev">← </span><span>Install IOMesh Dashboard</span></a><a class="docs-next button" href="/advanced-functions/manage-multiple-cluster"><span>Multiple Cluster Management</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#overview">Overview</a></li><li><a href="#node">Node</a></li><li><a href="#details-of-node">Details of Node</a></li><li><a href="#physical-disk">Physical Disk</a></li><li><a href="#persistent-volume">Persistent Volume</a></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

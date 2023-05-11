@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Use IOMesh as iSCSI Target · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="IOMesh supports to directly provide iSCSI services externally. Users can create an iSCSI LUN (hereinafter referred to as external iSCSI LUN) by creating a PVC, and connect the iSCSI LUN by using any iSCSI client (such as `open-iscsi`) outside the K8s cluster."/><meta name="docsearch:version" content="v0.11.1"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Use IOMesh as iSCSI Target · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="IOMesh supports to directly provide iSCSI services externally. Users can create an iSCSI LUN (hereinafter referred to as external iSCSI LUN) by creating a PVC, and connect the iSCSI LUN by using any iSCSI client (such as `open-iscsi`) outside the K8s cluster."/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v0.11.1</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Advanced Usage</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v0.11.1/about-iomesh/introduction">Introduction</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v0.11.1/deploy/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/deploy/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/deploy/setup-iomesh">Setup IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/deploy/setup-storageclass">Setup StorageClass</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/deploy/setup-snapshotclass">Setup SnapshotClass</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v0.11.1/volume-operations/create-volume">Create Volume</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/volume-operations/expand-volume">Expand Volume</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/volume-operations/snapshot-restore-and-clone">Snapshot, Restore and Clone</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">IOMesh Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v0.11.1/iomesh-operations/monitoring">Monitoring</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/iomesh-operations/cluster-operations">Cluster Operations</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v0.11.1/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/stateful-applications/iomesh-for-cassandra">IOMesh for Cassandra</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Usage</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/v0.11.1/advanced-usage/external-iscsi">Use IOMesh as iSCSI Target</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Additional Info</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v0.11.1/additional-info/performance-testing">Performance Testing</a></li><li class="navListItem"><a class="navItem" href="/v0.11.1/additional-info/release-notes">Release Notes</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">References</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v0.11.1/references/metrics">Metrics</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Use IOMesh as iSCSI Target</h1></header><article><div><span><p>IOMesh supports to directly provide iSCSI services externally. Users can create an iSCSI LUN (hereinafter referred to as external iSCSI LUN) by creating a PVC, and connect the iSCSI LUN by using any iSCSI client (such as <code>open-iscsi</code>) outside the K8s cluster.</p>
+<h2><a class="anchor" aria-hidden="true" id="configure-stable-iscsi-access-point"></a><a href="#configure-stable-iscsi-access-point" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure Stable iSCSI Access Point</h2>
+<p>In order to ensure the high availability and stable IP address for the iSCSI service access point, IOMesh uses K8s's LoadBalancer type service as the iSCSI service access point. This service needs to be created by users, and the specific steps are different in different IOMesh cluster deployment environments:</p>
+<ul>
+<li>When an IOMesh cluster is deployed in one of the cloud providers such as GCP, AWS, Azure, etc., that natively support the LoadBalancer type service in K8s (for a detailed cloud provider list, please see <a href="https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer">internal-load-balancer</a>), users can refer to the <code>In-Tree LoadBalancer</code> section below.</li>
+<li>For other deployment scenarios (such as bare metal), users can refer to the <code>Out-of-Tree LoadBalancer</code> section below.</li>
+</ul>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-62-tab-63" class="nav-link active" data-group="group_62" data-tab="tab-group-62-content-63">In-Tree LoadBalancer</div><div id="tab-group-62-tab-64" class="nav-link" data-group="group_62" data-tab="tab-group-62-content-64">Out-of-Tree LoadBalancer</div></div><div class="tab-content"><div id="tab-group-62-content-63" class="tab-pane active" data-group="group_62" tabindex="-1"><div><span><ol>
+<li><p>Create a file called <code>iomesh-access-lb-service.yaml</code> and write the following contents:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-access-lb</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br /><span class="hljs-attr">spec:</span><br />  <span class="hljs-attr">ports:</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">iscsi</span><br />    <span class="hljs-attr">port:</span> <span class="hljs-number">3260</span><br />    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br />    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">3260</span><br />  <span class="hljs-attr">selector:</span><br />    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">iomesh-iscsi-redirector</span><br />  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span><br /></code></pre></li>
+<li><p>Apply the service configuration</p>
+<pre><code class="hljs css language-bash">kubectl apply -f iomesh-access-lb-service.yaml<br /></code></pre></li>
+<li><p>Check the service status</p>
+<pre><code class="hljs css language-bash">kubectl get service iomesh-access-lb -n iomesh-system<br /></code></pre></li>
+</ol>
+<p>K8s will call the interface corresponding to the IaaS platform and allocate an external-ip to the service you create as the entry to the LoadBalancer.</p>
+<p>Finally, execute the <code>kubectl edit iomesh -n iomesh-system</code> command, set the <code>spec.redirector.iscsiVirtualIP</code> to the external-ip of the <code>iomesh-access-lb</code> service. After saving, the <code>iomesh-iscsi-redirector</code> Pod will restart automatically to make the settings take effect.</p>
+<blockquote>
+<p><strong><em>NOTE</em>:</strong> <code>spec.redirector.iscsiVirtualIP</code> needs to be consistent with external-ip of the <code>iomesh-access-lb</code> service. If external-ip changes, remember to update <code>spec.redirector.iscsiVirtualIP</code> at the same time.</p>
+</blockquote>
+</span></div></div><div id="tab-group-62-content-64" class="tab-pane" data-group="group_62" tabindex="-1"><div><span><ol>
+<li><p>Create a file called <code>iomesh-access-lb-service.yaml</code> and write the following contents:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-access-lb</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br /><span class="hljs-attr">spec:</span><br />  <span class="hljs-attr">ports:</span><br />  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">iscsi</span><br />    <span class="hljs-attr">port:</span> <span class="hljs-number">3260</span><br />    <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br />    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">3260</span><br />  <span class="hljs-attr">selector:</span><br />    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">iomesh-iscsi-redirector</span><br />  <span class="hljs-attr">type:</span> <span class="hljs-string">LoadBalancer</span><br /></code></pre></li>
+<li><p>Apply the service configuration</p>
+<pre><code class="hljs css language-bash">kubectl apply -f iomesh-access-lb-service.yaml<br /></code></pre></li>
+<li><p>Check the service status</p>
+<pre><code class="hljs css language-bash">kubectl get service iomesh-access-lb -n iomesh-system<br /></code></pre></li>
+</ol>
+<p>Since IOMesh runs in a bare metal environment or in other cloud providers that do not natively support the LoadBalancer type service in K8s, K8s does not provide a default implementation for the load balancer, and the created LoadBalancer service will always be in a pending status. Now users need to install <code>MetallLB</code> in the K8s cluster as the default implementation for the load balancer, and the installation and configuration methods are described below.</p>
+<ol>
+<li><p>Makre sure that the cluster meets the requirements for <code>MetalLB</code> in the <a href="https://metallb.universe.tf/installation/#preparation">Installation Preparation</a> section.</p></li>
+<li><p>Install <code>MetalLB</code></p>
+<pre><code class="hljs css language-bash">helm repo add metallb https://metallb.github.io/metallb<br />helm install metallb metallb/metallb --version 0.12.1 -n iomesh-system<br /></code></pre></li>
+<li><p>Create a <code>MetalLB</code> ConfigMap file called <code>metallb-config.yaml</code>, set the work mode of <code>MetalLB</code> to layer2 (based on arp), and allocate an IP address pool to <code>MetalLB</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">metallb</span><br /><span class="hljs-attr">data:</span><br />  <span class="hljs-attr">config:</span> <span class="hljs-string">|<br />    address-pools:<br />    - name: iomesh-access-address-pools<br />      protocol: layer2<br />      addresses:<br />      - &lt;fill-in-your-ip-address-pool-here&gt; # eg: "192.168.1.100-192.168.1.110" or "192.168.2.0/24"<br /></span></code></pre></li>
+</ol>
+<p>Replace the commented part in <code>&lt;fill-in-your-ip-address-pool-here&gt;</code> with an unused IP address pool in the physical network, you can use the ip-range format, such as &quot;192.168.1.100-192.168.1.110&quot;, or use the subnet mask format, such as &quot;192.168.2.0/24&quot;.</p>
+<ol start="4">
+<li><p>Apply the ConfigMap configuration</p>
+<pre><code class="hljs css language-bash">kubectl apply -f metallb-config.yaml<br /></code></pre></li>
+<li><p>Check the service status to ensure that the external-ip from the IP address pool has been allocated to <code>MetalLB</code>.</p>
+<pre><code class="hljs css language-bash">watch kubectl get service iomesh-access-lb -n iomesh-system<br /></code></pre></li>
+</ol>
+<p>Finally, execute the <code>kubectl edit iomesh -n iomesh-system</code> command, set the <code>spec.redirector.iscsiVirtualIP</code> to the external-ip of the <code>iomesh-access-lb</code> service. After saving, the <code>iomesh-iscsi-redirector</code> Pod will restart automatically to make the settings take effect.</p>
+<blockquote>
+<p><strong><em>NOTE</em>:</strong> <code>spec.redirector.iscsiVirtualIP</code> needs to be consistent with external-ip of the <code>iomesh-access-lb</code> service. If external-ip changes, remember to update <code>spec.redirector.iscsiVirtualIP</code> at the same time.</p>
+</blockquote>
+</span></div></div></div></div>
+<h2><a class="anchor" aria-hidden="true" id="create-external-iscsi-lun-by-using-pvc"></a><a href="#create-external-iscsi-lun-by-using-pvc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create External iSCSI LUN by Using PVC</h2>
+<p>To create an external iSCSI LUN using a PVC, you need to add two annotation fields to the PVC. The descriptions and a complete example of the fields are described below.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">external-iscsi</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-comment"># Mark the PVC as a LUN used externally from the cluster</span>
+    <span class="hljs-attr">iomesh.com/external-use:</span> <span class="hljs-string">"true"</span>
+    <span class="hljs-comment"># Set the LUN's initiator iqn acl. If this field is not configured, all the initiator logins are prohibited. </span>
+    <span class="hljs-comment"># When the PVC's accessModes is RWO, this field can have one and only one value; when the PVC's accessModes </span>
+    <span class="hljs-comment"># is RWX, this field can have multiple values separated by commas. For all allowed iqns, the configuration is "*/*" </span>
+    <span class="hljs-attr">iomesh.com/iscsi-lun-iqn-allow-list:</span> <span class="hljs-string">"iqn.1994-05.com.example:a6c97f775dcb"</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-csi-driver</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span>
+</code></pre>
+<blockquote>
+<p><strong><em>NOTE</em>:</strong> The <code>iomesh.com/iscsi-lun-iqn-allow-list</code> field can be set during PVC creation or after PVC creation, to support dynamic updates. Generally, the iSCSI client's iqn can be acquired through the <code>cat /etc/iscsi/initiatorname.iscsi</code> command.</p>
+</blockquote>
+<p>After the PVC is created and enters the Bound state, you can check the <code>spec.volumeAttributes.iscsiEntrypoint</code> field of the corresponding PV.</p>
+<pre><code class="hljs css language-bash">kubectl get pv pvc-d84b4657-7ab5-4212-9270-ce40e6a1356a -o jsonpath=<span class="hljs-string">'{.spec.csi.volumeAttributes.iscsiEndpoint}'</span>
+<span class="hljs-comment"># output</span>
+iscsi://cluster-loadbalancer-ip:3260/iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3/1
+</code></pre>
+<p>In this example:</p>
+<ul>
+<li>The IP address and port number of the iSCSI Portal are cluster-loadbalancer-ip and 3260, where the cluster-loadbalancer-ip is replaced with the iomesh-access-lb service external-ip configured previously in your actual use.</li>
+<li>The Target name is iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3.</li>
+<li>The LUN ID is 1.</li>
+</ul>
+<p>With the above information, you can use any iSCSI client to connect. Assume the cluster-loadbalancer-ip is 192.168.25.101, take <code>open-iscsi</code> as an example:</p>
+<pre><code class="hljs css language-bash">iscsiadm -m discovery -t sendtargets  -p 192.168.25.101:3260 --discover
+iscsiadm -m node -T iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3 -p 192.168.25.101:3260  --login
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="delete-pvc"></a><a href="#delete-pvc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Delete PVC</h2>
+<p>For security reasons, IOMesh does not allow to delete the PVCs of which the value of the <code>iomesh.com/iscsi-lun-iqn-allow-list</code> field is not empty. If you want to delete the PVC, you need to ensure that the value of the <code>iomesh.com/iscsi-lun-iqn-allow-list</code> field is <code>&quot;&quot;</code>, or first delete the <code>iomesh.com/iscsi-lun-iqn-allow-list</code> field, then delete the PVC. Whether the external iSCSI LUN is retained after the PVC is deleted depends on the <code>reclaimPolicy</code> field corresponding to the StorageClass used by the PVC.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/v0.11.1/stateful-applications/iomesh-for-mongodb"><span class="arrow-prev">← </span><span class="function-name-prevnext">IOMesh for MongoDB</span></a><a class="docs-next button" href="/v0.11.1/additional-info/performance-testing"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#configure-stable-iscsi-access-point">Configure Stable iSCSI Access Point</a></li><li><a href="#create-external-iscsi-lun-by-using-pvc">Create External iSCSI LUN by Using PVC</a></li><li><a href="#delete-pvc">Delete PVC</a></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

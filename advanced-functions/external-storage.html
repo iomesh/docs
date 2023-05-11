@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>IOMesh as External Storage · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="In addition to providing storage within its Kubernetes environment where IOMesh is located, IOMesh can also offer storage externally to a Kubernetes cluster through CSI, or function as an iSCSI target for an iSCSI client."/><meta name="docsearch:version" content="v1.0.0"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="IOMesh as External Storage · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="In addition to providing storage within its Kubernetes environment where IOMesh is located, IOMesh can also offer storage externally to a Kubernetes cluster through CSI, or function as an iSCSI target for an iSCSI client."/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.0</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Advanced Functions</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/encrypt-pv">Create Encrypted PV</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/cluster-operations/scale-cluster">Scale Cluster</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">IOMesh as External Storage</h1></header><article><div><span><p>In addition to providing storage within its Kubernetes environment where IOMesh is located, IOMesh can also offer storage externally to a Kubernetes cluster through CSI, or function as an iSCSI target for an iSCSI client.</p>
+<h2><a class="anchor" aria-hidden="true" id="configure-iscsi-access-point"></a><a href="#configure-iscsi-access-point" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure iSCSI Access Point</h2>
+<p>To use IOMesh storage via the CSI driver or iSCSI target, it is necessary to configure an iSCSI access point first.</p>
+<p>To ensure that the access point has a consistent and functional IP address, IOMesh employs <code>iomesh-access</code> service with a service type of <code>LoadBalancer</code>. This service must have an IP externally exposed, and the specific method for configuring this external IP will vary depending on the cloud environment in which IOMesh is deployed.</p>
+<ul>
+<li>For IOMesh deployed in <a href="https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer">LoadBalancer-supported cloud environments</a>, see <code>In-Tree LoadBalancer</code>.</li>
+<li>For IOMesh deployed on bare metal or other LoadBalancer-not-supported cloud environments, see <code>Out-of-Tree LoadBalancer</code>.</li>
+</ul>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-33-tab-34" class="nav-link active" data-group="group_33" data-tab="tab-group-33-content-34">In-Tree LoadBalancer</div><div id="tab-group-33-tab-35" class="nav-link" data-group="group_33" data-tab="tab-group-33-content-35">Out-of-Tree LoadBalancer</div></div><div class="tab-content"><div id="tab-group-33-content-34" class="tab-pane active" data-group="group_33" tabindex="-1"><div><span><p>If IOMesh is deployed in a cloud environment that supports <code>LoadBalancer</code>, Kubernetes will automatically call the API of the cloud provider and assign an external IP to <code>iomesh-access</code> service.</p>
+<ol>
+<li><p>Check the status of <code>iomesh-access</code> service, ensuring it has been assigned an external IP.</p>
+<pre><code class="hljs css language-bash">kubectl get service iomesh-access -n iomesh-system<br /></code></pre>
+<pre><code class="hljs css language-output">NAME            TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                                          AGE<br />iomesh-access   LoadBalancer   <span class="hljs-number">10.96</span><span class="hljs-number">.22</span><span class="hljs-number">.212</span>   <span class="hljs-number">192.168</span><span class="hljs-number">.2</span><span class="hljs-number">.1</span>     <span class="hljs-number">3260</span>:<span class="hljs-number">32012</span>/TCP,<span class="hljs-number">10206</span>:<span class="hljs-number">31920</span>/TCP,<span class="hljs-number">10201</span>:<span class="hljs-number">31402</span>/TCP,<span class="hljs-number">10207</span>:<span class="hljs-number">31802</span>/TCP   <span class="hljs-number">45</span>h<br /><br /></code></pre></li>
+<li><p>Set <code>spec.redirector.iscsiVirtualIP</code> to the external IP of <code>iomesh-access</code> service by running the following command. Once edited, the <code>iomesh-iscsi-redirector</code> pod will automatically restart to make the modification take effect.</p>
+<pre><code class="hljs css language-bash">kubectl edit iomesh iomesh -n iomesh-system<br /></code></pre>
+<blockquote>
+<p><em>NOTE</em>: <code>spec.redirector.iscsiVirtualIP</code> must be the same as the external IP. If the external IP is changed, update <code>spec.redirector.iscsiVirtualIP</code>.</p>
+</blockquote></li>
+<li><p>An optional step. To use storage from one more IOMesh cluster, run the <code>kubectl edit</code> command to set the <code>spec.redirector.iscsiVirtualIP</code> field in its YAML file to the external IP of the <code>iomesh-access</code> service.</p></li>
+</ol>
+</span></div></div><div id="tab-group-33-content-35" class="tab-pane" data-group="group_33" tabindex="-1"><div><span><p>In case IOMesh is deployed on bare metal or any cloud environment that does not support Kubernetes <code>LoadBalancer</code>, you will need to install <code>MetallLB</code> as the default <code>LocalBalancer</code> in the Kubernetes cluster.</p>
+<ol>
+<li><p>Verify that the Kubernetes cluster meets <a href="https://metallb.universe.tf/installation/#preparation">the <code>MetalLB</code> installation requirements</a>.</p></li>
+<li><p>Install <code>MetalLB</code>.</p>
+<pre><code class="hljs css language-shell">helm repo add metallb https://metallb.github.io/metallb<br />helm install metallb metallb/metallb --version 0.12.1 -n iomesh-system<br /></code></pre></li>
+<li><p>Create a <code>MetalLB</code> YAML configMap <code>metallb-config.yaml</code>.</p>
+<p>Set <code>protocol</code> to <code>layer2</code>. Fill in an IP pool in <code>addresses</code>. The IP pool must be an IP range like &quot;192.168.1.100-192.168.1.110&quot; or the CIDR like &quot;192.168.2.0/24&quot;.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br /><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br /><span class="hljs-attr">metadata:</span><br />  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span><br />  <span class="hljs-attr">name:</span> <span class="hljs-string">metallb</span><br /><span class="hljs-attr">data:</span><br />  <span class="hljs-attr">config:</span> <span class="hljs-string">|<br />    address-pools:<br />    - name: iomesh-access-address-pools<br />      protocol: layer2<br />      addresses:<br />      - &lt;fill-in-your-ip-address-pool-here&gt; # Fill in an IP pool.<br /></span></code></pre>
+<blockquote>
+<p><em>NOTE</em>: <code>metallb</code> 0.12.1 does not support binding <code>address-pools</code> to a specific NIC. To use the NIC binding feature, <code>metallb</code> must be version 0.13.0 or higher. Refer to <a href="https://metallb.universe.tf/concepts/layer2/">https://metallb.universe.tf/concepts/layer2/</a> for configuration.</p>
+</blockquote>
+<blockquote>
+<p><em>NOTE</em>: <code>metallb</code> 0.12.1 does not support Kubernetes 1.25 or above. For Kubernetes 1.25 or above, refer to <a href="https://metallb.universe.tf">https://metallb.universe.tf</a> to deploy <code>metallb</code> 0.13.0 or higher.</p>
+</blockquote>
+<blockquote>
+<p><em>NOTE</em>: If you have updated this ConfigMap, you will need to restart all <code>metallb</code> pods in order for the configuration to take effect.</p>
+</blockquote></li>
+<li><p>Apply the YAML config.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f metallb-config.yaml<br /></code></pre></li>
+<li><p>Check the status of <code>iomesh-access</code> service, ensuring an external IP from the IP pool has been assigned to <code>MetalLB</code>.</p>
+<pre><code class="hljs css language-shell">watch kubectl get service iomesh-access -n iomesh-system<br /></code></pre>
+<pre><code class="hljs css language-output">NAME            TYPE           CLUSTER-IP     EXTERNAL-IP     PORT(S)                                                          AGE<br />iomesh-access   LoadBalancer   <span class="hljs-number">10.96</span><span class="hljs-number">.22</span><span class="hljs-number">.212</span>   <span class="hljs-number">192.168</span><span class="hljs-number">.2</span><span class="hljs-number">.1</span>     <span class="hljs-number">3260</span>:<span class="hljs-number">32012</span>/TCP,<span class="hljs-number">10206</span>:<span class="hljs-number">31920</span>/TCP,<span class="hljs-number">10201</span>:<span class="hljs-number">31402</span>/TCP,<span class="hljs-number">10207</span>:<span class="hljs-number">31802</span>/TCP   <span class="hljs-number">45</span>h<br /></code></pre></li>
+<li><p>Set <code>spec.redirector.iscsiVirtualIP</code> to the external IP by running the following command. Once the changes are saved, the <code>iomesh-iscsi-redirector</code> pod will automatically restart to make the modification take effect.</p>
+<pre><code class="hljs css language-shell">kubectl edit iomesh iomesh -n iomesh-system<br /></code></pre>
+<blockquote>
+<p><strong><em>NOTE</em>:</strong> <code>spec.redirector.iscsiVirtualIP</code> should be the same as the external IP. If the external IP is changed, update <code>spec.redirector.iscsiVirtualIP</code>.</p>
+</blockquote></li>
+<li><p>An optional step. To use storage from one more IOMesh cluster, run <code>kubectl edit</code> command to set the <code>spec.redirector.iscsiVirtualIP</code> field in its YAML file to the external IP of the <code>iomesh-access</code> service.</p></li>
+</ol>
+</span></div></div></div></div>
+<h2><a class="anchor" aria-hidden="true" id="external-storage-vis-csi"></a><a href="#external-storage-vis-csi" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>External Storage vis CSI</h2>
+<p>After the access point is configured, IOMesh can provide storage externally to a Kubernetes cluster. However, before doing this, it is necessary to install IOMesh CSI Driver in the cluster using the instructions provided below. Note that the installation should be online.</p>
+<p><img src="https://user-images.githubusercontent.com/102718816/232662353-dccb8a34-052d-4a3b-9b1a-67f5170c5e4c.png" alt="image"></p>
+<blockquote>
+<p><strong><em>NOTE</em></strong>: To use this function, the external Kubernetes cluster should be able to access IOMesh <code>DATA_CIDR</code> that was configured in <a href="../deploy-iomesh-cluster/prerequisites#network-requirements">Prerequisites</a>.</p>
+</blockquote>
+<ol>
+<li><p>Set up <a href="../deploy-iomesh-cluster/setup-worker-node"><code>open-iscsi</code></a> on the worker nodes of the external Kubernetes cluster.</p></li>
+<li><p>Add the Helm chart repository.</p>
+<pre><code class="hljs css language-shell">helm repo add iomesh http://iomesh.com/charts
+</code></pre></li>
+<li><p>Export the IOMesh CSI Driver configuration file <code>csi-driver.yaml</code>.</p>
+<pre><code class="hljs css language-shell">helm show values iomesh/csi-driver &gt; csi-driver.yaml
+</code></pre></li>
+<li><p>Edit the following fields in <code>csi-driver.yaml</code>.</p>
+<pre><code class="hljs css language-yaml"> <span class="hljs-attr">fullnameOverride:</span> <span class="hljs-string">"iomesh-csi-driver"</span>
+ <span class="hljs-comment"># ...</span>
+ <span class="hljs-comment"># Specify the container platform, either "kubernetes" or "openshift". </span>
+ <span class="hljs-attr">co:</span> <span class="hljs-string">"kubernetes"</span> 
+ <span class="hljs-comment"># Specify the container platform version, which should be the same as the version of the cluster hosting IOMesh.</span>
+ <span class="hljs-attr">coVersion:</span> <span class="hljs-string">"1.18"</span>
+ <span class="hljs-comment"># ...</span>
+ <span class="hljs-attr">storageClass:</span>
+   <span class="hljs-attr">nameOverride:</span> <span class="hljs-string">"iomesh-csi-driver"</span>
+   <span class="hljs-attr">parameters:</span>
+     <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">"ext4"</span>
+     <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"2"</span>
+     <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
+ <span class="hljs-comment"># ...</span>
+ <span class="hljs-attr">driver:</span>
+   <span class="hljs-comment"># ...</span>
+   <span class="hljs-comment"># The Kubernetes cluster ID.</span>
+   <span class="hljs-attr">clusterID:</span> <span class="hljs-string">"my-iomesh"</span>
+   <span class="hljs-comment"># IOMesh meta server iSCSI portal address.</span>
+   <span class="hljs-attr">metaAddr:</span> <span class="hljs-string">"iomesh-cluster-vip:10206"</span>
+   <span class="hljs-comment"># IOMesh chunk server iSCSI portal address.</span>
+   <span class="hljs-attr">iscsiPortal:</span> <span class="hljs-string">"iomesh-cluster-vip:3260"</span>
+   <span class="hljs-comment"># Access IOMesh as external storage.</span>
+   <span class="hljs-attr">deploymentMode:</span> <span class="hljs-string">"EXTERNAL"</span>
+   <span class="hljs-comment"># The unique CSI driver name in the Kubernetes cluster.</span>
+   <span class="hljs-attr">nameOverride:</span> <span class="hljs-string">"com.iomesh.csi-driver"</span>
+   <span class="hljs-comment"># ...</span>
+   <span class="hljs-attr">controller:</span>
+     <span class="hljs-attr">driver:</span>
+       <span class="hljs-attr">podDeletePolicy:</span> <span class="hljs-string">"no-delete-pod"</span>
+   <span class="hljs-attr">node:</span>
+     <span class="hljs-attr">driver:</span>
+       <span class="hljs-comment"># ...</span>
+       <span class="hljs-comment"># The root directory of `kubelet` service.</span>
+       <span class="hljs-attr">kubeletRootDir:</span> <span class="hljs-string">"/var/lib/kubelet"</span>
+   <span class="hljs-comment"># ...</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>Field</th><th>Value</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>fullnameOverride</code></td><td><code>&quot;iomesh-csi-driver&quot;</code></td><td>The CSI driver name.</td></tr>
+<tr><td><code>co</code></td><td><code>&quot;kubernetes&quot;</code></td><td>The container platform. If your container platform is OpenShift, type <code>&quot;openshift&quot;</code>.</td></tr>
+<tr><td><code>coVersion</code></td><td><code>&quot;1.18&quot;</code></td><td>The container platform version, which should be the same as the version of the cluster hosting IOMesh.</td></tr>
+<tr><td><code>storageClass.nameOverride</code></td><td><code>&quot;iomesh-csi-driver&quot;</code></td><td>The default StorageClass name, which is customizable during installation.</td></tr>
+<tr><td><code>storageClass.parameters</code></td><td><code>&quot;parameters&quot;</code></td><td>The parameters for the default StorageClass, which is customizable during installation.</td></tr>
+<tr><td><code>driver.clusterID</code></td><td><code>&quot;my-iomesh&quot;</code></td><td>The ID of the Kubernetes cluster, which is used to identify the cluster when IOMesh provides storage for multiple Kubernetes clusters.</td></tr>
+<tr><td><code>driver.metaAddr</code></td><td><code>&quot;iomesh-cluster-vip:10206&quot;</code></td><td>The iSCSI portal address of the IOMesh meta server.</td></tr>
+<tr><td><code>driver.iscsiPortal</code></td><td><code>&quot;iomesh-cluster-vip:3260&quot;</code></td><td>The iSCSI portal address of the IOMesh chunk server.</td></tr>
+<tr><td><code>driver.deploymentMode</code></td><td><code>&quot;EXTERNAL&quot;</code></td><td><code>EXTERNAL</code> means accessing IOMesh as external storage.</td></tr>
+<tr><td><code>driver.controller.driver.podDeletePolicy</code></td><td><p><code>&quot;no-delete-pod&quot;</code>(default)</p><p><code>&quot;delete-deployment-pod&quot;</code></p><p> <code>&quot;delete-statefulset-pod&quot;</code></p> <code>&quot;delete-both-statefulset-and-deployment-pod&quot;</code></td><td>When creating a PVC using IOMesh CSI Driver, it will be bound to a pod. This field allows you to decide whether the pod should be automatically deleted and rebuilt on another healthy worker node if its original worker node has an issue.</td></tr>
+<tr><td><code>driver.node.driver.kubeletRootDir</code></td><td><code>&quot;/var/lib/kubelet&quot;</code></td><td>The root directory for <code>kubelet</code> service to manage pod-mounted volumes. Default value is <code>/var/lib/kubelet</code>.</td></tr>
+</tbody>
+</table>
+</li>
+<li><p>Deploy IOMesh CSI Driver.</p>
+<pre><code class="hljs css language-shell">helm install csi-driver iomesh/csi-driver \
+    --namespace iomesh-system \
+    --create-namespace \
+    --values csi-driver.yaml \
+    --wait
+</code></pre></li>
+<li><p>Verify that IOMesh CSI Driver has been successfully installed.</p>
+<p>If all pods are shown in <code>Running</code> state, then IOMesh CSI Driver has been successfully installed.</p>
+<pre><code class="hljs css language-shell">watch kubectl get --namespace iomesh-system pods
+</code></pre>
+<pre><code class="hljs css language-output">NAME                                            READY   STATUS    RESTARTS   AGE
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>dbfb48d5c<span class="hljs-number">-2</span>sk97   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">42</span>s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>dbfb48d5c-cfhwt   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">42</span>s
+iomesh-csi-driver-controller-plugin<span class="hljs-number">-5</span>dbfb48d5c-drl7s   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">42</span>s
+iomesh-csi-driver-node-plugin<span class="hljs-number">-25585</span>                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">39</span>s
+iomesh-csi-driver-node-plugin-fscsp                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">30</span>s
+iomesh-csi-driver-node-plugin-g4c4v                    <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">39</span>s
+</code></pre></li>
+</ol>
+<p>Once IOMesh CSI Driver is installed, you may refer to <a href="../volume-operations/create-storageclass">Volume Operations</a> and <a href="../volumesnapshot-operations/create-snapshotclass">VolumeSnapshot Operations</a> for storage operations.</p>
+<h2><a class="anchor" aria-hidden="true" id="iomesh-as-iscsi-target"></a><a href="#iomesh-as-iscsi-target" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IOMesh as iSCSI Target</h2>
+<p>IOMesh provides support for the external iSCSI access service. You can create an iSCSI LUN by creating a PVC that can be accessed via any iSCSI client such as <code>open-iscsi</code> located beyond the Kubernetes cluster.</p>
+<blockquote>
+<p><strong><em>NOTE</em></strong>: To use this function, the iSCSI client should be able to access IOMesh <code>DATA_CIDR</code> that was configured in <a href="../deploy-iomesh-cluster/prerequisites#network-requirements">Prerequisites</a>.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="create-iscsi-lun-using-pvc"></a><a href="#create-iscsi-lun-using-pvc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create iSCSI LUN using PVC</h3>
+<ol>
+<li><p>Create a PVC as an external iSCSI LUN. You may obtain the iSCSI client IQNs by using the command <code>cat /etc/iscsi/initiatorname.iscsi</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">external-iscsi</span>
+  <span class="hljs-attr">annotations:</span>
+    <span class="hljs-comment"># Mark this PVC as an iSCSI LUN for external use.</span>
+    <span class="hljs-attr">iomesh.com/external-use:</span> <span class="hljs-string">"true"</span>
+    <span class="hljs-comment"># Set `initiator iqn acl` for iSCSI LUN. If left unspecified, all initiators will be prohibited from accessing this PVC.</span>
+    <span class="hljs-comment"># If `accessModes` is `RWO`, you can only set 1 value in this field.</span>
+    <span class="hljs-comment"># If `accessModes` is `RWX`, you can set multiple values in this field and separate them with the comma (,).</span>
+    <span class="hljs-comment"># To allow all IQNs to access this PVC, set the value to "*/*".</span>
+    <span class="hljs-attr">iomesh.com/iscsi-lun-iqn-allow-list:</span> <span class="hljs-string">"iqn.1994-05.com.example:a6c97f775dcb"</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-csi-driver</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span>
+</code></pre>
+<blockquote>
+<p><strong><em>NOTE</em></strong>: You can also set the field <code>iomesh.com/iscsi-lun-iqn-allow-list</code> after the PVC is created.</p>
+</blockquote></li>
+<li><p>Once the PVC transitions to the <code>Bound</code> state, run the following command to view the field <code>spec.volumeAttributes.iscsiEntrypoint</code>.</p>
+<pre><code class="hljs css language-shell">kubectl get pv pvc-d84b4657-7ab5-4212-9270-ce40e6a1356a -o jsonpath='{.spec.csi.volumeAttributes.iscsiEndpoint}'
+</code></pre>
+<pre><code class="hljs css language-output">iscsi://cluster-loadbalancer-ip:<span class="hljs-number">3260</span>/iqn<span class="hljs-number">.2016</span>-<span class="hljs-number">02.</span>com.smartx:<span class="hljs-built_in">system</span>:54e7022b-2dcc-<span class="hljs-number">4b43</span>-800c-e52b6fad07d3/<span class="hljs-number">1</span>
+# The IP of iSCSI Portal <span class="hljs-built_in">is</span> the cluster LoadBalancer IP, <span class="hljs-keyword">and</span> port number <span class="hljs-built_in">is</span> <span class="hljs-number">3260</span>.
+# The target <span class="hljs-built_in">is</span> `iqn<span class="hljs-number">.2016</span>-<span class="hljs-number">02.</span>com.smartx:<span class="hljs-built_in">system</span>:54e7022b-2dcc-<span class="hljs-number">4b43</span>-800c-e52b6fad07d3`.
+# LUN ID <span class="hljs-built_in">is</span> <span class="hljs-number">1</span>.
+</code></pre>
+<p>With the above information, you can use any iSCSI client to access the LUN. For example, if <code>cluster-loadbalancer-ip</code> is 192.168.25.101 and the iSCSI client is <code>open-iscsi</code>, run the following command:</p>
+<pre><code class="hljs css language-shell">iscsiadm -m discovery -t sendtargets  -p 192.168.25.101:3260 --discover
+iscsiadm -m node -T iqn.2016-02.com.smartx:system:54e7022b-2dcc-4b43-800c-e52b6fad07d3 -p 192.168.25.101:3260  --login
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="delete-pvc"></a><a href="#delete-pvc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Delete PVC</h3>
+<p>To delete a PVC for an iSCSI LUN, ensure that the <code>iomesh.com/iscsi-lun-iqn-allow-list</code> field in the PVC is blank or is already deleted. Whether the external iSCSI LUN is retained after deleting the PVC depends on the <code>reclaimPolicy</code> field in the StorageClass of the PVC.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/advanced-functions/localpv-manager"><span class="arrow-prev">← </span><span class="function-name-prevnext">IOMesh LocalPV Manager</span></a><a class="docs-next button" href="/appendices/release-notes"><span>Release Notes</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#configure-iscsi-access-point">Configure iSCSI Access Point</a></li><li><a href="#external-storage-vis-csi">External Storage vis CSI</a></li><li><a href="#iomesh-as-iscsi-target">IOMesh as iSCSI Target</a><ul class="toc-headings"><li><a href="#create-iscsi-lun-using-pvc">Create iSCSI LUN using PVC</a></li><li><a href="#delete-pvc">Delete PVC</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
