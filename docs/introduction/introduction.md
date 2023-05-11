@@ -16,7 +16,7 @@ IOMesh is fully built on the capabilities of Kubernetes and implements storage a
 
 **High Performance** 
 
-IOMesh enables I/O-intensive databases and applications to run efficiently in the container environment. Leveraging high-performance I/O link, IOMesh achieves high IOPS while maintaining low latency to ensure stable operation of data applications.
+IOMesh enables I/O-intensive databases and applications to run efficiently in the container environment. Leveraging the high-performance I/O link, IOMesh achieves high IOPS while maintaining low latency to ensure stable operation of data applications.
 
 **No Kernel Dependencies** 
    

@@ -81,11 +81,11 @@ An optional API parameter that describes the specific mode for a persistent volu
 
 A PV can be mounted on a host using any supported access mode. IOMesh supports `ReadWriteOnce`, `ReadWriteMany`, and `ReadOnlyMany` access modes; however, `ReadWriteMany` and `ReadOnlyMany` are only available for PVs that use `block` as the volume mode.
 
-- `ReadWriteOnce`: The volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can allow multiple pods to access the volume when the pods are running on the same node.
+- `ReadWriteOnce`: The volume can be mounted as read-write by a single node. `ReadWriteOnce` still can allow multiple pods to access the volume when the pods are running on the same node.
 
 - `ReadWriteMany`: The volume can be mounted as read-write by many nodes.
 
-- `ReadOnlyMany`: the volume can be mounted as read-only by many nodes.
+- `ReadOnlyMany`: The volume can be mounted as read-only by many nodes.
 
 [**Helm**](https://helm.sh/)
 

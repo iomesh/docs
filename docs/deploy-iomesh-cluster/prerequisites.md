@@ -32,7 +32,7 @@ Ensure that each worker node has the following hardware configurations, and note
 
 **OS Disk**
 
-- An SSD with at least 100 GB of free space in the /opt directory for storing IOMesh metadata.
+- An SSD with at least 100 GB of free space in the `/opt` directory for storing IOMesh metadata.
 
 **Data & Cache Disk**
 
@@ -47,7 +47,7 @@ In IOMesh 1.0, hybrid mode is only supported for tiered storage and all-flash mo
 
 |Deployment Mode|Disk Requirements|
 |---|---|
-|Hybrid Mode|<ul><li>Cache Disk: At least 1 SATA SSD, SAS SSD or NVMe SSD, and the capacity must be greater than 60 GB.</li><li>Data Disk: At least 1 SATA HDD or SAS HDD.</li><li>The total SSD disk capacity should be 10% to 20% of total HDD disk capacity.</li></ul>|
+|Hybrid Mode|<ul><li>Cache Disk: At least 1 SATA SSD, SAS SSD or NVMe SSD, and the capacity must be greater than 60 GB.</li><li>Data Disk: At least 1 SATA HDD or SAS HDD.</li><li>The total SSD capacity should be 10% to 20% of total HDD capacity.</li></ul>|
 |All-Flash Mode|At least 1 SSD with a capacity greater than 60G.|
 
 **NIC**

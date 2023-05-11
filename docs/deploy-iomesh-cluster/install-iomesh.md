@@ -46,8 +46,8 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
 Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon x86_64, or Kunpeng AArch64. 
 
-**Procedur
-1. Access the master node.
+**Procedure**
+1. Access a master node in the Kubernetes cluster.
    
 2. Install `Helm`. Skip this step if `Helm` is already installed. 
 
@@ -73,7 +73,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
 5. Configure `iomesh.yaml`.
 
-    - Set `dataCIDR` to the data CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
+    - Set `dataCIDR` to the CIDR you previously configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
 
       ```yaml
         iomesh:
@@ -129,7 +129,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
       It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-6. Deploy the IOMesh cluster.
+6. On the master node, deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -139,7 +139,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
             --wait
     ```
 
-    If successful, you should see output like:
+    If successful, you should see output like this:
 
     ```output
     NAME: iomesh
@@ -156,7 +156,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     kubectl --namespace iomesh-system get pods
     ```
 
-    If successful, you should see output like:
+    If successful, you should see output like this:
 
     ```output
     NAME                                                   READY   STATUS    RESTARTS   AGE
@@ -210,7 +210,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
 **Procedure**
 
-1. Download the corresponding [IOMesh Offline Installation Package](../appendices/downloads) on each worker node and the master node, based on your CPU architecture.
+1. Download the [IOMesh Offline Installation Package](../appendices/downloads) on each worker node and the master node, based on your CPU architecture.
 
 2. Unpack the installation package on each worker node and the master node. Make sure to replace `<VERSION>` with `v1.0.0` and  `<ARCH>` based on your CPU architecture.
    - Hygon x86_64: `hygon-amd64` 
@@ -295,7 +295,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
                 requiredDuringSchedulingIgnoredDuringExecution:
                   nodeSelectorTerms:
                   - matchExpressions:
-                    - key: kubernetes.io/hostname # Specify the key of the node label.
+                    - key: kubernetes.io/hostname 
                       operator: In
                       values:
                       - iomesh-worker-0 # Specify the values of the node label.
@@ -312,7 +312,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
         --values iomesh.yaml \
         --wait
     ```
-    If successful, you should see output below:
+    If successful, you should see output like this:
     
     ```output
     NAME: iomesh
@@ -328,7 +328,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     ```bash
     kubectl --namespace iomesh-system get pods
     ```
-    After running the command, you should see output like:
+    If successful, you should see output like this:
     ```output
     NAME                                                  READY   STATUS    RESTARTS   AGE
     csi-driver-controller-plugin-89b55d6b5-8r2fc          6/6     Running   10         2m8s
