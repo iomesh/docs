@@ -11,7 +11,7 @@ To create a VolumeSnaphotClass, refer to the following:
 |Field|Description|Value|
 |---|---|---|
 |`driver`|The driver that determines what CSI volume plugin is used for provisioning VolumeSnapshots.|`com.iomesh.csi-driver`|
-|[`deletionPolicy`](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/)|Allows you to configure what happens to the VolumeSnapshotContent when the VolumeSnapshot object is to be deleted.| `Delete`|
+|[`deletionPolicy`](https://kubernetes.io/docs/concepts/storage/volume-snapshot-classes/#deletionpolicy)|Allows you to configure what happens to the VolumeSnapshotContent when the VolumeSnapshot object is to be deleted.| `Delete`|
 
 **Procedure**
 

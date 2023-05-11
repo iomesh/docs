@@ -34,9 +34,9 @@ IOMesh Offline Installation Package
     ```
 
 IOMesh Cluster Dashboard File
-- Download Link:
+  - Download Link:
 
-  <https://download.smartx.com/iomesh-cluster-dashboard/v1.0.0/iomesh-cluster-dashboard.json>
+     <https://download.smartx.com/iomesh-cluster-dashboard/v1.0.0/iomesh-cluster-dashboard.json>
 
 - MD5:
   ```
