@@ -38,6 +38,9 @@ IOMesh Cluster Dashboard File
 
   <https://download.smartx.com/iomesh-cluster-dashboard/v1.0.0/iomesh-cluster-dashboard.json>
 
-
+- MD5:
+  ```
+  e063db897db783365ad476b8582c1534
+  ```
 
 
