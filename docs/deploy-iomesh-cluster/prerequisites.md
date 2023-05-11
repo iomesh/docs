@@ -19,7 +19,7 @@ Ensure that each worker node has the following hardware configurations, and note
 
 **CPU**
 
-- The CPU architecture should be AArch64 or x86_64.
+- The CPU architecture should be Intel_x86, Kunpeng AArch64, or Hygon_x86.
 - At least 8 cores for each worker node.
 
 **Memory**
