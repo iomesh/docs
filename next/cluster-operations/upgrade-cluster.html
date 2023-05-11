@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Upgrade Cluster · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 either online or offline. Before proceeding, consider the following:"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Upgrade Cluster · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 either online or offline. Before proceeding, consider the following:"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Cluster Operations</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/next/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/encrypt-pv">Create Encrypted PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/cluster-operations/scale-cluster">Scale Cluster</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/next/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/next/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/next/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Upgrade Cluster</h1></header><article><div><span><p>You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 either online or offline. Before proceeding, consider the following:</p>
+<ul>
+<li>Upgrade is not supported if the Kubernetes cluster has only 1 meta pod or 1 chunk pod.</li>
+<li>Due to the limitations of the Kubernetes CRD upgrade mechanism, the IOMesh cluster upgraded to 1.0.0 from 0.11.1 cannot run on the Kubernetes cluster of version 1.25 or above.</li>
+</ul>
+<blockquote>
+<p><em>NOTE:</em>
+There might be temporary I/O latency fluctuations during the upgrade.</p>
+</blockquote>
+<p><strong>Procedure</strong></p>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-4-tab-5" class="nav-link active" data-group="group_4" data-tab="tab-group-4-content-5">Online Upgrade</div><div id="tab-group-4-tab-6" class="nav-link" data-group="group_4" data-tab="tab-group-4-content-6">Offline Upgrade</div></div><div class="tab-content"><div id="tab-group-4-content-5" class="tab-pane active" data-group="group_4" tabindex="-1"><div><span><ol>
+<li><p>Delete the default StorageClass.</p>
+<p>IOMesh 1.0.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.</p>
+<pre><code class="hljs css language-shell">kubectl delete sc iomesh-csi-driver<br /></code></pre></li>
+<li><p>Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be automatically enabled again.</p>
+<pre><code class="hljs css language-shell">kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration<br /></code></pre></li>
+<li><p>Install the CRD of IOMesh 1.0.0.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f https://iomesh.run/config/crd/iomesh.com_blockdevicemonitors.yaml<br /></code></pre></li>
+<li><p>Get the new fields and values added in IOMesh 1.0.0.</p>
+<pre><code class="hljs css language-shell">wget https://iomesh.run/config/merge-values/v1.0.0.yaml -O merge-values.yaml<br /></code></pre></li>
+<li><p>Edit the YAML file <code>merge-values.yaml</code>. Set the value of the <code>iomesh.edition</code> field to match the edition specified for the previous version of IOMesh.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span><br />  <span class="hljs-comment"># Specify the IOMesh edition, including "enterprise" and "community". If left blank, the community edition will be installed.</span><br />  <span class="hljs-attr">edition:</span> <span class="hljs-string">""</span><br /></code></pre></li>
+<li><p>Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.</p>
+<pre><code class="hljs css language-bash">helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.0  --reuse-values -f merge-values.yaml<br /></code></pre></li>
+<li><p>Verify that all pods are in <code>Running</code> state. If so, then IOMesh has been successfully upgraded.</p>
+<pre><code class="hljs css language-bash">watch kubectl get pod --namespace iomesh-system<br /></code></pre></li>
+</ol>
+</span></div></div><div id="tab-group-4-content-6" class="tab-pane" data-group="group_4" tabindex="-1"><div><span><ol>
+<li><p>Delete the default StorageClass.</p>
+<p>IOMesh 1.0.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.</p>
+<pre><code class="hljs css language-shell">kubectl delete sc iomesh-csi-driver<br /></code></pre></li>
+<li><p>Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be automatically enabled again.</p>
+<pre><code class="hljs css language-shell">kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration<br /></code></pre></li>
+<li><p>Download <a href="../appendices/downloads">IOMesh Offline Installation Package</a>. Make sure to replace <code>&lt;VERSION&gt;</code> with <code>v1.0.0</code> and  <code>&lt;ARCH&gt;</code> based on your CPU architecture.</p>
+<ul>
+<li>Hygon x86_64: <code>hygon-amd64</code></li>
+<li>Intel x86_64: <code>amd64</code></li>
+<li>Kunpeng AArch64: <code>arm64</code></li>
+</ul>
+<pre><code class="hljs css language-shell">tar -xf  iomesh-offline-&lt;VERSION&gt;-&lt;ARCH&gt;.tgz &amp;&amp; cd iomesh-offline<br /></code></pre></li>
+<li><p>Install the CRD of IOMesh 1.0.0.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f ./configs/iomesh.com_blockdevicemonitors.yaml<br /></code></pre></li>
+<li><p>Edit the YAML file <code>merge-values.yaml</code> located in the directory <code>iomesh-offline/configs/</code>. Set the value of the <code>iomesh.edition</code> field to match the edition specified for the previous version of IOMesh.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span><br />  <span class="hljs-comment"># Specify the IOMesh edition, including "enterprise" and "community". If left blank, the community edition will be installed.</span><br />  <span class="hljs-attr">edition:</span> <span class="hljs-string">""</span><br /></code></pre></li>
+<li><p>Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.</p>
+<pre><code class="hljs css language-bash">./helm upgrade --namespace iomesh-system iomesh ./charts/iomesh --reuse-values -f ./configs/merge-values.yaml<br /></code></pre></li>
+<li><p>Verify that all pods are in <code>Running</code> state. If so, then IOMesh has been successfully upgraded.</p>
+<pre><code class="hljs css language-bash">watch kubectl get pod --namespace iomesh-system<br /></code></pre></li>
+</ol>
+</span></div></div></div></div>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/cluster-operations/scale-cluster"><span class="arrow-prev">← </span><span>Scale Cluster</span></a><a class="docs-next button" href="/next/cluster-operations/uninstall-cluster"><span>Uninstall Cluster</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

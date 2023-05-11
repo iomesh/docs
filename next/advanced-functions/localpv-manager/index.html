@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>IOMesh LocalPV Manager · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Introduction"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="IOMesh LocalPV Manager · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="## Introduction"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Advanced Functions</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/next/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/encrypt-pv">Create Encrypted PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/cluster-operations/scale-cluster">Scale Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/next/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/next/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">IOMesh LocalPV Manager</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<h3><a class="anchor" aria-hidden="true" id="what-is-iomesh-localpv-manager"></a><a href="#what-is-iomesh-localpv-manager" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is IOMesh LocalPV Manager</h3>
+<p>IOMesh LocalPV Manager is a CSI driver used to manage local storage on Kubernetes worker nodes. Stateful applications themselves such as <a href="https://min.io/">Minio</a> and <a href="https://github.com/pingcap/tidb">TiDB</a> achieve data high availability at their application layer. Persistent volumes in IOMesh however also add additional replicas in the data path due to its multi-replica policy, which may cause a degree of performance degradation and space waste.</p>
+<p>To avoid this issue, IOMesh LocalPV Manager offers an advantage since it allows for creating PVs using local storage like a directory or block device for pod use.</p>
+<p>IOMesh LocalPV Manager, compared to <a href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath">Kubernetes HostPath Volume</a> and <a href="https://kubernetes.io/docs/concepts/storage/volumes/#local">Kubernetes native local PV</a>, has the following advantages:</p>
+<ul>
+<li><p>Dynamically provision PVs by using StorageClass and PVC for flexible storage access, without requiring administrators to pre-provision static PVs.</p></li>
+<li><p>Allow for creating PVs with block devices, offering superior I/O performance and greater flexibility than Kubernetes local PVs that are limited to directories.</p></li>
+<li><p>Enable the capacity limit for PVs when using a directory as local storage.</p></li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="architecture"></a><a href="#architecture" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Architecture</h3>
+<p><img src="https://user-images.githubusercontent.com/12667277/230593329-0ed3b0e9-4f27-4f0f-9759-54aff0912d49.svg" alt="IOMesh LocalPV Manager"></p>
+<p>IOMesh LocalPV Manager is comprised of the following components:</p>
+<p><strong>Controller Driver</strong></p>
+<p>Implemented as a standard CSI controller server. With one instance on each worker node, it interacts with <code>kube-apiserver</code> for the creation and deletion of local PVs and the mapping of PVs to local directories or block devices.</p>
+<p><strong>Node Driver</strong></p>
+<p>Implemented as a standard CSI node server. With one instance on each worker node, it has the task to interact with <code>kubelet</code> to mount and format local PVs.</p>
+<p><strong>Node Disk Manager</strong></p>
+<p>A component for discovering block devices and transforming them to block device objects, and providing a BlockDeviceClaim to ensure that a block device is exclusive to a particular pod.</p>
+<h3><a class="anchor" aria-hidden="true" id="local-pv-type"></a><a href="#local-pv-type" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Local PV Type</h3>
+<p>IOMesh LocalPV Manager offers 2 types of volumes: <code>HostPath</code> and <code>Device</code>. With <code>HostPath</code>, you can create PVs from a local directory on a node and enable capacity limits for PVs. <code>Device</code>, on the other hand, allows creating PVs using a block device for pod use.</p>
+<p>When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or whether they need a raw block device. If so, choose <code>Device</code>, or else <code>HostPath</code> should suffice.</p>
+<h2><a class="anchor" aria-hidden="true" id="deployment"></a><a href="#deployment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deployment</h2>
+<p>IOMesh LocalPV Manager is automatically installed during IOMesh installation and runs as a pod on each worker node. To see the status of the IOMesh LocalPV Manager pod, run the following command:</p>
+<pre><code class="hljs css language-shell">kubectl get pod -n iomesh-system | grep localpv-manager
+</code></pre>
+<pre><code class="hljs css language-output">NAME                                                           READY   STATUS             RESTARTS   AGE
+iomesh-localpv-manager-rjg8j                                   <span class="hljs-number">4</span>/<span class="hljs-number">4</span>     Running            <span class="hljs-number">0</span>          <span class="hljs-number">10</span>s
+iomesh-localpv-manager-vphz9                                   <span class="hljs-number">4</span>/<span class="hljs-number">4</span>     Running            <span class="hljs-number">0</span>          <span class="hljs-number">10</span>s
+iomesh-localpv-manager-w4j8m                                   <span class="hljs-number">4</span>/<span class="hljs-number">4</span>     Running            <span class="hljs-number">0</span>          <span class="hljs-number">10</span>s
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="create-hostpath-local-pv"></a><a href="#create-hostpath-local-pv" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create HostPath Local PV</h2>
+<ol>
+<li><p>When IOMesh LocalPV Manager is deployed, a default StorageClass will be created as shown below, with <code>volumeType</code> set to <code>hostPath</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-manager-hostpath</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-attr">volumeType:</span> <span class="hljs-string">hostpath</span>
+  <span class="hljs-attr">basePath:</span> <span class="hljs-string">/var/iomesh/local</span>
+  <span class="hljs-attr">enableQuota:</span> <span class="hljs-string">"false"</span> 
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.iomesh-localpv-manager</span>
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">WaitForFirstConsumer</span>
+</code></pre>
+<p>You may also create a StorageClass with custom parameters. See details in the following table and <a href="../volume-operations/create-storageclass">Create StorageClass</a>.</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>parameters.volumeType</code></td><td>Local PV type, either <code>hostpath</code> or <code>device</code>. Set the field to <code>hostpath</code> for the IOMesh HostPath local PV.</td></tr>
+<tr><td><code>parameters.basePath</code></td><td>The directory on which the local PV will created. If this field is not specified, the system will create a directory by default. Note that <strong> the value for <code>parameters.basePath</code> must be a fullpath.</strong></td></tr>
+<tr><td><code>parameters.enableQuota</code></td><td>Shows whether the capacity limit is enabled for the local PV using this StorageClass, which defaults to <code>false</code>.</td></tr>
+<tr><td><a href="https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode"><code>volumeBindingMode</code></a></td><td>Controls when volume binding and dynamic provisioning should occur. IOMesh only supports <code>WaitForFirstConsumer</code>.</td></tr>
+</tbody>
+</table>
+</li>
+<li><p>Create a PVC using the StorageClass.</p>
+<ul>
+<li><p>Create a YAML config <code>iomesh-localpv-hostpath-pvc.yaml</code> with the following content.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-hostpath-pvc</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-localpv-manager-hostpath</span> <span class="hljs-comment"># If you use a StorageClass with custom parameters, specify its name.</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">2Gi</span>
+</code></pre></li>
+<li><p>Apply the YAML config to create the PVC.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-localpv-hostpath-pvc.yaml
+</code></pre></li>
+<li><p>View the PVC.</p>
+<pre><code class="hljs css language-shell">kubectl get pvc iomesh-localpv-hostpath-pvc
+</code></pre>
+<p>You will see the PVC in the <code>Pending</code> state because <code>volumeBindingMode</code> in its StorageClass has been configured as <code>WaitForFirstConsumer</code>. The PVC will transition to the <code>Bound</code> state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.</p>
+<pre><code class="hljs css language-shell">NAME                          STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS               AGE
+iomesh-localpv-hostpath-pvc   Pending                                      localpv-manager-hostpath   1m12s
+</code></pre></li>
+</ul></li>
+<li><p>Create a pod and bind it to the PVC created in Step 2.</p>
+<ul>
+<li><p>Create a YAML config <code>iomesh-localpv-hostpath-pod.yaml</code> with the following content, which will mount the PVC to the <code>/mnt/iomesh/localpv</code> directory of this pod.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-hostpath-pod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">volumes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-hostpath</span>
+    <span class="hljs-attr">persistentVolumeClaim:</span>
+      <span class="hljs-attr">claimName:</span> <span class="hljs-string">iomesh-localpv-hostpath-pvc</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">command:</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">sh</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span>
+       <span class="hljs-bullet">-</span> <span class="hljs-string">'while true; do sleep 30; done;'</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/mnt/iomesh/localpv</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-hostpath</span>
+</code></pre></li>
+<li><p>Apply the YAML config to create the pod.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-localpv-hostpath-pod.yaml
+</code></pre></li>
+<li><p>Verify that the pod is in the <code>Running</code> state.</p>
+<pre><code class="hljs css language-shell">kubectl get pod iomesh-localpv-hostpath-pod
+</code></pre></li>
+<li><p>Verify that the PVC is in <code>Bound</code> state and its corresponding PV was created.</p>
+<pre><code class="hljs css language-shell">kubectl get pvc iomesh-localpv-hostpath-pvc
+</code></pre>
+<pre><code class="hljs css language-output">NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES     
+iomesh-localpv-hostpath-pvc   Bound    pvc-ab61547e<span class="hljs-number">-1</span>d81<span class="hljs-number">-4086</span>-b4e4<span class="hljs-number">-632</span>a08c6537b   <span class="hljs-number">2</span>G         RWO           
+</code></pre></li>
+<li><p>View the PV configurations. Replace <code>pvc-ab61547e-1d81-4086-b4e4-632a08c6537b</code> with the PV name obtained in the above output.</p>
+<pre><code class="hljs css language-shell">kubectl get pv pvc-ab61547e-1d81-4086-b4e4-632a08c6537b -o yaml
+</code></pre>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span>
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-string">...</span>
+<span class="hljs-attr">spec:</span>
+<span class="hljs-string">...</span>
+  <span class="hljs-attr">csi:</span>
+    <span class="hljs-attr">driver:</span> <span class="hljs-string">com.iomesh.iomesh-localpv-manager</span>
+    <span class="hljs-attr">volumeAttributes:</span>
+      <span class="hljs-attr">basePath:</span> <span class="hljs-string">/var/iomesh/local</span>
+      <span class="hljs-attr">csi.storage.k8s.io/pv/name:</span> <span class="hljs-string">pvc-ab61547e-1d81-4086-b4e4-632a08c6537b</span>
+      <span class="hljs-attr">csi.storage.k8s.io/pvc/name:</span> <span class="hljs-string">iomesh-localpv-hostpath-pvc</span>
+      <span class="hljs-attr">csi.storage.k8s.io/pvc/namespace:</span> <span class="hljs-string">default</span>
+      <span class="hljs-attr">enableQuota:</span> <span class="hljs-string">"false"</span>
+      <span class="hljs-attr">nodeID:</span> <span class="hljs-string">iomesh-k8s-0</span>
+      <span class="hljs-attr">quotaProjectID:</span> <span class="hljs-string">"0"</span>
+      <span class="hljs-attr">storage.kubernetes.io/csiProvisionerIdentity:</span> <span class="hljs-number">1675327643130</span><span class="hljs-number">-8081</span><span class="hljs-string">-com.iomesh.localpv-manager</span>
+      <span class="hljs-attr">volumeType:</span> <span class="hljs-string">hostpath</span>
+    <span class="hljs-attr">volumeHandle:</span> <span class="hljs-string">pvc-ab61547e-1d81-4086-b4e4-632a08c6537b</span>
+  <span class="hljs-attr">nodeAffinity:</span>
+    <span class="hljs-attr">required:</span>
+      <span class="hljs-attr">nodeSelectorTerms:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">topology.iomesh-localpv-manager.csi/node</span>
+          <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+          <span class="hljs-attr">values:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-k8s-0</span>
+<span class="hljs-string">...</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>spec.csi.volumeAttributes.basePath</code></td><td><code>basePath</code> created by the IOMesh local PV. Taking the above YAML config as an example, the directory for the PV is created on  <code>/var/iomesh/local/pvc-ab61547e-1d81-4086-b4e4-632a08c6537b</code> on the node <code>iomesh-k8s-0</code>.</td></tr>
+<tr><td><code>spec.nodeAffinity</code></td><td>PV node affinity. This PV will be bound to the specified node once created and will not move to another node.</td></tr>
+</tbody>
+</table>
+</li>
+</ul></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="enable-capacity-limit"></a><a href="#enable-capacity-limit" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Enable Capacity Limit</h2>
+<p>In the above example, an IOMesh local PV with a capacity of 2G is created, corresponding to a directory on the node. By default, there is no limit on the amount of data written to this directory, allowing more than 2G to be written. However, if you have capacity isolation requirements, you can enable the capacity limit for the IOMesh local PV.</p>
+<p>To use the capacity limit function with the <code>xfs_quota</code>tool, <code>parameters.basePath</code> in StorageClass should be an XFS format mount point and has the XFS <code>prjquota</code> feature enabled via the mount option. Once enabled, a local PV with <code>xfs quota</code> configured will be created to verify the declared capacity in the PVC.</p>
+<p>The following example assumes that the local PV is created in the <code>/var/iomesh/localpv-quota</code> directory, and the disk path is <code>/dev/sdx</code>.</p>
+<ol>
+<li><p>Create a directory <code>/var/iomesh/localpv-quota</code> as <code>basePath</code>.</p>
+<pre><code class="hljs css language-shell">mkdir -p /var/iomesh/localpv-quota
+</code></pre></li>
+<li><p>Format the filesystem of the disk as <code>xfs</code>. The disk path is <code>/dev/sdx</code>.</p>
+<pre><code class="hljs css language-shell">sudo mkfs.xfs /dev/sdx 
+</code></pre></li>
+<li><p>Mount the disk to the <code>/var/iomesh/localpv-quota</code> directory and enable XFS <code>prjquota</code> via the mount option.</p>
+<pre><code class="hljs css language-shell">mount -o prjquota /dev/sdx /var/iomesh/localpv-quota
+</code></pre>
+<blockquote>
+<p><em>NOTE</em>: If you want to use an existing XFS mount point as the basePath, run the command <code>umount /dev/sdx</code> to unmount the mount point first. Then remount it via the <code>prjquota</code> mount option.</p>
+</blockquote>
+<blockquote>
+<p><em>NOTE</em>: To prevent the loss of mount information after rebooting the node, you need to write the mount information to the <code>/etc/fstab</code> configuration file.</p>
+</blockquote></li>
+<li><p>Create a StorageClass using this mount point as <code>basePath</code>. Set the field <code>parameters.enableQuota</code> to <code>true</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-manager-hostpath-example</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-attr">volumeType:</span> <span class="hljs-string">hostpath</span>
+  <span class="hljs-attr">basePath:</span> <span class="hljs-string">/var/iomesh/localpv-quota</span>
+  <span class="hljs-attr">enableQuota:</span> <span class="hljs-string">"true"</span> <span class="hljs-comment"># To enable capacity limit, set it to "true". Default value is "false".</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.iomesh-localpv-manager</span>
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">WaitForFirstConsumer</span>
+</code></pre></li>
+<li><p>Create a PVC using the StorageClass created in Step 4.</p>
+<blockquote>
+<p><em>NOTE</em>: Scheduler is currently not supported in this release. The pod may be scheduled to a node with insufficient capacity. You should manually modify node affinity for this pod so that it can be rescheduled to a proper node. For modification procedure, refer to <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">Kubernetes Assigning Pods to Nodes</a>.</p>
+</blockquote></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="create-device-local-pv"></a><a href="#create-device-local-pv" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create Device Local PV</h2>
+<ol>
+<li><p>When IOMesh LocalPV Manager is deployed, a default StorageClass will be created as shown below with <code>volumeType</code> set to <code>device</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-manager-device</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-attr">volumeType:</span> <span class="hljs-string">device</span>
+  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">"ext4"</span>
+  <span class="hljs-attr">deviceSelector:</span> <span class="hljs-string">""</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.iomesh-localpv-manager</span>
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">WaitForFirstConsumer</span>
+</code></pre>
+<p>You may also create a StorageClass with custom parameters. See details in the following table and <a href="../volume-operations/create-storageclass">Create StorageClass</a>.</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>parameters.volumeType</code></td><td>Local PV type, either <code>hostpath</code> or <code>device</code>. Set the field to <code>device</code> for the IOMesh device local PV.</td></tr>
+<tr><td><code>parameters.deviceSelector</code></td><td>Device selector that filters block devices by label. If this field is not specified, then all labels will be filtered by default.</td></tr>
+<tr><td><code>parameters.csi.storage.k8s.io/fstype</code></td><td>The filesystem type when the <code>volumeMode</code> is set to <code>Filesystem</code>, which defaults to <code>ext4</code>.</td></tr>
+<tr><td><code>volumeBindingMode</code></td><td>Controls when volume binding and dynamic provisioning should occur. IOMesh only supports <code>WaitForFirstConsumer</code>.</td></tr>
+</tbody>
+</table>
+<p>When creating a StorageClass, you have the option to configure <code>deviceSelector</code> to filter disks as desired. For configuration details, refer to <a href="/next/deploy-iomesh-cluster/setup-iomesh"><code>Device Selector</code></a> and <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">Kubernetes Labels and Selectors</a>.</p>
+<p>For example, <code>iomesh.com/bd-driveType: SSD</code> means the StorageClass will only filter SSD for creating local PVs.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-manager-device-ssd</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-attr">volumeType:</span> <span class="hljs-string">device</span>
+  <span class="hljs-attr">deviceSelector:</span> <span class="hljs-string">|
+    matchLabels:
+      iomesh.com/bd-driverType: SSD
+</span><span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.iomesh-localpv-manager</span>
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">WaitForFirstConsumer</span>
+</code></pre>
+<blockquote>
+<p><em>NOTE</em>: Kubernetes only supports one-level key/value nesting when configuring <code>parameters</code> in the StorageClass , so you should add <code>|</code> to the <code>deviceSelector</code> field to identify the subsequent content as a multi-line string.</p>
+</blockquote></li>
+<li><p>Create a PVC using the StorageClass.</p>
+<blockquote>
+<p><em>NOTE</em>: To ensure successful creation, make sure that each Kubernetes worker node has at least 1 available raw block device and has no filesystem specified.</p>
+</blockquote>
+<ul>
+<li><p>Create a YAML config <code>iomesh-localpv-device-pvc.yaml</code> with the following content. Configure <code>volumeMode</code>, and setting this field to <code>filesystem</code> or <code>block</code> depends on the need of formatting the filesystem.</p>
+<ul>
+<li><p><code>Filesystem</code>: Access storage as a file system. Once <code>Filesystem</code> is set, the block device will be formatted as the filesystem type specified in the <code>parameters.fsType</code> field of the StorageClass and mounted to the pod after the pod is bound to this PVC.</p></li>
+<li><p><code>Block</code>: Access storage as a raw block device. It does not require formatting the filesystem and can be used directly for high-performance applications that require low latency and high bandwidth, such as databases or other storage-intensive workloads.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-device-pvc</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-localpv-manager-device</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">10Gi</span> <span class="hljs-comment"># Specify the storage value.</span>
+  <span class="hljs-attr">volumeMode:</span> <span class="hljs-string">Filesystem</span>
+</code></pre></li>
+</ul></li>
+<li><p>Apply the YAML config to create the PVC.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-localpv-device-pvc.yaml
+</code></pre></li>
+<li><p>View the status of the PVC.</p>
+<pre><code class="hljs css language-shell">kubectl get pvc iomesh-localpv-device-pvc
+</code></pre>
+<p>You will see the PVC in the <code>Pending</code> state because <code>volumeBindingMode</code> in its StorageClass has been configured as <code>WaitForFirstConsumer</code>. The PVC will transition to the <code>Bound</code> state only when the PVC is bound to a pod and the corresponding PV is created on the node where the pod resides.</p>
+<pre><code class="hljs css language-output"><span class="hljs-keyword">NAME</span>                          <span class="hljs-keyword">STATUS</span>    VOLUME   CAPACITY   <span class="hljs-keyword">ACCESS</span> MODES   STORAGECLASS               AGE
+iomesh-localpv-device-pvc     Pending                                      localpv-manager-device     <span class="hljs-number">1</span>m12s
+</code></pre></li>
+</ul></li>
+<li><p>Create a pod and bind it to the PVC created in Step 3.</p>
+<ul>
+<li><p>Create a YAML config <code>iomesh-localpv-device-pod.yaml</code> with the following content, which will mount the PV to the <code>/mnt/iomesh/localpv</code> directory.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-device-pod</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">volumes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-device</span>
+    <span class="hljs-attr">persistentVolumeClaim:</span>
+      <span class="hljs-attr">claimName:</span> <span class="hljs-string">iomesh-localpv-device-pvc</span>
+  <span class="hljs-attr">containers:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">busybox</span>
+    <span class="hljs-attr">command:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">sh</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">'while true; do sleep 30; done;'</span>
+    <span class="hljs-attr">volumeMounts:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/mnt/iomesh/localpv</span> <span class="hljs-comment"># The directory to mount the PV.</span>
+      <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-localpv-device</span>
+</code></pre></li>
+<li><p>Apply the YAML config to create the pod.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-localpv-device-pod.yaml
+</code></pre></li>
+<li><p>Verify that the pod is in <code>Running</code> state.</p>
+<pre><code class="hljs css language-shell">kubectl get pod iomesh-localpv-device-pod
+</code></pre>
+<blockquote>
+<p><em>NOTE</em>: Scheduler currently is not supported in this release. The pod may be scheduled to a node that does not have available block devices. You should manually edit node affinity for this pod to reschedule it to a proper node. For modification procedure, refer to <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/">Kubernetes Assigning Pods to Nodes</a>.</p>
+</blockquote></li>
+<li><p>Verify that the PVC is in <code>Bound</code> state.</p>
+<pre><code class="hljs css language-shell">kubectl get pvc iomesh-localpv-device-pvc
+</code></pre>
+<p>If successful, you should see the PVC is in <code>Bound</code> state, and the PV was created.</p>
+<pre><code class="hljs css language-shell">NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES     
+iomesh-localpv-device-pvc     Bound    pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4   10G         RWO           
+</code></pre></li>
+</ul></li>
+<li><p>Check the status of the block device that should be in <code>Claimed</code> state.</p>
+<pre><code class="hljs css language-shell">kubectl  get blockdevice --namespace iomesh-system -o wide
+</code></pre>
+<pre><code class="hljs css language-output">NAMESPACE       NAME                                           NODENAME            SIZE             CLAIMSTATE   STATUS   AGE
+iomesh-system   blockdevice<span class="hljs-number">-072560</span>a15c89a324aadf7eb4c9b233f2   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>   <span class="hljs-number">1920383410176</span>    Claimed      Active   <span class="hljs-number">160</span>m
+iomesh-system   blockdevice<span class="hljs-number">-1189</span>c24046a6c43da37ddf0e40b5c1de   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>   <span class="hljs-number">1920383410176</span>    Claimed      Active   <span class="hljs-number">160</span>m
+</code></pre>
+<p>The block device comes from the node of the pod to which the PVC is bound and should fulfill 2 requirements: its capacity must exceed or equal that of PVC, and it must have the closest capacity to that of PVC among all available block devices. For example, if a 10-GB PVC is declared and there are 3 block devices:</p>
+<ul>
+<li><code>BlockDevice-A</code> with 9GB</li>
+<li><code>BlockDevice-B</code> with 15GB</li>
+<li><code>BlockDevice-C</code> with 20GB</li>
+</ul>
+<p><code>BlockDevice-B</code> is selected for binding because it has a capacity closer to 10GB than <code>BlockDevice-C</code>, and <code>BlockDevice-A</code> is excluded due to its limited capacity.</p></li>
+</ol>
+<ol start="6">
+<li><p>View the configurations of this PV. Replace <code>pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4</code> with the PV name obtained in Step 4.</p>
+<pre><code class="hljs css language-shell">kubectl get pv pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4 -o yaml
+</code></pre>
+<p>You should see output like this:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span>
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-string">...</span>
+<span class="hljs-attr">spec:</span>
+<span class="hljs-string">...</span>
+  <span class="hljs-attr">csi:</span>
+    <span class="hljs-attr">driver:</span> <span class="hljs-string">com.iomesh.iomesh-localpv-manager</span>
+    <span class="hljs-attr">volumeAttributes:</span>
+      <span class="hljs-attr">csi.storage.k8s.io/pv/name:</span> <span class="hljs-string">pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4</span>
+      <span class="hljs-attr">csi.storage.k8s.io/pvc/name:</span> <span class="hljs-string">iomesh-localpv-device-pvc</span>
+      <span class="hljs-attr">csi.storage.k8s.io/pvc/namespace:</span> <span class="hljs-string">default</span>
+      <span class="hljs-attr">nodeID:</span> <span class="hljs-string">iomesh-node-17-19</span>
+      <span class="hljs-attr">quotaProjectID:</span> <span class="hljs-string">"0"</span>
+      <span class="hljs-attr">storage.kubernetes.io/csiProvisionerIdentity:</span> <span class="hljs-number">1675327673777</span><span class="hljs-number">-8081</span><span class="hljs-string">-com.iomesh.localpv-manager</span>
+      <span class="hljs-attr">volumeType:</span> <span class="hljs-string">device</span>
+    <span class="hljs-attr">volumeHandle:</span> <span class="hljs-string">pvc-72f7a6ab-a9c4-4303-b9ba-683d7d9367d4</span>
+  <span class="hljs-attr">nodeAffinity:</span>
+    <span class="hljs-attr">required:</span>
+      <span class="hljs-attr">nodeSelectorTerms:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">topology.iomesh-localpv-manager.csi/node</span>
+          <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+          <span class="hljs-attr">values:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-node-17-19</span>
+<span class="hljs-string">...</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>spec.csi.volumeAttributes.volumeHandle</code></td><td>The unique identifier of the BlockDeviceClaim.</td></tr>
+<tr><td><code>spec.nodeAffinity</code></td><td>PV node affinity. The PV will be bound to the specified node once created and will not move to another node.</td></tr>
+</tbody>
+</table>
+</li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/advanced-functions/manage-multiple-cluster"><span class="arrow-prev">← </span><span>Multiple Cluster Management</span></a><a class="docs-next button" href="/next/advanced-functions/external-storage"><span>IOMesh as External Storage</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a><ul class="toc-headings"><li><a href="#what-is-iomesh-localpv-manager">What is IOMesh LocalPV Manager</a></li><li><a href="#architecture">Architecture</a></li><li><a href="#local-pv-type">Local PV Type</a></li></ul></li><li><a href="#deployment">Deployment</a></li><li><a href="#create-hostpath-local-pv">Create HostPath Local PV</a></li><li><a href="#enable-capacity-limit">Enable Capacity Limit</a></li><li><a href="#create-device-local-pv">Create Device Local PV</a></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/about-iomesh/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
