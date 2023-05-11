@@ -7,10 +7,10 @@ sidebar_label: Downloads
 
 IOMesh Offline Installation Package
 
-- Intel_x86:
+- Intel x86_64:
   - Download Link: 
     
-    <http://192.168.17.20/IOMesh/iomesh-offline-v1.0.0-amd64.tgz>
+    <https://download.smartx.com/iomesh-offline-v1.0.0-amd64.tgz>
   - MD5: 
     ```
     9e6dc20525e19ea67cf0f6bdfd3863d2
@@ -18,16 +18,16 @@ IOMesh Offline Installation Package
 - Kunpeng AArch64:
   - Download Link: 
   
-    <http://192.168.17.20/IOMesh/iomesh-offline-v1.0.0-arm64.tgz>
+    <https://download.smartx.com/iomesh-offline-v1.0.0-arm64.tgz>
   - MD5: 
     ```
     eaf369d8bfe307286f906aab64a1772f
     ```
 
-- Hygon_x86:
+- Hygon x86_64:
   - Download Link:
   
-     <http://192.168.17.20/IOMesh/iomesh-offline-v1.0.0-hygon-amd64.tgz>
+     <https://download.smartx.com/iomesh-offline-v1.0.0-hygon-amd64.tgz>
   - MD5: 
     ```
     5a6dc308624c288cba4c286de4e4c724
