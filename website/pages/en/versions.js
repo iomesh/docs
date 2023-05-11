@@ -38,7 +38,7 @@ function Versions(props) {
                   <a
                     href={`/docs${siteConfig.docsUrl}/${
                       props.language ? props.language + '/' : ''
-                    }about-iomesh/introduction`}>
+                    }introduction/introduction`}>
                     Documentation
                   </a>
                 </td>
