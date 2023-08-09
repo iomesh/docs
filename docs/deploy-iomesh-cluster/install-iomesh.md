@@ -4,11 +4,11 @@ title: Install IOMesh
 sidebar_label: Install IOMesh
 ---
 
-Before installing IOMesh, refer to the following to choose how you install IOMesh.
+IOMesh can be installed on all Kubernetes platforms using various methods. Choose the installation method based on your environment. If the Kubernetes cluster network cannot connect to the public network, you can opt for custom offline installation.
 
-- One-Click Online Installation: One-click online installation with default parameter values that cannot be modified.
-- Custom Online Installation: Configure parameters during installation, but ensure that your Kubernetes cluster is connected to the public network.
-- Offline Offline Installation: Recommended for Kubernetes clusters with no public network connectivity and supports custom parameter configuration during installation.
+- One-click online installation: Use the default settings in the file without customizing parameters.
+- Custom online installation: Supports custom parameters.
+- Custom offline installation: Supports custom parameters.
 
 ## One-Click Online Installation
 
@@ -40,7 +40,9 @@ Before installing IOMesh, refer to the following to choose how you install IOMes
 
     > _NOTE:_ IOMesh resources left by running the above commands will be saved for troubleshooting if any error occurs during installation. You can run the command `curl -sSL https://iomesh.run/uninstall_iomesh.sh | sh -` to remove all IOMesh resources from the Kubernetes cluster.
 
-    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will be automatically launched on all schedulable nodes in the Kubernetes cluster to install and set up `open-iscsi`. The Pod will be cleaned up automatically once `open-iscsi` is installed and configured. In case the `prepare-csi` Pod fails and exits on a specific node, you need to manually [set up open-iscsi](../appendices/setup-worker-node) to identify the reason for the installation failure.
+    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will automatically start on all schedulable nodes in the Kubernetes cluster to install and configure `open-iscsi`.  If the installation of `open-iscsi` is successful on all nodes, the system will automatically clean up the `prepare-csi` Pod. However, if the installation of `open-iscsi` fails on any node, [manual configuration of open-iscsi](../appendices/setup-worker-node) is required to determine the cause of the installation failure.
+
+    > _NOTE:_ If `open-iscsi` is manually deleted after installing IOMesh, the `prepare-csi` Pod will not automatically start to install `open-iscsi` when reinstalling IOMesh. In this case, [manual configuration of open-iscsi](../appendices/setup-worker-node) is necessary.
 
 ## Custom Online Installation 
 
@@ -131,7 +133,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
       It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-    - An optional step. If a Pod is mounted with an RWO-type PVC created by IOMesh, you have the option to configure the `podDeletePolicy` field to automatically delete and rebuild the Pod on another healthy worker node if the Kubernetes node it resides in fails. 
+    - An optional step. If a Pod is mounted with a PVC created by IOMesh and the PVC's access mode is `ReadWriteOnly`, you can configure the `podDeletePolicy` field to determine whether the system should automatically delete the Pod and rebuild it on another healthy node when the Kubernetes node that hosts the Pod fails. 
     
       If left unspecified, this field is set to `no-delete-pod` by default,  indicating that the system won't automatically delete and rebuild the Pod in case of node failure.
       ```yaml
@@ -214,7 +216,9 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     operator-87bb89877-kfs9d                               1/1     Running   0          3m23s
     operator-87bb89877-z9tfr                               1/1     Running   0          3m23s
     ```
-    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will be automatically launched on all schedulable nodes in the Kubernetes cluster to install and set up `open-iscsi`. The Pod will be cleaned up automatically once `open-iscsi` is installed and configured. In case the `prepare-csi` Pod fails and exits on a specific node, you need to manually [set up open-iscsi](../appendices/setup-worker-node) to identify the reason for the installation failure.
+    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will automatically start on all schedulable nodes in the Kubernetes cluster to install and configure `open-iscsi`.  If the installation of `open-iscsi` is successful on all nodes, the system will automatically clean up the `prepare-csi` Pod. However, if the installation of `open-iscsi` fails on any node, [manual configuration of open-iscsi](../appendices/setup-worker-node) is required to determine the cause of the installation failure.
+
+    > _NOTE:_ If `open-iscsi` is manually deleted after installing IOMesh, the `prepare-csi` Pod will not automatically start to install `open-iscsi` when reinstalling IOMesh. In this case, [manual configuration of open-iscsi](../appendices/setup-worker-node) is necessary.
 ## Custom Offline Installation
 
 **Prerequisite**
@@ -316,7 +320,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
       ```
         It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-    - An optional step. If a Pod is mounted with an RWO-type PVC created by IOMesh, you have the option to configure the `podDeletePolicy` field to automatically delete and rebuild the Pod on another healthy worker node if the Kubernetes node it resides in fails. 
+    - An optional step. If a Pod is mounted with a PVC created by IOMesh and the PVC's access mode is `ReadWriteOnly`, you can configure the `podDeletePolicy` field to determine whether the system should automatically delete the Pod and rebuild it on another healthy node when the Kubernetes node that hosts the Pod fails.
     
       If left unspecified, this field is set to `no-delete-pod` by default,  indicating that the system won't automatically delete and rebuild the Pod in case of node failure.
       ```yaml
@@ -392,7 +396,9 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     operator-85877979-s94vz                               1/1     Running   0          2m8s
     operator-85877979-xqtml                               1/1     Running   0          2m8s  
     ```
-    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will be automatically launched on all schedulable nodes in the Kubernetes cluster to install and set up `open-iscsi`. The Pod will be cleaned up automatically once `open-iscsi` is installed and configured. In case the `prepare-csi` Pod fails and exits on a specific node, you need to manually [set up open-iscsi](../appendices/setup-worker-node) to identify the reason for the installation failure.
+    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will automatically start on all schedulable nodes in the Kubernetes cluster to install and configure `open-iscsi`.  If the installation of `open-iscsi` is successful on all nodes, the system will automatically clean up the `prepare-csi` Pod. However, if the installation of `open-iscsi` fails on any node, [manual configuration of open-iscsi](../appendices/setup-worker-node) is required to determine the cause of the installation failure.
+
+    > _NOTE:_ If `open-iscsi` is manually deleted after installing IOMesh, the `prepare-csi` Pod will not automatically start to install `open-iscsi` when reinstalling IOMesh. In this case, [manual configuration of open-iscsi](../appendices/setup-worker-node) is necessary.
    
 
 
