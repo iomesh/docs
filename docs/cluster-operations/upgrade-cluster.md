@@ -67,7 +67,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
-3. Download [IOMesh Offline Installation Package](../appendices/downloads) and run the following command to unpack it. Make sure to replace `<VERSION>` with `v1.0.1` and  `<ARCH>` based on your CPU architecture. Then refer to [Offline Installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation) to load the IOMesh image on each worker node.
+3. Download [IOMesh Offline Installation Package](../appendices/downloads) and run the following command to unpack it. Make sure to replace `<VERSION>` with `v1.0.1` and  `<ARCH>` based on your CPU architecture. Then refer to [Custom Offline Installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation) to load the IOMesh image on each worker node.
    - Hygon x86_64: `hygon-amd64` 
    - Intel x86_64: `amd64`  
    - Kunpeng AArch64: `arm64` 
@@ -127,9 +127,7 @@ You have the option to upgrade the IOMesh cluster from version 0.11.1 to 1.0.0 e
     ```shell
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
-2. Download [IOMesh Offline Installation Package](../appendices/downloads) and run the following command to extract it. 
-   
-   Make sure to replace `<VERSION>` with `v1.0.0` and  `<ARCH>` based on your CPU architecture.
+2. Download [IOMesh Offline Installation Package](../appendices/downloads) and run the following command to unpack it. Make sure to replace `<VERSION>` with `v1.0.1` and  `<ARCH>` based on your CPU architecture. Then refer to [Custom Offline Installation](../deploy-iomesh-cluster/install-iomesh.md#offline-installation) to load the IOMesh image on each worker node.
    - Hygon x86_64: `hygon-amd64` 
    - Intel x86_64: `amd64`  
    - Kunpeng AArch64: `arm64` 
