@@ -214,8 +214,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     operator-87bb89877-kfs9d                               1/1     Running   0          3m23s
     operator-87bb89877-z9tfr                               1/1     Running   0          3m23s
     ```
-    > _NOTE:_
-    > After installing IOMesh, the `prepare-csi` Pod will be automatically launched on all schedulable nodes in the Kubernetes cluster to install and set up `open-iscsi`. The Pod will be cleaned up automatically once `open-iscsi` is installed and configured. In case the `prepare-csi` Pod fails and exits on a specific node, you need to manually [set up open-iscsi](../appendices/setup-worker-node) to identify the reason for the installation failure.
+    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will be automatically launched on all schedulable nodes in the Kubernetes cluster to install and set up `open-iscsi`. The Pod will be cleaned up automatically once `open-iscsi` is installed and configured. In case the `prepare-csi` Pod fails and exits on a specific node, you need to manually [set up open-iscsi](../appendices/setup-worker-node) to identify the reason for the installation failure.
 ## Custom Offline Installation
 
 **Prerequisite**
@@ -393,8 +392,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     operator-85877979-s94vz                               1/1     Running   0          2m8s
     operator-85877979-xqtml                               1/1     Running   0          2m8s  
     ```
-    > _NOTE:_
-    > After installing IOMesh, the `prepare-csi` Pod will be automatically launched on all schedulable nodes in the Kubernetes cluster to install and set up `open-iscsi`. The Pod will be cleaned up automatically once `open-iscsi` is installed and configured. In case the `prepare-csi` Pod fails and exits on a specific node, you need to manually [set up open-iscsi](../appendices/setup-worker-node) to identify the reason for the installation failure.
+    > _NOTE:_ After installing IOMesh, the `prepare-csi` Pod will be automatically launched on all schedulable nodes in the Kubernetes cluster to install and set up `open-iscsi`. The Pod will be cleaned up automatically once `open-iscsi` is installed and configured. In case the `prepare-csi` Pod fails and exits on a specific node, you need to manually [set up open-iscsi](../appendices/setup-worker-node) to identify the reason for the installation failure.
    
 
 
