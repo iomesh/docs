@@ -6,7 +6,6 @@
     ],
     "Deploy IOMesh": [
       "deploy-iomesh-cluster/prerequisites",
-      "deploy-iomesh-cluster/setup-worker-node",
       "deploy-iomesh-cluster/install-iomesh",
       "deploy-iomesh-cluster/setup-iomesh",
       "deploy-iomesh-cluster/activate-license"
@@ -45,6 +44,7 @@
     ],
     "Appendices": [
       "appendices/release-notes",
+      "appendices/setup-worker-node",
       "appendices/downloads",
       "appendices/iomesh-metrics",
       "appendices/faq"
