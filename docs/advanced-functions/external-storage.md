@@ -106,7 +106,7 @@ After the access point is configured, IOMesh can provide storage externally to a
 
 > **_NOTE_**: To use this function, the external Kubernetes cluster should be able to access IOMesh `DATA_CIDR` that was configured in [Prerequisites](../deploy-iomesh-cluster/prerequisites#network-requirements).
 
-1. Set up [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node) on the worker nodes of the external Kubernetes cluster.
+1. Set up [`open-iscsi`](../appendices/setup-worker-node) on the worker nodes of the external Kubernetes cluster.
    
 2. Add the Helm chart repository.
     ```shell
