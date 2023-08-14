@@ -7,7 +7,7 @@ sidebar_label: Release Notes
 ## IOMesh 1.0.1 Release Notes
 ### What's New
 #### New Feature
-Automatically configures `open-iscsi` for all scheduable nodes in the Kubernetes cluster when deploying IOMesh or adding nodes to the IOMesh cluster.
+Automatically configures `open-iscsi` for all schedulable nodes in the Kubernetes cluster when deploying IOMesh or adding nodes to the IOMesh cluster.
 
 #### Resolved Issues
 - The I/O performance was not as expected due to inconsistent port information between the `chunk` service registered with the `meta` service and the locally recorded port information. The issue has been resolved in this release.
