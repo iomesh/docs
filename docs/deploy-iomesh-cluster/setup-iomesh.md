@@ -246,7 +246,7 @@ spec:
 
 **Example 3: All-Flash Configuration `deviceMap`**
 
-In this example, all SSD disks in the Kubernetes cluster are used as `cacheWithJournal`, and all HDD disks are used as `dataStore`. The block device `blockdevice-a6652946c90d5c3fca5ca452aac5b826` is excluded from the selection.
+In this example, all SSD disks in the Kubernetes cluster are used as `dataStoreWithJournal`. The block device `blockdevice-a6652946c90d5c3fca5ca452aac5b826` is excluded from the selection.
 ```yaml
 spec:
 # ...
@@ -263,7 +263,7 @@ chunk:
 	  values:
 	  - SSD
       exclude:
-      - blockdevice-097b6628acdcd83a2fc6a5fc9c301e01
+      - blockdevice-a6652946c90d5c3fca5ca452aac5b826
   # ...
 ```
 Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to **Example 2: Hybrid Configuration `deviceMap`**.
