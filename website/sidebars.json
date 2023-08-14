@@ -44,8 +44,8 @@
     ],
     "Appendices": [
       "appendices/release-notes",
-      "appendices/setup-worker-node",
       "appendices/downloads",
+      "appendices/setup-worker-node",
       "appendices/iomesh-metrics",
       "appendices/faq"
     ]

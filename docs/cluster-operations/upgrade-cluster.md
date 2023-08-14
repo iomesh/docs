@@ -109,7 +109,7 @@ You have the option to upgrade the IOMesh cluster either online or offline. Befo
     kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration
     ```
 
-2. Upgrade the IOMesh cluster, which will merge new fields and values while keeping existing ones. Then wait for a few minutes till all pods are running.
+2. Upgrade the IOMesh cluster, which will keep existing fields and values. Then wait for a few minutes till all pods are running.
 
     ```bash
     helm upgrade --namespace iomesh-system iomesh iomesh/iomesh --version v1.0.1  --reuse-values -f merge-values.yaml

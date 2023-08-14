@@ -81,7 +81,7 @@ Before configuring device map, familiarize yourself with the mount type and devi
 |Mode|Mount Type|
 |---|---|
 |`hybridFlash`|Must configure `cacheWithJournal` and `dataStore`.  <ur><li>`cacheWithJournal` serves the performance layer of storage pool and **MUST** be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</li><li>`dataStore` is used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.</li></ur>|
-|`allflash`|<p>Only need to configure `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for `journal` and the other for `dataStore`. Either `SATA` or `NVMe SSD` is recommended.|
+|`allflash`|<p>Only need to configure `dataStoreWithJournal`. </p> `dataStoreWithJournal` is used for the capacity layer of storage pool. It **MUST** be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for `journal` and the other for `dataStore`. Either SATA or NVMe SSD is recommended.|
 
 **Device Selector**
 |Parameter|Value|Description|

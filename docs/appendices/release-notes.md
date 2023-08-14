@@ -7,12 +7,12 @@ sidebar_label: Release Notes
 ## IOMesh 1.0.1 Release Notes
 ### What's New
 #### New Feature
-Automatically configures `open-iscsi` for nodes when deploying IOMesh or adding nodes to the IOMesh cluster.
+Automatically configures `open-iscsi` for all scheduable nodes in the Kubernetes cluster when deploying IOMesh or adding nodes to the IOMesh cluster.
 
 #### Resolved Issues
 - The I/O performance was not as expected due to inconsistent port information between the `chunk` service registered with the `meta` service and the locally recorded port information. The issue has been resolved in this release.
 - IOMesh was unable to run in Kubernetes clusters of 1.21 or earlier versions due to incompatibility between the `zookeeper-operator` version and Kubernetes version. The issue has been resolved in this release.
-- In Kubernetes clusters 1.20 or earlier versions, when enabling the NDM webhook, the failure to tolerate empty CR parameters resulted in the unsuccessful creation of BlockDevice and BlockDeviceClaim. The issue has been resolved in this release.
+- In Kubernetes clusters 1.20 or earlier versions, when enabling the NDM webhook, the creation of BlockDevice and BlockDeviceClaim failed due to empty CR parameters. The issue has been resolved in this release.
 
 ### Specifications
 
