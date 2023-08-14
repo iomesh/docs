@@ -99,7 +99,7 @@ You have the option to upgrade the IOMesh cluster either online or offline. Befo
     ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-### Upgrade from 1.0.0 to 1.0.1
+## Upgrade from 1.0.0 to 1.0.1
 <!--DOCUSAURUS_CODE_TABS-->
 <!--Online Upgrade-->
 
