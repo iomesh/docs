@@ -266,7 +266,7 @@ chunk:
       - blockdevice-a6652946c90d5c3fca5ca452aac5b826
   # ...
 ```
-Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to **Example 2: Hybrid Configuration `deviceMap`**.
+Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to **Example 2: Hybrid Configuration `deviceMap`** for how to create a custom label for disks.
 
 
 
