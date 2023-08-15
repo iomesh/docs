@@ -107,7 +107,7 @@ For more information, refer to [Kubernetes Labels and Selectors](https://kuberne
 2. Configure `deviceMap`. Specifically, copy and paste the `deviceMap` content from the following sample code and fill in fields `mount-type`, `matchLabels` or `matchExpressions`, and `exclude` based on your deployment mode and block device information. Label information `<label-key>` and `<label-value>` can be obtained from Step 2 in [View Block Device Objects](#view-block-device-objects).
     > _NOTE:_ The field `FSTYPE` of each IOMesh block device should be blank. Make sure to exclude the block device that has a specified filesystem.
 
-    > _NOTE:_ It is recommended not to use disk names like `/dev/sdx` directly as filtering conditions in the `deviceMap` in a testing environment because disk names may change. In a production environment, it is strictly prohibited to use disk names in the  `deviceMap`.
+    > _NOTE:_ It is strictly prohibited to use disk names in the  `deviceMap` in a production environment.
     
     ```yaml 
     spec:
@@ -143,7 +143,7 @@ For more information, refer to [Kubernetes Labels and Selectors](https://kuberne
     blockdevice-a6652946c90d5c3fca5ca452aac5b826   iomesh-node-17-18    /dev/sdd              16000900661248   Unclaimed    Active   92d
     ```
 
-**`deviceMap` Examples**
+## `deviceMap` Examples
 
 Below are three `deviceMap` examples based on all-flash and hybrid-flash deployment modes. Assuming a Kubernetes cluster has six block devices, the details are as follows:
 
@@ -159,7 +159,7 @@ blockdevice-a6652946c90d5c3fca5ca452aac5b826   iomesh-node-17-18    /dev/sdd    
 
 You can filter the block devices to be used in IOMesh based on the labels of the block devices.
 
-**Example 1: Hybrid Configuration `deviceMap`**
+### Example 1: Hybrid Configuration `deviceMap`
 
 In this example, all SSD disks in the Kubernetes cluster are used as `cacheWithJournal`, and all HDD disks are used as `dataStore`. The block device `blockdevice-a6652946c90d5c3fca5ca452aac5b826` is excluded from the selection.
 
@@ -189,11 +189,12 @@ spec:
 	    - HDD
 	exclude:
 	- blockdevice-a6652946c90d5c3fca5ca452aac5b826
+    - blockdevice-f001933979aa613a9c32e552d05a704a
     # ...
 ```
-Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to **Example 2: Hybrid Configuration `deviceMap`**.
+Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to [Example 2: Hybrid Configuration `deviceMap`](#example-2-hybrid-configuration-devicemap) for how to create a custom label for disks.
 
-**Example 2: Hybrid Configuration `deviceMap`**
+### Example 2: Hybrid Configuration `deviceMap`
 
 In this example, the block devices located at the `/dev/sdb` path in the Kubernetes cluster are used as `cacheWithJournal`, and the block devices located at the `/dev/sdc` path are used as `dataStore`.
 
@@ -244,7 +245,7 @@ spec:
     # ...
 ```
 
-**Example 3: All-Flash Configuration `deviceMap`**
+### Example 3: All-Flash Configuration `deviceMap`
 
 In this example, all SSD disks in the Kubernetes cluster are used as `dataStoreWithJournal`. The block device `blockdevice-a6652946c90d5c3fca5ca452aac5b826` is excluded from the selection.
 ```yaml
@@ -266,25 +267,5 @@ chunk:
       - blockdevice-a6652946c90d5c3fca5ca452aac5b826
   # ...
 ```
-Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to **Example 2: Hybrid Configuration `deviceMap`**.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to [Example 2: Hybrid Configuration `deviceMap`](#example-2-hybrid-configuration-devicemap) for how to create a custom label for disks.
+ 

@@ -47,8 +47,8 @@ IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architec
 <td>Kubernetes</td>
 <td>
 <ul>
-<li>Kubernetes v1.17-v1.25</li>
-<li>OpenShift v3.11-v4.10</li>
+<li>Kubernetes 1.17-1.25</li>
+<li>OpenShift 3.11-4.10</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -113,7 +113,7 @@ IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architec
 
 | Component | Version|
 | -------| -------|
-|iomesh-operator|1.0.1|
+|iomesh-operator|1.0.0|
 |csi-driver| 2.6.0|
 |zbs|5.3.0|
 |zookeeper|3.5.9|
@@ -142,8 +142,8 @@ IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architec
 <td>Kubernetes</td>
 <td>
 <ul>
-<li>Kubernetes v1.17-v1.25</li>
-<li>OpenShift v3.11-v4.10</li>
+<li>Kubernetes 1.17-1.25</li>
+<li>OpenShift 3.11-4.10</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -228,8 +228,8 @@ IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 <td>Kubernetes</td>
 <td>
 <ul>
-<li>Kubernetes v1.17-v1.24</li>
-<li>OpenShift v3.11-v4.10</li>
+<li>Kubernetes 1.17-1.24</li>
+<li>OpenShift 3.11-4.10</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -323,8 +323,8 @@ IOMesh Compatibility
 <td>Kubernetes</td>
 <td>
 <ul>
-<li>Kubernetes v1.17-v1.21</li>
-<li>OpenShift v3.11-v4.8</li>
+<li>Kubernetes 1.17-1.21</li>
+<li>OpenShift 3.11-4.8</li>
 </ul></td>
 </tr>
 <tr class="even">

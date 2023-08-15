@@ -133,7 +133,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
       It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-    - An optional step. If a Pod is mounted with a PVC created by IOMesh and the PVC's access mode is `ReadWriteOnly`, you can configure the `podDeletePolicy` field to determine whether the system should automatically delete the Pod and rebuild it on another healthy node when the Kubernetes node that hosts the Pod fails. 
+    - An optional step. Configure the `podDeletePolicy` field to determine whether the system should automatically delete the Pod and rebuild it on another healthy node when the Kubernetes node that hosts the Pod fails. This configuration applies only to the Pod with an IOMesh-created PVC mounted and the access mode set to `ReadWriteOnly`.
     
       If left unspecified, this field is set to `no-delete-pod` by default,  indicating that the system won't automatically delete and rebuild the Pod in case of node failure.
       ```yaml
@@ -144,7 +144,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
               podDeletePolicy: "no-delete-pod" # Supports "no-delete-pod", "delete-deployment-pod", "delete-statefulset-pod", or "delete-both-statefulset-and-deployment-pod".
       ```
 
-1. On the master node, deploy the IOMesh cluster.
+6. On the master node, deploy the IOMesh cluster.
 
     ```shell
     helm install iomesh iomesh/iomesh \
@@ -165,7 +165,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
     TEST SUITE: None
     ```
 
-2. Verify that all pods are in `Running` state. If so, then IOMesh has been installed successfully.
+7. Verify that all pods are in `Running` state. If so, then IOMesh has been installed successfully.
 
     ```bash
     kubectl --namespace iomesh-system get pods
@@ -320,7 +320,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
       ```
         It is recommended that you only configure `values`. For more configurations, refer to [Pod Affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
-    - An optional step. If a Pod is mounted with a PVC created by IOMesh and the PVC's access mode is `ReadWriteOnly`, you can configure the `podDeletePolicy` field to determine whether the system should automatically delete the Pod and rebuild it on another healthy node when the Kubernetes node that hosts the Pod fails.
+    - An optional step. Configure the `podDeletePolicy` field to determine whether the system should automatically delete the Pod and rebuild it on another healthy node when the Kubernetes node that hosts the Pod fails.  This configuration applies only to the Pod with an IOMesh-created PVC mounted and the access mode set to `ReadWriteOnly`.
     
       If left unspecified, this field is set to `no-delete-pod` by default,  indicating that the system won't automatically delete and rebuild the Pod in case of node failure.
       ```yaml
