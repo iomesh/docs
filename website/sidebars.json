@@ -6,7 +6,6 @@
     ],
     "Deploy IOMesh": [
       "deploy-iomesh-cluster/prerequisites",
-      "deploy-iomesh-cluster/setup-worker-node",
       "deploy-iomesh-cluster/install-iomesh",
       "deploy-iomesh-cluster/setup-iomesh",
       "deploy-iomesh-cluster/activate-license"
@@ -14,7 +13,7 @@
     "Volume Operations": [
       "volume-operations/create-storageclass",
       "volume-operations/create-pv",
-      "volume-operations/encrypt-pv",
+      "volume-operations/authenticate-pv",
       "volume-operations/expand-pv",
       "volume-operations/clone-pv"
     ],
@@ -46,6 +45,7 @@
     "Appendices": [
       "appendices/release-notes",
       "appendices/downloads",
+      "appendices/setup-worker-node",
       "appendices/iomesh-metrics",
       "appendices/faq"
     ]
