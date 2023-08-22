@@ -6,8 +6,8 @@ sidebar_label: Scale Cluster
 
 You can scale the IOMesh cluster online without interrupting services. Before scaling the IOMesh cluster, consider the following:
 
-- Scaling is only supported for IOMesh Enterprise Edition. The number of meta or chunk pods in IOMesh Community Edition is limited to 3.
-- Add worker nodes to the Kubernetes cluster before increasing the number of chunk or meta pods. The number of worker nodes needed depends on how many chunk or meta pods you want to add, as each worker node can only have 1 meta pod and 1 chunk pod.
+- Scaling is only supported for IOMesh Enterprise Edition. The number of meta or chunk pods in IOMesh Community Edition is limited to three.
+- Add worker nodes to the Kubernetes cluster before increasing the number of chunk or meta pods. The number of worker nodes needed depends on how many chunk or meta pods you want to add, as each worker node can only have one meta pod and one chunk pod.
 
 ## Scale Up Chunk Server
 
@@ -15,7 +15,7 @@ If storage capacity is insufficient or storage usage exceeds 80%, you should add
 
 **Precaution**
 
-The minimum number of chunk pods is 3, and the maximum number depends on the IOMesh Enterprise Edition node limit, which can be up to 255.
+The minimum number of chunk pods is three, and the maximum number depends on the IOMesh Enterprise Edition node limit, which can be up to 255.
 
 **Procedure**
 1. Find `chunk` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`.
@@ -47,8 +47,8 @@ The minimum number of chunk pods is 3, and the maximum number depends on the IOM
 
 **Precautions**
 
-- You can only remove 1 chunk pod at a time.
-- Remove chunk pods in reverse creation order. Each chunk pod is uniquely numbered by `StatefulSet` when created. For instance, if there are 3 chunk pods `iomesh-chunk-0`, `iomesh-chunk-1`, and `iomesh-chunk-2`, begin by removing `iomesh-chunk-2`. 
+- You can only remove one chunk pod at a time.
+- Remove chunk pods in reverse creation order. Each chunk pod is uniquely numbered by `StatefulSet` when created. For instance, if there are three chunk pods `iomesh-chunk-0`, `iomesh-chunk-1`, and `iomesh-chunk-2`, begin by removing `iomesh-chunk-2`. 
 
 **Procedure**
 
@@ -114,11 +114,11 @@ The following example reduces the number of chunk pods by removing `iomesh-chunk
     ```
 ## Scale Up Meta Server
 
-For a Kubernetes cluster with 4 nodes or fewer, there is no need to scale the meta server. However for a cluster with 5 or more nodes, it is recommended to increase the number of meta pods from 3 to 5.
+For a Kubernetes cluster with four nodes or fewer, there is no need to scale the meta server. However for a cluster with five or more nodes, it is recommended to increase the number of meta pods from three to five.
 
 **Precaution**
 
-The minimum number of meta pods is 3 and the maximum is 5.
+The minimum number of meta pods is three and the maximum is five.
 
 **Procedure**
 

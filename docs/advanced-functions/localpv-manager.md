@@ -8,7 +8,7 @@ sidebar_label: IOMesh LocalPV Manager
 
 ### What is IOMesh LocalPV Manager
 
-IOMesh LocalPV Manager is a CSI driver used to manage local storage on Kubernetes worker nodes. Stateful applications themselves such as [Minio](https://min.io/) and [TiDB](https://github.com/pingcap/tidb) achieve data high availability at their application layer. Persistent volumes in IOMesh however also add additional replicas in the data path due to its multi-replica policy, which may cause a degree of performance degradation and space waste. 
+IOMesh LocalPV Manager is a CSI driver used to manage local storage on Kubernetes worker nodes. Stateful applications themselves such as [MinIO](https://min.io/) and [TiDB](https://github.com/pingcap/tidb) achieve data high availability at their application layer. Persistent volumes in IOMesh however add additional replicas in the data path due to its multi-replica policy, which may cause a degree of performance degradation and space waste. 
 
 To avoid this issue, IOMesh LocalPV Manager offers an advantage since it allows for creating PVs using local storage like a directory or block device for pod use.
 
@@ -32,14 +32,14 @@ Implemented as a standard CSI controller server. With one instance on each worke
 
 **Node Driver** 
 
-Implemented as a standard CSI node server. With one instance on each worker node, it has the task to interact with `kubelet` to mount and format local PVs.
+Implemented as a standard CSI node server. With one instance on each worker node, its task is to interact with `kubelet` to mount and format local PVs.
 
 **Node Disk Manager**
 
 A component for discovering block devices and transforming them to block device objects, and providing a BlockDeviceClaim to ensure that a block device is exclusive to a particular pod.
 
 ### Local PV Type
-IOMesh LocalPV Manager offers 2 types of volumes: `HostPath` and `Device`. With `HostPath`, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. 
+IOMesh LocalPV Manager offers two types of volumes: `HostPath` and `Device`. With `HostPath`, you can create PVs from a local directory on a node and enable capacity limits for PVs. `Device`, on the other hand, allows creating PVs using a block device for pod use. 
 
 When choosing between these volume types, consider whether your applications or databases require exclusive use of a disk or whether they need a raw block device. If so, choose `Device`, or else `HostPath` should suffice.
 
@@ -275,7 +275,7 @@ The following example assumes that the local PV is created in the `/var/iomesh/l
     | `parameters.csi.storage.k8s.io/fstype ` | The filesystem type when the `volumeMode` is set to `Filesystem`, which defaults to `ext4`. |
     | `volumeBindingMode` | Controls when volume binding and dynamic provisioning should occur. IOMesh only supports `WaitForFirstConsumer`. |
 
-    When creating a StorageClass, you have the option to configure `deviceSelector` to filter disks as desired. For configuration details, refer to [`Device Selector`](../deploy-iomesh-cluster/setup-iomesh.md) and [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
+    When creating a StorageClass, you have the option to configure `deviceSelector` to filter disks as desired. For configuration details, refer to [`Device Selector`](../deploy-iomesh-cluster/setup-iomesh#configure-devicemap) and [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 
     For example, `iomesh.com/bd-driveType: SSD` means the StorageClass will only filter SSD for creating local PVs.
 

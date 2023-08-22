@@ -10,27 +10,27 @@ IOMesh Offline Installation Package
 - Intel x86_64:
   - Download Link: 
     
-    <https://download.smartx.com/iomesh-offline-v1.0.0-amd64.tgz>
+    <https://download.smartx.com/iomesh-offline-v1.0.1-amd64.tgz>
   - MD5: 
     ```
-    9e6dc20525e19ea67cf0f6bdfd3863d2
+    0c5e40ecb6780b8533be49e918afc767
     ```
 - Kunpeng AArch64:
   - Download Link: 
   
-    <https://download.smartx.com/iomesh-offline-v1.0.0-arm64.tgz>
+    <https://download.smartx.com/iomesh-offline-v1.0.1-arm64.tgz>
   - MD5: 
     ```
-    eaf369d8bfe307286f906aab64a1772f
+    5a841691fd568d1af9eed53d7a0f5a72
     ```
 
 - Hygon x86_64:
   - Download Link:
   
-     <https://download.smartx.com/iomesh-offline-v1.0.0-hygon-amd64.tgz>
+     <https://download.smartx.com/iomesh-offline-v1.0.1-hygon-amd64.tgz>
   - MD5: 
     ```
-    5a6dc308624c288cba4c286de4e4c724
+    d4774a94a81bfc0b5b10684190126bd7
     ```
 
 IOMesh Cluster Dashboard File

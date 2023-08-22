@@ -18,7 +18,6 @@ IOMesh CSI Driver is shared by all IOMesh clusters to facilitate connection, whi
 - Verify that all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) are met.
 - The IOMesh version should be 1.0.0 or above. 
 - A Kubernetes cluster consisting of at least 6 worker nodes.
-- Verify that [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node) has been set up for each worker node.
 
 **Procedure**
 
@@ -29,7 +28,7 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
 |`iomesh`|Management cluster| k8s-woker-{0~2} |`iomesh-system`|
 |`iomesh-cluster-1`| Independent storage pool|k8s-woker-{3~5}|` iomesh-cluster-1`| 
 
->_NOTE_: Both custom and offline installation are suitable for deploying multiple clusters. For [online custom installation](../deploy-iomesh-cluster/install-iomesh#custom-installation), install `Helm` and add the IOMesh Helm repository. For [offline installation](../deploy-iomesh-cluster/install-iomesh#offline-installation), download the installation package and load the IOMesh image.
+>_NOTE_: Both custom and offline installation are suitable for deploying multiple clusters. For [custom online installation](../deploy-iomesh-cluster/install-iomesh#custom-online-installation), install `Helm` and add the IOMesh Helm repository. For [custom offline installation](../deploy-iomesh-cluster/install-iomesh#custom-offline-installation), download the installation package and load the IOMesh image.
 
 ### Deploy Management Cluster
 
@@ -337,13 +336,13 @@ The following example assumes a total of 6 worker nodes `k8s-worker-{0-5}`. `iom
       ```
 ### Mount Disks
 
-1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh). Note that all block devices resides in the namespace `iomesh-system`.
+1. [View block device objects](../deploy-iomesh-cluster/setup-iomesh#view-block-device-objects). Note that all block devices resides in the namespace `iomesh-system`.
 
     ```shell
     kubectl --namespace iomesh-system -o wide get blockdevice
     ```
 
-2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh).
+2. [Configure DeviceMap](../deploy-iomesh-cluster/setup-iomesh#configure-devicemap).
 
     ```shell
     kubectl edit iomesh iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.

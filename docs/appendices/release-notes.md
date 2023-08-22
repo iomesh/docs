@@ -4,10 +4,71 @@ title: Release Notes
 sidebar_label: Release Notes
 ---
 
+## IOMesh 1.0.1 Release Notes
+### What's New
+#### New Feature
+Automatically configures `open-iscsi` for all schedulable nodes in the Kubernetes cluster when deploying IOMesh or adding nodes to the IOMesh cluster.
+
+#### Resolved Issues
+- The I/O performance was not as expected due to inconsistent port information between the `chunk` service registered with the `meta` service and the locally recorded port information. The issue has been resolved in this release.
+- IOMesh was unable to run in Kubernetes clusters of 1.21 or earlier versions due to incompatibility between the `zookeeper-operator` version and Kubernetes version. The issue has been resolved in this release.
+- In Kubernetes clusters 1.20 or earlier versions, when enabling the NDM webhook, the creation of BlockDevice and BlockDeviceClaim failed due to empty CR parameters. The issue has been resolved in this release.
+
+### Specifications
+
+| Component | Version|
+| -------| -------|
+|iomesh-operator|1.0.1|
+|csi-driver| 2.6.0|
+|zbs|5.3.0|
+|zookeeper|3.5.9|
+|node-disk-manager|1.8.0|
+|hostpath-provisioner|0.5.3|
+|block-device-monitor|0.1.0|
+|local-pv-manager|0.1.0|
+
+### Compatibility
+
+#### Server Architecture Compatibility for IOMesh  
+
+IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architectures.
+
+#### Kubernetes and Linux OS Compatibility for IOMesh
+
+<table>
+<thead>
+<tr class="header">
+<th>Software/OS</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kubernetes</td>
+<td>
+<ul>
+<li>Kubernetes 1.17-1.25</li>
+<li>OpenShift 3.11-4.10</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Linux OS</td>
+<td>
+<ul>
+<li>CentOS 7</li>
+<li>CentOS 8</li>
+<li>CoreOS</li>
+<li>RHEL 7</li>
+<li>RHEL 8</li>
+<li>OpenEluer 22.03 LTS</li>
+</tbody>
+</table> 
+
+>_NOTE_: IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.
+
 ## IOMesh 1.0.0 Release Notes
 
 ### What's New
-
 #### New Features
 **Installation & Deployment**
 - Adds support for deploying IOMesh on the Hygon x86_64 and Kunpeng AArch64 architectures.
@@ -81,8 +142,8 @@ IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architec
 <td>Kubernetes</td>
 <td>
 <ul>
-<li>Kubernetes v1.17-v1.25</li>
-<li>OpenShift v3.11-v4.10</li>
+<li>Kubernetes 1.17-1.25</li>
+<li>OpenShift 3.11-4.10</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -167,8 +228,8 @@ IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.
 <td>Kubernetes</td>
 <td>
 <ul>
-<li>Kubernetes v1.17-v1.24</li>
-<li>OpenShift v3.11-v4.10</li>
+<li>Kubernetes 1.17-1.24</li>
+<li>OpenShift 3.11-4.10</li>
 </ul></td>
 </tr>
 <tr class="even">
@@ -262,8 +323,8 @@ IOMesh Compatibility
 <td>Kubernetes</td>
 <td>
 <ul>
-<li>Kubernetes v1.17-v1.21</li>
-<li>OpenShift v3.11-v4.8</li>
+<li>Kubernetes 1.17-1.21</li>
+<li>OpenShift 3.11-4.8</li>
 </ul></td>
 </tr>
 <tr class="even">
