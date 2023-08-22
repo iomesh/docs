@@ -18,7 +18,6 @@ IOMesh CSI Driver is shared by all IOMesh clusters to facilitate connection, whi
 - Verify that all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites.md) are met.
 - The IOMesh version should be 1.0.0 or above. 
 - A Kubernetes cluster consisting of at least 6 worker nodes.
-- Verify that [`open-iscsi`](../deploy-iomesh-cluster/setup-worker-node) has been set up for each worker node.
 
 **Procedure**
 
