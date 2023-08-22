@@ -229,7 +229,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
 1. Download the [IOMesh Offline Installation Package](../appendices/downloads) on each worker node and the master node, based on your CPU architecture.
 
-2. Unpack the installation package on each worker node and the master node. Make sure to replace `<VERSION>` with `v1.0.0` and  `<ARCH>` based on your CPU architecture.
+2. Unpack the installation package on each worker node and the master node. Make sure to replace `<VERSION>` with `v1.0.1` and  `<ARCH>` based on your CPU architecture.
    - Hygon x86_64: `hygon-amd64` 
    - Intel x86_64: `amd64`  
    - Kunpeng AArch64: `arm64` 

@@ -275,7 +275,7 @@ The following example assumes that the local PV is created in the `/var/iomesh/l
     | `parameters.csi.storage.k8s.io/fstype ` | The filesystem type when the `volumeMode` is set to `Filesystem`, which defaults to `ext4`. |
     | `volumeBindingMode` | Controls when volume binding and dynamic provisioning should occur. IOMesh only supports `WaitForFirstConsumer`. |
 
-    When creating a StorageClass, you have the option to configure `deviceSelector` to filter disks as desired. For configuration details, refer to [`Device Selector`](../deploy-iomesh-cluster/setup-iomesh.md) and [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
+    When creating a StorageClass, you have the option to configure `deviceSelector` to filter disks as desired. For configuration details, refer to [`Device Selector`](../deploy-iomesh-cluster/install-iomesh) and [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
 
     For example, `iomesh.com/bd-driveType: SSD` means the StorageClass will only filter SSD for creating local PVs.
 

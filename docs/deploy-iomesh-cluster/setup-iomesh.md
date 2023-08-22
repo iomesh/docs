@@ -86,7 +86,7 @@ Before configuring device map, familiarize yourself with the mount type and devi
 **Device Selector**
 |Parameter|Value|Description|
 |---|---|---|
-|<code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta) | The label selector to filter block devices.              |
+|<code>selector</code> | [metav1.LabelSelector](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#labelselector-v1-meta) | The label selector to filter block devices.              |
 |<code>exclude</code>|[block-device-name]| The block device to be excluded. |
 
 For more information, refer to [Kubernetes Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/).
@@ -104,7 +104,7 @@ For more information, refer to [Kubernetes Labels and Selectors](https://kuberne
     spec:
       chunk:
     ```
-2. Configure `deviceMap`. Specifically, copy and paste the `deviceMap` content from the following sample code and fill in fields `mount-type`, `matchLabels` or `matchExpressions`, and `exclude` based on your deployment mode and block device information. Label information `<label-key>` and `<label-value>` can be obtained from Step 2 in [View Block Device Objects](#view-block-device-objects).
+2. Configure `deviceMap`. Specifically, copy and paste the `deviceMap` content from the following sample code and fill in fields `mount-type`, `matchLabels`, `matchExpressions`, and `exclude` based on your deployment mode and block device information. Label information `<label-key>` and `<label-value>` can be obtained from Step 2 in [View Block Device Objects](#view-block-device-objects).
     > _NOTE:_ The field `FSTYPE` of each IOMesh block device should be blank. Make sure to exclude the block device that has a specified filesystem.
 
     > _NOTE:_ It is strictly prohibited to use disk names in the  `deviceMap` in a production environment.
@@ -188,7 +188,6 @@ spec:
             values:
             - HDD
         exclude:
-        - blockdevice-a6652946c90d5c3fca5ca452aac5b826
         - blockdevice-f001933979aa613a9c32e552d05a704a 
     # ...
 ```
