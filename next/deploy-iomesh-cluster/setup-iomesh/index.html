@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Set Up IOMesh · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="After IOMesh is installed, you should mount the block devices, which are the disks on the Kubernetes worker nodes, to the IOMesh cluster so that IOMesh can use them to provide storage."/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Set Up IOMesh · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="After IOMesh is installed, you should mount the block devices, which are the disks on the Kubernetes worker nodes, to the IOMesh cluster so that IOMesh can use them to provide storage."/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Deploy IOMesh</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/next/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/next/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/encrypt-pv">Create Encrypted PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/cluster-operations/scale-cluster">Scale Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/next/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/next/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Set Up IOMesh · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="After IOMesh is installed, you should mount the block devices, which are the disks on the Kubernetes worker nodes, to the IOMesh cluster so that IOMesh can use them to provide storage."/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Set Up IOMesh · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="After IOMesh is installed, you should mount the block devices, which are the disks on the Kubernetes worker nodes, to the IOMesh cluster so that IOMesh can use them to provide storage."/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>next</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Deploy IOMesh</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/next/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/next/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/next/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/authenticate-pv">Create PV with Authentication</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/next/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/next/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/next/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/cluster-operations/scale-cluster">Scale Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/next/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/next/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/next/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/next/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/next/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/next/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
             var coll = document.getElementsByClassName('collapsible');
             var checkActiveCategory = true;
             for (var i = 0; i < coll.length; i++) {
@@ -64,10 +64,12 @@
 <pre><code class="hljs css language-bash">kubectl --namespace iomesh-system -o wide get blockdevice
 </code></pre>
 <p>If successful, you should see output like this:</p>
-<pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
-blockdevice<span class="hljs-number">-097</span>b6628acdcd83a2fc6a5fc9c301e01   kind-<span class="hljs-section">control</span>-plane   /dev/vdb1    ext4     <span class="hljs-number">107373116928</span>   Unclaimed    Active   <span class="hljs-number">10</span>m
-blockdevice<span class="hljs-number">-3</span>fa2e2cb7e49bc96f4ed09209644382e   kind-<span class="hljs-section">control</span>-plane   /dev/sda              <span class="hljs-number">9659464192</span>     Unclaimed    Active   <span class="hljs-number">10</span>m
-blockdevice-f4681681be66411f226d1b6a690270c0   kind-<span class="hljs-section">control</span>-plane   /dev/sdb              <span class="hljs-number">1073742336</span>     Unclaimed    Active   <span class="hljs-number">10</span>m
+<pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE             CLAIMSTATE   STATUS   AGE
+blockdevice<span class="hljs-number">-648</span>c1fffeab61e985aa0f8914278e9d0   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sda1    ext4     <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice<span class="hljs-number">-648</span>c1fffeab61e985aa0f8914278e9d0   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sdb              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice-f26f5b30099c20b1f6e993675614c301   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdb              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice<span class="hljs-number">-8</span>b697bad8a194069fbfd544e6db2ddb8   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sdc              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice-a3579a64869f799a623d3be86dce7c59   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdc              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
 </code></pre>
 <blockquote>
 <p><em>NOTE:</em>
@@ -75,7 +77,7 @@ The field <code>FSTYPE</code> of each IOMesh block device should be blank.</p>
 </blockquote>
 <blockquote>
 <p><em>NOTE:</em>
-The status of a block device will only be updated when the disk is unplugged. Therefore, if a disk is partitioned or formatted, its status will not be immediately updated. To update information about disk  partitioning and formatting, run the command <code>kubectl delete pod -n iomesh-system -l app=openebs-ndm</code> to restart the NDM pod, which will trigger a disk scan.</p>
+The status of a block device will only be updated when the disk is plugged or unplugged. Therefore, if a disk is partitioned or formatted, its status will not be immediately updated. To update information about disk  partitioning and formatting, run the command <code>kubectl delete pod -n iomesh-system -l app=openebs-ndm</code> to restart the NDM pod, which will trigger a disk scan.</p>
 </blockquote></li>
 <li><p>View the details of a specific block device object. Make sure to replace <code>&lt;block_device_name&gt;</code> with the block device name.</p>
 <pre><code class="hljs css language-shell">kubectl --namespace iomesh-system -o yaml get blockdevice &lt;block_device_name&gt;
@@ -88,16 +90,16 @@ The status of a block device will only be updated when the disk is unplugged. Th
     <span class="hljs-attr">internal.openebs.io/uuid-scheme:</span> <span class="hljs-string">gpt</span>
   <span class="hljs-attr">generation:</span> <span class="hljs-number">1</span>
   <span class="hljs-attr">labels:</span>
-    <span class="hljs-attr">iomesh.com/bd-devicePath:</span> <span class="hljs-string">dev.sda</span>
+    <span class="hljs-attr">iomesh.com/bd-devicePath:</span> <span class="hljs-string">dev.sdb</span>
     <span class="hljs-attr">iomesh.com/bd-deviceType:</span> <span class="hljs-string">disk</span>
     <span class="hljs-attr">iomesh.com/bd-driverType:</span> <span class="hljs-string">SSD</span>
     <span class="hljs-attr">iomesh.com/bd-serial:</span> <span class="hljs-string">24da000347e1e4a9</span>
     <span class="hljs-attr">iomesh.com/bd-vendor:</span> <span class="hljs-string">ATA</span>
-    <span class="hljs-attr">kubernetes.io/hostname:</span> <span class="hljs-string">kind-control-plane</span>
+    <span class="hljs-attr">kubernetes.io/hostname:</span> <span class="hljs-string">iomesh-node-17-19</span>
     <span class="hljs-attr">ndm.io/blockdevice-type:</span> <span class="hljs-string">blockdevice</span>
     <span class="hljs-attr">ndm.io/managed:</span> <span class="hljs-string">"true"</span>
   <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span>
-  <span class="hljs-attr">name:</span> <span class="hljs-string">blockdevice-3fa2e2cb7e49bc96f4ed09209644382e</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">blockdevice-648c1fffeab61e985aa0f8914278e9d0</span>
 <span class="hljs-comment"># ...</span>
 </code></pre>
 <p>Labels with <code>iomesh.com/bd-</code> are created by IOMesh and will be used for the device selector.</p>
@@ -123,8 +125,8 @@ The status of a block device will only be updated when the disk is unplugged. Th
 <tr><th>Mode</th><th>Mount Type</th></tr>
 </thead>
 <tbody>
-<tr><td><code>hybridFlash</code></td><td>You must configure 2 mount types: <code>cacheWithJournal</code> and <code>dataStore</code>.  <ur><li><code>cacheWithJournal</code> serves the performance layer of storage pool and <strong>MUST</strong> be a partitionable block device with a capacity greater than 60 GB. 2 partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</li><li><code>dataStore</code> is used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.</li></ur></td></tr>
-<tr><td><code>allflash</code></td><td><p>You only need to configure 1 mount type: <code>dataStoreWithJournal</code>. </p> <code>dataStoreWithJournal</code> is used for the capacity layer of storage pool. It <strong>MUST</strong> be a partitionable block device with a capacity greater than 60 GB. 2 partitions will be created: one for <code>journal</code> and the other for <code>dataStore</code>. Either <code>SATA</code> or <code>NVMe SSD</code> is recommended.</td></tr>
+<tr><td><code>hybridFlash</code></td><td>Must configure <code>cacheWithJournal</code> and <code>dataStore</code>.  <ur><li><code>cacheWithJournal</code> serves the performance layer of storage pool and <strong>MUST</strong> be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</li><li><code>dataStore</code> is used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.</li></ur></td></tr>
+<tr><td><code>allflash</code></td><td><p>Only need to configure <code>dataStoreWithJournal</code>. </p> <code>dataStoreWithJournal</code> is used for the capacity layer of storage pool. It <strong>MUST</strong> be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for <code>journal</code> and the other for <code>dataStore</code>. Either SATA or NVMe SSD is recommended.</td></tr>
 </tbody>
 </table>
 <p><strong>Device Selector</strong></p>
@@ -133,8 +135,8 @@ The status of a block device will only be updated when the disk is unplugged. Th
 <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>selector</code></td><td><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#labelselector-v1-meta">metav1.LabelSelector</a></td><td>The label selector to filter block devices.</td></tr>
-<tr><td><code>exclude</code></td><td>[block-device-name]</td><td>The block device to be excluded from being mounted.</td></tr>
+<tr><td><code>selector</code></td><td><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#labelselector-v1-meta">metav1.LabelSelector</a></td><td>The label selector to filter block devices.</td></tr>
+<tr><td><code>exclude</code></td><td>[block-device-name]</td><td>The block device to be excluded.</td></tr>
 </tbody>
 </table>
 <p>For more information, refer to <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">Kubernetes Labels and Selectors</a>.</p>
@@ -147,10 +149,12 @@ The status of a block device will only be updated when the disk is unplugged. Th
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
   <span class="hljs-attr">chunk:</span>
 </code></pre></li>
-<li><p>Copy and paste <code>deviceMap</code> contents from the following sample code. Fill in <code>mount-type</code> according to the deployment mode and configure <code>matchLabels</code> or <code>matchExpressions</code> and <code>exclude</code>.</p>
-<p>For the labels, you only need to choose one of the two fields <code>matchLabels</code> or <code>matchExpressions</code> to fill in. To know the keys and values of the block device, refer to Step 2 in <a href="#view-block-device-objects">View Block Device Objects</a>.</p>
+<li><p>Configure <code>deviceMap</code>. Specifically, copy and paste the <code>deviceMap</code> content from the following sample code and fill in fields <code>mount-type</code>, <code>matchLabels</code>, <code>matchExpressions</code>, and <code>exclude</code> based on your deployment mode and block device information. Label information <code>&lt;label-key&gt;</code> and <code>&lt;label-value&gt;</code> can be obtained from Step 2 in <a href="#view-block-device-objects">View Block Device Objects</a>.</p>
 <blockquote>
 <p><em>NOTE:</em> The field <code>FSTYPE</code> of each IOMesh block device should be blank. Make sure to exclude the block device that has a specified filesystem.</p>
+</blockquote>
+<blockquote>
+<p><em>NOTE:</em> It is prohibited to use disk names in the  <code>deviceMap</code> in the production environment.</p>
 </blockquote>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
   <span class="hljs-attr">chunk:</span>
@@ -166,8 +170,33 @@ The status of a block device will only be updated when the disk is unplugged. Th
             <span class="hljs-bullet">-</span> <span class="hljs-string">&lt;label-value&gt;</span>
         <span class="hljs-attr">exclude:</span>
         <span class="hljs-bullet">-</span> <span class="hljs-string">&lt;block-device-name&gt;</span> <span class="hljs-comment"># Enter the block device name to exclude it.</span>
+</code></pre></li>
+<li><p>Verify that the <code>CLAIMSTATE</code> of the block devices you select becomes <code>Claimed</code>.</p>
+<pre><code class="hljs css language-bash">kubectl --namespace iomesh-system -o wide get blockdevice
 </code></pre>
-<p>If the deployment mode is <code>hybrid</code>, refer to the following example:</p>
+<p>If successful, you should see output like this:</p>
+<pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE             CLAIMSTATE   STATUS   AGE
+blockdevice-f001933979aa613a9c32e552d05a704a   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sda1    ext4     <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice<span class="hljs-number">-648</span>c1fffeab61e985aa0f8914278e9d0   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sdb              <span class="hljs-number">16000900661248</span>   Claimed      Active   <span class="hljs-number">92</span>d
+blockdevice-f26f5b30099c20b1f6e993675614c301   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdb              <span class="hljs-number">16000900661248</span>   Claimed      Active   <span class="hljs-number">92</span>d
+blockdevice<span class="hljs-number">-8</span>b697bad8a194069fbfd544e6db2ddb8   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sdc              <span class="hljs-number">16000900661248</span>   Claimed      Active   <span class="hljs-number">92</span>d
+blockdevice-a3579a64869f799a623d3be86dce7c59   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdc              <span class="hljs-number">16000900661248</span>   Claimed      Active   <span class="hljs-number">92</span>d
+blockdevice-a6652946c90d5c3fca5ca452aac5b826   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdd              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+</code></pre></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="devicemap-examples"></a><a href="#devicemap-examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>DeviceMap Examples</h2>
+<p>Below are three <code>deviceMap</code> examples based on all-flash and hybrid-flash deployment modes. Assuming a Kubernetes cluster has six block devices, the details are as follows:</p>
+<pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE             CLAIMSTATE   STATUS   AGE
+blockdevice-f001933979aa613a9c32e552d05a704a   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sda1    ext4     <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice<span class="hljs-number">-648</span>c1fffeab61e985aa0f8914278e9d0   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sdb              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice-f26f5b30099c20b1f6e993675614c301   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdb              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice<span class="hljs-number">-8</span>b697bad8a194069fbfd544e6db2ddb8   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-19</span>    /dev/sdc              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice-a3579a64869f799a623d3be86dce7c59   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdc              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+blockdevice-a6652946c90d5c3fca5ca452aac5b826   iomesh-node<span class="hljs-number">-17</span><span class="hljs-number">-18</span>    /dev/sdd              <span class="hljs-number">16000900661248</span>   Unclaimed    Active   <span class="hljs-number">92</span>d
+</code></pre>
+<p>You can filter the block devices to be used in IOMesh based on the labels of the block devices.</p>
+<p><strong>Example 1: Hybrid Configuration <code>deviceMap</code></strong></p>
+<p>In this example, all SSD disks in the Kubernetes cluster are used as <code>cacheWithJournal</code>, and all HDD disks are used as <code>dataStore</code>. The block devices <code>blockdevice-a6652946c90d5c3fca5ca452aac5b826</code> and <code>blockdevice-f001933979aa613a9c32e552d05a704a</code> are excluded from the selection.</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
   <span class="hljs-comment"># ...</span>
   <span class="hljs-attr">chunk:</span>
@@ -183,7 +212,7 @@ The status of a block device will only be updated when the disk is unplugged. Th
             <span class="hljs-attr">values:</span>
             <span class="hljs-bullet">-</span> <span class="hljs-string">SSD</span>
         <span class="hljs-attr">exclude:</span>
-        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-097b6628acdcd83a2fc6a5fc9c301e01</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-a6652946c90d5c3fca5ca452aac5b826</span>
       <span class="hljs-attr">dataStore:</span>
         <span class="hljs-attr">selector:</span>
           <span class="hljs-attr">matchExpressions:</span>
@@ -192,37 +221,74 @@ The status of a block device will only be updated when the disk is unplugged. Th
             <span class="hljs-attr">values:</span>
             <span class="hljs-bullet">-</span> <span class="hljs-string">HDD</span>
         <span class="hljs-attr">exclude:</span>
-        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-097b6628acdcd83a2fc6a5fc9c301e01</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-f001933979aa613a9c32e552d05a704a</span> 
     <span class="hljs-comment"># ...</span>
 </code></pre>
-<p>If the deployment mode is <code>allflash</code>, refer to the following example:</p>
+<p>Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to <strong>Example 2: Hybrid Configuration <code>deviceMap</code></strong> for how to create a custom label for disks.</p>
+<p><strong>Example 2: Hybrid Configuration <code>deviceMap</code></strong></p>
+<p>In this example, the block devices located at the <code>/dev/sdb</code> path in the Kubernetes cluster are used as <code>cacheWithJournal</code>, and the block devices located at the <code>/dev/sdc</code> path are used as <code>dataStore</code>.</p>
+<p>Based on the information of the block devices provided above, the block devices under the <code>/dev/sdb</code> and <code>/dev/sdc</code> paths are as follows:</p>
+<p>Block devices under <code>/dev/sdb</code> path:</p>
+<ul>
+<li><code>blockdevice-648c1fffeab61e985aa0f8914278e9d0</code></li>
+<li><code>blockdevice-f26f5b30099c20b1f6e993675614c301</code></li>
+</ul>
+<p>Block devices under <code>/dev/sdc</code> path:</p>
+<ul>
+<li><code>blockdevice-8b697bad8a194069fbfd544e6db2ddb8</code></li>
+<li><code>blockdevice-a3579a64869f799a623d3be86dce7c59</code></li>
+</ul>
+<ol>
+<li><p>Run the following commands to create a custom label for the block devices under the <code>/dev/sdb</code> path in the Kubernetes cluster. <code>mountType</code> is the key of the label, and <code>cacheWithJournal</code> is the value of the label.</p>
+<pre><code class="hljs css language-shell">kubectl label blockdevice blockdevice-648c1fffeab61e985aa0f8914278e9d0 mountType=cacheWithJournal -n iomesh-system
+kubectl label blockdevice blockdevice-f26f5b30099c20b1f6e993675614c301 mountType=cacheWithJournal -n iomesh-system
+</code></pre></li>
+<li><p>Run the following commands to create a custom label for the block devices under the <code>/dev/sdc</code> path in the Kubernetes cluster. <code>mountType</code> is the key of the label, and <code>dataStore</code> is the value of the label.</p>
+<pre><code class="hljs css language-shell">kubectl label blockdevice blockdevice-8b697bad8a194069fbfd544e6db2ddb8 mountType=dataStore -n iomesh-system
+kubectl label blockdevice blockdevice-a3579a64869f799a623d3be86dce7c59 mountType=dataStore -n iomesh-system
+</code></pre></li>
+</ol>
+<p>After the labels are created, the configuration of <code>deviceMap</code> is as follows:</p>
 <pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
   <span class="hljs-comment"># ...</span>
   <span class="hljs-attr">chunk:</span>
     <span class="hljs-comment"># ...</span>
     <span class="hljs-attr">deviceMap:</span>
-      <span class="hljs-attr">dataStoreWithJournal:</span>
+      <span class="hljs-attr">cacheWithJournal:</span>
         <span class="hljs-attr">selector:</span>
-          <span class="hljs-attr">matchLabels:</span>
-            <span class="hljs-attr">iomesh.com/bd-deviceType:</span> <span class="hljs-string">disk</span>
           <span class="hljs-attr">matchExpressions:</span>
-          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">iomesh.com/bd-driverType</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">mountType</span>
             <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
             <span class="hljs-attr">values:</span>
-            <span class="hljs-bullet">-</span> <span class="hljs-string">SSD</span>
-        <span class="hljs-attr">exclude:</span>
-        <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-097b6628acdcd83a2fc6a5fc9c301e01</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">cacheWithJournal</span>
+      <span class="hljs-attr">dataStore:</span>
+        <span class="hljs-attr">selector:</span>
+          <span class="hljs-attr">matchExpressions:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">mountType</span>
+            <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+            <span class="hljs-attr">values:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-string">dataStore</span>
     <span class="hljs-comment"># ...</span>
 </code></pre>
-<p>Once configured, block devices filtered out will be mounted on the IOMesh cluster.</p></li>
-<li><p>Verify that the <code>CLAIMSTATE</code> of the block devices you select becomes <code>Claimed</code>.</p>
-<pre><code class="hljs css language-bash">kubectl --namespace iomesh-system -o wide get blockdevice
+<p><strong>Example 3: All-Flash Configuration <code>deviceMap</code></strong></p>
+<p>In this example, all SSD disks in the Kubernetes cluster are used as <code>dataStoreWithJournal</code>. The block device <code>blockdevice-a6652946c90d5c3fca5ca452aac5b826</code> is excluded from the selection.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">spec:</span>
+<span class="hljs-comment"># ...</span>
+<span class="hljs-attr">chunk:</span>
+  <span class="hljs-comment"># ...</span>
+  <span class="hljs-attr">deviceMap:</span>
+    <span class="hljs-attr">dataStoreWithJournal:</span>
+      <span class="hljs-attr">selector:</span>
+        <span class="hljs-attr">matchLabels:</span>
+          <span class="hljs-attr">iomesh.com/bd-deviceType:</span> <span class="hljs-string">disk</span>
+        <span class="hljs-attr">matchExpressions:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">iomesh.com/bd-driverType</span>
+          <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+          <span class="hljs-attr">values:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-string">SSD</span>
+      <span class="hljs-attr">exclude:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">blockdevice-a6652946c90d5c3fca5ca452aac5b826</span>
+  <span class="hljs-comment"># ...</span>
 </code></pre>
-<p>If successful, you should see output like this:</p>
-<pre><code class="hljs css language-output">NAME                                           NODENAME             PATH         FSTYPE   SIZE           CLAIMSTATE   STATUS   AGE
-blockdevice<span class="hljs-number">-097</span>b6628acdcd83a2fc6a5fc9c301e01   kind-<span class="hljs-section">control</span>-plane   /dev/vdb1    ext4     <span class="hljs-number">107373116928</span>   Unclaimed    Active   <span class="hljs-number">11</span>m
-blockdevice<span class="hljs-number">-3</span>fa2e2cb7e49bc96f4ed09209644382e   kind-<span class="hljs-section">control</span>-plane   /dev/sda              <span class="hljs-number">9659464192</span>     Claimed      Active   <span class="hljs-number">11</span>m
-blockdevice-f4681681be66411f226d1b6a690270c0   kind-<span class="hljs-section">control</span>-plane   /dev/sdb              <span class="hljs-number">1073742336</span>     Claimed      Active   <span class="hljs-number">11</span>m
-</code></pre></li>
-</ol>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy-iomesh-cluster/install-iomesh"><span class="arrow-prev">← </span><span>Install IOMesh</span></a><a class="docs-next button" href="/next/deploy-iomesh-cluster/activate-license"><span>Activate License</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#view-block-device-objects">View Block Device Objects</a></li><li><a href="#configure-devicemap">Configure DeviceMap</a></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
+<p>Note that after the configuration is complete, any additional SSD or HDD disks added to the nodes later will be immediately managed by IOMesh. If you do not want this automatic management behavior, refer to <strong>Example 2: Hybrid Configuration <code>deviceMap</code></strong> for how to create a custom label for disks.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/next/deploy-iomesh-cluster/install-iomesh"><span class="arrow-prev">← </span><span>Install IOMesh</span></a><a class="docs-next button" href="/next/deploy-iomesh-cluster/activate-license"><span>Activate License</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#view-block-device-objects">View Block Device Objects</a></li><li><a href="#configure-devicemap">Configure DeviceMap</a></li><li><a href="#devicemap-examples">DeviceMap Examples</a></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

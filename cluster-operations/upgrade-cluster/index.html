@@ -64,7 +64,7 @@
 There might be temporary I/O latency fluctuations during the upgrade.</p>
 </blockquote>
 <p><strong>Procedure</strong></p>
-<div class="tabs"><div class="nav-tabs"><div id="tab-group-36-tab-37" class="nav-link active" data-group="group_36" data-tab="tab-group-36-content-37">Online Upgrade</div><div id="tab-group-36-tab-38" class="nav-link" data-group="group_36" data-tab="tab-group-36-content-38">Offline Upgrade</div></div><div class="tab-content"><div id="tab-group-36-content-37" class="tab-pane active" data-group="group_36" tabindex="-1"><div><span><ol>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-39-tab-40" class="nav-link active" data-group="group_39" data-tab="tab-group-39-content-40">Online Upgrade</div><div id="tab-group-39-tab-41" class="nav-link" data-group="group_39" data-tab="tab-group-39-content-41">Offline Upgrade</div></div><div class="tab-content"><div id="tab-group-39-content-40" class="tab-pane active" data-group="group_39" tabindex="-1"><div><span><ol>
 <li><p>Delete the default StorageClass.</p>
 <p>IOMesh 1.0.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.</p>
 <pre><code class="hljs css language-shell">kubectl delete sc iomesh-csi-driver<br /></code></pre></li>
@@ -81,7 +81,7 @@ There might be temporary I/O latency fluctuations during the upgrade.</p>
 <li><p>Verify that all pods are in <code>Running</code> state. If so, then IOMesh has been successfully upgraded.</p>
 <pre><code class="hljs css language-bash">watch kubectl get pod --namespace iomesh-system<br /></code></pre></li>
 </ol>
-</span></div></div><div id="tab-group-36-content-38" class="tab-pane" data-group="group_36" tabindex="-1"><div><span><ol>
+</span></div></div><div id="tab-group-39-content-41" class="tab-pane" data-group="group_39" tabindex="-1"><div><span><ol>
 <li><p>Delete the default StorageClass.</p>
 <p>IOMesh 1.0.0 has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.</p>
 <pre><code class="hljs css language-shell">kubectl delete sc iomesh-csi-driver<br /></code></pre></li>
