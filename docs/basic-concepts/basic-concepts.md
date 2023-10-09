@@ -32,7 +32,12 @@ The IOMesh block storage service for ensuring distributed system consistency and
 
 **Chunk**
 
-A module in IOMesh Block Storage that manages local disks, translates access protocols, and ensures data consistency. Only one chunk pod runs on each worker node.
+The chunk module within each IOMesh Block Storage component that manages local disks, translates access protocols, and ensures data consistency. A chunk pod is a pod on a worker node that provides storage services, and each worker node has one chunk pod.
+
+
+**Meta**
+
+The meta module within each IOMesh Block Storage component is responsible for managing metadata, including storage object management, data replication management, access control, and ensuring data consistency. A meta pod is a pod on a worker node that provides metadata management, and each worker node has one meta pod.
 
 **IOMesh CSI Driver**
 
@@ -41,6 +46,10 @@ The self-developed CSI driver that adheres to [the CSI standard](https://github.
 **IOMesh Operator**
 
 The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling up or down nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
+
+**IOMesh Node**
+
+A worker node in a Kubernetes cluster with a chunk pod installed.
 
 [**Namespace**](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
