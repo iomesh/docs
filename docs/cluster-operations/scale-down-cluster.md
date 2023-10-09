@@ -7,9 +7,8 @@ sidebar_label: Scale Down Cluster
 You can scale down the IOMesh cluster by removing chunk pods in the Kubernetes worker nodes.
 
 **Precautions**
-
+- You can only delete chunk pods. Deleting meta pods is not supported.
 - You can only remove one chunk pod at a time.
-  
 - Each chunk pod is uniquely numbered by `StatefulSet` when created, and you should remove them in reverse creation order. For example, if there are 5 chunk pods `iomesh-chunk-0`, `iomesh-chunk-1`, `iomesh-chunk-2`, `iomesh-chunk-3`, `iomesh-chunk-4`, deletion should start with `iomesh-chunk-4`.
 
 

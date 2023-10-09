@@ -4,7 +4,7 @@ title: Scale Up Cluster
 sidebar_label: Scale Up Cluster
 ---
 
-If you have the Enterprise Edition of IOMesh software, you can scale it up online without disrupting the cluster's operation. However, scaling up is not possible with the Community Edition, which limits the number of meta or chunk pods to three. During scaling, you can choose to add chunk pods, meta pods, or both simultaneously.
+If you have the Enterprise Edition of IOMesh software, you can scale it up online without disrupting the cluster's operation. However, scaling up is not possible with the Community Edition, which limits the number of meta or chunk pods to three. During scaling up, you can choose to add chunk pods, meta pods, or both simultaneously.
 
 **Prerequisite**
 
@@ -46,7 +46,7 @@ Ensure an adequate number of worker nodes in the Kubernetes cluster. Each worker
 
 2. Add meta pods. 
    
-	 When deploying IOMesh, three meta pods are created in the IOMesh cluster by default. If the number of IOMesh nodes in the Kubernetes cluster is equal to or greater than five, it's recommended to increase the number of meta pods from three to five. Note that the number of supported meta pods in the IOMesh cluster should be either be three or five.
+	 When deploying IOMesh, three meta pods are created in the IOMesh cluster by default. If the number of IOMesh nodes in the Kubernetes cluster is equal to or greater than five, it's recommended to increase the number of meta pods from three to five. Note that the number of supported meta pods in the IOMesh cluster should be either three or five.
 
    - Find `meta` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`.
 
