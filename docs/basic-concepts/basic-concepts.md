@@ -37,7 +37,7 @@ The chunk module within each IOMesh Block Storage component that manages local d
 
 **Meta**
 
-The meta module within each IOMesh Block Storage component is responsible for managing metadata, including storage object management, data replication management, access control, and ensuring data consistency. A meta pod is a pod on a worker node that provides metadata management, and each worker node has one meta pod.
+The meta module within each IOMesh Block Storage component for metadata management, including storage object management, data replication management, access control, and ensuring data consistency. A meta pod is a pod on a worker node that provides metadata management, and each worker node has one meta pod.
 
 **IOMesh CSI Driver**
 
@@ -49,7 +49,7 @@ The IOMesh automated operations and maintenance component, allowing for roll upd
 
 **IOMesh Node**
 
-A worker node in a Kubernetes cluster with a chunk pod installed.
+The worker node in a Kubernetes cluster with a chunk pod installed.
 
 [**Namespace**](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 

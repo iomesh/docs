@@ -14,7 +14,7 @@ Ensure an adequate number of worker nodes in the Kubernetes cluster. Each worker
 
 1. Add chunk pods.
   
-   >_NOTE_: A single IOMesh cluster should have a minimum of three chunk pods. The maximum number of chunk pods is determined jointly by the total number of worker nodes in the Kubernetes cluster and the node count specified in the IOMesh Enterprise Edition, with a maximum of 255.
+   >_NOTE_: A single IOMesh cluster should have a minimum of three chunk pods. The maximum number of chunk pods is determined jointly by the total number of worker nodes in the Kubernetes cluster and the node count specified in the IOMesh license, with a maximum of 255 for the Enterprise edition.
    
    To increase the capacity of the IOMesh cluster, follow these steps to add chunk pods:
 

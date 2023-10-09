@@ -4,7 +4,7 @@ title: Scale Down Cluster
 sidebar_label: Scale Down Cluster
 ---
 
-You can scale down the IOMesh cluster by removing chunk pods in the Kubernetes worker nodes, reducing the capacity of the IOMesh cluster.
+You can scale down the IOMesh cluster by removing chunk pods in the Kubernetes worker nodes.
 
 **Precautions**
 
