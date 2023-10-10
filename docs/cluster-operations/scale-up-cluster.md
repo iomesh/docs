@@ -4,7 +4,7 @@ title: Scale Up Cluster
 sidebar_label: Scale Up Cluster
 ---
 
-If you have the Enterprise Edition of IOMesh software, you can scale it up online without disrupting the cluster's operation. However, scaling up is not possible with the Community Edition, which limits the number of meta or chunk pods to three. During scaling up, you can choose to add chunk pods, meta pods, or both simultaneously.
+If you have the Enterprise Edition of IOMesh software, you can scale it up online without disrupting the cluster's operation. However, scaling up is not possible with the Community Edition, which limits the number of IOMesh nodes to three. During scaling up, you can choose to add chunk pods, meta pods, or both simultaneously.
 
 **Prerequisite**
 
