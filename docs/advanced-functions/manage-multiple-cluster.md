@@ -498,7 +498,7 @@ All of the following procedures are based on the example in [Deployment](#deploy
 
 ### Scaling Multiple Clusters
 
-There is no difference between scaling up one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale Cluster](../cluster-operations/scale-cluster).
+There is no difference between scaling out one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see [Scale Cluster](../cluster-operations/scale-cluster).
 
 ### Uninstall Multiple Clusters
 

@@ -18,7 +18,7 @@ Ensure an adequate number of worker nodes in the Kubernetes cluster. Each worker
    
    To increase the capacity of the IOMesh cluster, you can choose to add chunk pods by following these steps:
 
-   - Find `chunk` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`. The value of `replicaCount` is the total number of chunk pods after scaling up.
+   - Find `chunk` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`. The value of `replicaCount` is the total number of chunk pods after scaling out.
   
       ```yaml
       chunk:

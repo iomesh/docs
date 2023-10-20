@@ -49,7 +49,7 @@ The self-developed CSI driver that adheres to [the CSI standard](https://github.
 
 **IOMesh Operator**
 
-The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling up or down nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
+The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling out or down nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
 
 [**Namespace**](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
