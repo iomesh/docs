@@ -27,7 +27,7 @@
       "stateful-applications/iomesh-for-mongodb"
     ],
     "Cluster Operations": [
-      "cluster-operations/scale-up-cluster",
+      "cluster-operations/scale-out-cluster",
       "cluster-operations/scale-down-cluster",
       "cluster-operations/upgrade-cluster",
       "cluster-operations/uninstall-cluster",
