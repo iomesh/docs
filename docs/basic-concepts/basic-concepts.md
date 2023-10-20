@@ -30,14 +30,18 @@ Applications can be stateful or stateless. Stateful applications store data on p
 
 The IOMesh block storage service for ensuring distributed system consistency and data coherence, managing metadata and local disks, and implementing I/O redirection and high availability.
 
+**IOMesh Node**
+
+A worker node in the Kubernetes cluster with a chunk pod installed.
+
 **Chunk**
 
-The chunk module within each IOMesh Block Storage component that manages local disks, translates access protocols, and ensures data consistency. A chunk pod is a pod on a worker node that provides storage services, and each worker node has one chunk pod.
+The chunk module within each IOMesh Block Storage component that manages local disks, translates access protocols, and ensures data consistency. A chunk pod on a worker node provides storage services, and each worker node can only have one chunk pod.
 
 
 **Meta**
 
-The meta module within each IOMesh Block Storage component for metadata management, including storage object management, data replication management, access control, and ensuring data consistency. A meta pod is a pod on a worker node that provides metadata management, and each worker node has one meta pod.
+The meta module within each IOMesh Block Storage component for metadata management, including storage object management, data replica management, access control, and ensuring data consistency. A meta pod on a worker node provides metadata management, and each worker node can only have one meta pod.
 
 **IOMesh CSI Driver**
 
@@ -46,10 +50,6 @@ The self-developed CSI driver that adheres to [the CSI standard](https://github.
 **IOMesh Operator**
 
 The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling up or down nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.
-
-**IOMesh Node**
-
-The worker node in a Kubernetes cluster with a chunk pod installed.
 
 [**Namespace**](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
