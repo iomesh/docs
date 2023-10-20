@@ -1,0 +1,54 @@
+{
+  "version-v1.0.2-docs": {
+    "About IOMesh": [
+      "version-v1.0.2-introduction/introduction",
+      "version-v1.0.2-basic-concepts/basic-concepts"
+    ],
+    "Deploy IOMesh": [
+      "version-v1.0.2-deploy-iomesh-cluster/prerequisites",
+      "version-v1.0.2-deploy-iomesh-cluster/install-iomesh",
+      "version-v1.0.2-deploy-iomesh-cluster/setup-iomesh",
+      "version-v1.0.2-deploy-iomesh-cluster/activate-license"
+    ],
+    "Volume Operations": [
+      "version-v1.0.2-volume-operations/create-storageclass",
+      "version-v1.0.2-volume-operations/create-pv",
+      "version-v1.0.2-volume-operations/authenticate-pv",
+      "version-v1.0.2-volume-operations/expand-pv",
+      "version-v1.0.2-volume-operations/clone-pv"
+    ],
+    "VolumeSnapshot Operations": [
+      "version-v1.0.2-volumesnapshot-operations/create-snapshotclass",
+      "version-v1.0.2-volumesnapshot-operations/create-volumesnapshot",
+      "version-v1.0.2-volumesnapshot-operations/restore-volumesnapshot"
+    ],
+    "Deploy Stateful Applications": [
+      "version-v1.0.2-stateful-applications/iomesh-for-mysql",
+      "version-v1.0.2-stateful-applications/iomesh-for-mongodb"
+    ],
+    "Cluster Operations": [
+      "version-v1.0.2-cluster-operations/scale-out-cluster",
+      "version-v1.0.2-cluster-operations/scale-down-cluster",
+      "version-v1.0.2-cluster-operations/upgrade-cluster",
+      "version-v1.0.2-cluster-operations/uninstall-cluster",
+      "version-v1.0.2-cluster-operations/manage-license",
+      "version-v1.0.2-cluster-operations/replace-failed-disk"
+    ],
+    "Monitor IOMesh": [
+      "version-v1.0.2-monitor-iomesh/install-iomesh-dashboard",
+      "version-v1.0.2-monitor-iomesh/monitoring-iomesh"
+    ],
+    "Advanced Functions": [
+      "version-v1.0.2-advanced-functions/manage-multiple-cluster",
+      "version-v1.0.2-advanced-functions/localpv-manager",
+      "version-v1.0.2-advanced-functions/external-storage"
+    ],
+    "Appendices": [
+      "version-v1.0.2-appendices/release-notes",
+      "version-v1.0.2-appendices/downloads",
+      "version-v1.0.2-appendices/setup-worker-node",
+      "version-v1.0.2-appendices/iomesh-metrics",
+      "version-v1.0.2-appendices/faq"
+    ]
+  }
+}
