@@ -65,8 +65,8 @@
 <ol>
 <li>Run the corresponding command to export <code>iomesh.yaml</code>.</li>
 </ol>
-<div class="tabs"><div class="nav-tabs"><div id="tab-group-87-tab-88" class="nav-link active" data-group="group_87" data-tab="tab-group-87-content-88">Quick/Custom</div><div id="tab-group-87-tab-89" class="nav-link" data-group="group_87" data-tab="tab-group-87-content-89">Offline</div></div><div class="tab-content"><div id="tab-group-87-content-88" class="tab-pane active" data-group="group_87" tabindex="-1"><div><span><pre><code class="hljs css language-shell">helm -n iomesh-system get values iomesh -o yaml &gt; iomesh.yaml<br /></code></pre>
-</span></div></div><div id="tab-group-87-content-89" class="tab-pane" data-group="group_87" tabindex="-1"><div><span><pre><code class="hljs css language-shell">./helm -n iomesh-system get values iomesh -o yaml &gt; iomesh.yaml<br /></code></pre>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-125-tab-126" class="nav-link active" data-group="group_125" data-tab="tab-group-125-content-126">Quick/Custom</div><div id="tab-group-125-tab-127" class="nav-link" data-group="group_125" data-tab="tab-group-125-content-127">Offline</div></div><div class="tab-content"><div id="tab-group-125-content-126" class="tab-pane active" data-group="group_125" tabindex="-1"><div><span><pre><code class="hljs css language-shell">helm -n iomesh-system get values iomesh -o yaml &gt; iomesh.yaml<br /></code></pre>
+</span></div></div><div id="tab-group-125-content-127" class="tab-pane" data-group="group_125" tabindex="-1"><div><span><pre><code class="hljs css language-shell">./helm -n iomesh-system get values iomesh -o yaml &gt; iomesh.yaml<br /></code></pre>
 </span></div></div></div></div>
 <ol start="2">
 <li><p>In <code>iomesh.yaml</code>, configure <code>operator</code>, <code>iomesh</code>, and <code>blockdevice monitor</code>.</p>
@@ -142,8 +142,8 @@
 </code></pre></li>
 <li><p>Run the corresponding command to apply configurations according to your installation.</p></li>
 </ol>
-<div class="tabs"><div class="nav-tabs"><div id="tab-group-90-tab-91" class="nav-link active" data-group="group_90" data-tab="tab-group-90-content-91">Quick/Custom</div><div id="tab-group-90-tab-92" class="nav-link" data-group="group_90" data-tab="tab-group-90-content-92">Offline</div></div><div class="tab-content"><div id="tab-group-90-content-91" class="tab-pane active" data-group="group_90" tabindex="-1"><div><span><pre><code class="hljs css language-shell">helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml<br /></code></pre>
-</span></div></div><div id="tab-group-90-content-92" class="tab-pane" data-group="group_90" tabindex="-1"><div><span><pre><code class="hljs css language-shell">./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml<br /></code></pre>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-128-tab-129" class="nav-link active" data-group="group_128" data-tab="tab-group-128-content-129">Quick/Custom</div><div id="tab-group-128-tab-130" class="nav-link" data-group="group_128" data-tab="tab-group-128-content-130">Offline</div></div><div class="tab-content"><div id="tab-group-128-content-129" class="tab-pane active" data-group="group_128" tabindex="-1"><div><span><pre><code class="hljs css language-shell">helm -n iomesh-system upgrade iomesh iomesh/iomesh -f ./iomesh.yaml<br /></code></pre>
+</span></div></div><div id="tab-group-128-content-130" class="tab-pane" data-group="group_128" tabindex="-1"><div><span><pre><code class="hljs css language-shell">./helm -n iomesh-system upgrade iomesh charts/iomesh -f ./iomesh.yaml<br /></code></pre>
 </span></div></div></div></div>
 <ol start="4">
 <li><p>Verify that your configurations were applied.</p>
