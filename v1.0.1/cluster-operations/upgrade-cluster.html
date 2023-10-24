@@ -63,7 +63,7 @@
 <p><em>NOTE:</em> There might be temporary I/O latency fluctuations during the upgrade.</p>
 </blockquote>
 <h2><a class="anchor" aria-hidden="true" id="upgrade-from-0111-to-101"></a><a href="#upgrade-from-0111-to-101" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Upgrade from 0.11.1 to 1.0.1</h2>
-<div class="tabs"><div class="nav-tabs"><div id="tab-group-77-tab-78" class="nav-link active" data-group="group_77" data-tab="tab-group-77-content-78">Online Upgrade</div><div id="tab-group-77-tab-79" class="nav-link" data-group="group_77" data-tab="tab-group-77-content-79">Offline Upgrade</div></div><div class="tab-content"><div id="tab-group-77-content-78" class="tab-pane active" data-group="group_77" tabindex="-1"><div><span><ol>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-115-tab-116" class="nav-link active" data-group="group_115" data-tab="tab-group-115-content-116">Online Upgrade</div><div id="tab-group-115-tab-117" class="nav-link" data-group="group_115" data-tab="tab-group-115-content-117">Offline Upgrade</div></div><div class="tab-content"><div id="tab-group-115-content-116" class="tab-pane active" data-group="group_115" tabindex="-1"><div><span><ol>
 <li><p>Delete the default StorageClass.</p>
 <p>This release of IOMesh has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.</p>
 <pre><code class="hljs css language-shell">kubectl delete sc iomesh-csi-driver<br /></code></pre></li>
@@ -80,7 +80,7 @@
 <li><p>Verify that all pods are in <code>Running</code> state. If so, then IOMesh has been successfully upgraded.</p>
 <pre><code class="hljs css language-bash">watch kubectl get pod --namespace iomesh-system<br /></code></pre></li>
 </ol>
-</span></div></div><div id="tab-group-77-content-79" class="tab-pane" data-group="group_77" tabindex="-1"><div><span><ol>
+</span></div></div><div id="tab-group-115-content-117" class="tab-pane" data-group="group_115" tabindex="-1"><div><span><ol>
 <li><p>Delete the default StorageClass.</p>
 <p>This release of IOMesh has a different default StorageClass with updated parameters compared to the previous version. You just need to delete the old one and any PVC using it will not be impacted.</p>
 <pre><code class="hljs css language-shell">kubectl delete sc iomesh-csi-driver<br /></code></pre></li>
@@ -105,7 +105,7 @@
 </ol>
 </span></div></div></div></div>
 <h2><a class="anchor" aria-hidden="true" id="upgrade-from-100-to-101"></a><a href="#upgrade-from-100-to-101" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Upgrade from 1.0.0 to 1.0.1</h2>
-<div class="tabs"><div class="nav-tabs"><div id="tab-group-80-tab-81" class="nav-link active" data-group="group_80" data-tab="tab-group-80-content-81">Online Upgrade</div><div id="tab-group-80-tab-82" class="nav-link" data-group="group_80" data-tab="tab-group-80-content-82">Offline Upgrade</div></div><div class="tab-content"><div id="tab-group-80-content-81" class="tab-pane active" data-group="group_80" tabindex="-1"><div><span><ol>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-118-tab-119" class="nav-link active" data-group="group_118" data-tab="tab-group-118-content-119">Online Upgrade</div><div id="tab-group-118-tab-120" class="nav-link" data-group="group_118" data-tab="tab-group-118-content-120">Offline Upgrade</div></div><div class="tab-content"><div id="tab-group-118-content-119" class="tab-pane active" data-group="group_118" tabindex="-1"><div><span><ol>
 <li><p>Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be automatically enabled again.</p>
 <pre><code class="hljs css language-shell">kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration<br /></code></pre></li>
 <li><p>Upgrade the IOMesh cluster, which will keep existing fields and values. Then wait for a few minutes till all pods are running.</p>
@@ -113,7 +113,7 @@
 <li><p>Verify that all pods are in <code>Running</code> state. If so, then IOMesh has been successfully upgraded.</p>
 <pre><code class="hljs css language-bash">watch kubectl get pod --namespace iomesh-system<br /></code></pre></li>
 </ol>
-</span></div></div><div id="tab-group-80-content-82" class="tab-pane" data-group="group_80" tabindex="-1"><div><span><ol>
+</span></div></div><div id="tab-group-118-content-120" class="tab-pane" data-group="group_118" tabindex="-1"><div><span><ol>
 <li><p>Temporarily disable IOMesh Webhook to avoid upgrade failure. Once the upgrade is successful, it will be automatically enabled again.</p>
 <pre><code class="hljs css language-shell">kubectl delete Validatingwebhookconfigurations iomesh-validating-webhook-configuration<br /></code></pre></li>
 <li><p>Download <a href="../appendices/downloads">IOMesh Offline Installation Package</a> on each worker node and the master node. Then run the following command to unpack the installation package on each worker node and the master node.</p>

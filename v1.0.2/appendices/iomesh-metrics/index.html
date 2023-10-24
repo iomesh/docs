@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Monitoring Metrics · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the cluster, chunk or volume level."/><meta name="docsearch:version" content="v1.0.2"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Monitoring Metrics · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the cluster, chunk or volume level."/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.2</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Appendices</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/volume-operations/authenticate-pv">Create PV with Authentication</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/cluster-operations/scale-out-cluster">Scale Out Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/cluster-operations/scale-down-cluster">Scale Down Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.2/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/appendices/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/v1.0.2/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/v1.0.2/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Monitoring Metrics</h1></header><article><div><span><p>IOMesh provides Prometheus format metrics for monitoring IOMesh storage at the cluster, chunk or volume level.</p>
+<h2><a class="anchor" aria-hidden="true" id="cluster-metrics"></a><a href="#cluster-metrics" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cluster Metrics</h2>
+<p><strong>Cluster License</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_license_already_expire</code></td><td>Shows if the license expires.</td></tr>
+<tr><td><code>zbs_cluster_license_expire_day</code></td><td>Shows the date when the license expires.</td></tr>
+<tr><td><code>zbs_cluster_license_subscription_expire_day</code></td><td>Shows the date when the subscription license expires.</td></tr>
+<tr><td><code>zbs_cluster_license_subscription_already_expire</code></td><td>Shows if the subscription license expires.</td></tr>
+</tbody>
+</table>
+<p><strong>Cluster IO</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_read_iops</code></td><td>Read IOPS.</td></tr>
+<tr><td><code>zbs_cluster_readwrite_iops</code></td><td>Read write IOPS.</td></tr>
+<tr><td><code>zbs_cluster_write_iops</code></td><td>Write IOPS.</td></tr>
+<tr><td><code>zbs_cluster_read_speed_bps</code></td><td>Read speed.</td></tr>
+<tr><td><code>zbs_cluster_write_speed_bps</code></td><td>Write speed.</td></tr>
+<tr><td><code>zbs_cluster_readwrite_speed_bps</code></td><td>Read write speed.</td></tr>
+<tr><td><code>zbs_cluster_avg_readwrite_latency_ns</code></td><td>Average read write latency.</td></tr>
+<tr><td><code>zbs_cluster_avg_write_latency_ns</code></td><td>Average write latency.</td></tr>
+<tr><td><code>zbs_cluster_avg_read_latency_ns</code></td><td>Average read latency.</td></tr>
+<tr><td><code>zbs_cluster_avg_write_size_bytes</code></td><td>Average write request size.</td></tr>
+<tr><td><code>zbs_cluster_avg_read_size_bytes</code></td><td>Average read request size.</td></tr>
+<tr><td><code>zbs_cluster_avg_readwrite_size_bytes</code></td><td>Average read write request size.</td></tr>
+</tbody>
+</table>
+<p><strong>Cluster Cache</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_write_cache_hit_ratio</code></td><td>Write cache hit ratio.</td></tr>
+<tr><td><code>zbs_cluster_failure_cache_space_bytes</code></td><td>The amount of failed cache space.</td></tr>
+<tr><td><code>zbs_cluster_cache_capacity_bytes</code></td><td>Total cache space.</td></tr>
+<tr><td><code>zbs_cluster_dirty_cache_space_bytes</code></td><td>Dirty cache space.</td></tr>
+<tr><td><code>zbs_cluster_readwrite_cache_hit_ratio</code></td><td>Read write cache hit ratio.</td></tr>
+<tr><td><code>zbs_cluster_used_cache_space_bytes</code></td><td>Used cache space.</td></tr>
+<tr><td><code>zbs_cluster_valid_cache_space_bytes</code></td><td>Valid cache space.</td></tr>
+<tr><td><code>zbs_cluster_dirty_cache_ratio</code></td><td>Dirty cache ratio.</td></tr>
+<tr><td><code>zbs_cluster_read_cache_hit_ratio</code></td><td>Read cache hit ratio.</td></tr>
+</tbody>
+</table>
+<p><strong>Cluster Space Size</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_data_capacity_bytes</code></td><td>The total data capacity.</td></tr>
+<tr><td><code>zbs_cluster_data_space_use_rate</code></td><td>Max(provisioned space, used space)/valid data space.</td></tr>
+<tr><td><code>zbs_cluster_unique_logical_size_bytes</code></td><td>Logical size dedicated to specific volumes.</td></tr>
+<tr><td><code>zbs_cluster_shared_logical_size_bytes</code></td><td>Shared logical size.</td></tr>
+<tr><td><code>zbs_cluster_logical_size_bytes</code></td><td>Total logical size.</td></tr>
+<tr><td><code>zbs_cluster_valid_data_space_bytes</code></td><td>Valid data space.</td></tr>
+<tr><td><code>zbs_cluster_used_data_space_bytes</code></td><td>The size of used data space.</td></tr>
+<tr><td><code>zbs_cluster_failure_data_space_bytes</code></td><td>The size of failed data space.</td></tr>
+<tr><td><code>zbs_cluster_provisioned_data_space_bytes</code></td><td>The size of provisioned data space.</td></tr>
+<tr><td><code>zbs_cluster_chunks_unsafe_failure_space</code></td><td>Shows if space used by chunks is larger than the unused space in the cluster.</td></tr>
+<tr><td><code>zbs_cluster_temporary_replica_space_bytes</code></td><td>Space consumed by temporary replicas in the cluster.</td></tr>
+<tr><td><code>zbs_cluster_temporary_replica_num</code></td><td>Number of temporary replicas in the cluster.</td></tr>
+</tbody>
+</table>
+<p><strong>Cluster Migration &amp; Recovery</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_cluster_pending_migrate_bytes</code></td><td>The total amount of data to be migrated.</td></tr>
+<tr><td><code>zbs_cluster_pending_recover_bytes</code></td><td>The total amount of data to be recovered.</td></tr>
+<tr><td><code>zbs_cluster_migrate_speed_bps</code></td><td>Migration speed.</td></tr>
+<tr><td><code>zbs_cluster_recover_speed_bps</code></td><td>Recovery speed.</td></tr>
+<tr><td><code>zbs_cluster_recover_migrate_speed_bps</code></td><td>Recovery &amp; migration speed.</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="chunk-metrics"></a><a href="#chunk-metrics" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Chunk Metrics</h2>
+<p><strong>Chunk Status</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_use_state</code></td><td>Chunk use state.</td></tr>
+<tr><td><code>zbs_chunk_connect_status</code></td><td>Chunk connection status.</td></tr>
+<tr><td><code>zbs_chunk_maintenance_mode</code></td><td>Shows if chunk is in maintenance mode.</td></tr>
+</tbody>
+</table>
+<p><strong>Chunk IO</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_read_iops</code></td><td>Read IOPS.</td></tr>
+<tr><td><code>zbs_chunk_read_speed_bps</code></td><td>Read speed.</td></tr>
+<tr><td><code>zbs_chunk_avg_read_size_bytes</code></td><td>Average read request size.</td></tr>
+<tr><td><code>zbs_chunk_avg_read_latency_ns</code></td><td>Average read latency.</td></tr>
+<tr><td><code>zbs_chunk_write_iops</code></td><td>Write IOPS.</td></tr>
+<tr><td><code>zbs_chunk_write_speed_bps</code></td><td>Write speed.</td></tr>
+<tr><td><code>zbs_chunk_avg_write_size_bytes</code></td><td>Average write request size.</td></tr>
+<tr><td><code>zbs_chunk_avg_write_latency_ns</code></td><td>Average write latency.</td></tr>
+<tr><td><code>zbs_chunk_readwrite_iops</code></td><td>Read write IOPS.</td></tr>
+<tr><td><code>zbs_chunk_readwrite_speed_bps</code></td><td>Read write speed.</td></tr>
+<tr><td><code>zbs_chunk_avg_readwrite_size_bytes</code></td><td>Average read write request size.</td></tr>
+<tr><td><code>zbs_chunk_avg_readwrite_latency_ns</code></td><td>Average read write latency.</td></tr>
+</tbody>
+</table>
+<p><strong>Chunk Cache Space</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_used_cache_space_bytes</code></td><td>The amount of used cache space.</td></tr>
+<tr><td><code>zbs_chunk_cache_capacity_bytes</code></td><td>The total amount of cache space.</td></tr>
+<tr><td><code>zbs_chunk_read_cache_hit_ratio</code></td><td>Read cache hit ratio.</td></tr>
+<tr><td><code>zbs_chunk_write_cache_hit_ratio</code></td><td>Write cache hit ratio.</td></tr>
+<tr><td><code>zbs_chunk_readwrite_cache_hit_ratio</code></td><td>Read write cache hit ratio.</td></tr>
+<tr><td><code>zbs_chunk_dirty_cache_ratio</code></td><td>Dirty cache ratio.</td></tr>
+<tr><td><code>zbs_chunk_dirty_cache_space_bytes</code></td><td>The amount of dirty cache space.</td></tr>
+<tr><td><code>zbs_chunk_valid_cache_space_bytes</code></td><td>The amount of valid cache space.</td></tr>
+<tr><td><code>zbs_chunk_failure_cache_space_bytes</code></td><td>The amount of failed cache space.</td></tr>
+</tbody>
+</table>
+<p><strong>Chunk Data Space</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_used_data_space_bytes</code></td><td>The amount of used data space.</td></tr>
+<tr><td><code>zbs_chunk_data_capacity_bytes</code></td><td>The total amount of data space.</td></tr>
+<tr><td><code>zbs_chunk_provisioned_data_space_bytes</code></td><td>The amount of provisioned data space.</td></tr>
+<tr><td><code>zbs_chunk_data_space_use_rate</code></td><td>Max(provisioned space, used space)/valid data space.</td></tr>
+<tr><td><code>zbs_chunk_valid_data_space_bytes</code></td><td>The amount of valid data space.</td></tr>
+<tr><td><code>zbs_chunk_failure_data_space_bytes</code></td><td>The amount of failed data space.</td></tr>
+</tbody>
+</table>
+<p><strong>Chunk Temporary Replica</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_temporary_replica_space_bytes</code></td><td>Space used by temporary replicas.</td></tr>
+<tr><td><code>zbs_chunk_temporary_replica_num</code></td><td>The number of temporary replicas.</td></tr>
+</tbody>
+</table>
+<p><strong>Chunk Migration &amp; Recovery</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_chunk_pending_migrate_bytes</code></td><td>The total amount of data to be migrated.</td></tr>
+<tr><td><code>zbs_chunk_pending_recover_bytes</code></td><td>The total amount of data to be recovered.</td></tr>
+<tr><td><code>zbs_chunk_recover_speed_bps</code></td><td>Recovery speed</td></tr>
+<tr><td><code>zbs_chunk_migrate_speed_bps</code></td><td>Migration speed.</td></tr>
+<tr><td><code>zbs_chunk_recover_migrate_speed_bps</code></td><td>Recovery &amp; migration speed.</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="volume-metrics"></a><a href="#volume-metrics" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Volume Metrics</h2>
+<p><strong>Volume Space</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_volume_shared_logical_size_bytes</code></td><td>Shared logical size.</td></tr>
+<tr><td><code>zbs_volume_unique_logical_size_bytes</code></td><td>Logical size dedicated to a specific volume.</td></tr>
+<tr><td><code>zbs_volume_logical_size_bytes</code></td><td>Total logical size.</td></tr>
+</tbody>
+</table>
+<p><strong>Volume IO</strong></p>
+<table>
+<thead>
+<tr><th>Metrics</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>zbs_volume_readwrite_latency_ns</code></td><td>Read write latency.</td></tr>
+<tr><td><code>zbs_volume_readwrite_speed_bps</code></td><td>Read write speed.</td></tr>
+<tr><td><code>zbs_volume_readwrite_size_bytes</code></td><td>Read write size.</td></tr>
+<tr><td><code>zbs_volume_readwrite_iops</code></td><td>Read write IOPS.</td></tr>
+<tr><td><code>zbs_volume_readwrite_iop30s</code></td><td>Read write IOPS at a interval of 30 seconds.</td></tr>
+<tr><td><code>zbs_volume_read_latency_ns</code></td><td>Read latency.</td></tr>
+<tr><td><code>zbs_volume_read_speed_bps</code></td><td>Read speed.</td></tr>
+<tr><td><code>zbs_volume_read_size_bytes</code></td><td>Read size.</td></tr>
+<tr><td><code>zbs_volume_read_iops</code></td><td>Read IOPS.</td></tr>
+<tr><td><code>zbs_volume_write_latency_ns</code></td><td>Write latency.</td></tr>
+<tr><td><code>zbs_volume_write_speed_bps</code></td><td>Write speed.</td></tr>
+<tr><td><code>zbs_volume_write_size_bytes</code></td><td>Write size.</td></tr>
+<tr><td><code>zbs_volume_write_iops</code></td><td>Write IOPS.</td></tr>
+<tr><td><code>zbs_volume_avg_iodepth</code></td><td>Average IO depth.</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/v1.0.2/appendices/setup-worker-node"><span class="arrow-prev">← </span><span>Set Up Worker Node</span></a><a class="docs-next button" href="/v1.0.2/appendices/faq"><span>FAQ</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#cluster-metrics">Cluster Metrics</a></li><li><a href="#chunk-metrics">Chunk Metrics</a></li><li><a href="#volume-metrics">Volume Metrics</a></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

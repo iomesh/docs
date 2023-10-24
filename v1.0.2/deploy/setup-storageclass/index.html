@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Setup StorageClass · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The parameters of IOMesh storage class are:"/><meta name="docsearch:version" content="v1.0.2"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Setup StorageClass · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="The parameters of IOMesh storage class are:"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.2</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Setup StorageClass</h1></header><article><div><span><p>The parameters of IOMesh storage class are:</p>
+<table>
+<thead>
+<tr><th>Parameter</th><th>Value</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>csi.storage.k8s.io/fstype</td><td>&quot;xfs&quot;, &quot;ext2&quot;, &quot;ext3&quot;, &quot;ext4&quot;</td><td>&quot;ext4&quot;</td><td>volume File system type</td></tr>
+<tr><td>replicaFactor</td><td>&quot;2&quot;, &quot;3&quot;</td><td>&quot;2&quot;</td><td>replica factor</td></tr>
+<tr><td>thinProvision</td><td>&quot;true&quot;, &quot;false&quot;</td><td>&quot;true&quot;</td><td>thin provision or thick provision.</td></tr>
+</tbody>
+</table>
+<p>After IOMesh CSI driver was installed, a default StorageClass <code>iomesh-csi-driver</code> would be created. You may also create a new StorageClass with customized parameters:</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-csi-driver-default</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.csi-driver</span> <span class="hljs-comment"># &lt;-- driver.name in iomesh-values.yaml</span>
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Retain</span>
+<span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-comment"># "ext4" / "ext3" / "ext2" / "xfs"</span>
+  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">"ext4"</span>
+  <span class="hljs-comment"># "2" / "3"</span>
+  <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"2"</span>
+  <span class="hljs-comment"># "true" / "false"</span>
+  <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">Immediate</span>
+</code></pre>
+<blockquote>
+<p><em>About the <code>reclaimPolicy</code></em></p>
+<p>The <code>reclaimPolicy</code> attribute of <code>StorageClass</code> can have two values of <code>Retain</code> and <code>Delete</code>, and the default is <code>Delete</code>. When a <code>PV</code> is created through <code>StorageClass</code>, its <code>persistentVolumeReclaimPolicy</code> attribute will inherit the <code>reclaimpolicy</code> attribute from <code>StorageClass</code>. You can also modify the value of <code>persistentVolumeReclaimPolicy</code> manually.</p>
+<p>The value of <code>reclaimPolicy</code> in the example is <code>Retain</code>, which means that, if you delete a <code>PVC</code>, the <code>PV</code> under the <code>PVC</code> will not be deleted, but will enter the <code>Released</code> state. Please note that, if you delete the <code>PV</code>, the corresponding IOMesh volume will not be deleted, instead, you need to change the value of <code>persistentVolumeReclaimPolicy</code> of the <code>PV</code> to <code>Delete</code> and then delete the <code>PV</code>. Or before creating a <code>PV</code>, you can set the value of <code>reclaimpolicy</code> of <code>StorageClass</code>  to <code>Delete</code> so that all the resources will be released in cascade.</p>
+</blockquote>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
