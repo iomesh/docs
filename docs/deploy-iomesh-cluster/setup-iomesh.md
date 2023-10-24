@@ -120,7 +120,7 @@ For more information, refer to [Kubernetes Labels and Selectors](https://kuberne
               matchExpressions:
               - key: <label-key> 
                 operator: In
-                Values:
+                values:
                 - <label-value>
             exclude:
             - <block-device-name> # Enter the block device name to exclude it.
