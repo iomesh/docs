@@ -4,7 +4,7 @@ title: Replace Disk
 sidebar_label: Replace Disk
 ---
 
-You can see the health status of physical disks on the IOMesh Dashboard. If any disk is in `Unhealthy`, `Failing`, or `S.M.A.R.T not passed` state, you need to replace it with a new disk as soon as possible.
+The IOMesh Dashboard displays the health status of physical disks for easy monitoring. If any disk is indicated as `Unhealthy`, `Failing`, or `S.M.A.R.T not passed`, you should replace it with a new disk as soon as possible.
 
 **Procedure**
 
@@ -23,7 +23,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
 
 3. Run the following command multiple times to verify that there are no ongoing migration or recovery tasks in the cluster. 
 
-    Ensure that the output value is 0. If there is a field that is not 0, you need to wait for it to become 0.
+    Ensure that the output value is 0. If any field has a non-zero value, you should wait for it to reach 0.
 
     ```shell
     /opt/iomesh/iomeshctl summary cluster | egrep "recovers|migrates" 
@@ -49,7 +49,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
         pending_recovers_bytes: 0
     ```
 
-4. View the disk that needs to be replaced. Assume the disk `blockdevice-66312cce9037ae891a099ad83f44d7c9` needs to be replaced.
+4. View the disk that requires replacement. In the given example, let's assume that the disk `blockdevice-66312cce9037ae891a099ad83f44d7c9` needs to be replaced.
     ```shell
     kubectl --namespace iomesh-system get bd -o wide
     ```
@@ -84,9 +84,9 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
       # ...
     ```
 
-6. Repeat Step 2 and 3 to verify that there are no ongoing migration or recovery tasks for the cluster. 
+6. Repeat Step 2 and 3 to verify that there are no ongoing migration or recovery tasks in the cluster. 
 
-7. Verify that the block device is in `Unclaimed` state.
+7. Verify that the block device is in the `Unclaimed` state.
     ```shell
     kubectl get bd blockdevice-66312cce9037ae891a099ad83f44d7c9 -n iomesh-system
     ```
@@ -95,7 +95,7 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
     blockdevice-66312cce9037ae891a099ad83f44d7c9   qtest-k8s-1   /dev/sdc            69793218560   Unclaimed     Active  44h
     ```
 
-8. Unplug the disk. Then the disk will enter `Inactive` state. 
+8. Unplug the disk. Then the disk will enter the `Inactive` state. 
 
    Run the following commands simultaneously to remove the block device and its corresponding `blockdeviceclaim`. 
 
@@ -107,5 +107,5 @@ You can see the health status of physical disks on the IOMesh Dashboard. If any 
     kubectl delete bdc blockdevice-66312cce9037ae891a099ad83f44d7c9 -n iomesh-system
     kubectl delete bd blockdevice-66312cce9037ae891a099ad83f44d7c9 -n iomesh-system
     ```
-9. Plug the new disk. Refer to [Set Up IOMesh](../deploy-iomesh-cluster/setup-iomesh) to mount it to the IOMesh cluster.
+9. Plug the new disk. Refer to [Set Up IOMesh](../deploy-iomesh-cluster/setup-iomesh) for mounting steps.
 
