@@ -74,7 +74,7 @@
 <p><strong>Meta</strong></p>
 <p>The meta module within each IOMesh Block Storage component for metadata management, including storage object management, data replica management, access control, and ensuring data consistency. A meta pod on a worker node provides metadata management, and each worker node can only have one meta pod.</p>
 <p><strong>IOMesh CSI Driver</strong></p>
-<p>The self-developed CSI driver that adheres to <a href="https://github.com/container-storage-interface/spec/blob/master/spec.md">the CSI standard</a> and utilizes RPC (Remote Procedure Call)  to manage persistent volumes, delivering reliable and consistent storage for data applications on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in the IOMesh cluster.</p>
+<p>The CSI driver that adheres to <a href="https://github.com/container-storage-interface/spec/blob/master/spec.md">the CSI standard</a> and utilizes RPC (Remote Procedure Call) to manage persistent volumes, delivering reliable and consistent storage for data applications on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in the IOMesh cluster.</p>
 <p><strong>IOMesh Operator</strong></p>
 <p>The IOMesh automated operations and maintenance component, allowing for roll updating IOMesh, scaling out or down nodes, and GitOps while being responsible for automatic discovery, allocation, and management of block devices.</p>
 <p><a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/"><strong>Namespace</strong></a></p>

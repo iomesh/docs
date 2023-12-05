@@ -126,7 +126,7 @@ The status of a block device will only be updated when the disk is plugged or un
 </thead>
 <tbody>
 <tr><td><code>hybridFlash</code></td><td>Must configure <code>cacheWithJournal</code> and <code>dataStore</code>.  <ur><li><code>cacheWithJournal</code> serves the performance layer of storage pool and <strong>MUST</strong> be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for journal and the other for cache. Either SATA or NVMe SSD is recommended.</li><li><code>dataStore</code> is used for the capacity layer of storage pool. Either SATA or SAS HDD is recommended.</li></ur></td></tr>
-<tr><td><code>allflash</code></td><td><p>Only need to configure <code>dataStoreWithJournal</code>. </p> <code>dataStoreWithJournal</code> is used for the capacity layer of storage pool. It <strong>MUST</strong> be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for <code>journal</code> and the other for <code>dataStore</code>. Either SATA or NVMe SSD is recommended.</td></tr>
+<tr><td><code>allFlash</code></td><td><p>Only need to configure <code>dataStoreWithJournal</code>. </p> <code>dataStoreWithJournal</code> is used for the capacity layer of storage pool. It <strong>MUST</strong> be a partitionable block device with a capacity greater than 60 GB. Two partitions will be created: one for <code>journal</code> and the other for <code>dataStore</code>. Either SATA or NVMe SSD is recommended.</td></tr>
 </tbody>
 </table>
 <p><strong>Device Selector</strong></p>
