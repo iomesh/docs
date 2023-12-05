@@ -321,7 +321,7 @@ Make sure the CPU architecture of your Kubernetes cluster is Intel x86_64, Hygon
 
     - An optional step. Configure the `podDeletePolicy` field to determine whether the system should automatically delete the pod and rebuild it on another healthy node when the Kubernetes node that hosts the pod fails.  This configuration applies only to the pod with an IOMesh-created PVC mounted and the access mode set to `ReadWriteOnly`.
     
-      If left unspecified, the value of this field will be set to `no-delete-pod` by default,  indicating that the system won't automatically delete and rebuild the pod in case of node failure.
+      If left unspecified, the value of this field will be set to `no-delete-pod` by default, indicating that the system won't automatically delete and rebuild the pod in case of node failure.
       ```yaml
       csi-driver:
         driver:
