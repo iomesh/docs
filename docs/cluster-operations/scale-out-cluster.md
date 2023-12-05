@@ -4,7 +4,7 @@ title: Scale Out Cluster
 sidebar_label: Scale Out Cluster
 ---
 
-If you have the IOMesh Enterprise edition, you can scaling out the cluster online without interrupting its operation. However, scaling out is not possible with the Community edition that only allows a maximum of three meta or chunk pods. When scaling out the cluster, you can choose to add chunk pods, meta pods, or both at the same time.
+If you have the IOMesh Enterprise edition, you can scale out the cluster online without interrupting its operation. However, scaling out is not possible with the Community edition that only allows a maximum of three meta or chunk pods. When scaling out the cluster, you can choose to add chunk pods, meta pods, or both at the same time.
 
 **Prerequisite**
 
