@@ -62,7 +62,7 @@
 <li>For IOMesh deployed in <a href="https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer">LoadBalancer-supported cloud environments</a>, see <code>In-Tree LoadBalancer</code>.</li>
 <li>For IOMesh deployed on bare metal or other LoadBalancer-not-supported cloud environments, see <code>Out-of-Tree LoadBalancer</code>.</li>
 </ul>
-<div class="tabs"><div class="nav-tabs"><div id="tab-group-150-tab-151" class="nav-link active" data-group="group_150" data-tab="tab-group-150-content-151">In-Tree LoadBalancer</div><div id="tab-group-150-tab-152" class="nav-link" data-group="group_150" data-tab="tab-group-150-content-152">Out-of-Tree LoadBalancer</div></div><div class="tab-content"><div id="tab-group-150-content-151" class="tab-pane active" data-group="group_150" tabindex="-1"><div><span><p>If IOMesh is deployed in a cloud environment that supports <code>LoadBalancer</code>, Kubernetes will automatically call the API of the cloud provider and assign an external IP to <code>iomesh-access</code> service.</p>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-188-tab-189" class="nav-link active" data-group="group_188" data-tab="tab-group-188-content-189">In-Tree LoadBalancer</div><div id="tab-group-188-tab-190" class="nav-link" data-group="group_188" data-tab="tab-group-188-content-190">Out-of-Tree LoadBalancer</div></div><div class="tab-content"><div id="tab-group-188-content-189" class="tab-pane active" data-group="group_188" tabindex="-1"><div><span><p>If IOMesh is deployed in a cloud environment that supports <code>LoadBalancer</code>, Kubernetes will automatically call the API of the cloud provider and assign an external IP to <code>iomesh-access</code> service.</p>
 <ol>
 <li><p>Check the status of <code>iomesh-access</code> service, ensuring it has been assigned an external IP.</p>
 <pre><code class="hljs css language-bash">kubectl get service iomesh-access -n iomesh-system<br /></code></pre>
@@ -74,7 +74,7 @@
 </blockquote></li>
 <li><p>An optional step. To use storage from one more IOMesh cluster, run the <code>kubectl edit</code> command to set the <code>spec.redirector.iscsiVirtualIP</code> field in its YAML file to the external IP of the <code>iomesh-access</code> service.</p></li>
 </ol>
-</span></div></div><div id="tab-group-150-content-152" class="tab-pane" data-group="group_150" tabindex="-1"><div><span><p>In case IOMesh is deployed on bare metal or any cloud environment that does not support Kubernetes <code>LoadBalancer</code>, you will need to install <code>MetallLB</code> as the default <code>LocalBalancer</code> in the Kubernetes cluster.</p>
+</span></div></div><div id="tab-group-188-content-190" class="tab-pane" data-group="group_188" tabindex="-1"><div><span><p>In case IOMesh is deployed on bare metal or any cloud environment that does not support Kubernetes <code>LoadBalancer</code>, you will need to install <code>MetallLB</code> as the default <code>LocalBalancer</code> in the Kubernetes cluster.</p>
 <ol>
 <li><p>Verify that the Kubernetes cluster meets <a href="https://metallb.universe.tf/installation/#preparation">the <code>MetalLB</code> installation requirements</a>.</p></li>
 <li><p>Install <code>MetalLB</code>.</p>

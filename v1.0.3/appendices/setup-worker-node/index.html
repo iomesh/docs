@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Set Up Worker Node · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Before setting up `open-iscsi` for the worker nodes, ensure all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites) are met."/><meta name="docsearch:version" content="v1.0.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Set Up Worker Node · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="Before setting up `open-iscsi` for the worker nodes, ensure all requirements in [Prerequisites](../deploy-iomesh-cluster/prerequisites) are met."/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/add-tracker.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Appendices</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/authenticate-pv">Create PV with Authentication</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/scale-out-cluster">Scale Out Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/scale-down-cluster">Scale Down Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/downloads">Downloads</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/v1.0.3/appendices/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Set Up Worker Node</h1></header><article><div><span><p>Before setting up <code>open-iscsi</code> for the worker nodes, ensure all requirements in <a href="../deploy-iomesh-cluster/prerequisites">Prerequisites</a> are met.</p>
+<ol>
+<li>On the node console, run the following command to install <code>open-iscsi</code>.</li>
+</ol>
+<div class="tabs"><div class="nav-tabs"><div id="tab-group-96-tab-97" class="nav-link active" data-group="group_96" data-tab="tab-group-96-content-97">RHEL/CentOS</div><div id="tab-group-96-tab-98" class="nav-link" data-group="group_96" data-tab="tab-group-96-content-98">Ubuntu</div></div><div class="tab-content"><div id="tab-group-96-content-97" class="tab-pane active" data-group="group_96" tabindex="-1"><div><span><pre><code class="hljs css language-shell">sudo yum install iscsi-initiator-utils -y<br /></code></pre>
+</span></div></div><div id="tab-group-96-content-98" class="tab-pane" data-group="group_96" tabindex="-1"><div><span><pre><code class="hljs css language-shell">sudo apt-get install open-iscsi -y<br /></code></pre>
+</span></div></div></div></div>
+<ol start="2">
+<li><p>Edit the file <code>/etc/iscsi/iscsid.conf</code>. Set the value of the field <code>node.startup</code> to <code>manual</code>.</p>
+<pre><code class="hljs css language-shell">sudo sed -i 's/^node.startup = automatic$/node.startup = manual/' /etc/iscsi/iscsid.conf
+</code></pre>
+<blockquote>
+<p><em>Note:</em>
+The value of <code>MaxRecvDataSegmentLength</code> in <code>/etc/iscsi/iscsi.conf</code> is set at 32,768 by default, and the maximum number of PVs is limited to 80,000 in IOMesh. To create PVs more than 80,000 in IOMesh, it is recommended to set the value of <code>MaxRecvDataSegmentLength</code> to 163,840 or above.</p>
+</blockquote></li>
+<li><p>Disable SELinux.</p>
+<pre><code class="hljs css language-shell">sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+</code></pre></li>
+<li><p>Load <code>iscsi_tcp</code> kernel module.</p>
+<pre><code class="hljs css language-shell">sudo modprobe iscsi_tcp
+sudo bash -c 'echo iscsi_tcp &gt; /etc/modprobe.d/iscsi-tcp.conf'
+</code></pre></li>
+<li><p>Start <code>iscsid</code> service.</p>
+<pre><code class="hljs css language-shell">sudo systemctl enable --now iscsid
+</code></pre></li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/v1.0.3/appendices/downloads"><span class="arrow-prev">← </span><span>Downloads</span></a><a class="docs-next button" href="/v1.0.3/appendices/iomesh-metrics"><span>Monitoring Metrics</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Multiple Cluster Management · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="# Multiple Cluster Management"/><meta name="docsearch:version" content="v1.0.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Multiple Cluster Management · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="# Multiple Cluster Management"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/add-tracker.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Advanced Functions</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/authenticate-pv">Create PV with Authentication</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/scale-out-cluster">Scale Out Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/scale-down-cluster">Scale Down Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/v1.0.3/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"></header><article><div><span><h1><a class="anchor" aria-hidden="true" id="multiple-cluster-management"></a><a href="#multiple-cluster-management" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiple Cluster Management</h1>
+<p>In a large-scale Kubernetes cluster, you can deploy multiple IOMesh clusters for data isolation. In this case, there is typically one management cluster that holds components such as the IOMesh Operator, IOMesh CSI Driver, and Node Disk Manager, while other clusters function as independent storage pools without any management responsibilities.</p>
+<p>IOMesh CSI Driver is shared by all IOMesh clusters to facilitate connection, which reduces the number of Controller Plugin pods for the CSI driver.</p>
+<p><img src="https://user-images.githubusercontent.com/102718816/228175494-9d69fac5-de12-4519-a85f-2520c2070f4c.png" alt="image"></p>
+<h2><a class="anchor" aria-hidden="true" id="deployment"></a><a href="#deployment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deployment</h2>
+<p><strong>Prerequisites</strong></p>
+<ul>
+<li>Verify that all requirements in <a href="/v1.0.3/deploy-iomesh-cluster/prerequisites">Prerequisites</a> are met.</li>
+<li>The IOMesh version should be 1.0.0 or above.</li>
+<li>A Kubernetes cluster consisting of at least 6 worker nodes.</li>
+</ul>
+<p><strong>Procedure</strong></p>
+<p>The following example assumes a total of 6 worker nodes <code>k8s-worker-{0-5}</code>. <code>iomesh</code> is the management cluster and <code>iomesh-cluster-1</code> is the non-management cluster.</p>
+<table>
+<thead>
+<tr><th>Cluster Name</th><th>Role</th><th>Worker Nodes</th><th>Namespace</th></tr>
+</thead>
+<tbody>
+<tr><td><code>iomesh</code></td><td>Management cluster</td><td>k8s-woker-{0~2}</td><td><code>iomesh-system</code></td></tr>
+<tr><td><code>iomesh-cluster-1</code></td><td>Independent storage pool</td><td>k8s-woker-{3~5}</td><td><code>iomesh-cluster-1</code></td></tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>NOTE</em>: Both custom and offline installation are suitable for deploying multiple clusters. For <a href="../deploy-iomesh-cluster/install-iomesh#custom-online-installation">custom online installation</a>, install <code>Helm</code> and add the IOMesh Helm repository. For <a href="../deploy-iomesh-cluster/install-iomesh#custom-offline-installation">custom offline installation</a>, download the installation package and load the IOMesh image.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="deploy-management-cluster"></a><a href="#deploy-management-cluster" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploy Management Cluster</h3>
+<ol>
+<li><p>Export the YAML config <code>iomesh.yaml</code>.</p>
+<pre><code class="hljs">helm <span class="hljs-built_in">show</span> <span class="hljs-built_in">values</span> iomesh/iomesh &gt; iomesh.yaml
+</code></pre></li>
+<li><p>Configure <code>iomesh.yaml</code>.</p>
+<ul>
+<li><p>Set <code>iomesh.chunk.dataCIDR</code>, <code>diskDeploymentMode</code>, and <code>edition</code>. See configuration details in <a href="../deploy-iomesh-cluster/install-iomesh">Install IOMesh</a>.</p></li>
+<li><p>Configure <code>nodeAffinity</code> for fields <code>iomesh.meta.podPolicy</code>, <code>iomesh.chunk.podPolicy</code>, and <code>iomesh.redirector.podPolicy</code> respectively so that they can be scheduled to nodes <code>k8s-woker-{0~2}</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">iomesh:</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-0</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-1</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-2</span>
+  <span class="hljs-attr">meta:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-0</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-1</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-2</span>
+  <span class="hljs-attr">redirector:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-0</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-1</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-2</span>
+</code></pre></li>
+<li><p>Configure <code>nodeAffinity</code> and <code>podAntiAffinity</code> for <code>iomesh.zookeeper</code>. The former will schedule <code>zookeeper</code> to nodes <code>k8s-woker-{0~2}</code>, while the latter ensures that each node has a <code>zookeeper</code> pod to avoid a single point of failure.</p>
+<ul>
+<li>Locate <code>iomesh.zookeeper.podPolicy</code>, you should see the content below:</li>
+</ul>
+<pre><code class="hljs css language-yaml"><span class="hljs-string">...</span>
+<span class="hljs-attr">iomesh:</span>
+<span class="hljs-string">...</span>
+  <span class="hljs-attr">zookeeper:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+</code></pre>
+<ul>
+<li><p>Copy and paste the following sample code and configure <code>key</code> and <code>values</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-string">...</span>
+<span class="hljs-attr">iomesh:</span>
+<span class="hljs-string">...</span>
+  <span class="hljs-attr">zookeeper:</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-0</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-1</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-2</span>
+        <span class="hljs-attr">podAntiAffinity:</span>
+          <span class="hljs-attr">preferredDuringSchedulingIgnoredDuringExecution:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">podAffinityTerm:</span>
+              <span class="hljs-attr">labelSelector:</span>
+                <span class="hljs-attr">matchExpressions:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">app</span>
+                  <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                  <span class="hljs-attr">values:</span>
+                  <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-zookeeper</span>
+              <span class="hljs-attr">topologyKey:</span> <span class="hljs-string">kubernetes.io/hostname</span>
+            <span class="hljs-attr">weight:</span> <span class="hljs-number">20</span>
+
+</code></pre></li>
+</ul></li>
+</ul></li>
+<li><p>Perform deployment. If all pods are shown in <code>Running</code> state, then IOMesh has been installed successfully.</p>
+<p>Note that the CSI pods on node <code>k8s-woker-{3~5}</code> are in <code>Crash</code> state at this time and will only transition to <code>Running</code> state after the second IOMesh cluster is deployed.</p>
+<pre><code class="hljs css language-shell">helm install iomesh iomesh/iomesh --create-namespace  --namespace iomesh-system  --values iomesh.yaml
+</code></pre>
+<p>If successful, you should see output below:</p>
+<pre><code class="hljs css language-output">NAME                                                  READY   STATUS    RESTARTS   AGE
+iomesh-blockdevice-monitor<span class="hljs-number">-766655959f</span><span class="hljs-number">-7</span>bwvv           <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h37m
+iomesh-blockdevice-monitor-prober-pgbcp               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h36m
+iomesh-blockdevice-monitor-prober-v848k               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h37m
+iomesh-blockdevice-monitor-prober-w6vrw               <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h36m
+iomesh-chunk<span class="hljs-number">-0</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h34m
+iomesh-chunk<span class="hljs-number">-1</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h33m
+iomesh-chunk<span class="hljs-number">-2</span>                                        <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h33m
+iomesh-csi-driver-controller-plugin-ccf6ccfd9-kf296   <span class="hljs-number">6</span>/<span class="hljs-number">6</span>     Running   <span class="hljs-number">3</span>          <span class="hljs-number">30</span>h
+iomesh-csi-driver-node-plugin-c8mrj                   <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">30</span>h
+iomesh-csi-driver-node-plugin-jncfr                   <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">30</span>h
+iomesh-csi-driver-node-plugin-qrvc6                   <span class="hljs-number">3</span>/<span class="hljs-number">3</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">30</span>h
+iomesh-hostpath-provisioner-vdmrz                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-hostpath-provisioner-wtbfh                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-hostpath-provisioner-xlkvb                     <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-iscsi-redirector<span class="hljs-number">-9</span>c455                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">5</span>h36m
+iomesh-iscsi-redirector-k7jbx                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">3</span>          <span class="hljs-number">5</span>h35m
+iomesh-iscsi-redirector-l9w7l                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">1</span>          <span class="hljs-number">5</span>h34m
+iomesh-localpv-manager<span class="hljs-number">-82564</span>                          <span class="hljs-number">4</span>/<span class="hljs-number">4</span>     Running   <span class="hljs-number">2</span>          <span class="hljs-number">29</span>h
+iomesh-localpv-manager-pkcbd                          <span class="hljs-number">4</span>/<span class="hljs-number">4</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">12</span>h
+iomesh-localpv-manager-px4cl                          <span class="hljs-number">4</span>/<span class="hljs-number">4</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">29</span>h
+iomesh-meta<span class="hljs-number">-0</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h34m
+iomesh-meta<span class="hljs-number">-1</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h35m
+iomesh-meta<span class="hljs-number">-2</span>                                         <span class="hljs-number">2</span>/<span class="hljs-number">2</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h34m
+iomesh-openebs-ndm-cluster-exporter<span class="hljs-number">-68</span>c757948-qmtt4   <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-openebs-ndm-gnkzt                              <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-openebs-ndm-lrww8                              <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-openebs-ndm-node-exporter-rp4qr                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-openebs-ndm-node-exporter-sgzpp                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-openebs-ndm-node-exporter-txbn5                <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-openebs-ndm-operator<span class="hljs-number">-584f</span>dbcb94<span class="hljs-number">-2</span>tjsp          <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-openebs-ndm-zdngg                              <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-zookeeper<span class="hljs-number">-0</span>                                    <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">31</span>h
+iomesh-zookeeper-operator<span class="hljs-number">-64957f</span>cc4f-zpdjp            <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">30</span>h
+operator-f5644b7f9<span class="hljs-number">-2</span>vvw7                              <span class="hljs-number">1</span>/<span class="hljs-number">1</span>     Running   <span class="hljs-number">0</span>          <span class="hljs-number">5</span>h37m
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="deploy-non-management-cluster"></a><a href="#deploy-non-management-cluster" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deploy Non-Management Cluster</h3>
+<ol>
+<li><p>Create a namespace for the cluster <code>iomesh-cluster-1</code>.</p>
+<pre><code class="hljs">kubectl <span class="hljs-keyword">create</span> <span class="hljs-keyword">namespace</span> iomesh-<span class="hljs-keyword">cluster</span><span class="hljs-number">-1</span>
+</code></pre></li>
+<li><p>Create a <code>zookeeper</code> cluster for the cluster <code>iomesh-cluster-1</code>.</p>
+<ul>
+<li><p>Create a YAML config <code>iomesh-cluster-1-zookeeper.yaml</code> with the following content. Then configure <code>nodeAffinity</code> and <code>podAntiAffinity</code> so that the <code>zookeeper</code> cluster will be scheduled to nodes <code>k8s-woker-{3~5}</code>.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">zookeeper.pravega.io/v1beta1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ZookeeperCluster</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-cluster-1</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-cluster-1-zookeeper</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+  <span class="hljs-attr">image:</span>
+    <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/zookeeper</span>
+    <span class="hljs-attr">tag:</span> <span class="hljs-number">3.5</span><span class="hljs-number">.9</span>
+    <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+  <span class="hljs-attr">pod:</span>
+    <span class="hljs-attr">affinity:</span>
+      <span class="hljs-attr">nodeAffinity:</span>
+        <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+          <span class="hljs-attr">nodeSelectorTerms:</span>
+          <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+              <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+              <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-3</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-4</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-5</span>
+      <span class="hljs-attr">podAntiAffinity:</span>
+        <span class="hljs-attr">preferredDuringSchedulingIgnoredDuringExecution:</span>
+        <span class="hljs-bullet">-</span> <span class="hljs-attr">podAffinityTerm:</span>
+            <span class="hljs-attr">labelSelector:</span>
+              <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">app</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">iomesh-cluster-1-zookeeper</span>
+            <span class="hljs-attr">topologyKey:</span> <span class="hljs-string">kubernetes.io/hostname</span>
+          <span class="hljs-attr">weight:</span> <span class="hljs-number">20</span>
+    <span class="hljs-attr">securityContext:</span>
+      <span class="hljs-attr">runAsUser:</span> <span class="hljs-number">0</span>
+  <span class="hljs-attr">persistence:</span>
+    <span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+    <span class="hljs-attr">spec:</span>
+      <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">hostpath</span>
+      <span class="hljs-attr">resources:</span>
+        <span class="hljs-attr">requests:</span>
+          <span class="hljs-attr">storage:</span> <span class="hljs-string">20Gi</span>
+</code></pre></li>
+<li><p>Apply the YAMl config to create the <code>zookeeper</code> cluster.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-cluster-1-zookeeper.yaml
+</code></pre></li>
+</ul></li>
+<li><p>Create the YAML config <code>iomesh-cluster-1.yaml</code> with the following content. Configure the following fields.</p>
+<ul>
+<li><p>Set <code>dataCIDR</code> to the data CIDR you previously configured in <a href="../deploy-iomesh-cluster/prerequisites#network-requirements">Prerequisites</a> for <code>chunk</code> and <code>redirector</code>, respectively.</p></li>
+<li><p>Set <code>spec.chunk.devicemanager.blockDeviceNamespace</code> to <code>iomesh-system</code> as management components and all block devices reside in it.</p></li>
+<li><p>Set <code>image.repository.tag</code> to <code>v5.3.0-rc13-enterprise</code> for <code>meta</code>, <code>chunk</code>, and <code>redirector</code>, respectively for an Enterprise edition. If not, a community edition will be automatically installed. For a Hygon platform, the <code>image.repository.tag</code> field needs to be set to <code>v5.3.0-rc13-community-hygon</code> or <code>v5.3.0-rc13-enterprise-hygon</code>.</p></li>
+<li><p>Set <a href="../deploy-iomesh-cluster/prerequisites#hardware-requirements"><code>diskDeploymentMode</code></a> according to your disk configurations.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">iomesh.com/v1alpha1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">IOMeshCluster</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-cluster-1</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-cluster-1</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">diskDeploymentMode:</span> <span class="hljs-string">hybridFlash</span>
+  <span class="hljs-attr">storageClass:</span> <span class="hljs-string">hostpath</span>
+  <span class="hljs-attr">reclaimPolicy:</span>
+    <span class="hljs-attr">volume:</span> <span class="hljs-string">Delete</span>
+    <span class="hljs-attr">blockdevice:</span> <span class="hljs-string">Delete</span>
+  <span class="hljs-attr">meta:</span>
+    <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+    <span class="hljs-attr">image:</span>
+      <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/zbs-metad</span>
+      <span class="hljs-attr">tag:</span> <span class="hljs-string">v5.3.0-rc13-community</span> <span class="hljs-comment"># For an enterprise Edition, set it to "v5.3.0-rc13-enterprise". </span>
+      <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-3</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-4</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-5</span>
+  <span class="hljs-attr">chunk:</span>
+    <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">&lt;your-data-cidr-here&gt;</span>  <span class="hljs-comment"># Fill in IOMesh data CIDR.</span>
+    <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span>
+    <span class="hljs-attr">image:</span>
+      <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/zbs-chunkd</span>
+      <span class="hljs-attr">tag:</span> <span class="hljs-string">v5.3.0-rc13-community</span>
+      <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+    <span class="hljs-attr">devicemanager:</span>
+      <span class="hljs-attr">image:</span>
+        <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/operator-devicemanager</span>
+        <span class="hljs-attr">tag:</span> <span class="hljs-string">v1.0.0</span>
+        <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+      <span class="hljs-attr">blockDeviceNamespace:</span> <span class="hljs-string">iomesh-system</span>  <span class="hljs-comment"># Fill in the namespace of the management cluster.</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-3</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-4</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-5</span>    
+  <span class="hljs-attr">redirector:</span>
+    <span class="hljs-attr">dataCIDR:</span> <span class="hljs-string">&lt;your-data-cidr-here&gt;</span>  <span class="hljs-comment"># Fill in IOMesh data CIDR.</span>
+    <span class="hljs-attr">image:</span>
+      <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/zbs-iscsi-redirectord</span>
+      <span class="hljs-attr">tag:</span> <span class="hljs-string">v5.3.0-rc13-community</span>
+      <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+    <span class="hljs-attr">podPolicy:</span>
+      <span class="hljs-attr">affinity:</span>
+        <span class="hljs-attr">nodeAffinity:</span>
+          <span class="hljs-attr">requiredDuringSchedulingIgnoredDuringExecution:</span>
+            <span class="hljs-attr">nodeSelectorTerms:</span>
+            <span class="hljs-bullet">-</span> <span class="hljs-attr">matchExpressions:</span>
+              <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">kubernetes.io/hostname</span>  <span class="hljs-comment"># The key of the node label.</span>
+                <span class="hljs-attr">operator:</span> <span class="hljs-string">In</span>
+                <span class="hljs-attr">values:</span>  <span class="hljs-comment"># The value of the node label.</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-3</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-4</span>
+                <span class="hljs-bullet">-</span> <span class="hljs-string">k8s-woker-5</span>
+  <span class="hljs-attr">probe:</span>
+    <span class="hljs-attr">image:</span>
+      <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/operator-probe</span>
+      <span class="hljs-attr">tag:</span> <span class="hljs-string">v1.0.0</span>
+      <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+  <span class="hljs-attr">toolbox:</span>
+    <span class="hljs-attr">image:</span>
+      <span class="hljs-attr">repository:</span> <span class="hljs-string">iomesh/operator-toolbox</span>
+      <span class="hljs-attr">tag:</span> <span class="hljs-string">v1.0.0</span>
+      <span class="hljs-attr">pullPolicy:</span> <span class="hljs-string">IfNotPresent</span>
+</code></pre></li>
+<li><p>Apply the YAML config.</p>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-cluster-1.yaml -n iomesh-cluster-1
+</code></pre></li>
+</ul></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="mount-disks"></a><a href="#mount-disks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Mount Disks</h3>
+<ol>
+<li><p><a href="../deploy-iomesh-cluster/setup-iomesh#view-block-device-objects">View block device objects</a>. Note that all block devices resides in the namespace <code>iomesh-system</code>.</p>
+<pre><code class="hljs css language-shell">kubectl --namespace iomesh-system -o wide get blockdevice
+</code></pre></li>
+<li><p><a href="../deploy-iomesh-cluster/setup-iomesh#configure-devicemap">Configure DeviceMap</a>.</p>
+<pre><code class="hljs css language-shell">kubectl edit iomesh iomesh -n iomesh-system # Configure deviceMap for the first IOMesh cluster.
+kubectl edit iomesh iomesh-cluster-1 -n iomesh-cluster-1 # Configure deviceMap for the second IOMesh cluster.
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="configure-multi-cluster-connection"></a><a href="#configure-multi-cluster-connection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configure Multi-Cluster Connection</h3>
+<p>To enable IOMesh CSI Driver to connect to multiple IOMesh clusters, you need to create a <code>ConfigMap</code> containing connection information for each IOMesh cluster.</p>
+<ol>
+<li><p>Create a <code>ConfigMap</code> for the first IOMesh cluster.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: iomesh-csi-configmap.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-csi-configmap</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-system</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">clusterId:</span> <span class="hljs-string">k8s-cluster</span>
+  <span class="hljs-attr">iscsiPortal:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-string">:3260</span>
+  <span class="hljs-attr">metaAddr:</span> <span class="hljs-string">iomesh-meta-client.iomesh-system.svc.cluster.local:10100</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-csi-configmap.yaml
+</code></pre>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>data.clusterId</code></td><td>The Kubernetes cluster ID, which is customizable. Since a Kubernetes cluster can only have one cluster ID, two iomesh clusters deployed in the same Kubernetes cluster must have the same field value filled in.</td></tr>
+<tr><td><code>data.iscsiPortal</code></td><td>iSCSI access point, fixed to 127.0.0.1:3260.</td></tr>
+<tr><td><code>data.metaAddr</code></td><td>IOMesh meta service address, which follows the format: <code>&lt;iomesh-cluster-name&gt;-meta-client.&lt;iomesh-cluster-namespace&gt;.svc.cluster.local:10100.</code></td></tr>
+</tbody>
+</table>
+</li>
+<li><p>Create a <code>ConfigMap</code> for the second IOMesh cluster.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: iomesh-cluster-1-csi-configmap.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-cluster-1-csi-configmap</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">iomesh-cluster-1</span>
+<span class="hljs-attr">data:</span>
+  <span class="hljs-attr">clusterId:</span> <span class="hljs-string">k8s-cluster</span>
+  <span class="hljs-attr">iscsiPortal:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-string">:3260</span>
+  <span class="hljs-attr">metaAddr:</span> <span class="hljs-string">iomesh-cluster-1-meta-client.iomesh-cluster-1.svc.cluster.local:10100</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-cluster-1-csi-configmap.yaml
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="create-storageclass-for-each-cluster"></a><a href="#create-storageclass-for-each-cluster" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create StorageClass for Each Cluster</h3>
+<p>When deploying more than one IOMesh cluster, you must create a separate StorageClass for each cluster, rather than using the default StorageClass <code>iomesh-csi-driver</code>.</p>
+<ol>
+<li><p>Create a StorageClass for the first IOMesh cluster.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: iomesh-sc.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">ext4</span>
+  <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"2"</span>
+  <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
+  <span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+  <span class="hljs-attr">clusterConnection:</span> <span class="hljs-string">"iomesh-system/iomesh-csi-configmap"</span> <span class="hljs-comment"># The namespace and configMap of the management cluster.</span>
+  <span class="hljs-attr">iomeshCluster:</span> <span class="hljs-string">"iomesh-system/iomesh"</span> <span class="hljs-comment"># The namespace where this cluster resides and cluster name.</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">Immediate</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.csi-driver</span>
+<span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-sc.yaml
+</code></pre>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>parameters.clusterConnection</code></td><td>The namespace you specify in <code>configMap</code>/the <code>configMap</code> name.</td></tr>
+<tr><td><code>parameters.iomeshCluster</code></td><td>The namespace where the IOMesh cluster is located/the IOMesh cluster name.</td></tr>
+</tbody>
+</table>
+<p>For more information, refer to <a href="../volume-operations/create-storageclass">Create StorageClass</a>.</p></li>
+<li><p>Create a StorageClass for the second IOMesh cluster.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: iomesh-cluster-1-sc.yaml</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-cluster-1</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">ext4</span>
+  <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"2"</span>
+  <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
+  <span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+  <span class="hljs-attr">clusterConnection:</span> <span class="hljs-string">"iomesh-cluster-1/iomesh-cluster-1-csi-configmap"</span>  <span class="hljs-comment"># The namespace and configMap of the non-management cluster.</span>
+  <span class="hljs-attr">iomeshCluster:</span> <span class="hljs-string">"iomesh-cluster-1/iomesh-cluster-1"</span> <span class="hljs-comment"># The namespace of the non-management cluster and its cluster name.</span>
+<span class="hljs-attr">volumeBindingMode:</span> <span class="hljs-string">Immediate</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.csi-driver</span>
+<span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-cluster-1-sc.yaml
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="verify-deployment"></a><a href="#verify-deployment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Verify Deployment</h3>
+<p>To verify if the IOMesh clusters are deployed, create a PVC using the StorageClass you created respectively.</p>
+<ol>
+<li><p>Create a PVC for the first IOMesh cluster.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: iomesh-pvc.yaml</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-pvc</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-pvc.yaml
+</code></pre></li>
+<li><p>Create a PVC for the second IOMesh cluster.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: iomesh-cluster1-pvc.yaml</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">iomesh-cluster1-pvc</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">iomesh-cluster-1</span>
+  <span class="hljs-attr">accessModes:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">1Gi</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f iomesh-cluster1-pvc.yaml
+</code></pre></li>
+</ol>
+<p>Topology awareness is automatically enabled for IOMesh to ensure correct pod scheduling. When a PVC is created in the first IOMesh cluster, the pod using it is scheduled to the worker node in the same cluster.</p>
+<h2><a class="anchor" aria-hidden="true" id="monitoring"></a><a href="#monitoring" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Monitoring</h2>
+<p>To monitor multiple IOMesh clusters, navigate to <a href="../monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a> for monitoring configuration. After completing the configuration, you can select the target cluster and its namespace to view its storage performance on the dashboard.</p>
+<h2><a class="anchor" aria-hidden="true" id="operations"></a><a href="#operations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Operations</h2>
+<p>All of the following procedures are based on the example in <a href="#deployment">Deployment</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="scaling-multiple-clusters"></a><a href="#scaling-multiple-clusters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scaling Multiple Clusters</h3>
+<p>There is no difference between scaling out one cluster or multiple clusters. Plan the number of worker nodes and increase the number of meta or chunk pods one by one. For more information, see <a href="../cluster-operations/scale-cluster">Scale Cluster</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="uninstall-multiple-clusters"></a><a href="#uninstall-multiple-clusters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Uninstall Multiple Clusters</h3>
+<p>When uninstalling more than one IOMesh clusters, follow the order: first non-management clusters, then the management cluster. If not, resources may reside in the namespace <code>iomesh-system</code>, affecting the next deployment of IOMesh.</p>
+<p><strong>Procedure</strong></p>
+<ol>
+<li><p>Uninstall the second IOMesh cluster, which will also delete <code>iomesh</code> and <code>zookeeper</code> components in it.</p>
+<p>Replace <code>iomesh-cluster-1-zookeeper.yaml</code> with its zookeeper YAML filename and <code>iomesh-cluster-1.yaml</code> with its YAML filename. Run the following two commands at the same time.</p>
+<pre><code class="hljs css language-shell">kubectl delete -f iomesh-cluster-1-zookeeper.yaml 
+kubectl delete -f iomesh-cluster-1.yaml
+</code></pre></li>
+<li><p><a href="../cluster-operations/uninstall-cluster">Uninstall the management cluster</a>.</p>
+<pre><code class="hljs css language-shell">helm uninstall --namespace iomesh-system iomesh
+</code></pre></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="update-license"></a><a href="#update-license" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Update License</h3>
+<p>Each IOMesh cluster has a license with a unique serial number, and update the license from <code>Trial</code> to <code>Subscription</code> or <code>Perpetual</code> for each IOMesh cluster respectively after deployment. For other operations, refer to <a href="../cluster-operations/manage-license">Update License</a>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/v1.0.3/monitor-iomesh/monitoring-iomesh"><span class="arrow-prev">← </span><span>Monitor IOMesh</span></a><a class="docs-next button" href="/v1.0.3/advanced-functions/localpv-manager"><span class="function-name-prevnext">IOMesh LocalPV Manager</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#deployment">Deployment</a><ul class="toc-headings"><li><a href="#deploy-management-cluster">Deploy Management Cluster</a></li><li><a href="#deploy-non-management-cluster">Deploy Non-Management Cluster</a></li><li><a href="#mount-disks">Mount Disks</a></li><li><a href="#configure-multi-cluster-connection">Configure Multi-Cluster Connection</a></li><li><a href="#create-storageclass-for-each-cluster">Create StorageClass for Each Cluster</a></li><li><a href="#verify-deployment">Verify Deployment</a></li></ul></li><li><a href="#monitoring">Monitoring</a></li><li><a href="#operations">Operations</a><ul class="toc-headings"><li><a href="#scaling-multiple-clusters">Scaling Multiple Clusters</a></li><li><a href="#uninstall-multiple-clusters">Uninstall Multiple Clusters</a></li><li><a href="#update-license">Update License</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Create Encrypted PV · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass. "/><meta name="docsearch:version" content="v1.0.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Create Encrypted PV · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass. "/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/add-tracker.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Create Encrypted PV</h1></header><article><div><span><p>IOMesh allows for volume encryption using Kubernetes secret. Encryption is implemented per StorageClass, and it requires configuration of a secret for encryption along with a CSI secret for authentication in the StorageClass.</p>
+<p>Every time a pod declares the use of a encrypted PVC, the PVC will only be allowed for use if the two secrets match exactly.</p>
+<p><strong>Precautions</strong></p>
+<ul>
+<li>Since authentication is implemented through iSCSI CHAP, the secret password must be 12-16 characters long according to the password length requirements of the CHAP protocol.</li>
+<li>To ensure that a StorageClass with configured secrets is accessible only to intended users, Role-Based Access Control (RBAC) is necessary. This is because StorageClass is not an object limited to a specific namespace, and some versions of Kubernetes allow all namespaces to access all StorageClasses.</li>
+</ul>
+<p><strong>Procedure</strong></p>
+<ol>
+<li><p>Create a secret that holds credentials for encrypting a volume.</p>
+<p>In the following command, replace <code>iomesh</code> with the username, <code>iomesh-system</code> with the namespace where your IOMesh cluster resides, and <code>abcdefghijklmn</code> with the password.</p>
+<pre><code class="hljs css language-bash">kubectl create secret generic volume-secret -n iomesh-system --from-literal=username=iomesh --from-literal=password=abcdefghijklmn
+</code></pre></li>
+<li><p>Create a CSI secret that points to the encrypted secret from step 1. Its username and password remain the same as the secret in step 1.</p>
+<pre><code class="hljs css language-bash">kubectl create secret generic user-secret -n user-namespace --from-literal=username=iomesh --from-literal=password=abcdefghijklmn
+</code></pre></li>
+<li><p>Create a StorageClass. Enable volume encryption and specify the secrets as instructed below.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: encrypt-sc.yaml</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">StorageClass</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">storage.k8s.io/v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">per-storageclass-auth</span>
+<span class="hljs-attr">provisioner:</span> <span class="hljs-string">com.iomesh.csi-driver</span> 
+<span class="hljs-attr">reclaimPolicy:</span> <span class="hljs-string">Delete</span>
+<span class="hljs-attr">allowVolumeExpansion:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">parameters:</span>
+  <span class="hljs-attr">csi.storage.k8s.io/fstype:</span> <span class="hljs-string">"ext4"</span>
+  <span class="hljs-attr">replicaFactor:</span> <span class="hljs-string">"2"</span>
+  <span class="hljs-attr">thinProvision:</span> <span class="hljs-string">"true"</span>
+  <span class="hljs-comment"># Enable PV encryption.</span>
+  <span class="hljs-attr">auth:</span> <span class="hljs-string">"true"</span> 
+  <span class="hljs-comment"># The secret holding credentials for encrypting a volume, which will be fetched by the CSI reading in the `annotations` field of the PVC.</span>
+  <span class="hljs-attr">csi.storage.k8s.io/controller-publish-secret-name:</span> <span class="hljs-string">volume-secret</span> 
+  <span class="hljs-attr">csi.storage.k8s.io/controller-publish-secret-namespace:</span> <span class="hljs-string">iomesh-system</span>
+  <span class="hljs-comment"># The CSI secret that points to the encrypted secret.</span>
+  <span class="hljs-attr">csi.storage.k8s.io/node-stage-secret-name:</span> <span class="hljs-string">${pvc.annotations['iomesh.com/key']}</span>
+  <span class="hljs-attr">csi.storage.k8s.io/node-stage-secret-namespace:</span> <span class="hljs-string">${pvc.namespace}</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f encrypt-sc.yaml
+</code></pre>
+<table>
+<thead>
+<tr><th>Field</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>csi.storage.k8s.io/controller-publish-secret-name</code></td><td>The secret created in Step 1, holding credentials for encryption.</td></tr>
+<tr><td><code>csi.storage.k8s.io/controller-publish-secret-namespace</code></td><td>The namespace where the encryption secret resides.</td></tr>
+<tr><td><code>csi.storage.k8s.io/node-stage-secret-name</code></td><td>The CSI secret created in Step 2, pointing to and verifying the encrypted secret.</td></tr>
+<tr><td><code>csi.storage.k8s.io/node-stage-secret-namespace</code></td><td>The namespace where the CSI secret resides.</td></tr>
+</tbody>
+</table>
+</li>
+<li><p>Create a PVC and specify <code>annotations.iomesh.com/key</code> with the CSI secret created in Step 2.</p>
+<pre><code class="hljs css language-yaml"><span class="hljs-comment"># Source: encrypt-pvc.yaml</span>
+<span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span>
+<span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>
+<span class="hljs-attr">metadata:</span>
+  <span class="hljs-attr">name:</span> <span class="hljs-string">user-pvc</span>
+  <span class="hljs-attr">namespace:</span> <span class="hljs-string">user-namespace</span>
+  <span class="hljs-comment"># Specify the CSI secret created in Step 2.</span>
+  <span class="hljs-attr">annotations:</span>
+      <span class="hljs-attr">iomesh.com/key:</span> <span class="hljs-string">user-secret</span>
+<span class="hljs-attr">spec:</span>
+  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">per-storageclass-auth</span>
+  <span class="hljs-attr">accessModes:</span>
+  <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span>
+  <span class="hljs-attr">resources:</span>
+    <span class="hljs-attr">requests:</span>
+      <span class="hljs-attr">storage:</span> <span class="hljs-string">2Gi</span>
+</code></pre>
+<pre><code class="hljs css language-shell">kubectl apply -f encrypt-pvc.yaml
+</code></pre></li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>

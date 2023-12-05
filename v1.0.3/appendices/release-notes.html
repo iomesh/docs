@@ -1,0 +1,381 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Release Notes · Documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## IOMesh 1.0.1 Release Notes"/><meta name="docsearch:version" content="v1.0.3"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Release Notes · Documentation"/><meta property="og:type" content="website"/><meta property="og:url" content="http://docs.iomesh.com/"/><meta property="og:description" content="## IOMesh 1.0.1 Release Notes"/><meta property="og:image" content="http://docs.iomesh.com/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://docs.iomesh.com/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/add-tracker.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/IOMesh_logo_on_white.svg" alt="Documentation"/><h2 class="headerTitleWithLogo">Documentation</h2></a><a href="/versions"><h3>v1.0.3</h3></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://www.iomesh.com" target="_self">Back to IOMesh Home</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Appendices</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/introduction/introduction">Introduction</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/basic-concepts/basic-concepts">Basic Concepts</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/prerequisites">Prerequisites</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/install-iomesh">Install IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/setup-iomesh">Set Up IOMesh</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/deploy-iomesh-cluster/activate-license">Activate License</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Volume Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/create-storageclass">Create StorageClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/create-pv">Create PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/authenticate-pv">Create PV with Authentication</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/expand-pv">Expand PV</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volume-operations/clone-pv">Clone PV</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">VolumeSnapshot Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/create-snapshotclass">Create VolumeSnapshotClass</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/create-volumesnapshot">Create VolumeSnapshot</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/volumesnapshot-operations/restore-volumesnapshot">Restore VolumeSnapshot</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Deploy Stateful Applications</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/stateful-applications/iomesh-for-mysql">IOMesh for MySQL</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/stateful-applications/iomesh-for-mongodb">IOMesh for MongoDB</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Cluster Operations</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/scale-out-cluster">Scale Out Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/scale-down-cluster">Scale Down Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/upgrade-cluster">Upgrade Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/uninstall-cluster">Uninstall Cluster</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/manage-license">Update License</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/cluster-operations/replace-failed-disk">Replace Disk</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Monitor IOMesh</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/monitor-iomesh/install-iomesh-dashboard">Install IOMesh Dashboard</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/monitor-iomesh/monitoring-iomesh">Monitor IOMesh</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Advanced Functions</h3><ul class=""><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/manage-multiple-cluster">Multiple Cluster Management</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/localpv-manager">IOMesh LocalPV Manager</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/advanced-functions/external-storage">IOMesh as External Storage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Appendices</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/v1.0.3/appendices/release-notes">Release Notes</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/downloads">Downloads</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/setup-worker-node">Set Up Worker Node</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/iomesh-metrics">Monitoring Metrics</a></li><li class="navListItem"><a class="navItem" href="/v1.0.3/appendices/faq">FAQ</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Release Notes</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="iomesh-101-release-notes"></a><a href="#iomesh-101-release-notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IOMesh 1.0.1 Release Notes</h2>
+<h3><a class="anchor" aria-hidden="true" id="whats-new"></a><a href="#whats-new" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What's New</h3>
+<h4><a class="anchor" aria-hidden="true" id="new-feature"></a><a href="#new-feature" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Feature</h4>
+<p>Automatically configures <code>open-iscsi</code> for all schedulable nodes in the Kubernetes cluster when deploying IOMesh or adding nodes to the IOMesh cluster.</p>
+<h4><a class="anchor" aria-hidden="true" id="resolved-issues"></a><a href="#resolved-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolved Issues</h4>
+<ul>
+<li>The I/O performance was not as expected due to inconsistent port information between the <code>chunk</code> service registered with the <code>meta</code> service and the locally recorded port information. The issue has been resolved in this release.</li>
+<li>IOMesh was unable to run in Kubernetes clusters of 1.21 or earlier versions due to incompatibility between the <code>zookeeper-operator</code> version and Kubernetes version. The issue has been resolved in this release.</li>
+<li>In Kubernetes clusters 1.20 or earlier versions, when enabling the NDM webhook, the creation of BlockDevice and BlockDeviceClaim failed due to empty CR parameters. The issue has been resolved in this release.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="specifications"></a><a href="#specifications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specifications</h3>
+<table>
+<thead>
+<tr><th>Component</th><th>Version</th></tr>
+</thead>
+<tbody>
+<tr><td>iomesh-operator</td><td>1.0.1</td></tr>
+<tr><td>csi-driver</td><td>2.6.0</td></tr>
+<tr><td>zbs</td><td>5.3.0</td></tr>
+<tr><td>zookeeper</td><td>3.5.9</td></tr>
+<tr><td>node-disk-manager</td><td>1.8.0</td></tr>
+<tr><td>hostpath-provisioner</td><td>0.5.3</td></tr>
+<tr><td>block-device-monitor</td><td>0.1.0</td></tr>
+<tr><td>local-pv-manager</td><td>0.1.0</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="compatibility"></a><a href="#compatibility" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compatibility</h3>
+<h4><a class="anchor" aria-hidden="true" id="server-architecture-compatibility-for-iomesh"></a><a href="#server-architecture-compatibility-for-iomesh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Server Architecture Compatibility for IOMesh</h4>
+<p>IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architectures.</p>
+<h4><a class="anchor" aria-hidden="true" id="kubernetes-and-linux-os-compatibility-for-iomesh"></a><a href="#kubernetes-and-linux-os-compatibility-for-iomesh" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kubernetes and Linux OS Compatibility for IOMesh</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Software/OS</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kubernetes</td>
+<td>
+<ul>
+<li>Kubernetes 1.17-1.25</li>
+<li>OpenShift 3.11-4.10</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Linux OS</td>
+<td>
+<ul>
+<li>CentOS 7</li>
+<li>CentOS 8</li>
+<li>CoreOS</li>
+<li>RHEL 7</li>
+<li>RHEL 8</li>
+<li>OpenEluer 22.03 LTS</li>
+</tbody>
+</table> 
+<blockquote>
+<p><em>NOTE</em>: IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="iomesh-100-release-notes"></a><a href="#iomesh-100-release-notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IOMesh 1.0.0 Release Notes</h2>
+<h3><a class="anchor" aria-hidden="true" id="whats-new-1"></a><a href="#whats-new-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What's New</h3>
+<h4><a class="anchor" aria-hidden="true" id="new-features"></a><a href="#new-features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Features</h4>
+<p><strong>Installation &amp; Deployment</strong></p>
+<ul>
+<li>Adds support for deploying IOMesh on the Hygon x86_64 and Kunpeng AArch64 architectures.</li>
+<li>Adds support for Kubernetes version 1.25.</li>
+<li>Enables deployment of multiple IOMesh clusters within a single Kubernetes cluster.</li>
+</ul>
+<p><strong>Storage</strong></p>
+<ul>
+<li>Allows for dynamically provisioning PVs using local storage like a directory or block device for pod use.</li>
+<li>Implements CSI typology feature to ensure that when there are multiple IOMesh clusters, pods that use PVs from a specific cluster can be scheduled on the worker node that holds that cluster.</li>
+<li>Triggers pod high availability when its worker node has a power outrage.</li>
+</ul>
+<p><strong>Operations &amp; Management</strong></p>
+<ul>
+<li>Detects abnormal disks and isolates disks in <code>Unhealthy</code> state to minimize the impact on system performance and reduce operational burden.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="improved-features"></a><a href="#improved-features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Improved Features</h4>
+<p><strong>Storage</strong></p>
+<ul>
+<li>Reduced IO interruption to within 22 seconds in case of node or network failure, ensuring that data access is timely and reliable even in the face of disruptions.</li>
+<li>Enhanced data security by assigning a temporary replica to hold newly written data after a replica has been removed.</li>
+<li>Enhanced data channel fault tolerance to prevent disconnection due to IO timeout.</li>
+<li>Optimized Lease Owner allocation mechanism to avoid IO failures due to network failures, enabling more efficient and robust data transmission.</li>
+<li>Cleared the file lock created when executing <code>iscsiadm</code>, or else the CSI driver will be unavailable.</li>
+<li>Simplified the configuration method for accessing IOMesh from outside its Kubernetes cluster, eliminating the need to create a separate Kubernetes service and making it easier to access and use IOMesh.</li>
+<li>Optimized the default CPU/memory resource limit setting for pods to avoid pods running slowly due to insufficient resources.</li>
+</ul>
+<p><strong>Operations &amp; Management</strong></p>
+<ul>
+<li>Added an alert panel on the IOMesh dashboard and display of information about cluster, physical disk, and PV, providing administrators with real-time monitoring and status updates.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="resolved-issues-1"></a><a href="#resolved-issues-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolved Issues</h4>
+<p><strong>Storage</strong></p>
+<ul>
+<li>Meta DB space become full after a snapshot of a large volume was taken, making the ZooKeeper unavailable. This issue has been resolved in this version.</li>
+<li>After the chunk IP was changed, the data channel manager was unable to detect the new chunk IP, resulting in data migration failure. The issue has been resolved in this version.</li>
+</ul>
+<p><strong>Operations &amp; Management</strong></p>
+<ul>
+<li>Uninstalling IOMesh via <code>Helm</code> sometimes left pod resources behind, which has been resolved in this version.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="specifications-1"></a><a href="#specifications-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specifications</h3>
+<table>
+<thead>
+<tr><th>Component</th><th>Version</th></tr>
+</thead>
+<tbody>
+<tr><td>iomesh-operator</td><td>1.0.0</td></tr>
+<tr><td>csi-driver</td><td>2.6.0</td></tr>
+<tr><td>zbs</td><td>5.3.0</td></tr>
+<tr><td>zookeeper</td><td>3.5.9</td></tr>
+<tr><td>node-disk-manager</td><td>1.8.0</td></tr>
+<tr><td>hostpath-provisioner</td><td>0.5.3</td></tr>
+<tr><td>block-device-monitor</td><td>0.1.0</td></tr>
+<tr><td>local-pv-manager</td><td>0.1.0</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="compatibility-1"></a><a href="#compatibility-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compatibility</h3>
+<h4><a class="anchor" aria-hidden="true" id="server-architecture-compatibility-for-iomesh-1"></a><a href="#server-architecture-compatibility-for-iomesh-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Server Architecture Compatibility for IOMesh</h4>
+<p>IOMesh is compatible with Intel x86_64, Hygon x86_64 or Kunpeng AArch64 architectures.</p>
+<h4><a class="anchor" aria-hidden="true" id="kubernetes-and-linux-os-compatibility-for-iomesh-1"></a><a href="#kubernetes-and-linux-os-compatibility-for-iomesh-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kubernetes and Linux OS Compatibility for IOMesh</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Software/OS</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kubernetes</td>
+<td>
+<ul>
+<li>Kubernetes 1.17-1.25</li>
+<li>OpenShift 3.11-4.10</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Linux OS</td>
+<td>
+<ul>
+<li>CentOS 7</li>
+<li>CentOS 8</li>
+<li>CoreOS</li>
+<li>RHEL 7</li>
+<li>RHEL 8</li>
+<li>OpenEluer 22.03 LTS</li>
+</tbody>
+</table> 
+<blockquote>
+<p><em>NOTE</em>: IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="known-issues"></a><a href="#known-issues" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Known Issues</h3>
+<ul>
+<li>If a Kubernetes cluster has multiple IOMesh clusters deployed, the IOMesh dashboard will display alert information of all clusters instead of just one.</li>
+<li>The IOMesh dashboard cannot display the correct storage capacity usage when the IOMesh cluster has invalid storage capacity.</li>
+<li>A PV with <code>Block</code> as the volume mode can still be written due to a Kubernetes code defect even if the access mode is ReadOnlyMany.</li>
+<li>The following issues persist due to a flaw in the NDM mechanism:
+<ul>
+<li>After an IOMesh cluster is uninstalled, the disk corresponding to the block device used by this cluster might not be cleared.</li>
+<li>After the IOMesh Device Local PV is deleted, the disk corresponding to the block device might not be cleared.</li>
+<li>The status of a block device might switch back and forth between <code>active</code> and <code>inactive</code>, which sometimes causes the disk to be unmountable.</li>
+</ul></li>
+<li>After removing the chunk pod on a worker node, IOMesh CR still shows disks on this node.</li>
+<li>After an IOMesh cluster is uninstalled, the metrics in the IOMesh Operator may not be completely cleaned up. This can cause the license edition to not be displayed in the dashboard if you later deploy an IOMesh cluster with the same name in the same namespace. You may restart the Operator pod to fix this issue.</li>
+<li>If a prober pod of BDM(Block Device Monitor) panics during startup due to network issues or other problems, the detection process will not be automatically recovered. This may cause the IOMesh dashboard to display incorrect disk information. Restarting the prober pod can fix this issue.</li>
+<li>Newly deployed IOMesh 1.0.0 clusters may not display the correct version of IOMesh Block Storage on the IOMesh dashboard due to an error in obtaining the meta leader. This issue does not affect clusters upgraded from previous versions to 1.0.0.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="iomesh-0111-release-notes"></a><a href="#iomesh-0111-release-notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IOMesh 0.11.1 Release Notes</h2>
+<h3><a class="anchor" aria-hidden="true" id="whats-new-2"></a><a href="#whats-new-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What's New</h3>
+<h4><a class="anchor" aria-hidden="true" id="new-feature-1"></a><a href="#new-feature-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Feature</h4>
+<p>Add support for Kubernetes versions 1.22 to 1.24.</p>
+<h4><a class="anchor" aria-hidden="true" id="improved-features-1"></a><a href="#improved-features-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Improved Features</h4>
+<ul>
+<li>Optimized the method of clearing corresponding LUNs in IOMesh after deleting the PV with the reclaim policy set to <strong>Retain</strong>.</li>
+<li>Improved the way of managing <code>open-iscsi</code> to ease IOMesh installation on various Linux distribution software.</li>
+<li>Simplified Snapshot Controller installation. The Snapshot Controller will be installed together with IOMesh.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="fixed-problems"></a><a href="#fixed-problems" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fixed Problems</h4>
+<ul>
+<li>Fixed the problem that the name of <code>iscsi-redirectd daemonset</code> did not conform to the naming convention.</li>
+<li>Fixed the problem that the operations of SCSI-3 PR (Persistent Reservation) might fail due to non-compliance with the SCSI-3 PR protocol.</li>
+<li>Fixed the problem that the time to mount a disk was occasionally too long.</li>
+<li>Fixed the problem that configurations could not take effect when the user customized the NDM image repository.</li>
+<li>Fixed the problem that the number of cloned PV replicas or PV replicas created from a snapshot might be inconsistent with that of original PV replicas.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="specifications-2"></a><a href="#specifications-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specifications</h3>
+<table>
+<thead>
+<tr><th>Component</th><th>Version</th></tr>
+</thead>
+<tbody>
+<tr><td>iomesh-operator</td><td>0.11.1</td></tr>
+<tr><td>csi-driver</td><td>2.5.1</td></tr>
+<tr><td>zbs</td><td>5.1.2</td></tr>
+<tr><td>zookeeper</td><td>3.5.9</td></tr>
+<tr><td>node-disk-manager</td><td>1.8.0</td></tr>
+<tr><td>hostpath-provisioner</td><td>0.5.2</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="compatibility-2"></a><a href="#compatibility-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compatibility</h3>
+<h4><a class="anchor" aria-hidden="true" id="server-architecture-compatibility-for-iomesh-2"></a><a href="#server-architecture-compatibility-for-iomesh-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Server Architecture Compatibility for IOMesh</h4>
+<p>IOMesh is compatible with Intel x86_64 and AMD x86_64 architectures.</p>
+<h4><a class="anchor" aria-hidden="true" id="kubernetes-and-linux-os-compatibility-for-iomesh-2"></a><a href="#kubernetes-and-linux-os-compatibility-for-iomesh-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kubernetes and Linux OS Compatibility for IOMesh</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kubernetes</td>
+<td>
+<ul>
+<li>Kubernetes 1.17-1.24</li>
+<li>OpenShift 3.11-4.10</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Linux OS</td>
+<td>
+<ul>
+<li>CentOS 7</li>
+<li>CentOS 8</li>
+<li>CoreOS</li>
+<li>RHEL 7</li>
+<li>RHEL 8</li>
+</tbody>
+</table> 
+<blockquote>
+<p><em>NOTE</em>: IOMesh has no dependencies on the Linux OS version. The versions listed above are tested versions only.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="iomesh-0110-release-notes"></a><a href="#iomesh-0110-release-notes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IOMesh 0.11.0 Release Notes</h2>
+<h3><a class="anchor" aria-hidden="true" id="whats-new-3"></a><a href="#whats-new-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What's New</h3>
+<h4><a class="anchor" aria-hidden="true" id="new-features-1"></a><a href="#new-features-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>New Features</h4>
+<h5><a class="anchor" aria-hidden="true" id="installation-and-deployment"></a><a href="#installation-and-deployment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation and Deployment</h5>
+<ul>
+<li>Support deployment of the IOMesh cluster in the all-flash mode.</li>
+<li>Support deployment of the IOMesh cluster using the offline installation package.</li>
+</ul>
+<h5><a class="anchor" aria-hidden="true" id="functionality"></a><a href="#functionality" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Functionality</h5>
+<p>Support providing iSCSI storage services to the compute platforms disaggregated from the IOMesh cluster.</p>
+<h5><a class="anchor" aria-hidden="true" id="operation"></a><a href="#operation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Operation</h5>
+<ul>
+<li>Implement the NodeGetVolumeStas interface in CSI Spec and support PV monitoring with third-party monitoring platforms such as Prometheus.</li>
+<li>Support displaying the connection status of Chunk services.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="improved-features-2"></a><a href="#improved-features-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Improved Features</h4>
+<ul>
+<li>Declare reserved CPU and memory resources for IOMesh Operator, NDM, and Zookeeper Operator to ensure the QoS of their pods.</li>
+<li>Introduce Webhook to avoid unexpected parameter changes of clusters.</li>
+<li>Simplify IOMesh installation by improving the IOMesh deployment script.</li>
+<li>Optimize the license renewal method to update the license using the Kubernetes API.</li>
+<li>Optimize the replica policy with only replication factor two or three is supported.</li>
+<li>Optimize the process of ZBS upgrade.</li>
+<li>Optimize the Liveness/Readyness probing methods of IOMesh pods to avoid false alarms due to high system load.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="resolved-issues-2"></a><a href="#resolved-issues-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resolved Issues</h4>
+<p>The issues listed below are resolved in this release.</p>
+<ul>
+<li>NDM 1.7.x creates partitions for the disk by default when the WWID is not identified, causing the disk to be not mounted as cacheWithJournal or dataStoreWithJournal.</li>
+<li>The disk cannot be mounted when installing IOMesh Operator in the OpenShift Container Platform.</li>
+<li>The IOMesh system crashes because the loop device has been mounted by NDM.</li>
+<li>Probe cannot get the process status and causes a CrashLoop, as the process name has been modified.</li>
+<li>Memory leaks because Probe does not close RPC connections.</li>
+<li>Memory leaks due to ZBS Client not being freed.</li>
+<li>The newly created pods attached with PVCs time out when the number of pods attached with PVCs on a Kubernetes worker node exceeds 100.</li>
+<li>A timeout occurs when formatting a PV as an XFS file system, as the size of PV exceeds 5TB.</li>
+<li>The disk cannot be mounted while device manager logs show messages of successful mounting.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="known-issues-1"></a><a href="#known-issues-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Known Issues</h4>
+<ul>
+<li>Replica factor of PVs by CSI volume cloning may not be consistent with original PVs.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="specifications-3"></a><a href="#specifications-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Specifications</h3>
+<table>
+<thead>
+<tr><th>Component</th><th>Version</th></tr>
+</thead>
+<tbody>
+<tr><td>iomesh-operator</td><td>0.11.0</td></tr>
+<tr><td>csi-driver</td><td>2.4.0</td></tr>
+<tr><td>zbs</td><td>5.2.0</td></tr>
+<tr><td>zookeeper</td><td>3.5.9</td></tr>
+<tr><td>node-disk-manager</td><td>1.8.0</td></tr>
+<tr><td>hostpath-provisioner</td><td>0.5.2</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="compatibility-3"></a><a href="#compatibility-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compatibility</h3>
+<p>IOMesh supports servers running on Intel x86_64 and AMD x86_64 architectures.</p>
+<p>IOMesh Compatibility</p>
+<table>
+<thead>
+<tr class="header">
+<th>Software/OS</th>
+<th>Compatible Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Kubernetes</td>
+<td>
+<ul>
+<li>Kubernetes 1.17-1.21</li>
+<li>OpenShift 3.11-4.8</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Linux OS</td>
+<td>
+<ul>
+<li>CentOS 7</li>
+<li>CentOS 8</li>
+<li>CoreOS</li>
+<li>RHEL 7</li>
+<li>RHEL 8</li>
+</tbody>
+</table> 
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/v1.0.3/advanced-functions/external-storage"><span class="arrow-prev">← </span><span>IOMesh as External Storage</span></a><a class="docs-next button" href="/v1.0.3/appendices/downloads"><span>Downloads</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#iomesh-101-release-notes">IOMesh 1.0.1 Release Notes</a><ul class="toc-headings"><li><a href="#whats-new">What's New</a></li><li><a href="#specifications">Specifications</a></li><li><a href="#compatibility">Compatibility</a></li></ul></li><li><a href="#iomesh-100-release-notes">IOMesh 1.0.0 Release Notes</a><ul class="toc-headings"><li><a href="#whats-new-1">What's New</a></li><li><a href="#specifications-1">Specifications</a></li><li><a href="#compatibility-1">Compatibility</a></li><li><a href="#known-issues">Known Issues</a></li></ul></li><li><a href="#iomesh-0111-release-notes">IOMesh 0.11.1 Release Notes</a><ul class="toc-headings"><li><a href="#whats-new-2">What's New</a></li><li><a href="#specifications-2">Specifications</a></li><li><a href="#compatibility-2">Compatibility</a></li></ul></li><li><a href="#iomesh-0110-release-notes">IOMesh 0.11.0 Release Notes</a><ul class="toc-headings"><li><a href="#whats-new-3">What's New</a></li><li><a href="#specifications-3">Specifications</a></li><li><a href="#compatibility-3">Compatibility</a></li></ul></li></ul></nav></div><footer id="footer" class="nav-footer"><div class="footerWrapper"><div class="">IOMesh</div><div class="linkList"><a class="footerLink" href="https://iomesh.com/spec">Spec</a><a class="footerLink" href="http://docs.iomesh.com/next/introduction/introduction" target="_blank" rel="noreferrer">Docs</a><a class="footerLink" href="https://iomesh.com/contact">Contact Us</a><a class="footerLink" href="https://iomesh.com/privacy">Privacy Policy</a><span class=""> | </span><a class="footerLink" href="https://join.slack.com/t/slack-vcm1551/shared_invite/zt-nx33ud5h-~0D_MD5kL0sUrwslB~KF_A" target="_blank" rel="noreferrer">Slack</a><a class="footerLink" href="https://twitter.com/iomeshhq" target="_blank" rel="noreferrer">Twitter</a><a class="footerLink" href="https://www.youtube.com/channel/UCJV59ZDxjm822LK_oUhi7qA" target="_blank" rel="noreferrer">YouTube</a></div></div></footer></div></body></html>
