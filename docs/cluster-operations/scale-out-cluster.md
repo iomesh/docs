@@ -4,7 +4,7 @@ title: Scale Out Cluster
 sidebar_label: Scale Out Cluster
 ---
 
-If you have the Enterprise Edition of IOMesh software, you can scale it out online without disrupting the cluster's operation. However, scaling out is not possible with the Community Edition, which limits the number of meta or chunk pods to three. During scaling out, you can choose to add chunk pods, meta pods, or both simultaneously.
+If you have the IOMesh Enterprise edition, you can scaling out the cluster online without interrupting its operation. However, scaling out is not possible with the Community edition that only allows a maximum of three meta or chunk pods. When scaling out the cluster, you can choose to add chunk pods, meta pods, or both at the same time.
 
 **Prerequisite**
 
@@ -18,7 +18,7 @@ Ensure an adequate number of worker nodes in the Kubernetes cluster. Each worker
    
    To increase the capacity of the IOMesh cluster, you can choose to add chunk pods by following these steps:
 
-   - Find `chunk` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`. The value of `replicaCount` is the total number of chunk pods after scaling out.
+   - Locate `chunk` in `iomesh.yaml`, the default configuration file exported during IOMesh installation. Then modify the value of `replicaCount`, which represents the total number of chunk pods.
   
       ```yaml
       chunk:
@@ -48,7 +48,7 @@ Ensure an adequate number of worker nodes in the Kubernetes cluster. Each worker
    
 	 An optional step. When deploying IOMesh, three meta pods are created in the IOMesh cluster by default. If the number of IOMesh nodes in the Kubernetes cluster is equal to or greater than five, it's recommended to increase the number of meta pods from three to five. Note that the number of supported meta pods in the IOMesh cluster should be either three or five.
 
-   - Find `meta` in `iomesh.yaml`, the default configuration file exported during IOMesh installation, and then edit `replicaCount`.
+   - Locate `meta` in `iomesh.yaml`, the default configuration file exported during IOMesh installation. Then modify the value of `replicaCount`, which represents the number of meta pods.
 
       ```yaml
       meta:
