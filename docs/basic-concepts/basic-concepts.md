@@ -45,7 +45,7 @@ The meta module within each IOMesh Block Storage component for metadata manageme
 
 **IOMesh CSI Driver**
 
-The CSI driver that adheres to [the CSI standard](https://github.com/container-storage-interface/spec/blob/master/spec.md) and utilizes RPC (Remote Procedure Call)  to manage persistent volumes, delivering reliable and consistent storage for data applications on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in the IOMesh cluster.
+The CSI driver that adheres to [the CSI standard](https://github.com/container-storage-interface/spec/blob/master/spec.md) and utilizes RPC (Remote Procedure Call) to manage persistent volumes, delivering reliable and consistent storage for data applications on Kubernetes. Each Kubernetes persistent volume corresponds to an iSCSI LUN in the IOMesh cluster.
 
 **IOMesh Operator**
 
