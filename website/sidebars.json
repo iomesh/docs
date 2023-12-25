@@ -8,7 +8,8 @@
       "deploy-iomesh-cluster/prerequisites",
       "deploy-iomesh-cluster/install-iomesh",
       "deploy-iomesh-cluster/setup-iomesh",
-      "deploy-iomesh-cluster/activate-license"
+      "deploy-iomesh-cluster/activate-license",
+      "deploy-iomesh-cluster/performance-tips"
     ],
     "Volume Operations": [
       "volume-operations/create-storageclass",
