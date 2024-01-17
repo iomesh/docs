@@ -4,6 +4,24 @@ title: Performance Tips
 sidebar_label: Performance Tips
 ---
 
+# 为 chunk 配置更多 cpu 核心
+
+在 chunk 内部，处理磁盘 IO 的组件为 LSM(Local Storage Manager)。 默认情况下，LSM 是以单线程的形态运行，当用户对 IO 延迟和性能上限有更高的要求，并且 k8s worker 节点上有足够的 cpu 资源时，可以考虑开启 LSM 多线程
+
+## 配置 LSM 多线程
+在 IOMesh Helm Values 文件中, 配置 `iomesh.chunk.extraEnvs` 字段
+
+```yaml
+iomesh:
+  chunk:
+    extraEnvs:
+      LSM_IO_THREAD_NUM: "2" # 配置 LSM 使用的独立线程数量，取值范围为 0-2，如果为 0 则代表不开启 LSM 多线程
+```
+
+对于新部署的 IOMesh 集群，修改完毕后可以使用 helm install 进行集群部署。
+
+对于已部署的 IOMesh 集群，修改完毕后可以使用 helm upgrade 对集群进行配置更新，chunk pod 会逐个重启并生效配置。
+
 # cpu 核心绑定与独占
 
 ## 概述
@@ -73,7 +91,7 @@ iomesh:
 
 在 grub 配置文件中添加`isolcpus`内核启动参数`GRUB_CMDLINE_LINUX_DEFAULT`，其值标识要隔离的 cpu，配置格式可参考 https://man7.org/linux/man-pages/man7/cpuset.7.html#FORMATS。配置文件路径为 /etc/default/grub
 
-默认情况下，IOMesh 需要使用 4 个独占的 cpu 核心（其中 chunk 服务独占 3 cpu，meta 服务独占 1 cpu）。在以下示例中，我们假设系统总共有 16 个 CPU 核心，第 0,1,2,10 号 CPU 核心专用于 IOMesh，在 GRUB_CMDLINE_LINUX_DEFAULT 后追加如下配置
+默认情况下，IOMesh 需要使用 4 个独占的 cpu 核心（其中 chunk 服务独占 3 cpu，meta 服务独占 1 cpu，如果开启了 chunk lsm 多线程，则 chunk 需要独占的核心数为 `3 + lsm 线程数`）。在以下示例中，我们假设系统总共有 16 个 CPU 核心，第 0,1,2,10 号 CPU 核心专用于 IOMesh，在 GRUB_CMDLINE_LINUX_DEFAULT 后追加如下配置
 
 ```config
 GRUB_CMDLINE_LINUX_DEFAULT="isolcpus=0-2,10"
@@ -98,14 +116,12 @@ reboot
 0-2,10
 ```
 
-
-
 ### 配置 IOMesh 绑定内核隔离的 cpu
 
 在 IOMesh Helm values 文件中做如下配置：
 
 1.  将 `iomesh.cpuExclusiveOptions.cpuExclusivePolicy` 字段设置为 `kernelCpuIsolation`
-2. 在  `iomesh.cpuExclusiveOptions.exclusiveCpusets` 字段中配置 chunk 和 meta 服务独占的 cpuset
+2. 在  `iomesh.cpuExclusiveOptions.exclusiveCpusets` 字段中配置 chunk 和 meta 服务独占的 cpuset，chunk 服务独占 3 cpu，meta 服务独占 1 cpu，如果开启了 chunk lsm 多线程，则 chunk 需要独占的核心数为 `3 + lsm 线程数`
 
 ```yaml
 iomesh:
@@ -114,8 +130,8 @@ iomesh:
     # The default value is kubeletCpuManager
     cpuExclusivePolicy: "kernelCpuIsolation"
     exclusiveCpusets:
-      chunk: 0-2
-      meta: 10
+      chunk: "0-2"
+      meta: "10"
 ```
 
 对于新部署的 IOMesh 集群，修改完毕后可以使用 `helm install`进行集群部署。
@@ -140,4 +156,10 @@ iomesh:
 1
 # cat /sys/fs/cgroup/cpuset/zbs/others/cpuset.cpus
 2
+```
+
+如果 chunk 开启了 lsm 多线程，通过如下命令验证 lsm 是否使用了独立的 cgroup 配置和核心
+```shell
+# cat /sys/fs/cgroup/cpuset/zbs/lsm-io/cpuset.cpus
+3,4
 ```
